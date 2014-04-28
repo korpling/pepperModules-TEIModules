@@ -1,0 +1,149 @@
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.tests;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import org.eclipse.emf.common.util.URI;
+import org.junit.Before;
+import org.junit.Test;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.ext.DefaultHandler2;
+
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.TEITagLibrary;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.TEITagLibraryReader;
+import static org.junit.Assert.*;
+
+public class TEITagLibraryReaderTest {
+
+	private TEITagLibraryReader fixture = null;
+
+	public TEITagLibraryReader getFixture() {
+		return fixture;
+	}
+
+	public void setFixture(TEITagLibraryReader fixture) {
+		this.fixture = fixture;
+	}
+
+	@Before
+	public void setUp() {
+		setFixture(new TEITagLibraryReader());
+	}
+
+	@Test
+	public void testCASEDescription() throws XMLStreamException,
+			FileNotFoundException, UnsupportedEncodingException {
+
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		XMLOutputFactory o = XMLOutputFactory.newFactory();
+		XMLStreamWriter xmlWriter = o.createXMLStreamWriter(outStream);
+		xmlWriter.writeStartElement(TEITagLibrary.TAG_AB);
+		xmlWriter.writeStartElement(TEITagLibrary.TAG_AB);
+		xmlWriter.writeStartElement(TEITagLibrary.TAG_AB);
+		xmlWriter.writeStartElement(TEITagLibrary.TAG_AB);
+
+		xmlWriter.writeEndElement();
+		xmlWriter.writeEndElement();
+		xmlWriter.writeEndElement();
+		xmlWriter.writeEndElement();
+
+		System.out.println(outStream.toString());
+
+		File outFile = new File("/home/andre/test/TEIoutput.xml");
+		outFile.getParentFile().mkdirs();
+		PrintWriter writer = new PrintWriter(outFile, "UTF-8");
+		writer.print(outStream.toString());
+		writer.flush();
+
+		readXMLResource(getFixture(),
+				URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertNotNull(getFixture().getsDocGraph());
+		//assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+		assertEquals("This is my test",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
+
+		assertEquals(5, getFixture().getsDocGraph().getSTokens().size());
+	}
+	
+	@Test
+	public void testbla(){
+		
+	}
+
+	protected void readXMLResource(DefaultHandler2 contentHandler,
+			URI documentLocation) {
+		if (documentLocation == null)
+			throw new RuntimeException(
+					"Cannot load a xml-resource, because the given uri to locate file is null.");
+
+		File exmaraldaFile = new File(documentLocation.toFileString());
+		if (!exmaraldaFile.exists())
+			throw new RuntimeException(
+					"Cannot load a xml-resource, because the file does not exist: "
+							+ exmaraldaFile);
+
+		if (!exmaraldaFile.canRead())
+			throw new RuntimeException(
+					"Cannot load a xml-resource, because the file can not be read: "
+							+ exmaraldaFile);
+
+		SAXParser parser;
+		XMLReader xmlReader;
+
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+
+		try {
+			parser = factory.newSAXParser();
+			xmlReader = parser.getXMLReader();
+			xmlReader.setContentHandler(contentHandler);
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException("Cannot load a xml-resource '"
+					+ exmaraldaFile.getAbsolutePath() + "'.", e);
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot load a xml-resource '"
+					+ exmaraldaFile.getAbsolutePath() + "'.", e);
+		}
+		try {
+			InputStream inputStream = new FileInputStream(exmaraldaFile);
+			Reader reader = new InputStreamReader(inputStream, "UTF-8");
+			InputSource is = new InputSource(reader);
+			is.setEncoding("UTF-8");
+			xmlReader.parse(is);
+			System.out.println("PARSING");
+		} catch (SAXException e) {
+
+			try {
+				parser = factory.newSAXParser();
+				xmlReader = parser.getXMLReader();
+				xmlReader.setContentHandler(contentHandler);
+				xmlReader.parse(exmaraldaFile.getAbsolutePath());
+			} catch (Exception e1) {
+				throw new RuntimeException("Cannot load a xml-resource '"
+						+ exmaraldaFile.getAbsolutePath() + "'.", e1);
+			}
+		} catch (Exception e) {
+			if (e instanceof RuntimeException)
+				throw (RuntimeException) e;
+			else
+				throw new RuntimeException("Cannot read xml-file'"
+						+ documentLocation
+						+ "', because of a nested exception. ", e);
+		}
+	}
+}
