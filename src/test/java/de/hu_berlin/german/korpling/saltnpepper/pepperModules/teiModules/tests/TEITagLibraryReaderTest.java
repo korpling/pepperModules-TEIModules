@@ -53,23 +53,13 @@ public class TEITagLibraryReaderTest {
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		XMLOutputFactory o = XMLOutputFactory.newFactory();
 		XMLStreamWriter xmlWriter = o.createXMLStreamWriter(outStream);
-		xmlWriter.writeStartElement(TEITagLibrary.TAG_AB);
-		xmlWriter.writeStartElement(TEITagLibrary.TAG_AB);
-		xmlWriter.writeStartElement(TEITagLibrary.TAG_AB);
-		xmlWriter.writeStartElement(TEITagLibrary.TAG_AB);
-
-		xmlWriter.writeEndElement();
-		xmlWriter.writeEndElement();
-		xmlWriter.writeEndElement();
-		xmlWriter.writeEndElement();
+		
 
 		System.out.println(outStream.toString());
 
-		File outFile = new File("/home/andre/test/TEIoutput.xml");
+		File outFile = new File("/home/andre/tei_test_files/flora.7.1821.xml");
 		outFile.getParentFile().mkdirs();
-		PrintWriter writer = new PrintWriter(outFile, "UTF-8");
-		writer.print(outStream.toString());
-		writer.flush();
+		
 
 		readXMLResource(getFixture(),
 				URI.createFileURI(outFile.getAbsolutePath()));
@@ -78,7 +68,7 @@ public class TEITagLibraryReaderTest {
 		//assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 		assertEquals("This is my test",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
 
-		assertEquals(5, getFixture().getsDocGraph().getSTokens().size());
+		//assertEquals(15, getFixture().getsDocGraph().getSTokens().size());
 	}
 	
 	@Test
@@ -125,7 +115,7 @@ public class TEITagLibraryReaderTest {
 			InputSource is = new InputSource(reader);
 			is.setEncoding("UTF-8");
 			xmlReader.parse(is);
-			System.out.println("PARSING");
+			System.out.println("|PARSING|");
 		} catch (SAXException e) {
 
 			try {
