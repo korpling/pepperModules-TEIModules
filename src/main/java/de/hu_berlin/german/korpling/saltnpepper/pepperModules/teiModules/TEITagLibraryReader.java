@@ -1,5 +1,7 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules;
 
+import java.util.Stack;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
@@ -16,7 +18,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	
-	
+	private Stack<String> tagStack = new Stack<String>();
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
 
@@ -35,11 +37,29 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	public void characters(char ch[], int start, int length) {
 		String temp = "";
-		for (int i = start; i < start + length; i++) {
-			temp = temp + ch[i];
+		if (!tagStack.empty())
+			if (tagStack.peek() == TAG_P){
+				for (int i = start; i < start + length; i++) {
+					temp = temp + ch[i];
 
+				}
 		}
-		temp = temp.replaceAll("\\s+", " ");
+		temp = temp.trim();
+		
+		/*in case primaryText is empty, but exists, initialize primaryText with temp
+		 *to avoid "null" as part of the string;otherwise add temp to primaryText
+		 */
+		if (primaryText != null){
+			if (!temp.isEmpty() && primaryText.getSText()==null){
+				primaryText.setSText(temp);
+				
+			}
+		
+			if (!temp.isEmpty() && primaryText.getSText()==null){
+				primaryText.setSText(primaryText.getSText()+temp);
+				
+			}
+		}
 		
 	}
 
@@ -110,8 +130,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_REF.equals(qName)) {
 		} else if (TAG_BIBL.equals(qName)) {
 		} else if (TAG_TEIHEADER.equals(qName)) {
-		} else if (TAG_P.equals(qName)) {
-		} else if (TAG_AB.equals(qName)) {
+		} 
+		
+		else if (TAG_P.equals(qName)) {
+			tagStack.push(TAG_P);
+		}
+		
+		else if (TAG_AB.equals(qName)) {
 		} else if (TAG_OBJECTTYPE.equals(qName)) {
 		} else if (TAG_ORIGPLACE.equals(qName)) {
 		}
@@ -180,8 +205,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_REF.equals(qName)) {
 		} else if (TAG_BIBL.equals(qName)) {
 		} else if (TAG_TEIHEADER.equals(qName)) {
-		} else if (TAG_P.equals(qName)) {
-		} else if (TAG_AB.equals(qName)) {
+		} 
+		
+		else if (TAG_P.equals(qName)) {
+			tagStack.pop();	
+		}
+		
+		else if (TAG_AB.equals(qName)) {
 		} else if (TAG_OBJECTTYPE.equals(qName)) {
 		} else if (TAG_ORIGPLACE.equals(qName)) {
 		}

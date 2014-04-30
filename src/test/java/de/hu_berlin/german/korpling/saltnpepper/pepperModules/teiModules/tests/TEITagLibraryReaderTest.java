@@ -57,7 +57,7 @@ public class TEITagLibraryReaderTest {
 
 		System.out.println(outStream.toString());
 
-		File outFile = new File("/home/andre/tei_test_files/flora.7.1821.xml");
+		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
 		outFile.getParentFile().mkdirs();
 		
 
@@ -66,7 +66,7 @@ public class TEITagLibraryReaderTest {
 
 		assertNotNull(getFixture().getsDocGraph());
 		//assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
-		assertEquals("This is my test",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
+		assertEquals("Die Blätter sind fast rundlich eyförmig, auch",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
 
 		//assertEquals(15, getFixture().getsDocGraph().getSTokens().size());
 	}
