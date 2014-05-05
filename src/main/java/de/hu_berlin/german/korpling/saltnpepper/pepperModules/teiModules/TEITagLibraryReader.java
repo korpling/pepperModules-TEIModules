@@ -48,6 +48,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
     }
 	
 	public void characters(char ch[], int start, int length) {
+		
 		String temp = "";
 		if (!tagStack.empty())
 			if (tagStack.peek() == TAG_P){
@@ -65,6 +66,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		if (primaryText != null){
 			if (!temp.isEmpty() && primaryText.getSText()==null){
 				primaryText.setSText(temp);
+				SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
 				
 			}
 		
@@ -172,9 +174,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			SToken temp_tok = sDocGraph.createSToken(primaryText, 0, 2);
 			tokennode.add(temp_tok);
 			SStructure np = sDocGraph.createSStructure(tokennode);
-			//sDocGraph.getNodes().add(np);
-			System.out.print(sDocGraph.getNodes().size());
-			System.out.print(sDocGraph.getNodes().contains("sdfsd"));
+			
 			
 			
 		}
