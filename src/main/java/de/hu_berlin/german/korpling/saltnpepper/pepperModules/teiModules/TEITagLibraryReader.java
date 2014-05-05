@@ -2,13 +2,21 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules;
 
 import java.util.Stack;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
 
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
+import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Node;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructure;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructuredNode;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
 /**
  * This class parses an xml file following the model of 'BesaReader'.
@@ -18,6 +26,10 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	
+	private Boolean TAG_P_TOKEN = true;
+	
+	
+	EList<SStructuredNode> tokennode= new BasicEList<SStructuredNode>();
 	private Stack<String> tagStack = new Stack<String>();
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
@@ -44,10 +56,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 
 				}
 		}
+		temp = temp.replaceAll("\\s+"," ");
 		temp = temp.trim();
 		
 		/*in case primaryText is empty, but exists, initialize primaryText with temp
-		 *to avoid "null" as part of the string;otherwise add temp to primaryText
+		 *to avoid "null" as part of the string; otherwise add temp to primaryText
 		 */
 		if (primaryText != null){
 			if (!temp.isEmpty() && primaryText.getSText()==null){
@@ -55,12 +68,19 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				
 			}
 		
-			if (!temp.isEmpty() && primaryText.getSText()==null){
+			/*add a single space character to split the first and last word from 
+			 *two neighboring chunks of text*
+			 */
+			else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
+				temp = " "+temp;
 				primaryText.setSText(primaryText.getSText()+temp);
 				
 			}
 		}
 		
+		if (TAG_P_TOKEN){
+			
+		}
 	}
 
 	@Override
@@ -139,81 +159,28 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (TAG_AB.equals(qName)) {
 		} else if (TAG_OBJECTTYPE.equals(qName)) {
 		} else if (TAG_ORIGPLACE.equals(qName)) {
+		} else if (TAG_LB.equals(qName)) {
+			System.out.println("LB ist da!");
 		}
 	}
 	
-	public void endElement(String uri, String localName, String qName,
-			Attributes attributes) throws SAXException {
-		if (TAG_SUMMARY.equals(qName)) {
-		} 
+	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
-		else if (TAG_BODY.equals(qName)) {
+		
+		if (TAG_P.equals(qName)) {
+			tagStack.pop();
+			SToken temp_tok = sDocGraph.createSToken(primaryText, 0, 2);
+			tokennode.add(temp_tok);
+			SStructure np = sDocGraph.createSStructure(tokennode);
+			//sDocGraph.getNodes().add(np);
+			System.out.print(sDocGraph.getNodes().size());
+			System.out.print(sDocGraph.getNodes().contains("sdfsd"));
+			
 			
 		}
 		
-		else if (TAG_ORIGDATE.equals(qName)) {
-		} else if (TAG_MSNAME.equals(qName)) {
-		} else if (TAG_LANGUSAGE.equals(qName)) {
-		} else if (TAG_TEXTLANG.equals(qName)) {
-		} else if (TAG_CHANGE.equals(qName)) {
-		} else if (TAG_SURNAME.equals(qName)) {
-		} else if (TAG_PLACENAME.equals(qName)) {
-		} else if (TAG_MSDESC.equals(qName)) {
-		} else if (TAG_TITLESTMT.equals(qName)) {
-		} else if (TAG_PHR.equals(qName)) {
-		} else if (TAG_REVISIONDESC.equals(qName)) {
-		} else if (TAG_LICENCE.equals(qName)) {
-		} 
 		
-		else if (TAG_TEXT.equals(qName)) {
-		} 
+			  
 		
-		else if (TAG_FORENAME.equals(qName)) {
-		} else if (TAG_FILEDESC.equals(qName)) {
-		} else if (TAG_LISTBIBL.equals(qName)) {
-		} else if (TAG_COUNTRY.equals(qName)) {
-		} else if (TAG_PB.equals(qName)) {
-		} else if (TAG_BIBLSCOPE.equals(qName)) {
-		} else if (TAG_LANGUAGE.equals(qName)) {
-		} else if (TAG_IDNO.equals(qName)) {
-		} else if (TAG_SERIES.equals(qName)) {
-		} else if (TAG_CREATION.equals(qName)) {
-		} else if (TAG_ENCODINGDESC.equals(qName)) {
-		} else if (TAG_COLLECTION.equals(qName)) {
-		} else if (TAG_DATE.equals(qName)) {
-		} else if (TAG_PUBLISHER.equals(qName)) {
-		} else if (TAG_MSIDENTIFIER.equals(qName)) {
-		} else if (TAG_AUTHOR.equals(qName)) {
-		} else if (TAG_AUTHORITY.equals(qName)) {
-		} else if (TAG_MSCONTENTS.equals(qName)) {
-		} else if (TAG_TITLE.equals(qName)) {
-		} else if (TAG_PUBPLACE.equals(qName)) {
-		} else if (TAG_TEI.equals(qName)) {
-		} else if (TAG_REPOSITORY.equals(qName)) {
-		} else if (TAG_MSPART.equals(qName)) {
-		} else if (TAG_SOURCEDESC.equals(qName)) {
-		} else if (TAG_PROFILEDESC.equals(qName)) {
-		} else if (TAG_PUBLICATIONSTMT.equals(qName)) {
-		} else if (TAG_LOCUS.equals(qName)) {
-		} else if (TAG_AVAILABILITY.equals(qName)) {
-		} else if (TAG_ORIGIN.equals(qName)) {
-		} else if (TAG_MSITEM.equals(qName)) {
-		} else if (TAG_M.equals(qName)) {
-		} else if (TAG_INCIPIT.equals(qName)) {
-		} else if (TAG_W.equals(qName)) {
-		} else if (TAG_HISTORY.equals(qName)) {
-		} else if (TAG_REF.equals(qName)) {
-		} else if (TAG_BIBL.equals(qName)) {
-		} else if (TAG_TEIHEADER.equals(qName)) {
-		} 
-		
-		else if (TAG_P.equals(qName)) {
-			tagStack.pop();	
-		}
-		
-		else if (TAG_AB.equals(qName)) {
-		} else if (TAG_OBJECTTYPE.equals(qName)) {
-		} else if (TAG_ORIGPLACE.equals(qName)) {
-		}
 	}
 }

@@ -119,6 +119,8 @@ public interface TEITagLibrary{
 		public static final String TAG_OBJECTTYPE= "objectType";
 		/** constant to address the xml-element 'origPlace'. **/
 		public static final String TAG_ORIGPLACE= "origPlace";
+		/** constant to address the xml-element 'lb'. **/
+		public static final String TAG_LB= "lb";
 
 		/** constant to address the xml-attribute 'to'. **/
 		public static final String ATT_TO= "to";
