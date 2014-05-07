@@ -26,7 +26,9 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	
-	private Boolean TAG_P_TOKEN = true;
+	private Boolean USER_DEFINED_TOKENIZATION = true;
+	private Boolean SUB_TOKENIZATION = true;
+	private Boolean NO_INPUT_TOKENIZATION = true;
 	
 	
 	EList<SStructuredNode> tokennode= new BasicEList<SStructuredNode>();
@@ -60,28 +62,27 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		temp = temp.replaceAll("\\s+"," ");
 		temp = temp.trim();
 		
-		/*in case primaryText is empty, but exists, initialize primaryText with temp
-		 *to avoid "null" as part of the string; otherwise add temp to primaryText
-		 */
-		if (primaryText != null){
-			if (!temp.isEmpty() && primaryText.getSText()==null){
-				primaryText.setSText(temp);
-				SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-				
-			}
-		
-			/*add a single space character to split the first and last word from 
-			 *two neighboring chunks of text*
-			 */
-			else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
-				temp = " "+temp;
-				primaryText.setSText(primaryText.getSText()+temp);
-				
-			}
-		}
-		
-		if (TAG_P_TOKEN){
+		if (SUB_TOKENIZATION){
+			if (primaryText != null){
+				/*in case primaryText is empty, but exists, initialize primaryText with temp
+				 *to avoid "null" as part of the string; otherwise add temp to primaryText
+				 */
+				if (!temp.isEmpty() && primaryText.getSText()==null){
+					primaryText.setSText(temp);
+					System.out.println(primaryText.getSEnd());
+					SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+					//System.out.println(sDocGraph.getOverlappedSTokens(primaryText, tokennode));
+				}
 			
+				/*add a single space character to split the first and last word from 
+				 *two neighboring chunks of text*
+				 */
+				else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
+					temp = " "+temp;
+					primaryText.setSText(primaryText.getSText()+temp);
+					
+				}
+			}
 		}
 	}
 
@@ -162,21 +163,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_OBJECTTYPE.equals(qName)) {
 		} else if (TAG_ORIGPLACE.equals(qName)) {
 		} else if (TAG_LB.equals(qName)) {
-			System.out.println("LB ist da!");
+			
 		}
 	}
-	
+	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
 		
 		if (TAG_P.equals(qName)) {
 			tagStack.pop();
-			SToken temp_tok = sDocGraph.createSToken(primaryText, 0, 2);
-			tokennode.add(temp_tok);
-			SStructure np = sDocGraph.createSStructure(tokennode);
-			
-			
-			
 		}
 		
 		
