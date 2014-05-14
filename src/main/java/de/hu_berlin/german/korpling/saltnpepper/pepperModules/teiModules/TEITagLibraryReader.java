@@ -14,8 +14,10 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Node;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructure;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructuredNode;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STYPE_NAME;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SLayer;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
 /**
@@ -30,12 +32,17 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean SUB_TOKENIZATION = true;
 	private Boolean NO_INPUT_TOKENIZATION = true;
 	
+	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
 	
-	EList<SStructuredNode> tokennode= new BasicEList<SStructuredNode>();
+	private EList<SStructuredNode> tokenlist= new BasicEList<SStructuredNode>();
 	private Stack<String> tagStack = new Stack<String>();
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
-
+	
+	
+	
+	private SLayer primaryLayer = SaltFactory.eINSTANCE.createSLayer();
+	
 	public SDocumentGraph getsDocGraph() {
 		return sDocGraph;
 	}
@@ -47,6 +54,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void startDocument ()
     {
 		sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
+		sDocGraph.addSLayer(primaryLayer);
+		primaryLayer.setSName("primary");
+		tokenrelation.add(STYPE_NAME.STEXT_OVERLAPPING_RELATION);
+		
+		
     }
 	
 	public void characters(char ch[], int start, int length) {
@@ -68,18 +80,31 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				 *to avoid "null" as part of the string; otherwise add temp to primaryText
 				 */
 				if (!temp.isEmpty() && primaryText.getSText()==null){
+					
 					primaryText.setSText(temp);
-					System.out.println(primaryText.getSEnd());
 					SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-					//System.out.println(sDocGraph.getOverlappedSTokens(primaryText, tokennode));
+					tokenlist.add(temp_tok);
+					
+					SStructure np_1 = sDocGraph.createSStructure(tokenlist);
+					
+					System.out.println(sDocGraph.getSText(np_1));
 				}
 			
 				/*add a single space character to split the first and last word from 
 				 *two neighboring chunks of text*
 				 */
 				else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
+					int  oldposition = primaryText.getSEnd();
+					
 					temp = " "+temp;
 					primaryText.setSText(primaryText.getSText()+temp);
+					
+					SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+					tokenlist.add(temp_tok);
+					
+					SStructure np_1 = sDocGraph.createSStructure(tokenlist);
+					System.out.println(sDocGraph.getSText(np_1));
+					
 					
 				}
 			}

@@ -47,7 +47,7 @@ public class TEITagLibraryReaderTest {
 	}
 
 	@Test
-	public void testCASEDescription() throws XMLStreamException,
+	public void initialize() throws XMLStreamException,
 			FileNotFoundException, UnsupportedEncodingException {
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -69,7 +69,7 @@ public class TEITagLibraryReaderTest {
 	}
 	
 	@Test
-	public void testbla(){
+	public void simple_p_notoken(){
 		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
 		outFile.getParentFile().mkdirs();
 		
