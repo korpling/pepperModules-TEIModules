@@ -27,7 +27,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
  **/
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
-	
+	//here are the options temporarily
 	private Boolean USER_DEFINED_TOKENIZATION = true;
 	private Boolean SUB_TOKENIZATION = true;
 	private Boolean NO_INPUT_TOKENIZATION = true;
@@ -195,10 +195,82 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
 		
-		if (TAG_P.equals(qName)) {
+		
+		if (TAG_SUMMARY.equals(qName)) {
+		} 
+		
+		else if (TAG_BODY.equals(qName)) {
+			//nothing
+		}
+		
+		else if (TAG_ORIGDATE.equals(qName)) {
+		} else if (TAG_MSNAME.equals(qName)) {
+		} else if (TAG_LANGUSAGE.equals(qName)) {
+		} else if (TAG_TEXTLANG.equals(qName)) {
+		} else if (TAG_CHANGE.equals(qName)) {
+		} else if (TAG_SURNAME.equals(qName)) {
+		} else if (TAG_PLACENAME.equals(qName)) {
+		} else if (TAG_MSDESC.equals(qName)) {
+		} else if (TAG_TITLESTMT.equals(qName)) {
+		} else if (TAG_PHR.equals(qName)) {
+		} else if (TAG_REVISIONDESC.equals(qName)) {
+		} else if (TAG_LICENCE.equals(qName)) {
+		} 
+		
+		else if (TAG_TEXT.equals(qName)) {
+		
+			
+		} 
+		
+		else if (TAG_FORENAME.equals(qName)) {
+		} else if (TAG_FILEDESC.equals(qName)) {
+		} else if (TAG_LISTBIBL.equals(qName)) {
+		} else if (TAG_COUNTRY.equals(qName)) {
+		} else if (TAG_PB.equals(qName)) {
+		} else if (TAG_BIBLSCOPE.equals(qName)) {
+		} else if (TAG_LANGUAGE.equals(qName)) {
+		} else if (TAG_IDNO.equals(qName)) {
+		} else if (TAG_SERIES.equals(qName)) {
+		} else if (TAG_CREATION.equals(qName)) {
+		} else if (TAG_ENCODINGDESC.equals(qName)) {
+		} else if (TAG_COLLECTION.equals(qName)) {
+		} else if (TAG_DATE.equals(qName)) {
+		} else if (TAG_PUBLISHER.equals(qName)) {
+		} else if (TAG_MSIDENTIFIER.equals(qName)) {
+		} else if (TAG_AUTHOR.equals(qName)) {
+		} else if (TAG_AUTHORITY.equals(qName)) {
+		} else if (TAG_MSCONTENTS.equals(qName)) {
+		} else if (TAG_TITLE.equals(qName)) {
+		} else if (TAG_PUBPLACE.equals(qName)) {
+		} else if (TAG_TEI.equals(qName)) {
+		} else if (TAG_REPOSITORY.equals(qName)) {
+		} else if (TAG_MSPART.equals(qName)) {
+		} else if (TAG_SOURCEDESC.equals(qName)) {
+		} else if (TAG_PROFILEDESC.equals(qName)) {
+		} else if (TAG_PUBLICATIONSTMT.equals(qName)) {
+		} else if (TAG_LOCUS.equals(qName)) {
+		} else if (TAG_AVAILABILITY.equals(qName)) {
+		} else if (TAG_ORIGIN.equals(qName)) {
+		} else if (TAG_MSITEM.equals(qName)) {
+		} else if (TAG_M.equals(qName)) {
+		} else if (TAG_INCIPIT.equals(qName)) {
+		} else if (TAG_W.equals(qName)) {
+		} else if (TAG_HISTORY.equals(qName)) {
+		} else if (TAG_REF.equals(qName)) {
+		} else if (TAG_BIBL.equals(qName)) {
+		} else if (TAG_TEIHEADER.equals(qName)) {
+		} 
+		
+		else if (TAG_P.equals(qName)) {
 			tagStack.pop();
 		}
 		
+		else if (TAG_AB.equals(qName)) {
+		} else if (TAG_OBJECTTYPE.equals(qName)) {
+		} else if (TAG_ORIGPLACE.equals(qName)) {
+		} else if (TAG_LB.equals(qName)) {
+			
+		}
 		
 			  
 		
