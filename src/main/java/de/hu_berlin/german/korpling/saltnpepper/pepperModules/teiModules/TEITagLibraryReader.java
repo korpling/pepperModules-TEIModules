@@ -38,15 +38,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean insidetext = false;
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
-	
-	
-	
+
 	private Stack<String> tagStack = new Stack<String>();
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
 	
-	
-	
+
 	private SLayer primaryLayer = SaltFactory.eINSTANCE.createSLayer();
 	
 	public SDocumentGraph getsDocGraph() {
@@ -63,8 +60,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		sDocGraph.addSLayer(primaryLayer);
 		primaryLayer.setSName("primary");
 		tokenrelation.add(STYPE_NAME.STEXT_OVERLAPPING_RELATION);
-		
-		
     }
 	
 	public void characters(char ch[], int start, int length) {
