@@ -79,6 +79,7 @@ public class TEITagLibraryReaderTest {
 		
 		
 	}
+	
 
 	protected void readXMLResource(DefaultHandler2 contentHandler,
 			URI documentLocation) {
@@ -119,7 +120,6 @@ public class TEITagLibraryReaderTest {
 			InputSource is = new InputSource(reader);
 			is.setEncoding("UTF-8");
 			xmlReader.parse(is);
-			System.out.println("|PARSING|");
 		} catch (SAXException e) {
 
 			try {

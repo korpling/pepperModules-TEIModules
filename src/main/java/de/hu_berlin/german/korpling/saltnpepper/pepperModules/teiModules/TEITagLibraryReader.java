@@ -28,9 +28,13 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	//here are the options temporarily
-	private Boolean USER_DEFINED_TOKENIZATION = true;
+	private Boolean USER_DEFINED_DEFAULT_TOKENIZATION = false;
 	private Boolean SUB_TOKENIZATION = true;
-	private Boolean NO_INPUT_TOKENIZATION = true;
+	private Boolean NO_INPUT_TOKENIZATION = false;
+	
+	private String default_token_tag = TAG_W;
+	
+	private Boolean insidetext = false;
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
 	
@@ -62,30 +66,21 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
     }
 	
 	public void characters(char ch[], int start, int length) {
-		
-		String temp = "";
-		if (!tagStack.empty())
-			if (tagStack.peek() == TAG_P){
-				for (int i = start; i < start + length; i++) {
+		if (SUB_TOKENIZATION && insidetext){
+			String temp = "";
+			for (int i = start; i < start + length; i++) {
 					temp = temp + ch[i];
-
-				}
-		}
-		temp = temp.replaceAll("\\s+"," ");
-		temp = temp.trim();
-		
-		if (SUB_TOKENIZATION){
-			EList<SStructuredNode> tokenlist= new BasicEList<SStructuredNode>();
+			}
+			temp = temp.replaceAll("\\s+"," ");
+			temp = temp.trim();
 			if (primaryText != null){
 				/*in case primaryText is empty, but exists, initialize primaryText with temp
 				 *to avoid "null" as part of the string; otherwise add temp to primaryText
 				 */
 				if (!temp.isEmpty() && primaryText.getSText()==null){
-					
 					primaryText.setSText(temp);
 					SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-					tokenlist.add(temp_tok);
-					SStructure np_1 = sDocGraph.createSStructure(tokenlist);
+					SStructure np_1 = sDocGraph.createSStructure(temp_tok);
 					System.out.println(sDocGraph.getSText(np_1));
 				}
 			
@@ -93,21 +88,50 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				 *two neighboring chunks of text*
 				 */
 				else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
-					int  oldposition = primaryText.getSEnd();
-					
+					int oldposition = primaryText.getSEnd();
 					temp = " "+temp;
 					primaryText.setSText(primaryText.getSText()+temp);
-					
 					SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-					tokenlist.add(temp_tok);
-				
-					SStructure np_1 = sDocGraph.createSStructure(tokenlist);
+					SStructure np_1 = sDocGraph.createSStructure(temp_tok);
 					System.out.println(sDocGraph.getSText(np_1));
-					
-					
 				}
 			}
 		}
+		
+		if (USER_DEFINED_DEFAULT_TOKENIZATION && insidetext){
+			if (tagStack.peek()==default_token_tag){
+				String temp = "";
+				for (int i = start; i < start + length; i++) {
+						temp = temp + ch[i];
+				}
+				temp = temp.replaceAll("\\s+"," ");
+				temp = temp.trim();
+				if (primaryText != null){
+					/*in case primaryText is empty, but exists, initialize primaryText with temp
+					 *to avoid "null" as part of the string; otherwise add temp to primaryText
+					 */
+					if (!temp.isEmpty() && primaryText.getSText()==null){
+						primaryText.setSText(temp);
+						SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+						SStructure np_1 = sDocGraph.createSStructure(temp_tok);
+						System.out.println(sDocGraph.getSText(np_1));
+					}
+				
+					/*add a single space character to split the first and last word from 
+					 *two neighboring chunks of text*
+					 */
+					else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
+						int oldposition = primaryText.getSEnd();
+						temp = " "+temp;
+						primaryText.setSText(primaryText.getSText()+temp);
+						SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+						SStructure np_1 = sDocGraph.createSStructure(temp_tok);
+						System.out.println(sDocGraph.getSText(np_1));
+					}
+				}
+			}
+		}
+			
 	}
 
 	@Override
@@ -199,6 +223,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (TAG_TEXT.equals(qName)) {
 			primaryText = SaltFactory.eINSTANCE.createSTextualDS();
 			sDocGraph.addSNode(primaryText);
+			insidetext = true;
 			
 		}
 		
