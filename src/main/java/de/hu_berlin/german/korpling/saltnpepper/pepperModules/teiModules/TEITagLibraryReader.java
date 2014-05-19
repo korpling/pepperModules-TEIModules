@@ -3,6 +3,7 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.xml.sax.Attributes;
@@ -37,6 +38,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean insidetext = false;
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
+	
 	
 	
 	private Stack<String> tagStack = new Stack<String>();
@@ -80,8 +82,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				if (!temp.isEmpty() && primaryText.getSText()==null){
 					primaryText.setSText(temp);
 					SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-					SStructure np_1 = sDocGraph.createSStructure(temp_tok);
-					System.out.println(sDocGraph.getSText(np_1));
+					SStructure temp_struc = sDocGraph.createSStructure(temp_tok);
+					System.out.println(sDocGraph.getSText(temp_struc));
 				}
 			
 				/*add a single space character to split the first and last word from 
@@ -92,8 +94,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					temp = " "+temp;
 					primaryText.setSText(primaryText.getSText()+temp);
 					SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-					SStructure np_1 = sDocGraph.createSStructure(temp_tok);
-					System.out.println(sDocGraph.getSText(np_1));
+					SStructure temp_struc = sDocGraph.createSStructure(temp_tok);
+					System.out.println(sDocGraph.getSText(temp_struc));
+					
 				}
 			}
 		}
@@ -113,8 +116,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					if (!temp.isEmpty() && primaryText.getSText()==null){
 						primaryText.setSText(temp);
 						SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-						SStructure np_1 = sDocGraph.createSStructure(temp_tok);
-						System.out.println(sDocGraph.getSText(np_1));
+						SStructure temp_struc = sDocGraph.createSStructure(temp_tok);
+						System.out.println(sDocGraph.getSText(temp_struc));
 					}
 				
 					/*add a single space character to split the first and last word from 
@@ -125,8 +128,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 						temp = " "+temp;
 						primaryText.setSText(primaryText.getSText()+temp);
 						SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-						SStructure np_1 = sDocGraph.createSStructure(temp_tok);
-						System.out.println(sDocGraph.getSText(np_1));
+						SStructure temp_struc = sDocGraph.createSStructure(temp_tok);
+						System.out.println(sDocGraph.getSText(temp_struc));
+						
 					}
 				}
 			}
@@ -142,6 +146,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_W.equals(qName)) {
+			tagStack.push(TAG_W);
 			
 		}
 		
@@ -224,6 +229,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			primaryText = SaltFactory.eINSTANCE.createSTextualDS();
 			sDocGraph.addSNode(primaryText);
 			insidetext = true;
+			SStructure textnode = SaltFactory.eINSTANCE.createSStructure();
+			sDocGraph.addSNode(textnode);
 			
 		}
 		
@@ -283,6 +290,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_W.equals(qName)) {
+			tagStack.pop();
 			
 		}
 		
@@ -403,14 +411,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_TEIHEADER.equals(qName)) {
 		} 
 		
-		
-		
 		else if (TAG_AB.equals(qName)) {
 		} else if (TAG_OBJECTTYPE.equals(qName)) {
 		} else if (TAG_ORIGPLACE.equals(qName)) {
 		} 
-		
-			  
 		
 	}
 }
