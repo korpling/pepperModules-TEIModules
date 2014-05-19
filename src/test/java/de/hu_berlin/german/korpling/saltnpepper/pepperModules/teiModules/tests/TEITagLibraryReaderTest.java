@@ -47,14 +47,10 @@ public class TEITagLibraryReaderTest {
 	}
 
 	@Test
-	public void initialize() throws XMLStreamException,
+	public void initialize() throws 
 			FileNotFoundException, UnsupportedEncodingException {
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		XMLOutputFactory o = XMLOutputFactory.newFactory();
-		XMLStreamWriter xmlWriter = o.createXMLStreamWriter(outStream);
-		
-
 		System.out.println(outStream.toString());
 
 		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
@@ -77,10 +73,10 @@ public class TEITagLibraryReaderTest {
 		readXMLResource(getFixture(),
 				URI.createFileURI(outFile.getAbsolutePath()));
 
-		//assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 		assertEquals("Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
-
-		//assertEquals(15, getFixture().getsDocGraph().getSTokens().size());
+		assertEquals(3, getFixture().getsDocGraph().getSTokens().size());
+		
 		
 	}
 

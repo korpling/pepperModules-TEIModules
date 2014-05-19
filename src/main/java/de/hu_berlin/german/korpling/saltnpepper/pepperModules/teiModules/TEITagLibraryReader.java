@@ -34,7 +34,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
 	
-	private EList<SStructuredNode> tokenlist= new BasicEList<SStructuredNode>();
+	
 	private Stack<String> tagStack = new Stack<String>();
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
@@ -75,6 +75,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		temp = temp.trim();
 		
 		if (SUB_TOKENIZATION){
+			EList<SStructuredNode> tokenlist= new BasicEList<SStructuredNode>();
 			if (primaryText != null){
 				/*in case primaryText is empty, but exists, initialize primaryText with temp
 				 *to avoid "null" as part of the string; otherwise add temp to primaryText
@@ -84,9 +85,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					primaryText.setSText(temp);
 					SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
 					tokenlist.add(temp_tok);
-					
 					SStructure np_1 = sDocGraph.createSStructure(tokenlist);
-					
 					System.out.println(sDocGraph.getSText(np_1));
 				}
 			
@@ -101,7 +100,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					
 					SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
 					tokenlist.add(temp_tok);
-					
+				
 					SStructure np_1 = sDocGraph.createSStructure(tokenlist);
 					System.out.println(sDocGraph.getSText(np_1));
 					
@@ -114,11 +113,68 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-		if (TAG_SUMMARY.equals(qName)) {
-		} 
+		if (TAG_LB.equals(qName)) {
+			
+		}
 		
-		else if (TAG_BODY.equals(qName)) {
-			//nothing
+		else if (TAG_W.equals(qName)) {
+			
+		}
+		
+		else if (TAG_PHR.equals(qName)) {
+			
+		}
+		
+		else if (TAG_HEAD.equals(qName)) {
+			
+		}
+		
+		else if (TAG_DIV.equals(qName)) {
+			
+		}
+		
+		else if (TAG_P.equals(qName)) {
+			tagStack.push(TAG_P);
+		}
+		
+		else if (TAG_FOREIGN.equals(qName)) {
+			
+		}
+		
+		else if (TAG_PB.equals(qName)) {
+			
+		}
+		
+		else if (TAG_FIGURE.equals(qName)) {
+			
+		}
+		
+		else if (TAG_M.equals(qName)) {
+			
+		}
+		
+		else if (TAG_UNCLEAR.equals(qName)) {
+			
+		}
+		
+		else if (TAG_SURPLUS.equals(qName)) {
+			
+		}
+		
+		else if (TAG_TITLE.equals(qName)) {
+			
+		}
+		
+		else if (TAG_GAP.equals(qName)) {
+			
+		}
+		
+		else if (TAG_LEM.equals(qName)) {
+			
+		}
+		
+		else if (TAG_SUPPLIED.equals(qName)) {
+			
 		}
 		
 		else if (TAG_ORIGDATE.equals(qName)) {
@@ -129,23 +185,34 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_SURNAME.equals(qName)) {
 		} else if (TAG_PLACENAME.equals(qName)) {
 		} else if (TAG_MSDESC.equals(qName)) {
-		} else if (TAG_TITLESTMT.equals(qName)) {
-		} else if (TAG_PHR.equals(qName)) {
-		} else if (TAG_REVISIONDESC.equals(qName)) {
-		} else if (TAG_LICENCE.equals(qName)) {
+		} 
+		
+		else if (TAG_TITLESTMT.equals(qName))  {
+		}
+		
+		else if (TAG_REVISIONDESC.equals(qName)) {
+		} 
+		
+		else if (TAG_LICENCE.equals(qName)) {
 		} 
 		
 		else if (TAG_TEXT.equals(qName)) {
 			primaryText = SaltFactory.eINSTANCE.createSTextualDS();
 			sDocGraph.addSNode(primaryText);
 			
+		}
+		
+		else if (TAG_SUMMARY.equals(qName)) {
 		} 
+		
+		else if (TAG_BODY.equals(qName)) {
+			//nothing
+		}
 		
 		else if (TAG_FORENAME.equals(qName)) {
 		} else if (TAG_FILEDESC.equals(qName)) {
 		} else if (TAG_LISTBIBL.equals(qName)) {
 		} else if (TAG_COUNTRY.equals(qName)) {
-		} else if (TAG_PB.equals(qName)) {
 		} else if (TAG_BIBLSCOPE.equals(qName)) {
 		} else if (TAG_LANGUAGE.equals(qName)) {
 		} else if (TAG_IDNO.equals(qName)) {
@@ -159,7 +226,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_AUTHOR.equals(qName)) {
 		} else if (TAG_AUTHORITY.equals(qName)) {
 		} else if (TAG_MSCONTENTS.equals(qName)) {
-		} else if (TAG_TITLE.equals(qName)) {
 		} else if (TAG_PUBPLACE.equals(qName)) {
 		} else if (TAG_TEI.equals(qName)) {
 		} else if (TAG_REPOSITORY.equals(qName)) {
@@ -171,29 +237,85 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_AVAILABILITY.equals(qName)) {
 		} else if (TAG_ORIGIN.equals(qName)) {
 		} else if (TAG_MSITEM.equals(qName)) {
-		} else if (TAG_M.equals(qName)) {
 		} else if (TAG_INCIPIT.equals(qName)) {
-		} else if (TAG_W.equals(qName)) {
 		} else if (TAG_HISTORY.equals(qName)) {
 		} else if (TAG_REF.equals(qName)) {
 		} else if (TAG_BIBL.equals(qName)) {
 		} else if (TAG_TEIHEADER.equals(qName)) {
 		} 
 		
-		else if (TAG_P.equals(qName)) {
-			tagStack.push(TAG_P);
-		}
-		
 		else if (TAG_AB.equals(qName)) {
-		} else if (TAG_OBJECTTYPE.equals(qName)) {
-		} else if (TAG_ORIGPLACE.equals(qName)) {
-		} else if (TAG_LB.equals(qName)) {
-			
-		}
+		} 
+		else if (TAG_OBJECTTYPE.equals(qName)) {
+		} 
+		else if (TAG_ORIGPLACE.equals(qName)) {
+		} 
 	}
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
+		if (TAG_LB.equals(qName)) {
+			
+		}
 		
+		else if (TAG_W.equals(qName)) {
+			
+		}
+		
+		else if (TAG_PHR.equals(qName)) {
+			
+		}
+		
+		else if (TAG_HEAD.equals(qName)) {
+			
+		}
+		
+		else if (TAG_DIV.equals(qName)) {
+			
+		}
+		
+		else if (TAG_P.equals(qName)) {
+			tagStack.pop();
+		}
+		
+		else if (TAG_FOREIGN.equals(qName)) {
+			
+		}
+		
+		else if (TAG_PB.equals(qName)) {
+			
+		}
+		
+		else if (TAG_FIGURE.equals(qName)) {
+			
+		}
+		
+		else if (TAG_M.equals(qName)) {
+			
+		}
+		
+		else if (TAG_UNCLEAR.equals(qName)) {
+			
+		}
+		
+		else if (TAG_SURPLUS.equals(qName)) {
+			
+		}
+		
+		else if (TAG_TITLE.equals(qName)) {
+			
+		}
+		
+		else if (TAG_GAP.equals(qName)) {
+			
+		}
+		
+		else if (TAG_LEM.equals(qName)) {
+			
+		}
+		
+		else if (TAG_SUPPLIED.equals(qName)) {
+			
+		}
 		
 		
 		if (TAG_SUMMARY.equals(qName)) {
@@ -212,7 +334,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_PLACENAME.equals(qName)) {
 		} else if (TAG_MSDESC.equals(qName)) {
 		} else if (TAG_TITLESTMT.equals(qName)) {
-		} else if (TAG_PHR.equals(qName)) {
 		} else if (TAG_REVISIONDESC.equals(qName)) {
 		} else if (TAG_LICENCE.equals(qName)) {
 		} 
@@ -226,7 +347,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_FILEDESC.equals(qName)) {
 		} else if (TAG_LISTBIBL.equals(qName)) {
 		} else if (TAG_COUNTRY.equals(qName)) {
-		} else if (TAG_PB.equals(qName)) {
 		} else if (TAG_BIBLSCOPE.equals(qName)) {
 		} else if (TAG_LANGUAGE.equals(qName)) {
 		} else if (TAG_IDNO.equals(qName)) {
@@ -240,7 +360,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_AUTHOR.equals(qName)) {
 		} else if (TAG_AUTHORITY.equals(qName)) {
 		} else if (TAG_MSCONTENTS.equals(qName)) {
-		} else if (TAG_TITLE.equals(qName)) {
 		} else if (TAG_PUBPLACE.equals(qName)) {
 		} else if (TAG_TEI.equals(qName)) {
 		} else if (TAG_REPOSITORY.equals(qName)) {
@@ -252,25 +371,19 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_AVAILABILITY.equals(qName)) {
 		} else if (TAG_ORIGIN.equals(qName)) {
 		} else if (TAG_MSITEM.equals(qName)) {
-		} else if (TAG_M.equals(qName)) {
 		} else if (TAG_INCIPIT.equals(qName)) {
-		} else if (TAG_W.equals(qName)) {
 		} else if (TAG_HISTORY.equals(qName)) {
 		} else if (TAG_REF.equals(qName)) {
 		} else if (TAG_BIBL.equals(qName)) {
 		} else if (TAG_TEIHEADER.equals(qName)) {
 		} 
 		
-		else if (TAG_P.equals(qName)) {
-			tagStack.pop();
-		}
+		
 		
 		else if (TAG_AB.equals(qName)) {
 		} else if (TAG_OBJECTTYPE.equals(qName)) {
 		} else if (TAG_ORIGPLACE.equals(qName)) {
-		} else if (TAG_LB.equals(qName)) {
-			
-		}
+		} 
 		
 			  
 		

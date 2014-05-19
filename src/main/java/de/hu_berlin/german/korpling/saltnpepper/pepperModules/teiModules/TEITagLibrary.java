@@ -121,6 +121,24 @@ public interface TEITagLibrary{
 		public static final String TAG_ORIGPLACE= "origPlace";
 		/** constant to address the xml-element 'lb'. **/
 		public static final String TAG_LB= "lb";
+		/** constant to address the xml-element 'head'. **/
+		public static final String TAG_HEAD= "head";
+		/** constant to address the xml-element 'div'. **/
+		public static final String TAG_DIV= "div";
+		/** constant to address the xml-element 'foreign'. **/
+		public static final String TAG_FOREIGN= "foreign";
+		/** constant to address the xml-element 'figure'. **/
+		public static final String TAG_FIGURE= "figure";
+		/** constant to address the xml-element 'unclear'. **/
+		public static final String TAG_UNCLEAR= "unclear";
+		/** constant to address the xml-element 'surplus'. **/
+		public static final String TAG_SURPLUS= "surplus";
+		/** constant to address the xml-element 'gap'. **/
+		public static final String TAG_GAP= "gap";
+		/** constant to address the xml-element 'lem'. **/
+		public static final String TAG_LEM= "lem";
+		/** constant to address the xml-element 'supplied'. **/
+		public static final String TAG_SUPPLIED= "supplied";
 
 		/** constant to address the xml-attribute 'to'. **/
 		public static final String ATT_TO= "to";
