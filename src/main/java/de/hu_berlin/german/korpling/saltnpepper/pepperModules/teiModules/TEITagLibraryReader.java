@@ -28,7 +28,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
  **/
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
-	//here are the options temporarily
+	//options
 	private Boolean USER_DEFINED_DEFAULT_TOKENIZATION = false;
 	private Boolean SUB_TOKENIZATION = false;
 	private Boolean NO_INPUT_TOKENIZATION = false;
@@ -36,22 +36,27 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
 		USER_DEFINED_DEFAULT_TOKENIZATION = true;
 	}
-	
 	public void setSUB_TOKENIZATION(){
 		SUB_TOKENIZATION = true;
 	}
-	
 	public void setNO_INPUT_TOKENIZATION(){
 		NO_INPUT_TOKENIZATION = true;
 	}
 	
+	//tag used for tokenization with option "user defined default tokenization"
 	private String default_token_tag = TAG_W;
 	
+	public void set_default_token_tag(String para){
+		default_token_tag = para;
+	}
+	
+	//returns whether the parser is inside <text>...</text>
 	private Boolean insidetext = false;
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
 	
 	private Stack<SNode> sNodeStack= null;
+	// returns stack containing node hierarchie
 	private Stack<SNode> getSNodeStack(){
 		if (sNodeStack== null)
 			sNodeStack= new Stack<SNode>();
@@ -60,6 +65,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 
 
 	private Stack<String> TagStack = new Stack<String>();
+	// returns stack containing xml-element hierarchie
 	private Stack<String> getTagStack(){
 		if (TagStack== null)
 			TagStack= new Stack<String>();
