@@ -30,16 +30,42 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	//here are the options temporarily
 	private Boolean USER_DEFINED_DEFAULT_TOKENIZATION = false;
-	private Boolean SUB_TOKENIZATION = true;
+	private Boolean SUB_TOKENIZATION = false;
 	private Boolean NO_INPUT_TOKENIZATION = false;
+	
+	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
+		USER_DEFINED_DEFAULT_TOKENIZATION = true;
+	}
+	
+	public void setSUB_TOKENIZATION(){
+		SUB_TOKENIZATION = true;
+	}
+	
+	public void setNO_INPUT_TOKENIZATION(){
+		NO_INPUT_TOKENIZATION = true;
+	}
 	
 	private String default_token_tag = TAG_W;
 	
 	private Boolean insidetext = false;
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
+	
+	private Stack<SNode> sNodeStack= null;
+	private Stack<SNode> getSNodeStack(){
+		if (sNodeStack== null)
+			sNodeStack= new Stack<SNode>();
+		return(sNodeStack);
+	}
 
-	private Stack<String> tagStack = new Stack<String>();
+
+	private Stack<String> TagStack = new Stack<String>();
+	private Stack<String> getTagStack(){
+		if (TagStack== null)
+			TagStack= new Stack<String>();
+		return(TagStack);
+	}
+
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
 	
@@ -97,7 +123,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		if (USER_DEFINED_DEFAULT_TOKENIZATION && insidetext){
-			if (tagStack.peek()==default_token_tag){
+			if (TagStack.peek()==default_token_tag){
 				String temp = "";
 				for (int i = start; i < start + length; i++) {
 						temp = temp + ch[i];
@@ -141,7 +167,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_W.equals(qName)) {
-			tagStack.push(TAG_W);
+			TagStack.push(TAG_W);
 			
 		}
 		
@@ -158,7 +184,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_P.equals(qName)) {
-			tagStack.push(TAG_P);
+			TagStack.push(TAG_P);
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
@@ -226,6 +252,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			insidetext = true;
 			SStructure textnode = SaltFactory.eINSTANCE.createSStructure();
 			sDocGraph.addSNode(textnode);
+			getSNodeStack().add(textnode);
 			
 		}
 		
@@ -285,7 +312,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_W.equals(qName)) {
-			tagStack.pop();
+			TagStack.pop();
 			
 		}
 		
@@ -302,7 +329,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_P.equals(qName)) {
-			tagStack.pop();
+			TagStack.pop();
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
@@ -367,8 +394,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} 
 		
 		else if (TAG_TEXT.equals(qName)) {
-		
-			
+			insidetext = false;
+			getSNodeStack().pop();
 		} 
 		
 		else if (TAG_FORENAME.equals(qName)) {
@@ -410,6 +437,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_OBJECTTYPE.equals(qName)) {
 		} else if (TAG_ORIGPLACE.equals(qName)) {
 		} 
-		
+		if (!getTagStack().isEmpty())
+			if (getTagStack().peek().equals(qName)) {
+				getTagStack().pop();
+			}
 	}
 }

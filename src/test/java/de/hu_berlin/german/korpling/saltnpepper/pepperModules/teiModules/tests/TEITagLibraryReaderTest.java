@@ -49,6 +49,8 @@ public class TEITagLibraryReaderTest {
 	@Test
 	public void initialize() throws 
 			FileNotFoundException, UnsupportedEncodingException {
+		
+		fixture.setSUB_TOKENIZATION();
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		System.out.println(outStream.toString());
@@ -66,10 +68,13 @@ public class TEITagLibraryReaderTest {
 	
 	@Test
 	public void simple_p_notoken(){
+		fixture.setSUB_TOKENIZATION();
+		
 		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
 		outFile.getParentFile().mkdirs();
 		
-
+		
+		
 		readXMLResource(getFixture(),
 				URI.createFileURI(outFile.getAbsolutePath()));
 
