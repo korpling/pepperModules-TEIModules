@@ -90,8 +90,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	
 
-	public void startDocument ()
-    {
+	public void startDocument () {
 		sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
 		sDocGraph.addSLayer(primaryLayer);
 		primaryLayer.setSName("primary");
