@@ -20,6 +20,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STYPE_NAME;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SLayer;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SWordAnnotation;
@@ -75,6 +76,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack= new Stack<String>();
 		return(TagStack);
 	}
+	
+	private Stack<SAnnotation> SAnnoStack = null;
+	
+	private Stack<SAnnotation> getSAnnoStack(){
+		if (SAnnoStack == null) 
+			SAnnoStack= new Stack<SAnnotation>();
+		return(SAnnoStack);
+		}
+	
 
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
@@ -166,11 +176,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 							//needs to be named
 							primaryText.setSText(temp);
 							SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+							temp_tok.addSAnnotation(getSAnnoStack().pop());
 							setDominatingToken(temp_tok);
+							
 						}
 					
 						/*add a single space character to split the first and last word from 
-						 *two neighboring chunks of text*
+						 *two neighboring chunks of text
 						 */
 						else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
 							addSpace(primaryText);
@@ -204,6 +216,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				setDominatingStruc(w_struc);
 				getSNodeStack().add(w_struc);
 				
+			}
+			
+			else {
+				SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
+				getSAnnoStack().add(wordanno);
 			}
 			
 		}
@@ -284,6 +301,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} 
 		
 		else if (TAG_TEXT.equals(qName)) {
+			TagStack.push(TAG_P);
 			//create STextualDS
 			primaryText = SaltFactory.eINSTANCE.createSTextualDS();
 			sDocGraph.addSNode(primaryText);
@@ -372,7 +390,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_P.equals(qName)) {
-			TagStack.pop();
+			
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
@@ -439,7 +457,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (TAG_TEXT.equals(qName)) {
 			insidetext = false;
 			getSNodeStack().pop();
-			System.out.println(sDocGraph.getSRoots());
 		} 
 		
 		else if (TAG_FORENAME.equals(qName)) {
