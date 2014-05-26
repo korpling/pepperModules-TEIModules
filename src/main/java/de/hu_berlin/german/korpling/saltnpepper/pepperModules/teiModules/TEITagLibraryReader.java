@@ -22,6 +22,8 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SLayer;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SWordAnnotation;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SaltSemanticsFactory;
 
 /**
  * This class parses an xml file following the model of 'BesaReader'.
@@ -64,7 +66,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			sNodeStack= new Stack<SNode>();
 		return(sNodeStack);
 	}
-
+	
 
 	private Stack<String> TagStack = new Stack<String>();
 	// returns stack containing xml-element hierarchie
@@ -149,33 +151,35 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		if (USER_DEFINED_DEFAULT_TOKENIZATION && insidetext){
-			if (TagStack.peek()==default_token_tag){
-				String temp = "";
-				for (int i = start; i < start + length; i++) {
-						temp = temp + ch[i];
-				}
-				
-				if (primaryText != null){
-					/*in case primaryText is empty, but exists, initialize primaryText with temp
-					 *to avoid "null" as part of the string; otherwise add temp to primaryText
-					 */
-					if (!temp.isEmpty() && primaryText.getSText()==null){
-						//needs to be named
-						primaryText.setSText(temp);
-						SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-						setDominatingToken(temp_tok);
+			if (!getTagStack().isEmpty()) {
+				if (TagStack.peek()==default_token_tag){
+					String temp = "";
+					for (int i = start; i < start + length; i++) {
+							temp = temp + ch[i];
 					}
-				
-					/*add a single space character to split the first and last word from 
-					 *two neighboring chunks of text*
-					 */
-					else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
-						addSpace(primaryText);
-						int oldposition = primaryText.getSEnd();
-						//needs to be named
-						primaryText.setSText(primaryText.getSText()+temp);
-						SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-						setDominatingToken(temp_tok);
+					
+					if (primaryText != null){
+						/*in case primaryText is empty, but exists, initialize primaryText with temp
+						 *to avoid "null" as part of the string; otherwise add temp to primaryText
+						 */
+						if (!temp.isEmpty() && primaryText.getSText()==null){
+							//needs to be named
+							primaryText.setSText(temp);
+							SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+							setDominatingToken(temp_tok);
+						}
+					
+						/*add a single space character to split the first and last word from 
+						 *two neighboring chunks of text*
+						 */
+						else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
+							addSpace(primaryText);
+							int oldposition = primaryText.getSEnd();
+							//needs to be named
+							primaryText.setSText(primaryText.getSText()+temp);
+							SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+							setDominatingToken(temp_tok);
+						}
 					}
 				}
 			}
@@ -192,9 +196,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (TAG_W.equals(qName)) {
 			TagStack.push(TAG_W);
-			if (!USER_DEFINED_DEFAULT_TOKENIZATION){
+			if (!(USER_DEFINED_DEFAULT_TOKENIZATION && default_token_tag==TAG_W)){
 				SStructure w_struc = SaltFactory.eINSTANCE.createSStructure();
-				w_struc.createSAnnotation(null, "w", null);
+				SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
+				w_struc.addSAnnotation(wordanno);
 				sDocGraph.addSNode(w_struc);
 				setDominatingStruc(w_struc);
 				getSNodeStack().add(w_struc);
@@ -349,8 +354,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_W.equals(qName)) {
-			TagStack.pop();
-			
+			if (!(USER_DEFINED_DEFAULT_TOKENIZATION && default_token_tag==TAG_W)){
+				getSNodeStack().pop();
+			}
 		}
 		
 		else if (TAG_PHR.equals(qName)) {

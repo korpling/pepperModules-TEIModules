@@ -79,6 +79,21 @@ public class TEITagLibraryReaderTest {
 		assertEquals(3, getFixture().getsDocGraph().getSTokens().size());
 	}
 	
+	@Test
+	public void simple_p_default_tag_w(){
+		fixture.setUSER_DEFINED_DEFAULT_TOKENIZATION();
+		
+		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
+		outFile.getParentFile().mkdirs();
+		
+		readXMLResource(getFixture(),
+				URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+		assertEquals("auch",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
+		assertEquals(1, getFixture().getsDocGraph().getSTokens().size());
+	}
+	
 
 	protected void readXMLResource(DefaultHandler2 contentHandler,
 			URI documentLocation) {
