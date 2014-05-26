@@ -176,7 +176,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 							//needs to be named
 							primaryText.setSText(temp);
 							SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-							temp_tok.addSAnnotation(getSAnnoStack().pop());
+							while (!getSAnnoStack().isEmpty()) {
+								temp_tok.addSAnnotation(getSAnnoStack().pop());
+							}
 							setDominatingToken(temp_tok);
 							
 						}
@@ -190,6 +192,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 							//needs to be named
 							primaryText.setSText(primaryText.getSText()+temp);
 							SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+							while (!getSAnnoStack().isEmpty()) {
+								temp_tok.addSAnnotation(getSAnnoStack().pop());
+							}
 							setDominatingToken(temp_tok);
 						}
 					}
@@ -212,15 +217,40 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				SStructure w_struc = SaltFactory.eINSTANCE.createSStructure();
 				SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
 				w_struc.addSAnnotation(wordanno);
+				
+				if(attributes.getValue(ATT_TYPE)!=null) {
+					w_struc.createSAnnotation(null, ATT_TYPE, attributes.getValue(ATT_TYPE));
+				}
+				
+				if(attributes.getValue(ATT_LEMMA)!=null) {
+					w_struc.createSAnnotation(null, ATT_LEMMA, attributes.getValue(ATT_LEMMA));
+				}
+				
 				sDocGraph.addSNode(w_struc);
 				setDominatingStruc(w_struc);
 				getSNodeStack().add(w_struc);
+				
+				
 				
 			}
 			
 			else {
 				SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
 				getSAnnoStack().add(wordanno);
+				
+				if(attributes.getValue(ATT_TYPE)!=null) {
+					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+					tempanno.setSName(ATT_TYPE);
+					tempanno.setValueString(attributes.getValue(ATT_TYPE));
+					getSAnnoStack().add(tempanno);
+				}
+				
+				if(attributes.getValue(ATT_LEMMA)!=null) {
+					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+					tempanno.setSName(ATT_LEMMA);
+					tempanno.setValueString(attributes.getValue(ATT_LEMMA));
+					getSAnnoStack().add(tempanno);
+				}
 			}
 			
 		}
