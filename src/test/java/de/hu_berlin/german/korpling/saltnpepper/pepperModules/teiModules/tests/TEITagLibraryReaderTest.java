@@ -58,12 +58,10 @@ public class TEITagLibraryReaderTest {
 		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
 		outFile.getParentFile().mkdirs();
 		
-
 		readXMLResource(getFixture(),
 				URI.createFileURI(outFile.getAbsolutePath()));
 
 		assertNotNull(getFixture().getsDocGraph());
-		
 	}
 	
 	@Test
@@ -73,16 +71,12 @@ public class TEITagLibraryReaderTest {
 		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
 		outFile.getParentFile().mkdirs();
 		
-		
-		
 		readXMLResource(getFixture(),
 				URI.createFileURI(outFile.getAbsolutePath()));
 
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 		assertEquals("Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
 		assertEquals(3, getFixture().getsDocGraph().getSTokens().size());
-		
-		
 	}
 	
 

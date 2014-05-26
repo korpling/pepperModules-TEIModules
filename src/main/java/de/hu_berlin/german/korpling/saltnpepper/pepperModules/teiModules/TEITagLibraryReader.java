@@ -97,11 +97,22 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		tokenrelation.add(STYPE_NAME.STEXT_OVERLAPPING_RELATION);
     }
 	
-	private void setDominatingNode (SToken token) {
+	private void setDominatingToken (SToken token) {
 		SDominanceRelation sDominatingRelation= SaltFactory.eINSTANCE.createSDominanceRelation();
 		sDominatingRelation.setSource((SStructuredNode) (getSNodeStack().peek()));
 		sDominatingRelation.setSStructuredTarget(token);
 		sDocGraph.addSRelation(sDominatingRelation);
+	}
+	
+	private void setDominatingStruc (SStructure struc) {
+		SDominanceRelation sDominatingRelation= SaltFactory.eINSTANCE.createSDominanceRelation();
+		sDominatingRelation.setSource((SStructuredNode) (getSNodeStack().peek()));
+		sDominatingRelation.setSStructuredTarget(struc);
+		sDocGraph.addSRelation(sDominatingRelation);
+	}
+	
+	private void addSpace (STextualDS text) {
+		text.setSText(text.getSText()+" ");
 	}
 	
 	public void characters(char ch[], int start, int length) {
@@ -120,19 +131,19 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					//needs to be named
 					primaryText.setSText(temp);
 					SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-					setDominatingNode(temp_tok);
+					setDominatingToken(temp_tok);
 				}
 			
 				/*add a single space character to split the first and last word from 
 				 *two neighboring chunks of text*
 				 */
 				else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
+					addSpace(primaryText);
 					int oldposition = primaryText.getSEnd();
-					temp = " "+temp;
 					//needs to be named
 					primaryText.setSText(primaryText.getSText()+temp);
 					SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-					setDominatingNode(temp_tok);
+					setDominatingToken(temp_tok);
 				}
 			}
 		}
@@ -143,8 +154,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				for (int i = start; i < start + length; i++) {
 						temp = temp + ch[i];
 				}
-				temp = temp.replaceAll("\\s+"," ");
-				temp = temp.trim();
+				
 				if (primaryText != null){
 					/*in case primaryText is empty, but exists, initialize primaryText with temp
 					 *to avoid "null" as part of the string; otherwise add temp to primaryText
@@ -153,19 +163,19 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 						//needs to be named
 						primaryText.setSText(temp);
 						SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-						setDominatingNode(temp_tok);
+						setDominatingToken(temp_tok);
 					}
 				
 					/*add a single space character to split the first and last word from 
 					 *two neighboring chunks of text*
 					 */
 					else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
+						addSpace(primaryText);
 						int oldposition = primaryText.getSEnd();
-						temp = " "+temp;
 						//needs to be named
 						primaryText.setSText(primaryText.getSText()+temp);
 						SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-						setDominatingNode(temp_tok);
+						setDominatingToken(temp_tok);
 					}
 				}
 			}
@@ -182,6 +192,14 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (TAG_W.equals(qName)) {
 			TagStack.push(TAG_W);
+			if (!USER_DEFINED_DEFAULT_TOKENIZATION){
+				SStructure w_struc = SaltFactory.eINSTANCE.createSStructure();
+				w_struc.createSAnnotation(null, "w", null);
+				sDocGraph.addSNode(w_struc);
+				setDominatingStruc(w_struc);
+				getSNodeStack().add(w_struc);
+				
+			}
 			
 		}
 		
@@ -261,13 +279,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} 
 		
 		else if (TAG_TEXT.equals(qName)) {
+			//create STextualDS
 			primaryText = SaltFactory.eINSTANCE.createSTextualDS();
 			sDocGraph.addSNode(primaryText);
 			insidetext = true;
-			SStructure textnode = SaltFactory.eINSTANCE.createSStructure();
-			textnode.createSAnnotation(null, "Text", null);
-			getSNodeStack().add(textnode);
-			sDocGraph.addSNode(textnode);
+			//represent the <text>-tag in Salt
+			SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
+			text_struc.createSAnnotation(null, "text", null);
+			getSNodeStack().add(text_struc);
+			sDocGraph.addSNode(text_struc);
 		
 			
 			
@@ -455,6 +475,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} else if (TAG_OBJECTTYPE.equals(qName)) {
 		} else if (TAG_ORIGPLACE.equals(qName)) {
 		} 
+		
+		//remove adequate tag from TagStack
 		if (!getTagStack().isEmpty())
 			if (getTagStack().peek().equals(qName)) {
 				getTagStack().pop();
