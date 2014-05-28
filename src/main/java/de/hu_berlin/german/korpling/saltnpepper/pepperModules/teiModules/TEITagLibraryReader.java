@@ -124,10 +124,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	public void characters(char ch[], int start, int length) {
 		if (SUB_TOKENIZATION && insidetext){
-			String temp = "";
-			for (int i = start; i < start + length; i++) {
-					temp = temp + ch[i];
+			StringBuilder txt = new StringBuilder();
+			for(int i=start; i<start+length; i++){
+				txt.append(ch[i]);
 			}
+			String temp;
+			temp = txt.toString();
 			temp = temp.replaceAll("\\s+"," ");
 			temp = temp.trim();
 			if (primaryText != null){
