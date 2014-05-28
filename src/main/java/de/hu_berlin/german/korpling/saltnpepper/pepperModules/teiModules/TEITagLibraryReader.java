@@ -123,6 +123,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	}
 	
 	public void characters(char ch[], int start, int length) {
+		//change tokenization to higher level
 		if (SUB_TOKENIZATION && insidetext){
 			StringBuilder txt = new StringBuilder();
 			for(int i=start; i<start+length; i++){
@@ -159,6 +160,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			}
 		}
 		
+		//change tokenization to higher level
 		if (USER_DEFINED_DEFAULT_TOKENIZATION && insidetext){
 			if (!getTagStack().isEmpty()) {
 				if (TagStack.peek()==default_token_tag){
@@ -396,6 +398,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	}
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
+		
+		//add token, if char_buffer is not empty
+		
 		if (TAG_LB.equals(qName)) {
 			
 		}
@@ -403,6 +408,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (TAG_W.equals(qName)) {
 			if (!(USER_DEFINED_DEFAULT_TOKENIZATION && default_token_tag==TAG_W)){
 				getSNodeStack().pop();
+			}
+			else {
+				//add token and annotations here
 			}
 		}
 		

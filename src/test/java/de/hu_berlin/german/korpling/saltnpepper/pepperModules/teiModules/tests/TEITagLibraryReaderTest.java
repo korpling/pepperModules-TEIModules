@@ -84,7 +84,7 @@ public class TEITagLibraryReaderTest {
 	public void simple_p_default_tag_w(){
 		fixture.setUSER_DEFINED_DEFAULT_TOKENIZATION();
 		
-		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
+		File outFile = new File("/home/andre/tei_test_files/w_token_test.xml");
 		outFile.getParentFile().mkdirs();
 		
 		readXMLResource(getFixture(),
