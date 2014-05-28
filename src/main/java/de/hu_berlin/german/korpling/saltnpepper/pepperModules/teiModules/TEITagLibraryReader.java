@@ -253,8 +253,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			
 			SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
 			phr_struc.createSAnnotation(null, "phr", null);
-			getSNodeStack().add(phr_struc);
+			sDocGraph.addSNode(phr_struc);
 			setDominatingStruc(phr_struc);
+			getSNodeStack().add(phr_struc);
+			
 		}
 		
 		else if (TAG_HEAD.equals(qName)) {
