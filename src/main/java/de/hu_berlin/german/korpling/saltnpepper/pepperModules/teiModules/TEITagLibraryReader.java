@@ -175,7 +175,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 								temp_tok.addSAnnotation(getSAnnoStack().pop());
 							}
 							setDominatingToken(temp_tok);
-							System.out.println(temp_tok.getSAnnotations());
 						}
 					
 						/*add a single space character to split the first and last word from 

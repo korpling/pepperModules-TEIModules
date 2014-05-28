@@ -76,7 +76,7 @@ public class TEITagLibraryReaderTest {
 
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 		assertEquals("Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
-		assertEquals(3, getFixture().getsDocGraph().getSTokens().size());
+		assertEquals(4, getFixture().getsDocGraph().getSTokens().size());
 	}
 	
 	@Test
@@ -90,8 +90,8 @@ public class TEITagLibraryReaderTest {
 				URI.createFileURI(outFile.getAbsolutePath()));
 
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
-		assertEquals("auch",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
-		assertEquals(1, getFixture().getsDocGraph().getSTokens().size());
+		assertEquals("auch ist",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
+		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
 	}
 	
 
