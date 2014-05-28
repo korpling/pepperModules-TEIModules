@@ -27,6 +27,7 @@ import org.xml.sax.ext.DefaultHandler2;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.TEITagLibrary;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.TEITagLibraryReader;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 import static org.junit.Assert.*;
 
 public class TEITagLibraryReaderTest {
@@ -76,7 +77,7 @@ public class TEITagLibraryReaderTest {
 
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 		assertEquals("Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
-		assertEquals(4, getFixture().getsDocGraph().getSTokens().size());
+		assertEquals(1, getFixture().getsDocGraph().getSTokens().size());
 	}
 	
 	@Test

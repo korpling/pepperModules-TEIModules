@@ -139,6 +139,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					primaryText.setSText(temp);
 					SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
 					setDominatingToken(temp_tok);
+					System.out.println(temp);
 				}
 			
 				/*add a single space character to split the first and last word from 
@@ -151,6 +152,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					primaryText.setSText(primaryText.getSText()+temp);
 					SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
 					setDominatingToken(temp_tok);
+					System.out.println(temp);
 				}
 			}
 		}
@@ -190,7 +192,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 								temp_tok.addSAnnotation(getSAnnoStack().pop());
 							}
 							setDominatingToken(temp_tok);
-							System.out.println(temp_tok.getSAnnotations());
 						}
 					}
 				}
@@ -248,7 +249,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_PHR.equals(qName)) {
+			TagStack.push(TAG_P);
 			
+			SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
+			phr_struc.createSAnnotation(null, "phr", null);
+			getSNodeStack().add(phr_struc);
+			setDominatingStruc(phr_struc);
 		}
 		
 		else if (TAG_HEAD.equals(qName)) {
