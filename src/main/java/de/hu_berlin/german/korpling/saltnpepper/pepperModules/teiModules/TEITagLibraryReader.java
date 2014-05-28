@@ -67,7 +67,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			sNodeStack= new Stack<SNode>();
 		return(sNodeStack);
 	}
-	
 
 	private Stack<String> TagStack = new Stack<String>();
 	// returns stack containing xml-element hierarchie
@@ -85,11 +84,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		return(SAnnoStack);
 		}
 	
-
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
 	
-
 	private SLayer primaryLayer = SaltFactory.eINSTANCE.createSLayer();
 	
 	public SDocumentGraph getsDocGraph() {
@@ -100,8 +97,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		this.sDocGraph = sDocGraph;
 	}
 	
-	
-
 	public void startDocument () {
 		sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
 		sDocGraph.addSLayer(primaryLayer);
@@ -180,7 +175,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 								temp_tok.addSAnnotation(getSAnnoStack().pop());
 							}
 							setDominatingToken(temp_tok);
-							
+							System.out.println(temp_tok.getSAnnotations());
 						}
 					
 						/*add a single space character to split the first and last word from 
@@ -196,6 +191,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 								temp_tok.addSAnnotation(getSAnnoStack().pop());
 							}
 							setDominatingToken(temp_tok);
+							System.out.println(temp_tok.getSAnnotations());
 						}
 					}
 				}
@@ -229,9 +225,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				sDocGraph.addSNode(w_struc);
 				setDominatingStruc(w_struc);
 				getSNodeStack().add(w_struc);
-				
-				
-				
 			}
 			
 			else {
@@ -241,14 +234,14 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				if(attributes.getValue(ATT_TYPE)!=null) {
 					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
 					tempanno.setSName(ATT_TYPE);
-					tempanno.setValueString(attributes.getValue(ATT_TYPE));
+					tempanno.setValue(attributes.getValue(ATT_TYPE));
 					getSAnnoStack().add(tempanno);
 				}
 				
 				if(attributes.getValue(ATT_LEMMA)!=null) {
 					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
 					tempanno.setSName(ATT_LEMMA);
-					tempanno.setValueString(attributes.getValue(ATT_LEMMA));
+					tempanno.setValue(attributes.getValue(ATT_LEMMA));
 					getSAnnoStack().add(tempanno);
 				}
 			}
@@ -341,9 +334,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			text_struc.createSAnnotation(null, "text", null);
 			getSNodeStack().add(text_struc);
 			sDocGraph.addSNode(text_struc);
-		
-			
-			
 		}
 		
 		else if (TAG_SUMMARY.equals(qName)) {
