@@ -157,6 +157,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					//needs to be named
 					primaryText.setSText(primaryText.getSText()+tempstr);
 					temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+					System.out.print(temp_tok.getId());
 					setDominatingToken(temp_tok);
 				}
 				while (!getSAnnoStack().isEmpty()) {

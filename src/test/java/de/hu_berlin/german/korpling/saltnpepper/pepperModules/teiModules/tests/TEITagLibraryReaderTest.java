@@ -27,11 +27,11 @@ import org.xml.sax.ext.DefaultHandler2;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.TEITagLibrary;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.TEITagLibraryReader;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 import static org.junit.Assert.*;
 
 public class TEITagLibraryReaderTest {
-
 	private TEITagLibraryReader fixture = null;
 
 	public TEITagLibraryReader getFixture() {
@@ -93,6 +93,10 @@ public class TEITagLibraryReaderTest {
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 		assertEquals("auch ist",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
 		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
+		for (SToken tok : getFixture().getsDocGraph().getSTokens()){
+			assertNotNull(tok.getSAnnotation("lemma"));
+			assertNotNull(tok.getSAnnotation("type"));
+		}
 	}
 	
 
