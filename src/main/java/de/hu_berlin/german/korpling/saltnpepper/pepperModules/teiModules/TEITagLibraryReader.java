@@ -157,7 +157,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					//needs to be named
 					primaryText.setSText(primaryText.getSText()+tempstr);
 					temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-					System.out.print(temp_tok.getId());
 					setDominatingToken(temp_tok);
 				}
 				while (!getSAnnoStack().isEmpty()) {
@@ -231,10 +230,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_PHR.equals(qName)) {
-			TagStack.push(TAG_P);
+			TagStack.push(TAG_PHR);
 			
 			SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
-			phr_struc.createSAnnotation(null, "phr", null);
+			phr_struc.createSAnnotation(null, "TAG_PHR", null);
 			sDocGraph.addSNode(phr_struc);
 			setDominatingStruc(phr_struc);
 			getSNodeStack().add(phr_struc);
@@ -246,11 +245,24 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_DIV.equals(qName)) {
+			TagStack.push(TAG_DIV);
 			
+			SStructure div_struc = SaltFactory.eINSTANCE.createSStructure();
+			div_struc.createSAnnotation(null, "TAG_DIV", null);
+			div_struc.createSAnnotation(null, "ATT_TYPE", attributes.getValue(ATT_TYPE));
+			sDocGraph.addSNode(div_struc);
+			setDominatingStruc(div_struc);
+			getSNodeStack().add(div_struc);
 		}
 		
 		else if (TAG_P.equals(qName)) {
 			TagStack.push(TAG_P);
+			
+			SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
+			p_struc.createSAnnotation(null, "TAG_P", null);
+			sDocGraph.addSNode(p_struc);
+			setDominatingStruc(p_struc);
+			getSNodeStack().add(p_struc);
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
@@ -313,14 +325,14 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		} 
 		
 		else if (TAG_TEXT.equals(qName)) {
-			TagStack.push(TAG_P);
+			TagStack.push(TAG_TEXT);
 			//create STextualDS
 			primaryText = SaltFactory.eINSTANCE.createSTextualDS();
 			sDocGraph.addSNode(primaryText);
 			insidetext = true;
 			//represent the <text>-tag in Salt
 			SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
-			text_struc.createSAnnotation(null, "text", null);
+			text_struc.createSAnnotation(null, "TAG_TEXT", null);
 			getSNodeStack().add(text_struc);
 			sDocGraph.addSNode(text_struc);
 		}
@@ -377,8 +389,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
-		//add token, if char_buffer is not empty
-		
 		if (TAG_LB.equals(qName)) {
 			
 		}
@@ -388,13 +398,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			if (!(USER_DEFINED_DEFAULT_TOKENIZATION && default_token_tag==TAG_W)){
 				getSNodeStack().pop();
 			}
-			else {
-				//add token and annotations here
-			}
 		}
 		
 		else if (TAG_PHR.equals(qName)) {
-			
+			getSNodeStack().pop();
 		}
 		
 		else if (TAG_HEAD.equals(qName)) {
@@ -402,12 +409,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_DIV.equals(qName)) {
-			
+			getSNodeStack().pop();
 		}
 		
 		else if (TAG_P.equals(qName)) {
 			setToken(txt);
 			
+			getSNodeStack().pop();
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
