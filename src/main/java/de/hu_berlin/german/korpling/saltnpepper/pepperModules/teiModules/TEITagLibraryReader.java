@@ -126,45 +126,50 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	}
 	
 	private void setToken (StringBuilder str) {
-		if (primaryText != null){
-			/*in case primaryText is empty, but exists, initialize primaryText with temp
-			 *to avoid "null" as part of the string; otherwise add temp to primaryText
-			 */
-			if (str.length() > 0  && primaryText.getSText()==null){
-				String tempstr;
-				tempstr = str.toString();
-				tempstr = tempstr.replaceAll("\\s+"," ");
-				tempstr = tempstr.trim();
-				//needs to be named
-				primaryText.setSText(tempstr);
-				SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-				setDominatingToken(temp_tok);
+		if (str.toString().trim().length() > 0){
+			if (primaryText != null){
+				SToken temp_tok = null;
+				/*in case primaryText is empty, but exists, initialize primaryText with temp
+				 *to avoid "null" as part of the string; otherwise add temp to primaryText
+				 */
+				if (str.length() > 0  && primaryText.getSText()==null){
+					String tempstr;
+					tempstr = str.toString();
+					tempstr = tempstr.replaceAll("\\s+"," ");
+					tempstr = tempstr.trim();
+					//needs to be named
+					primaryText.setSText(tempstr);
+					temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+					setDominatingToken(temp_tok);
+				}
+			
+				/*add a single space character to split the first and last word from 
+				 *two neighboring chunks of text*
+				 */
+				else if (str.length() > 0 && !(primaryText.getSText()==null)){
+					addSpace(primaryText);
+					int oldposition = primaryText.getSEnd();
+					
+					String tempstr;
+					tempstr = str.toString();
+					tempstr = tempstr.replaceAll("\\s+"," ");
+					tempstr = tempstr.trim();
+					//needs to be named
+					primaryText.setSText(primaryText.getSText()+tempstr);
+					temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+					setDominatingToken(temp_tok);
+				}
+				while (!getSAnnoStack().isEmpty()) {
+					temp_tok.addSAnnotation(getSAnnoStack().pop());
+				}
 			}
-		
-			/*add a single space character to split the first and last word from 
-			 *two neighboring chunks of text*
-			 */
-			else if (str.length() > 0 && !(primaryText.getSText()==null)){
-				addSpace(primaryText);
-				int oldposition = primaryText.getSEnd();
-				
-				String tempstr;
-				tempstr = str.toString();
-				tempstr = tempstr.replaceAll("\\s+"," ");
-				tempstr = tempstr.trim();
-				//needs to be named
-				primaryText.setSText(primaryText.getSText()+tempstr);
-				SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-				setDominatingToken(temp_tok);
-				System.out.println(sDocGraph.getSText(temp_tok));
-			}
+			str.setLength(0);
 		}
-		str.setLength(0);
 	}
 	
 	public void characters(char ch[], int start, int length) {
 		//change tokenization to higher level
-		if (SUB_TOKENIZATION && insidetext){
+		if (insidetext){
 			StringBuilder tempstr = new StringBuilder();
 			for(int i=start; i<start+length; i++){
 				tempstr.append(ch[i]);
@@ -172,48 +177,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			txt.append(tempstr);
 		}
 		
-		//change tokenization to higher level
-		if (USER_DEFINED_DEFAULT_TOKENIZATION && insidetext){
-			if (!getTagStack().isEmpty()) {
-				if (TagStack.peek()==default_token_tag){
-					String temp = "";
-					for (int i = start; i < start + length; i++) {
-							temp = temp + ch[i];
-					}
-					
-					if (primaryText != null){
-						/*in case primaryText is empty, but exists, initialize primaryText with temp
-						 *to avoid "null" as part of the string; otherwise add temp to primaryText
-						 */
-						if (!temp.isEmpty() && primaryText.getSText()==null){
-							//needs to be named
-							primaryText.setSText(temp);
-							SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-							while (!getSAnnoStack().isEmpty()) {
-								temp_tok.addSAnnotation(getSAnnoStack().pop());
-							}
-							setDominatingToken(temp_tok);
-						}
-					
-						/*add a single space character to split the first and last word from 
-						 *two neighboring chunks of text
-						 */
-						else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
-							addSpace(primaryText);
-							int oldposition = primaryText.getSEnd();
-							//needs to be named
-							primaryText.setSText(primaryText.getSText()+temp);
-							SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-							while (!getSAnnoStack().isEmpty()) {
-								temp_tok.addSAnnotation(getSAnnoStack().pop());
-							}
-							setDominatingToken(temp_tok);
-						}
-					}
-				}
-			}
-		}
-			
 	}
 
 	@Override
@@ -225,6 +188,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_W.equals(qName)) {
+			setToken(txt);
 			TagStack.push(TAG_W);
 			if (!(USER_DEFINED_DEFAULT_TOKENIZATION && default_token_tag==TAG_W)){
 				SStructure w_struc = SaltFactory.eINSTANCE.createSStructure();
@@ -419,6 +383,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_W.equals(qName)) {
+			setToken(txt);
 			if (!(USER_DEFINED_DEFAULT_TOKENIZATION && default_token_tag==TAG_W)){
 				getSNodeStack().pop();
 			}
