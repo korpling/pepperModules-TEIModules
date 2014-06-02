@@ -51,8 +51,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	//tag used for tokenization with option "user defined default tokenization"
 	private String default_token_tag = TAG_W;
 	
-	public void set_default_token_tag(String para){
-		default_token_tag = para;
+	public void set_default_token_tag(String param){
+		default_token_tag = param;
 	}
 	
 	//returns whether the parser is inside <text>...</text>
@@ -83,6 +83,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			SAnnoStack= new Stack<SAnnotation>();
 		return(SAnnoStack);
 		}
+	
+	//Stringbuilder used for collecting text between tags
+	StringBuilder txt = new StringBuilder();
 	
 	private SDocumentGraph sDocGraph = null;
 	private STextualDS primaryText = null;
@@ -122,42 +125,50 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		text.setSText(text.getSText()+" ");
 	}
 	
+	private void setToken (StringBuilder str) {
+		if (primaryText != null){
+			/*in case primaryText is empty, but exists, initialize primaryText with temp
+			 *to avoid "null" as part of the string; otherwise add temp to primaryText
+			 */
+			if (str.length() > 0  && primaryText.getSText()==null){
+				String tempstr;
+				tempstr = str.toString();
+				tempstr = tempstr.replaceAll("\\s+"," ");
+				tempstr = tempstr.trim();
+				//needs to be named
+				primaryText.setSText(tempstr);
+				SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+				setDominatingToken(temp_tok);
+			}
+		
+			/*add a single space character to split the first and last word from 
+			 *two neighboring chunks of text*
+			 */
+			else if (str.length() > 0 && !(primaryText.getSText()==null)){
+				addSpace(primaryText);
+				
+				String tempstr;
+				tempstr = str.toString();
+				tempstr = tempstr.replaceAll("\\s+"," ");
+				tempstr = tempstr.trim();
+				//needs to be named
+				primaryText.setSText(primaryText.getSText()+tempstr);
+				SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+				setDominatingToken(temp_tok);
+				System.out.println(sDocGraph.getSText(temp_tok));
+			}
+		}
+		str.setLength(0);
+	}
+	
 	public void characters(char ch[], int start, int length) {
 		//change tokenization to higher level
 		if (SUB_TOKENIZATION && insidetext){
-			StringBuilder txt = new StringBuilder();
+			StringBuilder tempstr = new StringBuilder();
 			for(int i=start; i<start+length; i++){
-				txt.append(ch[i]);
+				tempstr.append(ch[i]);
 			}
-			String temp;
-			temp = txt.toString();
-			temp = temp.replaceAll("\\s+"," ");
-			temp = temp.trim();
-			if (primaryText != null){
-				/*in case primaryText is empty, but exists, initialize primaryText with temp
-				 *to avoid "null" as part of the string; otherwise add temp to primaryText
-				 */
-				if (!temp.isEmpty() && primaryText.getSText()==null){
-					//needs to be named
-					primaryText.setSText(temp);
-					SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-					setDominatingToken(temp_tok);
-					System.out.println(temp);
-				}
-			
-				/*add a single space character to split the first and last word from 
-				 *two neighboring chunks of text*
-				 */
-				else if (!temp.isEmpty() && !(primaryText.getSText()==null)){
-					addSpace(primaryText);
-					int oldposition = primaryText.getSEnd();
-					//needs to be named
-					primaryText.setSText(primaryText.getSText()+temp);
-					SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-					setDominatingToken(temp_tok);
-					System.out.println(temp);
-				}
-			}
+			txt.append(tempstr);
 		}
 		
 		//change tokenization to higher level
@@ -207,6 +218,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
+		
 		if (TAG_LB.equals(qName)) {
 			
 		}
@@ -427,6 +439,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_P.equals(qName)) {
+			setToken(txt);
 			
 		}
 		
