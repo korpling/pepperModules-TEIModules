@@ -146,6 +146,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			 */
 			else if (str.length() > 0 && !(primaryText.getSText()==null)){
 				addSpace(primaryText);
+				int oldposition = primaryText.getSEnd();
 				
 				String tempstr;
 				tempstr = str.toString();
@@ -153,7 +154,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				tempstr = tempstr.trim();
 				//needs to be named
 				primaryText.setSText(primaryText.getSText()+tempstr);
-				SToken temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+				SToken temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
 				setDominatingToken(temp_tok);
 				System.out.println(sDocGraph.getSText(temp_tok));
 			}
