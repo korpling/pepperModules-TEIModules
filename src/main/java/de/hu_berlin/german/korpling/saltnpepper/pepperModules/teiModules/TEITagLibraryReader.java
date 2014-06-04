@@ -307,6 +307,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_UNCLEAR.equals(qName)) {
+			setToken(txt);
+			TagStack.push(TAG_M);
+			
+			SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+			tempanno.setSName("Uncertain Transcription");
+			getSAnnoStack().add(tempanno);
 			
 		}
 		
@@ -460,7 +466,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_UNCLEAR.equals(qName)) {
-			
+			setToken(txt);
 		}
 		
 		else if (TAG_SURPLUS.equals(qName)) {
