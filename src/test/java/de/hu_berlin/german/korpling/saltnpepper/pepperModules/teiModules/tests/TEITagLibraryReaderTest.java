@@ -32,6 +32,10 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 import static org.junit.Assert.*;
 
 public class TEITagLibraryReaderTest {
+	String filePath = new File("").getAbsolutePath();
+	
+	
+	
 	private TEITagLibraryReader fixture = null;
 
 	public TEITagLibraryReader getFixture() {
@@ -45,6 +49,7 @@ public class TEITagLibraryReaderTest {
 	@Before
 	public void setUp() {
 		setFixture(new TEITagLibraryReader());
+		filePath = filePath.concat("/src/test/resources/");
 	}
 
 	@Test
@@ -56,7 +61,7 @@ public class TEITagLibraryReaderTest {
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		System.out.println(outStream.toString());
 
-		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
+		File outFile = new File (filePath.concat("no_token_test_1.xml"));
 		outFile.getParentFile().mkdirs();
 		
 		readXMLResource(getFixture(),
@@ -69,7 +74,7 @@ public class TEITagLibraryReaderTest {
 	public void simple_p_notoken(){
 		fixture.setSUB_TOKENIZATION();
 		
-		File outFile = new File("/home/andre/tei_test_files/no_token_test_1.xml");
+		File outFile = new File (filePath.concat("no_token_test_1.xml"));
 		outFile.getParentFile().mkdirs();
 		
 		readXMLResource(getFixture(),
@@ -84,7 +89,7 @@ public class TEITagLibraryReaderTest {
 	public void simple_p_default_tag_w(){
 		fixture.setUSER_DEFINED_DEFAULT_TOKENIZATION();
 		
-		File outFile = new File("/home/andre/tei_test_files/w_token_test.xml");
+		File outFile = new File (filePath.concat("w_token_test.xml"));
 		outFile.getParentFile().mkdirs();
 		
 		readXMLResource(getFixture(),
