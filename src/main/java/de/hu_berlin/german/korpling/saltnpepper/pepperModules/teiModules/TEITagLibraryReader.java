@@ -38,6 +38,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean SUB_TOKENIZATION = false;
 	private Boolean NO_INPUT_TOKENIZATION = false;
 	
+	private Boolean SURPLUS_REMOVAL = false;
+	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
 		USER_DEFINED_DEFAULT_TOKENIZATION = true;
 	}
@@ -309,7 +311,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_SURPLUS.equals(qName)) {
-			
+			setToken(txt);
 		}
 		
 		else if (TAG_TITLE.equals(qName)) {
@@ -462,7 +464,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_SURPLUS.equals(qName)) {
-			
+			if (SURPLUS_REMOVAL) {
+				txt.setLength(0);
+			}
+			else {
+				setToken(txt);
+			}
 		}
 		
 		else if (TAG_TITLE.equals(qName)) {
