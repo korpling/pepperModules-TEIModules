@@ -203,6 +203,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					w_struc.createSAnnotation(null, ATT_LEMMA, attributes.getValue(ATT_LEMMA));
 				}
 				
+				if(attributes.getValue(ATT_XML_LANG)!=null) {
+					w_struc.createSAnnotation(null, ATT_XML_LANG, attributes.getValue(ATT_XML_LANG));
+				}
+				
 				sDocGraph.addSNode(w_struc);
 				setDominatingStruc(w_struc);
 				getSNodeStack().add(w_struc);
@@ -223,6 +227,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
 					tempanno.setSName(ATT_LEMMA);
 					tempanno.setValue(attributes.getValue(ATT_LEMMA));
+					getSAnnoStack().add(tempanno);
+				}
+				
+				if(attributes.getValue(ATT_XML_LANG)!=null) {
+					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+					tempanno.setSName(ATT_XML_LANG);
+					tempanno.setValue(attributes.getValue(ATT_XML_LANG));
 					getSAnnoStack().add(tempanno);
 				}
 			}
@@ -266,7 +277,18 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
+			setToken(txt);
+			TagStack.push(TAG_FOREIGN);
 			
+			SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
+			getSAnnoStack().add(wordanno);
+			
+			if(attributes.getValue(ATT_XML_LANG)!=null) {
+				SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+				tempanno.setSName(ATT_XML_LANG);
+				tempanno.setValue(attributes.getValue(ATT_XML_LANG));
+				getSAnnoStack().add(tempanno);
+			}
 		}
 		
 		else if (TAG_PB.equals(qName)) {
@@ -278,7 +300,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_M.equals(qName)) {
-			
+			setToken(txt);
+			TagStack.push(TAG_M);
 		}
 		
 		else if (TAG_UNCLEAR.equals(qName)) {
@@ -419,7 +442,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
-			
+			setToken(txt);
 		}
 		
 		else if (TAG_PB.equals(qName)) {
@@ -431,7 +454,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_M.equals(qName)) {
-			
+			setToken(txt);
 		}
 		
 		else if (TAG_UNCLEAR.equals(qName)) {
