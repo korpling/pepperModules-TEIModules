@@ -325,6 +325,14 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_GAP.equals(qName)) {
+			//needs to be changed to a struc
+			SToken temp_tok = null;
+			primaryText.setSText(primaryText.getSText()+" ");
+			temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
+			setDominatingToken(temp_tok);
+			temp_tok.createSAnnotation(null, ATT_REASON, attributes.getValue(ATT_REASON));
+			temp_tok.createSAnnotation(null, ATT_EXTENT, attributes.getValue(ATT_EXTENT));
+			temp_tok.createSAnnotation(null, ATT_UNIT, attributes.getValue(ATT_UNIT));
 			
 		}
 		

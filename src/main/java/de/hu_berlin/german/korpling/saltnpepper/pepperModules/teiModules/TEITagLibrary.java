@@ -176,4 +176,10 @@ public interface TEITagLibrary{
 		public static final String ATT_XML_LANG= "lang";
 		/** constant to address the xml-attribute 'notAfter-custom'. **/
 		public static final String ATT_NOTAFTER_CUSTOM= "notAfter-custom";
+		/** constant to address the xml-attribute 'reason'. **/
+		public static final String ATT_REASON= "reason";
+		/** constant to address the xml-attribute 'extent'. **/
+		public static final String ATT_EXTENT= "extent";
+		/** constant to address the xml-attribute 'unit'. **/
+		public static final String ATT_UNIT= "unit";
 }
