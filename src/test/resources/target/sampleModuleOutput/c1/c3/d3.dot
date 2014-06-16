@@ -1,0 +1,85 @@
+digraph G {
+ordering=out;
+<salt:/c1/c3/d3/d3_graph#sSpan1> -> <salt:/c1/c3/d3/d3_graph#sTok1>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok1> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok1> -> <salt:/c1/c3/d3/d3_graph#sSpan3>[color=blue,style=filled,label="sTypes= [anaphoric]"];
+<salt:/c1/c3/d3/d3_graph#sSpan3> -> <salt:/c1/c3/d3/d3_graph#sTok2>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok2> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan3> -> <salt:/c1/c3/d3/d3_graph#sTok3>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok3> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok2>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok3>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok4>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok4> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok5>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok5> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok6>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok6> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok7>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok7> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok8>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok8> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok9>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok9> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#sSpan2> -> <salt:/c1/c3/d3/d3_graph#sTok10>[color=dodgerblue3,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok10> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure1> -> <salt:/c1/c3/d3/d3_graph#structure2>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure2> -> <salt:/c1/c3/d3/d3_graph#sTok1>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure2> -> <salt:/c1/c3/d3/d3_graph#structure3>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure3> -> <salt:/c1/c3/d3/d3_graph#sTok2>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure3> -> <salt:/c1/c3/d3/d3_graph#sTok3>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure2> -> <salt:/c1/c3/d3/d3_graph#structure4>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure4> -> <salt:/c1/c3/d3/d3_graph#structure5>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure5> -> <salt:/c1/c3/d3/d3_graph#sTok4>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure5> -> <salt:/c1/c3/d3/d3_graph#sTok5>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure4> -> <salt:/c1/c3/d3/d3_graph#structure6>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure6> -> <salt:/c1/c3/d3/d3_graph#sTok6>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure6> -> <salt:/c1/c3/d3/d3_graph#structure7>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure7> -> <salt:/c1/c3/d3/d3_graph#structure8>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure8> -> <salt:/c1/c3/d3/d3_graph#sTok7>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure7> -> <salt:/c1/c3/d3/d3_graph#structure9>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure9> -> <salt:/c1/c3/d3/d3_graph#sTok8>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure9> -> <salt:/c1/c3/d3/d3_graph#structure10>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure10> -> <salt:/c1/c3/d3/d3_graph#structure11>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure11> -> <salt:/c1/c3/d3/d3_graph#sTok9>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure11> -> <salt:/c1/c3/d3/d3_graph#structure12>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure12> -> <salt:/c1/c3/d3/d3_graph#sTok10>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#structure1> -> <salt:/c1/c3/d3/d3_graph#sTok11>[color=seagreen,style=filled];
+<salt:/c1/c3/d3/d3_graph#sTok11> -> <salt:/c1/c3/d3/d3_graph#sText1>[color=yellow,style=filled];
+{
+rank=max;
+<salt:/c1/c3/d3/d3_graph#sText1>[shape=Mrecord,color=yellow,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sText1}|{sName= sText1}|{text=Is this example more complicated than it appears to be?}}"];
+}
+{
+rank=same;
+<salt:/c1/c3/d3/d3_graph#sTok1>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok1}|{sName= sTok1}|{pos=VBZ}|{lemma=be}}"];
+<salt:/c1/c3/d3/d3_graph#sTok2>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok2}|{sName= sTok2}|{pos=DT}|{lemma=this}}"];
+<salt:/c1/c3/d3/d3_graph#sTok3>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok3}|{sName= sTok3}|{pos=NN}|{lemma=example}}"];
+<salt:/c1/c3/d3/d3_graph#sTok4>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok4}|{sName= sTok4}|{pos=RBR}|{lemma=more}}"];
+<salt:/c1/c3/d3/d3_graph#sTok5>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok5}|{sName= sTok5}|{pos=JJ}|{lemma=complicated}}"];
+<salt:/c1/c3/d3/d3_graph#sTok6>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok6}|{sName= sTok6}|{pos=IN}|{lemma=than}}"];
+<salt:/c1/c3/d3/d3_graph#sTok7>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok7}|{sName= sTok7}|{pos=PRP}|{lemma=it}}"];
+<salt:/c1/c3/d3/d3_graph#sTok8>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok8}|{sName= sTok8}|{pos=VBZ}|{lemma=appear}}"];
+<salt:/c1/c3/d3/d3_graph#sTok9>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok9}|{sName= sTok9}|{pos=TO}|{lemma=to}}"];
+<salt:/c1/c3/d3/d3_graph#sTok10>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok10}|{sName= sTok10}|{pos=VB}|{lemma=be}}"];
+<salt:/c1/c3/d3/d3_graph#sTok11>[shape=Mrecord,color=turquoise,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sTok11}|{sName= sTok11}|{pos=.}|{lemma=.}}"];
+}
+{
+rank=same;
+<salt:/c1/c3/d3/d3_graph#sSpan1>[shape=Mrecord,color=dodgerblue3,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sSpan1}|{sName= sSpan1}|{Inf-Struct=contrast-focus}}"];
+<salt:/c1/c3/d3/d3_graph#sSpan3>[shape=Mrecord,color=dodgerblue3,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sSpan3}|{sName= sSpan3}}"];
+<salt:/c1/c3/d3/d3_graph#sSpan2>[shape=Mrecord,color=dodgerblue3,style=filled,label="{{salt:/c1/c3/d3/d3_graph#sSpan2}|{sName= sSpan2}|{Inf-Struct=topic}}"];
+}
+<salt:/c1/c3/d3/d3_graph#structure1>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure1}|{sName= structure1}|{cat=ROOT}}"];
+<salt:/c1/c3/d3/d3_graph#structure2>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure2}|{sName= structure2}|{cat=SQ}}"];
+<salt:/c1/c3/d3/d3_graph#structure3>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure3}|{sName= structure3}|{cat=NP}}"];
+<salt:/c1/c3/d3/d3_graph#structure4>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure4}|{sName= structure4}|{cat=ADJP}}"];
+<salt:/c1/c3/d3/d3_graph#structure5>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure5}|{sName= structure5}|{cat=ADJP}}"];
+<salt:/c1/c3/d3/d3_graph#structure6>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure6}|{sName= structure6}|{cat=SBAR}}"];
+<salt:/c1/c3/d3/d3_graph#structure7>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure7}|{sName= structure7}|{cat=S}}"];
+<salt:/c1/c3/d3/d3_graph#structure8>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure8}|{sName= structure8}|{cat=NP}}"];
+<salt:/c1/c3/d3/d3_graph#structure9>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure9}|{sName= structure9}|{cat=VP}}"];
+<salt:/c1/c3/d3/d3_graph#structure10>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure10}|{sName= structure10}|{cat=S}}"];
+<salt:/c1/c3/d3/d3_graph#structure11>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure11}|{sName= structure11}|{cat=VP}}"];
+<salt:/c1/c3/d3/d3_graph#structure12>[shape=Mrecord,color=seagreen,style=filled,label="{{salt:/c1/c3/d3/d3_graph#structure12}|{sName= structure12}|{cat=VP}}"];
+}
