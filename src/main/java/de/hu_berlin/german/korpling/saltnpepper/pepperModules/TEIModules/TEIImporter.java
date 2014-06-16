@@ -195,7 +195,7 @@ public class TEIImporter extends PepperImporterImpl implements PepperImporter{
 	 * @return {@link PepperMapper} object to do the mapping task for object connected to given {@link SElementId}
 	 */
 	public PepperMapper createPepperMapper(SElementId sElementId){
-		SampleMapper mapper= new SampleMapper();
+		TEIMapper mapper= new TEIMapper();
 		/**
 		 * TODO Set the exact resource, which should be processed by the created mapper object, if the default 
 		 * mechanism of importCorpusStructure() was used, the resource could be retrieved by 
