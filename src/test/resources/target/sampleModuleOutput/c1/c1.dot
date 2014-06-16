@@ -1,8 +1,0 @@
-digraph G {
-ordering=out;
-<salt:/c1>[shape=Mrecord,color=gray28,style=filled,label="{{salt:/c1}|{sName= c1}|{date= 1989-12-17}}"];
-<salt:/c1/c2>[shape=Mrecord,color=gray28,style=filled,label="{{salt:/c1/c2}|{sName= c2}|{date= 1989-12-17}}"];
-<salt:/c1> -> <salt:/c1/c2>[color=gray28,style=filled,label="sName= corpRel1"];
-<salt:/c1/c3>[shape=Mrecord,color=gray28,style=filled,label="{{salt:/c1/c3}|{sName= c3}|{author= Maggie Simpson}|{date= 1989-12-17}}"];
-<salt:/c1> -> <salt:/c1/c3>[color=gray28,style=filled,label="sName= corpRel2"];
-}
