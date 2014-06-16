@@ -16,4 +16,40 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_NO_INPUT_TOKENIZATION, Boolean.class, "Ask the tokenizer module to tokenize running text gathered according to same strategy as in SubTokenization", false, true));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SURPLUS_REMOVAL, Boolean.class, "Will text from <surplus> appear in Salt?", false, false));
 	}
+	
+	public boolean isUserDefinedDefaultTokenization(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_USER_DEFINED_DEFAULT_TOKENIZATION).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	public boolean isSubTokenization(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_SUB_TOKENIZATION).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	public boolean isNoInputTokenization(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_NO_INPUT_TOKENIZATION).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	public boolean isSurplusRemoval(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_SURPLUS_REMOVAL).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
 }

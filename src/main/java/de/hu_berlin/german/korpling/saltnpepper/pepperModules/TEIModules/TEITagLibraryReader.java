@@ -34,20 +34,20 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SaltSemantics
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	//options
-	private Boolean USER_DEFINED_DEFAULT_TOKENIZATION = false;
-	private Boolean SUB_TOKENIZATION = false;
-	private Boolean NO_INPUT_TOKENIZATION = false;
+	private Boolean user_defined_default_tokenization;
+	private Boolean sub_tokenization;
+	private Boolean no_input_tokenization;
 	
-	private Boolean SURPLUS_REMOVAL = false;
+	private Boolean surplus_removal;
 	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
-		USER_DEFINED_DEFAULT_TOKENIZATION = true;
+		user_defined_default_tokenization = true;
 	}
 	public void setSUB_TOKENIZATION(){
-		SUB_TOKENIZATION = true;
+		sub_tokenization = true;
 	}
 	public void setNO_INPUT_TOKENIZATION(){
-		NO_INPUT_TOKENIZATION = true;
+		no_input_tokenization = true;
 	}
 	
 	//tag used for tokenization with option "user defined default tokenization"
@@ -100,6 +100,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 
 	public void setsDocGraph(SDocumentGraph sDocGraph) {
 		this.sDocGraph = sDocGraph;
+	}
+	
+	//constructor
+	public TEITagLibraryReader(){
+		//get the parameter values
 	}
 	
 	public void startDocument () {
@@ -192,7 +197,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (TAG_W.equals(qName)) {
 			setToken(txt);
 			TagStack.push(TAG_W);
-			if (!(USER_DEFINED_DEFAULT_TOKENIZATION && default_token_tag==TAG_W)){
+			if (!(user_defined_default_tokenization && default_token_tag==TAG_W)){
 				SStructure w_struc = SaltFactory.eINSTANCE.createSStructure();
 				SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
 				w_struc.addSAnnotation(wordanno);
@@ -434,7 +439,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (TAG_W.equals(qName)) {
 			setToken(txt);
-			if (!(USER_DEFINED_DEFAULT_TOKENIZATION && default_token_tag==TAG_W)){
+			if (!(user_defined_default_tokenization && default_token_tag==TAG_W)){
 				getSNodeStack().pop();
 			}
 		}
@@ -478,7 +483,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_SURPLUS.equals(qName)) {
-			if (SURPLUS_REMOVAL) {
+			if (surplus_removal) {
 				txt.setLength(0);
 			}
 			else {
