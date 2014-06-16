@@ -1,4 +1,4 @@
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.tests;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.tests;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -25,8 +25,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DefaultHandler2;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.TEITagLibrary;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules.TEITagLibraryReader;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibrary;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibraryReader;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 import static org.junit.Assert.*;

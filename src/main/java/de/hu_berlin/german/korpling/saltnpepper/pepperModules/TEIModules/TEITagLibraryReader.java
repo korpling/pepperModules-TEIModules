@@ -1,4 +1,4 @@
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
 import java.util.Stack;
 

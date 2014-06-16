@@ -1,4 +1,4 @@
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.teiModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
 /**
 * This interface is a dictionary for files following the model of 'Besa'.
