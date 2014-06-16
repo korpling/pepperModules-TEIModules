@@ -107,100 +107,13 @@ public class TEIImporter extends PepperImporterImpl implements PepperImporter{
 		this.addSupportedFormat("TEI", "2.6.0", null);
 		//TODO change the endings in endings of files you want to import, see also predefined endings beginning with 'ENDING_' 
 		this.getSDocumentEndings().add("xml");
+		this.getSDocumentEndings().add("tei");
 	}
 	
-	/**
-	 * <strong>OVERRIDE THIS METHOD FOR CUSTOMIZATION</strong>
-	 * <br/>
-	 * This method is called by the pepper framework to import the corpus-structure for the passed {@link SCorpusGraph} object. 
-	 * In Pepper each import step gets an own {@link SCorpusGraph} to work on. This graph has to be filled with {@link SCorpus} 
-	 * and {@link SDocument} objects representing the corpus-structure of the corpus to be imported. 
-	 * <br/>
-	 * In many cases, the corpus-structure can be retrieved from the file-structure of the source files. Therefore Pepper provides
-	 * a default mechanism to map the file-structure to corpus-structure. This default mechanism can be configured. To
-	 * adapt the default behavior to your needs, we recommend, to take a look into the 'Developer's Guide for Pepper modules', 
-	 * you will find on <a href="https://u.hu-berlin.de/saltnpepper/">https://u.hu-berlin.de/saltnpepper/</a>.
-	 * <br/>
-	 * Just to show the creation of a corpus-structure for our sample purpose, we here create a simple corpus-structure 
-	 * manually. The simple contains a root-corpus <i>c1</i> having two sub-corpora <i>c2</i> and <i>c3</i>. 
-	 * Each sub-corpus contains two documents <i>d1</i> and <i>d2</i> for <i>d3</i> and <i>d4</i> and <i>c1</i> for <i>c3</i>.
-	 * <pre>
-	 *       c1
-	 *    /      \
-	 *   c2      c3
-	 *  /  \    /  \
-	 * d1  d2  d3  d4
-	 * </pre>
-	 * The URIs of the corpora and documents would be:
-	 * <ul>
-	 *  <li>salt:/c1</li>
-	 *  <li>salt:/c1/c2</li>
-	 *  <li>salt:/c1/c2/d1</li>
-	 *  <li>salt:/c1/c2/d2</li>
-	 *  <li>salt:/c1/c3</li>
-	 *  <li>salt:/c1/c3/d3</li>
-	 *  <li>salt:/c1/c3/d4</li>
-	 * </ul>
-	 * 
-	 * @param corpusGraph the CorpusGraph object, which has to be filled.
-	 */
-	@Override
-	public void importCorpusStructure(SCorpusGraph sCorpusGraph) throws PepperModuleException{	
-		/**
-		 * TODO this implementation is just a showcase, in production you might want to use the default. 
-		 * If yes, uncomment the following line and delete the rest of the implementation, or delete
-		 * the entire method to trigger the default method.
-		 */
-		//super.importCorpusStructure(sCorpusGraph);
-		
-		// creates the super-corpus c1, in Salt you can create corpora via a URI
-		SCorpus c1= sCorpusGraph.createSCorpus(URI.createURI("salt:/c1")).get(0);
-		//creates the sub-corpora c2 and c3, in Salt you can also create corpora adding a corpus to a parent
-		SCorpus c2= sCorpusGraph.createSCorpus(c1, "c2");
-		SCorpus c3= sCorpusGraph.createSCorpus(c1, "c3");
-		
-		//creates the documents d1, d2 as children of c2 
-		SDocument d1= sCorpusGraph.createSDocument(c2, "d1");
-		SDocument d2= sCorpusGraph.createSDocument(c2, "d2");
-		
-		//creates the documents d3, d4 as children of c3 via the URI mechanism 
-		SDocument d3= sCorpusGraph.createSDocument(URI.createURI("salt:/c1/c3/d3"));
-		SDocument d4= sCorpusGraph.createSDocument(URI.createURI("salt:/c1/c3/d4"));
-		
-		//adds a meta-annotation 'author' to all documents, a meta-annotation has a namespace, a name and a value
-		d1.createSMetaAnnotation(null, "author", "Bart Simpson");
-		d2.createSMetaAnnotation(null, "author", "Lisa Simpson");
-		d3.createSMetaAnnotation(null, "author", "Marge Simpson");
-		d4.createSMetaAnnotation(null, "author", "Homer Simpson");
-		
-		//also corpora can take meta-annotations
-		c3.createSMetaAnnotation(null, "author", "Maggie Simpson");
-	}
 	
-	/**
-	 * <strong>OVERRIDE THIS METHOD FOR CUSTOMIZATION</strong>
-	 * <br/>
-	 * This method creates a customized {@link PepperMapper} object and returns it. You can here do some additional initialisations. 
-	 * Thinks like setting the {@link SElementId} of the {@link SDocument} or {@link SCorpus} object and the {@link URI} resource is done
-	 * by the framework (or more in detail in method {@link #start()}).<br/> 
-	 * The parameter <code>sElementId</code>, if a {@link PepperMapper} object should be created in case of the object to map is either 
-	 * an {@link SDocument} object or an {@link SCorpus} object of the mapper should be initialized differently. 
-	 * <br/>
-	 * Just to show how the creation of such a mapper works, we here create a sample mapper of type {@link SampleMapper}, 
-	 * which only produces a fixed document-structure in method  {@link SampleMapper#mapSDocument()} and enhances the 
-	 * corpora for further meta-annotations in the method {@link SampleMapper#mapSCorpus()}.
-	 * <br/>
-	 * If your mapper needs to have set variables, this is the place to do it.
-	 * @param sElementId {@link SElementId} of the {@link SCorpus} or {@link SDocument} to be processed. 
-	 * @return {@link PepperMapper} object to do the mapping task for object connected to given {@link SElementId}
-	 */
 	public PepperMapper createPepperMapper(SElementId sElementId){
 		TEIMapper mapper= new TEIMapper();
-		/**
-		 * TODO Set the exact resource, which should be processed by the created mapper object, if the default 
-		 * mechanism of importCorpusStructure() was used, the resource could be retrieved by 
-		 * getSElementId2ResourceTable().get(sElementId), just uncomment this line
-		 */
+		
 		mapper.setResourceURI(getSElementId2ResourceTable().get(sElementId));
 		return(mapper);
 	}
