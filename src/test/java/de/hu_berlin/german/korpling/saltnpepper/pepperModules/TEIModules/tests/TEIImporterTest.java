@@ -55,8 +55,8 @@ public class TEIImporterTest extends PepperImporterTest{
 		
 		//TODO set the formats to be supported by your importer, so that they can be checked
 		FormatDesc formatDef= new FormatDesc();
-		formatDef.setFormatName("sample");
-		formatDef.setFormatVersion("1.0");
+		formatDef.setFormatName("tei");
+		formatDef.setFormatVersion("2.6.0");
 		this.supportedFormatsCheck.add(formatDef);
 	}
 
@@ -72,42 +72,9 @@ public class TEIImporterTest extends PepperImporterTest{
 	 * In our case, we just test, if correct number of corpora and documents was created, if all corpora have
 	 * got a meta-annotation and if each document-structure contains the right number of nodes and relations.
 	 */
-	@Test
-	public void test_DummyImplementation() {
-		//starts the Pepper framework and the conversion process
-		start();
-		
-		//checks if the salt project, which is a container for the created salt model exists.
-		assertNotNull(getFixture().getSaltProject());
-		//checks if really one corpus-structure was created in the target salt model
-		assertEquals(1, getFixture().getSaltProject().getSCorpusGraphs().size());
-		//checks that the corpus-structure contains 3 corpora
-		assertEquals(3, getFixture().getSaltProject().getSCorpusGraphs().get(0).getSCorpora().size());
-		//checks that the corpus-structure contains 4 documents
-		assertEquals(4, getFixture().getSaltProject().getSCorpusGraphs().get(0).getSDocuments().size());
-		
-		//checks that each corpus contains a date annotation and that its value is 1989-12-17
-		for (SCorpus sCorpus: getFixture().getSaltProject().getSCorpusGraphs().get(0).getSCorpora()){
-			assertNotNull(sCorpus.getSMetaAnnotation("date"));
-			assertEquals("1989-12-17", sCorpus.getSMetaAnnotation("date").getSValue());
-		}
-		
-		//checks for each document-structure, that all kinds of nodes and relations are contained
-		for (SDocument sDocument: getFixture().getSaltProject().getSCorpusGraphs().get(0).getSDocuments()){
-			//checks that all nodes are contained
-			assertEquals(27, sDocument.getSDocumentGraph().getSNodes().size());
-			//checks that all relations are contained
-			assertEquals(46, sDocument.getSDocumentGraph().getSRelations().size());
-			//checks that all tokens (subclass of nodes) are contained
-			assertEquals(11, sDocument.getSDocumentGraph().getSTokens().size());
-			//checks that all spans (subclass of nodes) are contained
-			assertEquals(3, sDocument.getSDocumentGraph().getSSpans().size());
-			//checks that all structures (subclass of nodes) are contained
-			assertEquals(12, sDocument.getSDocumentGraph().getSStructures().size());
-			//checks that all pointing relations (subclass of relations) are contained
-			assertEquals(1, sDocument.getSDocumentGraph().getSPointingRelations().size());
-		}
-	}
+	
+	
+	
 
 	//TODO add further tests for any test cases you can think of and which are necessary
 }

@@ -45,67 +45,18 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
-/**
- * This is a dummy implementation of a {@link PepperImporter}, which can be used as a template to create your own
- * module from. The current implementation creates a corpus-structure looking like this:
- * <pre>
- *       c1
- *    /      \
- *   c2      c3
- *  /  \    /  \
- * d1  d2  d3  d4
- * </pre>
- * For each document d1, d2, d3 and d4 the same document-structure is created. The document-structure contains 
- * the following structure and annotations:
- * <ol>
- * 	<li>primary data</li>
- *  <li>tokenization</li>
- *  <li>part-of-speech annotation for tokenization</li>
- *  <li>information structure annotation via spans</li>
- *  <li>anaphoric relation via pointing relation</li>
- *  <li>syntactic annotations</li>
- * </ol> 
- * This dummy implementation is supposed to give you an impression, of how Pepper works and how you can create
- * your own implementation along that dummy. It further shows some basics of creating a simple Salt model. 
- * <br/>
- * <strong>This code contains a lot of TODO's. Please have a look at them and adapt the code for your needs
- * </strong>
- * At least, a list of not used but helpful methods:
- * <ul>
- *  <li>the salt model to fill can be accessed via {@link #getSaltProject()}</li>
- * 	<li>customization properties can be accessed via {@link #getProperties()}</li>
- *  <li>a place where resources of this bundle are, can be accessed via {@link #getResources()}</li>
- * </ul>
- * If this is the first time, you are implementing a Pepper module, we strongly recommend, to take a look into the
- * 'Developer's Guide for Pepper modules', you will find on <a href="https://korpling.german.hu-berlin.de/saltnpepper/">https://korpling.german.hu-berlin.de/saltnpepper/</a>.
- * @author Florian Zipser
- * @version 1.0
- *
- */
-//TODO change the name of the component, for example use the format name and the ending Importer (FORMATImporterComponent)
 @Component(name="TEIImporterComponent", factory="PepperImporterComponentFactory")
-//TODO change the name of the class from 'SampleImporter' to whatever you like, in Eclipse you can do that via marking the name and press STRG + ALT + 'r' 
 public class TEIImporter extends PepperImporterImpl implements PepperImporter{
 // =================================================== mandatory ===================================================
 	// this is a logger, for recording messages during program process, like debug messages
 	private static final Logger logger= LoggerFactory.getLogger(TEIImporter.class);
 	
-	/**
-	 * <strong>OVERRIDE THIS METHOD FOR CUSTOMIZATION</strong>
-	 * <br/>
-	 * A constructor for your module. Set the coordinates, with which your module shall be registered. 
-	 * The coordinates (modules name, version and supported formats) are a kind of a fingerprint, 
-	 * which should make your module unique.
-	 */
+	
 	public TEIImporter(){
 		super();
-		//TODO change the name of the module, for example use the format name and the ending Importer (FORMATImporter)
 		this.setName("TEIImporter");
-		//TODO change the version of your module, we recommend to synchronize this value with the maven version in your pom.xml
 		this.setVersion("0.0.1");
-		//TODO change "sample" with format name and 1.0 with format version to support
 		this.addSupportedFormat("TEI", "2.6.0", null);
-		//TODO change the endings in endings of files you want to import, see also predefined endings beginning with 'ENDING_' 
 		this.getSDocumentEndings().add("xml");
 		this.getSDocumentEndings().add("tei");
 	}
