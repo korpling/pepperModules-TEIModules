@@ -57,6 +57,7 @@ public class TEIImporter extends PepperImporterImpl implements PepperImporter{
 		this.setName("TEIImporter");
 		this.setVersion("0.0.1");
 		this.addSupportedFormat("TEI", "2.6.0", null);
+		this.setProperties(new TEIImporterProperties());
 		this.getSDocumentEndings().add("xml");
 		this.getSDocumentEndings().add("tei");
 	}

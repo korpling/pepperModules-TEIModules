@@ -14,9 +14,11 @@ public class TEIMapper extends PepperMapperImpl{
 		if(getSDocument()==null){
 			setSDocument(SaltFactory.eINSTANCE.createSDocument());
 		}
+		TEIImporterProperties props = ((TEIImporterProperties) getProperties());
+		
 		SDocumentGraph docGraph = SaltFactory.eINSTANCE.createSDocumentGraph();		
 		getSDocument().setSDocumentGraph(docGraph);
-		TEITagLibraryReader reader = new TEITagLibraryReader();
+		TEITagLibraryReader reader = new TEITagLibraryReader(props);
 		this.readXMLResource(reader, getResourceURI());
 		return(DOCUMENT_STATUS.COMPLETED);
 	}

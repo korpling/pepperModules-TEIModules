@@ -103,8 +103,14 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	}
 	
 	//constructor
-	public TEITagLibraryReader(){
+	public TEITagLibraryReader(TEIImporterProperties props){
 		//get the parameter values
+		super();
+		user_defined_default_tokenization = props.isUserDefinedDefaultTokenization();
+		sub_tokenization = props.isSubTokenization();
+		no_input_tokenization = props.isNoInputTokenization();
+		
+		surplus_removal = props.isSurplusRemoval();
 	}
 	
 	public void startDocument () {
