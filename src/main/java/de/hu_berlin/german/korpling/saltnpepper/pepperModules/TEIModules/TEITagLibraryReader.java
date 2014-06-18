@@ -102,7 +102,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		this.sDocGraph = sDocGraph;
 	}
 	
-	//constructor
+	//this constructor should be used normally!
 	public TEITagLibraryReader(TEIImporterProperties props){
 		//get the parameter values
 		super();
@@ -112,6 +112,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		surplus_removal = props.isSurplusRemoval();
 	}
+	
+	//JUnit-Test compatability constructor
+		public TEITagLibraryReader(){
+			//get the parameter values
+			super();
+		}
 	
 	public void startDocument () {
 		sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
