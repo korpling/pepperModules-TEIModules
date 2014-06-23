@@ -96,6 +96,7 @@ public class TEIImporterTest extends PepperImporterTest{
 		formatDef.setFormatName("tei");
 		formatDef.setFormatVersion("2.6.0");
 		this.supportedFormatsCheck.add(formatDef);
+		
 	}
 
 	/**
@@ -114,23 +115,21 @@ public class TEIImporterTest extends PepperImporterTest{
 	@Test
 	public void testPrimaryText() throws XMLStreamException, FileNotFoundException {
 
+		
+		
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		System.out.println(outStream.toString());
 
-		File outFile = new File (filePath.concat("no_token_test_1.xml"));
+		File outFile = new File (filePath.concat("w_token_test"));
 		outFile.getParentFile().mkdirs();
 		
-		assertNotNull(getFixture());
+		this.getFixture().getProperties().setPropertyValue(TEIImporterProperties.PROP_USER_DEFINED_DEFAULT_TOKENIZATION, true);
 		
 		this.getFixture().setCorpusDesc(new CorpusDesc());
-		getFixture().getCorpusDesc().setCorpusPath(URI.createFileURI("")).setFormatDesc(new FormatDesc());
-		getFixture().getCorpusDesc().getFormatDesc().setFormatName("").setFormatVersion("");
+		getFixture().getCorpusDesc().setCorpusPath(URI.createFileURI(outFile.getAbsolutePath())).setFormatDesc(new FormatDesc());
+		getFixture().getCorpusDesc().getFormatDesc().setFormatName("tei").setFormatVersion("2.6.0");
 		this.start();
-		
-		getFixture().getSaltProject().getSCorpusGraphs().get(0).getSDocuments().get(0);
+		//System.out.println(getFixture().getSaltProject().getSCorpusGraphs().get(0).getSDocuments().get(0).getSDocumentGraph().getSTokens().size());
+		//SaltFactory.eINSTANCE.save_DOT(getFixture().getSaltProject().getSCorpusGraphs().get(0), URI.createFileURI("/home/andre/dot.dot"));
 	}
-	
-
-	
-	
 }

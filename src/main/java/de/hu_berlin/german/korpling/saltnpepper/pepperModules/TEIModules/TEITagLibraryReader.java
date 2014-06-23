@@ -6,6 +6,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.URI;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
@@ -49,6 +50,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void setNO_INPUT_TOKENIZATION(){
 		no_input_tokenization = true;
 	}
+	
+	
 	
 	//tag used for tokenization with option "user defined default tokenization"
 	private String default_token_tag = TAG_W;
@@ -111,6 +114,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		no_input_tokenization = props.isNoInputTokenization();
 		
 		surplus_removal = props.isSurplusRemoval();
+		
 	}
 	
 	//JUnit-Test compatability constructor
@@ -159,6 +163,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					//needs to be named
 					primaryText.setSText(tempstr);
 					temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+					//debug
+					System.out.println(sDocGraph.getSText(temp_tok));
+					//
 					setDominatingToken(temp_tok);
 				}
 			
@@ -176,6 +183,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					//needs to be named
 					primaryText.setSText(primaryText.getSText()+tempstr);
 					temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+					//debug
+					System.out.println(sDocGraph.getSText(temp_tok));
+					//
 					setDominatingToken(temp_tok);
 				}
 				while (!getSAnnoStack().isEmpty()) {
@@ -201,6 +211,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
+
 		
 		if (TAG_LB.equals(qName)) {
 			
@@ -590,5 +601,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			if (getTagStack().peek().equals(qName)) {
 				getTagStack().pop();
 			}
+		
 	}
 }

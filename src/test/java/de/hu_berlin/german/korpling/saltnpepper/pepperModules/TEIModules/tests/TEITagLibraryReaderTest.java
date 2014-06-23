@@ -27,6 +27,7 @@ import org.xml.sax.ext.DefaultHandler2;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibrary;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibraryReader;
+import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 import static org.junit.Assert.*;
@@ -61,20 +62,22 @@ public class TEITagLibraryReaderTest {
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		System.out.println(outStream.toString());
 
-		File outFile = new File (filePath.concat("no_token_test_1.xml"));
+		File outFile = new File (filePath.concat("no_token_test_1/no_token_test_1.xml"));
 		outFile.getParentFile().mkdirs();
 		
 		readXMLResource(getFixture(),
 				URI.createFileURI(outFile.getAbsolutePath()));
 
 		assertNotNull(getFixture().getsDocGraph());
+		
+		SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot1.dot"));
 	}
 	
 	@Test
 	public void simple_p_notoken(){
 		fixture.setSUB_TOKENIZATION();
 		
-		File outFile = new File (filePath.concat("no_token_test_1.xml"));
+		File outFile = new File (filePath.concat("no_token_test_1/no_token_test_1.xml"));
 		outFile.getParentFile().mkdirs();
 		
 		readXMLResource(getFixture(),
@@ -83,13 +86,15 @@ public class TEITagLibraryReaderTest {
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 		assertEquals("Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
 		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
+		
+		SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot2.dot"));
 	}
 	
 	@Test
 	public void simple_p_default_tag_w(){
 		fixture.setUSER_DEFINED_DEFAULT_TOKENIZATION();
 		
-		File outFile = new File (filePath.concat("w_token_test.xml"));
+		File outFile = new File (filePath.concat("w_token_test/w_token_test.xml"));
 		outFile.getParentFile().mkdirs();
 		
 		readXMLResource(getFixture(),
@@ -102,6 +107,8 @@ public class TEITagLibraryReaderTest {
 			assertNotNull(tok.getSAnnotation("lemma"));
 			assertNotNull(tok.getSAnnotation("type"));
 		}
+		
+		SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot3.dot"));
 	}
 	
 
