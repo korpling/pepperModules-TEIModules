@@ -64,7 +64,7 @@ public class TEIImporter extends PepperImporterImpl implements PepperImporter{
 	
 	
 	public PepperMapper createPepperMapper(SElementId sElementId){
-		TEIMapper mapper= new TEIMapper();
+		TEIMapper mapper = new TEIMapper();
 		
 		mapper.setResourceURI(getSElementId2ResourceTable().get(sElementId));
 		return(mapper);

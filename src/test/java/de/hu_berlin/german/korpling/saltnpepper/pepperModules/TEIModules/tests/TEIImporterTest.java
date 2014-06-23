@@ -36,17 +36,22 @@ import javax.xml.stream.XMLStreamException;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DefaultHandler2;
 
+import de.hu_berlin.german.korpling.saltnpepper.pepper.common.CorpusDesc;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.common.FormatDesc;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperImporter;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperImporterImpl;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperImporterTest;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIImporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIImporterProperties;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIMapper;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibraryReader;
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
-
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
@@ -76,6 +81,7 @@ public class TEIImporterTest extends PepperImporterTest{
 	 * could run in its own environment being not influenced by before or after running test 
 	 * cases. 
 	 */
+	
 	String filePath = new File("").getAbsolutePath();
 	
 	@Before
@@ -113,73 +119,18 @@ public class TEIImporterTest extends PepperImporterTest{
 
 		File outFile = new File (filePath.concat("no_token_test_1.xml"));
 		outFile.getParentFile().mkdirs();
-		//xml file muss übergeben werden!
-		readXMLResource(getFixture().getSDocument())),
-				URI.createFileURI(outFile.getAbsolutePath()));
-
+		
 		assertNotNull(getFixture());
+		
+		this.getFixture().setCorpusDesc(new CorpusDesc());
+		getFixture().getCorpusDesc().setCorpusPath(URI.createFileURI("")).setFormatDesc(new FormatDesc());
+		getFixture().getCorpusDesc().getFormatDesc().setFormatName("").setFormatVersion("");
+		this.start();
+		
+		getFixture().getSaltProject().getSCorpusGraphs().get(0).getSDocuments().get(0);
 	}
 	
 
-	//TODO add further tests for any test cases you can think of and which are necessary
 	
-	protected void readXMLResource(DefaultHandler2 contentHandler,
-			URI documentLocation) {
-		if (documentLocation == null)
-			throw new RuntimeException(
-					"Cannot load a xml-resource, because the given uri to locate file is null.");
-
-		File exmaraldaFile = new File(documentLocation.toFileString());
-		if (!exmaraldaFile.exists())
-			throw new RuntimeException(
-					"Cannot load a xml-resource, because the file does not exist: "
-							+ exmaraldaFile);
-
-		if (!exmaraldaFile.canRead())
-			throw new RuntimeException(
-					"Cannot load a xml-resource, because the file can not be read: "
-							+ exmaraldaFile);
-
-		SAXParser parser;
-		XMLReader xmlReader;
-
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-
-		try {
-			parser = factory.newSAXParser();
-			xmlReader = parser.getXMLReader();
-			xmlReader.setContentHandler(contentHandler);
-		} catch (ParserConfigurationException e) {
-			throw new RuntimeException("Cannot load a xml-resource '"
-					+ exmaraldaFile.getAbsolutePath() + "'.", e);
-		} catch (Exception e) {
-			throw new RuntimeException("Cannot load a xml-resource '"
-					+ exmaraldaFile.getAbsolutePath() + "'.", e);
-		}
-		try {
-			InputStream inputStream = new FileInputStream(exmaraldaFile);
-			Reader reader = new InputStreamReader(inputStream, "UTF-8");
-			InputSource is = new InputSource(reader);
-			is.setEncoding("UTF-8");
-			xmlReader.parse(is);
-		} catch (SAXException e) {
-
-			try {
-				parser = factory.newSAXParser();
-				xmlReader = parser.getXMLReader();
-				xmlReader.setContentHandler(contentHandler);
-				xmlReader.parse(exmaraldaFile.getAbsolutePath());
-			} catch (Exception e1) {
-				throw new RuntimeException("Cannot load a xml-resource '"
-						+ exmaraldaFile.getAbsolutePath() + "'.", e1);
-			}
-		} catch (Exception e) {
-			if (e instanceof RuntimeException)
-				throw (RuntimeException) e;
-			else
-				throw new RuntimeException("Cannot read xml-file'"
-						+ documentLocation
-						+ "', because of a nested exception. ", e);
-		}
-	}
+	
 }
