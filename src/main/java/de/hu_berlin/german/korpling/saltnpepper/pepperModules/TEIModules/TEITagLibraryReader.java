@@ -126,7 +126,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 	
 	public void startDocument () {
-		//sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
 		sDocGraph.addSLayer(primaryLayer);
 		primaryLayer.setSName("primary");
 		tokenrelation.add(STYPE_NAME.STEXT_OVERLAPPING_RELATION);
@@ -187,6 +186,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				while (!getSAnnoStack().isEmpty()) {
 					temp_tok.addSAnnotation(getSAnnoStack().pop());
 				}
+				//add token to list for sspans
 			}
 			str.setLength(0);
 		}
@@ -210,7 +210,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 
 		
 		if (TAG_LB.equals(qName)) {
-			
+			//empty token list and create <lb>-span
 		}
 		
 		else if (TAG_W.equals(qName)) {
