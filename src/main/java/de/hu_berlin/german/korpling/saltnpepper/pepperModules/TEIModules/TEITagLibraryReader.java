@@ -122,6 +122,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		public TEITagLibraryReader(){
 			//get the parameter values
 			super();
+			sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
 		}
 	
 	public void startDocument () {

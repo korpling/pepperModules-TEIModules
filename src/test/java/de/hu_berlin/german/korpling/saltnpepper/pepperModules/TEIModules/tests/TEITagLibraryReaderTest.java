@@ -69,8 +69,6 @@ public class TEITagLibraryReaderTest {
 				URI.createFileURI(outFile.getAbsolutePath()));
 
 		assertNotNull(getFixture().getsDocGraph());
-		
-		SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot1.dot"));
 	}
 	
 	@Test
@@ -86,8 +84,6 @@ public class TEITagLibraryReaderTest {
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 		assertEquals("Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
 		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
-		
-		SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot2.dot"));
 	}
 	
 	@Test
@@ -108,7 +104,7 @@ public class TEITagLibraryReaderTest {
 			assertNotNull(tok.getSAnnotation("type"));
 		}
 		
-		SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot3.dot"));
+		//SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot3.dot"));
 	}
 	
 
