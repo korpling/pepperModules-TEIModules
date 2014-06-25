@@ -131,7 +131,5 @@ public class TEIImporterTest extends PepperImporterTest{
 		this.start();
 		
 		System.out.println(getFixture().getSaltProject().getSCorpusGraphs().get(0).getSDocuments().get(0).getSDocumentGraph().getSTokens().size());
-		System.out.println(getFixture().getSaltProject().getSCorpusGraphs().get(0));
-		//SaltFactory.eINSTANCE.save_DOT(getFixture().getSaltProject().getSCorpusGraphs().get(0), URI.createFileURI("/home/andre/dot.dot"));
 	}
 }

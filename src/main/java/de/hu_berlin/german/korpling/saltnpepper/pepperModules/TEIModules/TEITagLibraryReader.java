@@ -164,9 +164,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					//needs to be named
 					primaryText.setSText(tempstr);
 					temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-					//debug
-					System.out.println(sDocGraph.getSText(temp_tok));
-					//
 					setDominatingToken(temp_tok);
 				}
 			
@@ -184,9 +181,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					//needs to be named
 					primaryText.setSText(primaryText.getSText()+tempstr);
 					temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-					//debug
-					System.out.println(sDocGraph.getSText(temp_tok));
-					//
 					setDominatingToken(temp_tok);
 				}
 				while (!getSAnnoStack().isEmpty()) {

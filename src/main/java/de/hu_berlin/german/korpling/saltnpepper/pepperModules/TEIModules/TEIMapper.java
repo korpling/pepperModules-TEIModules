@@ -13,18 +13,12 @@ public class TEIMapper extends PepperMapperImpl{
 	@Override
 	public DOCUMENT_STATUS mapSDocument() {
 		TEIImporterProperties props = ((TEIImporterProperties) getProperties());
-		
-		
-		
-		
 		SDocumentGraph docGraph = getSDocument().getSDocumentGraph();
-		System.out.println(docGraph);
+		//System.out.println(docGraph);
 		TEITagLibraryReader reader = new TEITagLibraryReader(props);
 		reader.setsDocGraph(docGraph);
 		this.readXMLResource(reader, getResourceURI());
-		//System.out.println(docGraph.getSTokens().size());
 		return(DOCUMENT_STATUS.COMPLETED);
-		
 	}
 	private static Logger logger = LoggerFactory.getLogger(TEIMapper.class);
 }
