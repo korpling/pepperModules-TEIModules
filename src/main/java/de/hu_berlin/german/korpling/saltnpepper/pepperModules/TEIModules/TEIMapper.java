@@ -1,5 +1,6 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import org.eclipse.emf.common.util.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,16 +12,17 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 public class TEIMapper extends PepperMapperImpl{
 	@Override
 	public DOCUMENT_STATUS mapSDocument() {
-		if(getSDocument()==null){
-			setSDocument(SaltFactory.eINSTANCE.createSDocument());
-		}
-		
 		TEIImporterProperties props = ((TEIImporterProperties) getProperties());
 		
-		SDocumentGraph docGraph = SaltFactory.eINSTANCE.createSDocumentGraph();		
-		getSDocument().setSDocumentGraph(docGraph);
+		
+		
+		
+		SDocumentGraph docGraph = getSDocument().getSDocumentGraph();
+		System.out.println(docGraph);
 		TEITagLibraryReader reader = new TEITagLibraryReader(props);
+		reader.setsDocGraph(docGraph);
 		this.readXMLResource(reader, getResourceURI());
+		//System.out.println(docGraph.getSTokens().size());
 		return(DOCUMENT_STATUS.COMPLETED);
 		
 	}

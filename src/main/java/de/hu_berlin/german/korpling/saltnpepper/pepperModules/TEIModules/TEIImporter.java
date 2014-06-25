@@ -71,10 +71,9 @@ public class TEIImporter extends PepperImporterImpl implements PepperImporter{
 	}
 	
 	@Override
-		public void end() throws PepperModuleException {
-			SaltFactory.eINSTANCE.save_DOT(getSaltProject().getSCorpusGraphs().get(0), URI.createFileURI("/home/andre/dot4.dot"));
-			super.end();
-		}
+	public void end() throws PepperModuleException {	
+		super.end();
+	}
 	/**
 	 * <strong>OVERRIDE THIS METHOD FOR CUSTOMIZATION</strong>
 	 * <br/>

@@ -26,6 +26,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SLayer;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SWordAnnotation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SaltSemanticsFactory;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 
 /**
  * This class parses an xml file following the model of 'BesaReader'.
@@ -101,8 +102,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		return sDocGraph;
 	}
 
-	public void setsDocGraph(SDocumentGraph sDocGraph) {
-		this.sDocGraph = sDocGraph;
+	public void setsDocGraph(SDocumentGraph DocGraph) {
+		sDocGraph = DocGraph;
 	}
 	
 	//this constructor should be used normally!
@@ -124,7 +125,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 	
 	public void startDocument () {
-		sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
+		//sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
 		sDocGraph.addSLayer(primaryLayer);
 		primaryLayer.setSName("primary");
 		tokenrelation.add(STYPE_NAME.STEXT_OVERLAPPING_RELATION);
