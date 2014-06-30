@@ -104,8 +104,25 @@ public class TEITagLibraryReaderTest {
 			assertNotNull(tok.getSAnnotation("type"));
 		}
 		assertNotNull(getFixture().getsDocGraph().getSSpans().get(0));
+	}
+	
+	@Test
+	public void head_test(){
+		fixture.setSUB_TOKENIZATION();
 		
-		//SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot3.dot"));
+		File outFile = new File (filePath.concat("head_test/head_test.xml"));
+		outFile.getParentFile().mkdirs();
+		
+		readXMLResource(getFixture(),
+				URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+		assertEquals("Geſtalt. Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
+		assertEquals(4, getFixture().getsDocGraph().getSTokens().size());
+		
+		assertNotNull(getFixture().getsDocGraph().getSSpans().get(0));
+		
+		assertEquals("Geſtalt.",(getFixture().getsDocGraph().getSText((SNode) getFixture().getsDocGraph().getNodes().get(2))));
 	}
 	
 

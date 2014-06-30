@@ -41,7 +41,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean sub_tokenization = false;
 	private Boolean no_input_tokenization = false;
 	
-	private Boolean surplus_removal;
+	private Boolean surplus_removal = false;
 	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
 		user_defined_default_tokenization = true;
@@ -301,7 +301,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_HEAD.equals(qName)) {
+			TagStack.push(TAG_HEAD);
 			
+			SStructure head_struc = SaltFactory.eINSTANCE.createSStructure();
+			head_struc.createSAnnotation(null, "Heading", null);
+			sDocGraph.addSNode(head_struc);
+			setDominatingStruc(head_struc);
+			getSNodeStack().add(head_struc);
 		}
 		
 		else if (TAG_DIV.equals(qName)) {
@@ -475,11 +481,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
-		if (TAG_LB.equals(qName)) {
-			
-		}
-		
-		else if (TAG_W.equals(qName)) {
+		if (TAG_W.equals(qName)) {
 			setToken(txt);
 			if (!(user_defined_default_tokenization && default_token_tag==TAG_W)){
 				getSNodeStack().pop();
@@ -491,7 +493,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_HEAD.equals(qName)) {
+			setToken(txt);
 			
+			getSNodeStack().pop();
 		}
 		
 		else if (TAG_DIV.equals(qName)) {
