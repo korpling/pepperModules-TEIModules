@@ -168,6 +168,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		text.setSText(text.getSText()+" ");
 	}
 	
+	private void setFigureToken(){
+		SToken temp_tok = null;
+		temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
+		setDominatingToken(temp_tok);
+	}
+	
 	private void setToken (StringBuilder str) {
 		if (str.toString().trim().length() > 0){
 			if (primaryText != null){
@@ -311,13 +317,19 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_HEAD.equals(qName)) {
-			TagStack.push(TAG_HEAD);
-			
-			SStructure head_struc = SaltFactory.eINSTANCE.createSStructure();
-			head_struc.createSAnnotation(null, "Heading", null);
-			sDocGraph.addSNode(head_struc);
-			setDominatingStruc(head_struc);
-			getSNodeStack().add(head_struc);
+			if (!(TagStack.peek()==TAG_FIGURE)){
+				TagStack.push(TAG_HEAD);
+				
+				SStructure head_struc = SaltFactory.eINSTANCE.createSStructure();
+				head_struc.createSAnnotation(null, "Heading", null);
+				sDocGraph.addSNode(head_struc);
+				setDominatingStruc(head_struc);
+				getSNodeStack().add(head_struc);
+			}
+			else if(TagStack.peek()==TAG_FIGURE){
+				FigureStack.push();
+				txt.setLength(0);
+			}
 		}
 		
 		else if (TAG_DIV.equals(qName)) {
@@ -374,7 +386,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_FIGURE.equals(qName)) {
-			
+			setToken(txt);
 		}
 		
 		else if (TAG_M.equals(qName)) {
@@ -533,6 +545,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (TAG_FOREIGN.equals(qName)) {
 			setToken(txt);
+			
+			getSNodeStack().pop();
 		}
 		
 		
