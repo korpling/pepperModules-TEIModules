@@ -327,8 +327,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				getSNodeStack().add(head_struc);
 			}
 			else if(TagStack.peek()==TAG_FIGURE){
-				FigureStack.push();
-				txt.setLength(0);
+				
 			}
 		}
 		
@@ -336,8 +335,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_DIV);
 			
 			SStructure div_struc = SaltFactory.eINSTANCE.createSStructure();
-			div_struc.createSAnnotation(null, "TAG_DIV", null);
-			div_struc.createSAnnotation(null, "ATT_TYPE", attributes.getValue(ATT_TYPE));
+			div_struc.createSAnnotation(null, TAG_DIV, null);
+			div_struc.createSAnnotation(null, ATT_TYPE, attributes.getValue(ATT_TYPE));
 			sDocGraph.addSNode(div_struc);
 			setDominatingStruc(div_struc);
 			getSNodeStack().add(div_struc);
@@ -347,7 +346,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_P);
 			
 			SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
-			p_struc.createSAnnotation(null, "TAG_P", null);
+			p_struc.createSAnnotation(null, TAG_P, null);
 			sDocGraph.addSNode(p_struc);
 			setDominatingStruc(p_struc);
 			getSNodeStack().add(p_struc);
@@ -387,6 +386,17 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (TAG_FIGURE.equals(qName)) {
 			setToken(txt);
+			TagStack.push(TAG_FIGURE);
+			
+			SStructure figure_struc = SaltFactory.eINSTANCE.createSStructure();
+			figure_struc.createSAnnotation(null, "Figure", null);
+			sDocGraph.addSNode(figure_struc);
+			setDominatingStruc(figure_struc);
+			getSNodeStack().add(figure_struc);
+			
+			figure_struc.createSAnnotation(null, ATT_REND, attributes.getValue(ATT_REND));
+			
+			setFigureToken();
 		}
 		
 		else if (TAG_M.equals(qName)) {
@@ -528,9 +538,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_HEAD.equals(qName)) {
-			setToken(txt);
-			
-			getSNodeStack().pop();
+			if (TagStack.peek()==TAG_HEAD){
+				setToken(txt);
+				getSNodeStack().pop();
+			}
+			getSNodeStack().peek().createSAnnotation(null, "Heading", txt.toString());
+			txt.setLength(0);
 		}
 		
 		else if (TAG_DIV.equals(qName)) {

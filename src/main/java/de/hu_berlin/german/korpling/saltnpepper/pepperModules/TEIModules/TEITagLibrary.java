@@ -182,4 +182,6 @@ public interface TEITagLibrary{
 		public static final String ATT_EXTENT= "extent";
 		/** constant to address the xml-attribute 'unit'. **/
 		public static final String ATT_UNIT= "unit";
+		/** constant to address the xml-attribute 'rend'. **/
+		public static final String ATT_REND= "rend";
 }
