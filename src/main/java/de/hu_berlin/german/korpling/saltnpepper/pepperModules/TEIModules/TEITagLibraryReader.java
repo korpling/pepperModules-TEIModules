@@ -37,9 +37,9 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	//options
-	private Boolean user_defined_default_tokenization;
-	private Boolean sub_tokenization;
-	private Boolean no_input_tokenization;
+	private Boolean user_defined_default_tokenization = false;
+	private Boolean sub_tokenization = false;
+	private Boolean no_input_tokenization = false;
 	
 	private Boolean surplus_removal;
 	
@@ -220,13 +220,20 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 
 		
 		if (TAG_LB.equals(qName)) {
+			System.out.println(sub_tokenization);
+			if (sub_tokenization){
+				setToken(txt);
+			}
+			
 			//empty token stack and create <lb>-span
 			EList <SToken> overlappingTokens = new BasicEList<SToken>();
 			while (!getSpanTokenStack().isEmpty()){
 				overlappingTokens.add(getSpanTokenStack().pop());
 			}
 			SSpan line = sDocGraph.createSSpan(overlappingTokens);
-			line.createSAnnotation(null, "line", null);
+			if (line != null){
+				line.createSAnnotation(null, "line", null);
+			}
 		}
 		
 		else if (TAG_W.equals(qName)) {
