@@ -138,6 +138,8 @@ public class TEITagLibraryReaderTest {
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 
 		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
+		assertEquals("Der Stengel ist aufrecht und nicht",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(0))));
+		assertEquals("",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(1))));
 	}
 	
 
