@@ -67,12 +67,22 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
 	
+	//stack for <lb>
 	private Stack<SToken> SpanTokenStack= null;
 	// returns stack containing node hierarchie
 	private Stack<SToken> getSpanTokenStack(){
 		if (SpanTokenStack== null)
 			SpanTokenStack= new Stack<SToken>();
 		return(SpanTokenStack);
+	}
+	
+	//stack for <pb>
+	private Stack<SToken> pbSpanTokenStack= null;
+	// returns stack containing node hierarchie
+	private Stack<SToken> getpbSpanTokenStack(){
+		if (pbSpanTokenStack== null)
+			pbSpanTokenStack= new Stack<SToken>();
+		return(pbSpanTokenStack);
 	}
 	
 	private Stack<SNode> sNodeStack= null;
@@ -197,6 +207,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				}
 				//add token to stack for sspans
 				getSpanTokenStack().push(temp_tok);
+				getpbSpanTokenStack().push(temp_tok);
 			}
 			str.setLength(0);
 		}
@@ -220,7 +231,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 
 		
 		if (TAG_LB.equals(qName)) {
-			System.out.println(sub_tokenization);
 			if (sub_tokenization){
 				setToken(txt);
 			}
@@ -347,6 +357,19 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_PB.equals(qName)) {
+			if (sub_tokenization){
+				setToken(txt);
+			}
+			
+			//empty token stack and create <lb>-span
+			EList <SToken> overlappingTokens = new BasicEList<SToken>();
+			while (!getpbSpanTokenStack().isEmpty()){
+				overlappingTokens.add(getpbSpanTokenStack().pop());
+			}
+			SSpan line = sDocGraph.createSSpan(overlappingTokens);
+			if (line != null){
+				line.createSAnnotation(null, "page", null);
+			}
 			
 		}
 		
@@ -512,9 +535,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			setToken(txt);
 		}
 		
-		else if (TAG_PB.equals(qName)) {
-			
-		}
 		
 		else if (TAG_FIGURE.equals(qName)) {
 			
