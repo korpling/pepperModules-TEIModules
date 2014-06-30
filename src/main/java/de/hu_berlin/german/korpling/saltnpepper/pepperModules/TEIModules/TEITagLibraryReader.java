@@ -16,6 +16,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Node;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDominanceRelation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SPointingRelation;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpan;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructure;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructuredNode;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STYPE_NAME;
@@ -66,6 +67,14 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
 	
+	private Stack<SToken> SpanTokenStack= null;
+	// returns stack containing node hierarchie
+	private Stack<SToken> getSpanTokenStack(){
+		if (SpanTokenStack== null)
+			SpanTokenStack= new Stack<SToken>();
+		return(SpanTokenStack);
+	}
+	
 	private Stack<SNode> sNodeStack= null;
 	// returns stack containing node hierarchie
 	private Stack<SNode> getSNodeStack(){
@@ -106,7 +115,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		sDocGraph = DocGraph;
 	}
 	
-	//this constructor should be used normally!
+	//this constructor should usually be used!
 	public TEITagLibraryReader(TEIImporterProperties props){
 		//get the parameter values
 		super();
@@ -186,7 +195,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				while (!getSAnnoStack().isEmpty()) {
 					temp_tok.addSAnnotation(getSAnnoStack().pop());
 				}
-				//add token to list for sspans
+				//add token to stack for sspans
+				getSpanTokenStack().push(temp_tok);
 			}
 			str.setLength(0);
 		}
@@ -210,7 +220,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 
 		
 		if (TAG_LB.equals(qName)) {
-			//empty token list and create <lb>-span
+			//empty token stack and create <lb>-span
+			EList <SToken> overlappingTokens = new BasicEList<SToken>();
+			while (!getSpanTokenStack().isEmpty()){
+				overlappingTokens.add(getSpanTokenStack().pop());
+			}
+			SSpan line = sDocGraph.createSSpan(overlappingTokens);
+			line.createSAnnotation(null, "line", null);
 		}
 		
 		else if (TAG_W.equals(qName)) {

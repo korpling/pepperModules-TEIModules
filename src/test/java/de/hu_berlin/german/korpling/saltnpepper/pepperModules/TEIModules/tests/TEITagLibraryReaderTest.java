@@ -103,6 +103,7 @@ public class TEITagLibraryReaderTest {
 			assertNotNull(tok.getSAnnotation("lemma"));
 			assertNotNull(tok.getSAnnotation("type"));
 		}
+		assertNotNull(getFixture().getsDocGraph().getSSpans().get(0));
 		
 		//SaltFactory.eINSTANCE.save_DOT(getFixture().getsDocGraph(), URI.createFileURI("/home/andre/dot3.dot"));
 	}
