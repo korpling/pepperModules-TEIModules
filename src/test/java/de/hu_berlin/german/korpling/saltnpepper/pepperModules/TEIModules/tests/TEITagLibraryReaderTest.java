@@ -125,6 +125,21 @@ public class TEITagLibraryReaderTest {
 		assertEquals("Geſtalt.",(getFixture().getsDocGraph().getSText((SNode) getFixture().getsDocGraph().getNodes().get(2))));
 	}
 	
+	@Test
+	public void figure_test(){
+		fixture.setSUB_TOKENIZATION();
+		
+		File outFile = new File (filePath.concat("figure_test/figure_test.xml"));
+		outFile.getParentFile().mkdirs();
+		
+		readXMLResource(getFixture(),
+				URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+
+		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
+	}
+	
 
 	protected void readXMLResource(DefaultHandler2 contentHandler,
 			URI documentLocation) {
