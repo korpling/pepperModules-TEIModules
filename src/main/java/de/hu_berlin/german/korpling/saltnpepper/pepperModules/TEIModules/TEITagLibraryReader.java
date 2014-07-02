@@ -176,6 +176,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		setDominatingToken(temp_tok);
 	}
 	
+	private void setGapToken(){
+		SToken temp_tok = null;
+		temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
+		for(int i=0; i<3; i++){
+			temp_tok.addSAnnotation(getSAnnoStack().pop());
+		}
+		setDominatingToken(temp_tok);
+	}
+	
 	private void setToken (StringBuilder str) {
 		if (str.toString().trim().length() > 0){
 			if (primaryText != null){
@@ -418,19 +427,29 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_TITLE.equals(qName)) {
-			
+			//part of <head>
 		}
 		
 		else if (TAG_GAP.equals(qName)) {
-			//needs to be changed to a struc
-			SToken temp_tok = null;
-			primaryText.setSText(primaryText.getSText()+" ");
-			temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
-			setDominatingToken(temp_tok);
-			temp_tok.createSAnnotation(null, ATT_REASON, attributes.getValue(ATT_REASON));
-			temp_tok.createSAnnotation(null, ATT_EXTENT, attributes.getValue(ATT_EXTENT));
-			temp_tok.createSAnnotation(null, ATT_UNIT, attributes.getValue(ATT_UNIT));
+			setToken(txt);
+			TagStack.push(TAG_FIGURE);
 			
+			SAnnotation reasonanno = SaltFactory.eINSTANCE.createSAnnotation();
+			reasonanno.setSName(ATT_REASON);
+			reasonanno.setValue(attributes.getValue(ATT_REASON));
+			getSAnnoStack().add(reasonanno);
+			
+			SAnnotation extentanno = SaltFactory.eINSTANCE.createSAnnotation();
+			extentanno.setSName(ATT_EXTENT);
+			extentanno.setValue(attributes.getValue(ATT_EXTENT));
+			getSAnnoStack().add(extentanno);
+			
+			SAnnotation unitanno = SaltFactory.eINSTANCE.createSAnnotation();
+			unitanno.setSName(ATT_UNIT);
+			unitanno.setValue(attributes.getValue(ATT_UNIT));
+			getSAnnoStack().add(unitanno);
+			
+			setGapToken();
 		}
 		
 		else if (TAG_LEM.equals(qName)) {
@@ -563,7 +582,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		
 		else if (TAG_FIGURE.equals(qName)) {
-			
+			getSNodeStack().pop();
 		}
 		
 		else if (TAG_M.equals(qName)) {
@@ -593,7 +612,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_TITLE.equals(qName)) {
-			
+			//part of <head>
 		}
 		
 		else if (TAG_GAP.equals(qName)) {
