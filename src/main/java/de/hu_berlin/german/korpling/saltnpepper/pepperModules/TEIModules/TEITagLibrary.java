@@ -139,6 +139,8 @@ public interface TEITagLibrary{
 		public static final String TAG_LEM= "lem";
 		/** constant to address the xml-element 'supplied'. **/
 		public static final String TAG_SUPPLIED= "supplied";
+		/** constant to address the xml-element 'app'. **/
+		public static final String TAG_APP= "app";
 
 		/** constant to address the xml-attribute 'to'. **/
 		public static final String ATT_TO= "to";
@@ -184,4 +186,6 @@ public interface TEITagLibrary{
 		public static final String ATT_UNIT= "unit";
 		/** constant to address the xml-attribute 'rend'. **/
 		public static final String ATT_REND= "rend";
+		/** constant to address the xml-attribute 'resp'. **/
+		public static final String ATT_RESP= "resp";
 }

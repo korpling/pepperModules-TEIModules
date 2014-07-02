@@ -452,6 +452,25 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			setGapToken();
 		}
 		
+		else if (TAG_APP.equals(qName)) {
+			TagStack.push(TAG_APP);
+			
+			SStructure app_struc = SaltFactory.eINSTANCE.createSStructure();
+			app_struc.createSAnnotation(null, TAG_APP, null);
+			
+			if(attributes.getValue(ATT_XML_LANG)!=null) {
+				app_struc.createSAnnotation(null, ATT_RESP, attributes.getValue(ATT_RESP));
+			}
+			if(attributes.getValue(ATT_XML_LANG)!=null) {
+				app_struc.createSAnnotation(null, ATT_TYPE, attributes.getValue(ATT_TYPE));
+			}
+			
+			sDocGraph.addSNode(app_struc);
+			setDominatingStruc(app_struc);
+			getSNodeStack().add(app_struc);
+			
+		}
+		
 		else if (TAG_LEM.equals(qName)) {
 			
 		}
@@ -617,6 +636,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (TAG_GAP.equals(qName)) {
 			
+		}
+		
+		else if (TAG_APP.equals(qName)) {
+			getSNodeStack().pop();
 		}
 		
 		else if (TAG_LEM.equals(qName)) {
