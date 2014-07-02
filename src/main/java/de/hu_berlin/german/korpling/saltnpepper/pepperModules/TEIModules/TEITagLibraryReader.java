@@ -42,6 +42,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean no_input_tokenization = false;
 	
 	private Boolean surplus_removal = false;
+	private Boolean unclear_as_token = true;
 	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
 		user_defined_default_tokenization = true;
@@ -134,6 +135,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		no_input_tokenization = props.isNoInputTokenization();
 		
 		surplus_removal = props.isSurplusRemoval();
+		unclear_as_token = props.isUnclearAsToken();
 		
 	}
 	
@@ -405,13 +407,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_UNCLEAR.equals(qName)) {
-			setToken(txt);
-			TagStack.push(TAG_M);
-			
-			SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-			tempanno.setSName("Uncertain Transcription");
-			getSAnnoStack().add(tempanno);
-			
+			if(unclear_as_token){
+				setToken(txt);
+				TagStack.push(TAG_M);
+			}
 		}
 		
 		else if (TAG_SURPLUS.equals(qName)) {
@@ -568,11 +567,20 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_M.equals(qName)) {
+			SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+			tempanno.setSName("morpheme");
+			getSAnnoStack().add(tempanno);
+			
 			setToken(txt);
 		}
 		
 		else if (TAG_UNCLEAR.equals(qName)) {
-			setToken(txt);
+			if(unclear_as_token){
+				SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+				tempanno.setSName("uncertain transcription");
+				getSAnnoStack().add(tempanno);
+				setToken(txt);
+			}
 		}
 		
 		else if (TAG_SURPLUS.equals(qName)) {
