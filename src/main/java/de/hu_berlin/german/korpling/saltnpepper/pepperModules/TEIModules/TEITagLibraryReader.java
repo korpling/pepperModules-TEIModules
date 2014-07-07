@@ -38,7 +38,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	//options
 	private Boolean user_defined_default_tokenization = false;
-	private Boolean sub_tokenization = true;
+	private Boolean sub_tokenization = false;
 	private Boolean no_input_tokenization = false;
 	
 	private Boolean surplus_removal = false;
@@ -371,13 +371,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			
 			SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
 			getSAnnoStack().add(wordanno);
-			
 			if(attributes.getValue(ATT_XML_LANG)!=null) {
 				SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
 				tempanno.setSName(ATT_XML_LANG);
 				tempanno.setValue(attributes.getValue(ATT_XML_LANG));
 				getSAnnoStack().add(tempanno);
-				System.out.println(tempanno);
 			}
 		}
 		
@@ -577,7 +575,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (TAG_PHR.equals(qName)) {
 			getSNodeStack().pop();
 		}
-		
+		//<head> in figure not working right now
 		else if (TAG_HEAD.equals(qName)) {
 			if ((TagStack.peek()==TAG_HEAD)){
 				setToken(txt);
