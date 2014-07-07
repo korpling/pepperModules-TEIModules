@@ -2,7 +2,8 @@
 <pepperParams:PepperParams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
     xmlns:pepperParams="de.hu_berlin.german.korpling.saltnpepper.pepper.pepperParams">
     <pepperJobParams id="1">
-        <importerParams moduleName="TEIImporter" sourcePath="./pb_test"/>
+        <importerParams moduleName="TEIImporter" sourcePath="./kreuter_test"
+        				specialParams="./kreuter.properties"/>
         <exporterParams moduleName="RelANNISExporter" destinationPath="./target/sampleModuleOutput"/>
     </pepperJobParams>
 </pepperParams:PepperParams>

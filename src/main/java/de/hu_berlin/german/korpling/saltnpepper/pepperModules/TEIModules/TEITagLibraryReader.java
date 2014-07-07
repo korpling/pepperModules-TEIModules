@@ -38,7 +38,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	//options
 	private Boolean user_defined_default_tokenization = false;
-	private Boolean sub_tokenization = false;
+	private Boolean sub_tokenization = true;
 	private Boolean no_input_tokenization = false;
 	
 	private Boolean surplus_removal = false;
@@ -157,6 +157,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		sDominatingRelation.setSource((SStructuredNode) (getSNodeStack().peek()));
 		sDominatingRelation.setSStructuredTarget(token);
 		sDocGraph.addSRelation(sDominatingRelation);
+		
+		//System.out.println(getSNodeStack().peek().toString());
 	}
 	
 	private void setDominatingStruc (SStructure struc) {
@@ -246,7 +248,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 
-		
 		if (TAG_LB.equals(qName)) {
 			if (sub_tokenization){
 				setToken(txt);
@@ -364,6 +365,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
+			//System.out.println(txt);
 			setToken(txt);
 			TagStack.push(TAG_FOREIGN);
 			
@@ -375,6 +377,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				tempanno.setSName(ATT_XML_LANG);
 				tempanno.setValue(attributes.getValue(ATT_XML_LANG));
 				getSAnnoStack().add(tempanno);
+				System.out.println(tempanno);
 			}
 		}
 		
@@ -563,6 +566,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
+		
 		if (TAG_W.equals(qName)) {
 			setToken(txt);
 			if (!(user_defined_default_tokenization && default_token_tag==TAG_W)){
@@ -575,12 +579,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_HEAD.equals(qName)) {
-			if (TagStack.peek()==TAG_HEAD){
+			if ((TagStack.peek()==TAG_HEAD)){
 				setToken(txt);
 				getSNodeStack().pop();
 			}
-			getSNodeStack().peek().createSAnnotation(null, "Heading", txt.toString());
-			txt.setLength(0);
+			if (TagStack.peek()==TAG_FIGURE){
+				//getSNodeStack().peek().createSAnnotation(null, "Heading", txt.toString());
+				txt.setLength(0);
+			}
+			
 		}
 		
 		else if (TAG_DIV.equals(qName)) {
@@ -595,8 +602,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (TAG_FOREIGN.equals(qName)) {
 			setToken(txt);
-			
-			getSNodeStack().pop();
 		}
 		
 		
