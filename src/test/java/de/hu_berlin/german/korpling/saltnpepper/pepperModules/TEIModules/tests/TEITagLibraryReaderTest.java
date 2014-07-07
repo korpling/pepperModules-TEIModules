@@ -142,6 +142,25 @@ public class TEITagLibraryReaderTest {
 		assertEquals("",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(1))));
 	}
 	
+	@Test
+	public void pb_test(){
+		fixture.setSUB_TOKENIZATION();
+		
+		File outFile = new File (filePath.concat("pb_test/pb_test.xml"));
+		outFile.getParentFile().mkdirs();
+		
+		readXMLResource(getFixture(),
+				URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+		assertEquals("Geſtalt. Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
+		assertEquals(4, getFixture().getsDocGraph().getSTokens().size());
+		
+		assertNotNull(getFixture().getsDocGraph().getSSpans().get(0));
+		
+		assertEquals("Geſtalt.",(getFixture().getsDocGraph().getSText((SNode) getFixture().getsDocGraph().getNodes().get(2))));
+	}
+	
 
 	protected void readXMLResource(DefaultHandler2 contentHandler,
 			URI documentLocation) {
