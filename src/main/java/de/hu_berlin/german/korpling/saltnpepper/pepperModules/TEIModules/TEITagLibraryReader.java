@@ -582,7 +582,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				getSNodeStack().pop();
 			}
 			if (TagStack.peek()==TAG_FIGURE){
-				//getSNodeStack().peek().createSAnnotation(null, "Heading", txt.toString());
+				System.out.println(getSNodeStack().peek());
+				getSNodeStack().peek().createSAnnotation(null, "Heading", txt.toString().trim());
+				System.out.println(getSNodeStack().peek());
 				txt.setLength(0);
 			}
 			
