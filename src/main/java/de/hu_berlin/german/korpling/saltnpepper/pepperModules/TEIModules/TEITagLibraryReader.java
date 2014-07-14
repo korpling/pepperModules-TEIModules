@@ -224,6 +224,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 	}
 	
+	//this is the generic method for unary elements creating spans
+	//in addition to calling this function, the tokens have to be
+	//added in setToken
 	public void generic_break(String tag, Stack<SToken> tokenStack){
 		if (sub_tokenization){
 			setToken(txt);
