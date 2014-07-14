@@ -68,23 +68,14 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
 	
-	//stack for <lb>
-	private Stack<SToken> SpanTokenStack= null;
-	// returns stack containing node hierarchie
-	private Stack<SToken> getSpanTokenStack(){
-		if (SpanTokenStack== null)
-			SpanTokenStack= new Stack<SToken>();
-		return(SpanTokenStack);
-	}
+	//stacks for unary break elementes creating spans
+	private Stack<SToken> lbSpanTokenStack = new Stack<SToken>();
+	private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
 	
-	//stack for <pb>
-	private Stack<SToken> pbSpanTokenStack= null;
-	// returns stack containing node hierarchie
-	private Stack<SToken> getpbSpanTokenStack(){
-		if (pbSpanTokenStack== null)
-			pbSpanTokenStack= new Stack<SToken>();
-		return(pbSpanTokenStack);
-	}
+	
+	
+	
+	
 	
 	private Stack<SNode> sNodeStack= null;
 	// returns stack containing node hierarchie
@@ -225,14 +216,29 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					temp_tok.addSAnnotation(getSAnnoStack().pop());
 				}
 				//add token to stack for sspans
-				getSpanTokenStack().push(temp_tok);
-				getpbSpanTokenStack().push(temp_tok);
+				lbSpanTokenStack.push(temp_tok);
+				pbSpanTokenStack.push(temp_tok);
+				
 			}
 			str.setLength(0);
 		}
 	}
 	
-	
+	public void generic_break(String tag, Stack<SToken> tokenStack){
+		if (sub_tokenization){
+			setToken(txt);
+		}
+
+		EList <SToken> overlappingTokens = new BasicEList<SToken>();
+		while (!(tokenStack).isEmpty()){
+			overlappingTokens.add(tokenStack.pop());
+		}
+		SSpan line = sDocGraph.createSSpan(overlappingTokens);
+		if (line != null){
+			line.createSAnnotation(null, tag, null);
+		}
+
+	}
 	
 	public void characters(char ch[], int start, int length) {
 		//change tokenization to higher level
@@ -251,19 +257,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			Attributes attributes) throws SAXException {
 
 		if (TAG_LB.equals(qName)) {
-			if (sub_tokenization){
-				setToken(txt);
-			}
-			
-			//empty token stack and create <lb>-span
-			EList <SToken> overlappingTokens = new BasicEList<SToken>();
-			while (!getSpanTokenStack().isEmpty()){
-				overlappingTokens.add(getSpanTokenStack().pop());
-			}
-			SSpan line = sDocGraph.createSSpan(overlappingTokens);
-			if (line != null){
-				line.createSAnnotation(null, "line", null);
-			}
+			generic_break("lb", lbSpanTokenStack);
 		}
 		
 		else if (TAG_W.equals(qName)) {
@@ -382,20 +376,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_PB.equals(qName)) {
-			if (sub_tokenization){
-				setToken(txt);
-			}
-			
-			//empty token stack and create <lb>-span
-			EList <SToken> overlappingTokens = new BasicEList<SToken>();
-			while (!getpbSpanTokenStack().isEmpty()){
-				overlappingTokens.add(getpbSpanTokenStack().pop());
-			}
-			SSpan line = sDocGraph.createSSpan(overlappingTokens);
-			if (line != null){
-				line.createSAnnotation(null, "page", null);
-			}
-			
+			generic_break("pb", pbSpanTokenStack);
 		}
 		
 		else if (TAG_FIGURE.equals(qName)) {
