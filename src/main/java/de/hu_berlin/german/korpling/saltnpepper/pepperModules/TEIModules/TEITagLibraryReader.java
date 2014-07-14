@@ -232,6 +232,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 	}
 	
+	
+	
 	public void characters(char ch[], int start, int length) {
 		//change tokenization to higher level
 		if (insidetext){

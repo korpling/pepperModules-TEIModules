@@ -53,6 +53,11 @@
   	<system>Jenkins</system>
   	<url>https://korpling.german.hu-berlin.de/jenkins/</url>
   </ciManagement>
+  <scm>
+		<connection>scm:git:git://github.com/korpling/pepperModules-TEIModules.git</connection>
+		<developerConnection>scm:git:git@github.com:korpling/pepperModules-TEIModules.git</developerConnection>
+		<url>https://github.com/korpling/pepperModules-TEIModules</url>
+	</scm>
   <!-- TODO /7/ change the inception year to the current year. -->
   <inceptionYear>2014</inceptionYear>
    <!-- TODO /8/ change the name of the organization to the one you are working for.-->
@@ -68,17 +73,24 @@
     <plugins>
       <!-- start: Plugin for automatic releasing -->
       <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${maven-release-plugin.version}</version>
-        <configuration>
-          <tagBase>
-          <!-- TODO /11/ change the connection to the tags folder of your scm, what you can see here is the subversion connection for the pepperModules-SampleModules project -->
-           https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/SampleModules/tags/
-          </tagBase>
-          <releaseProfiles>release</releaseProfiles>
-          <goals>package assembly:single deploy</goals>
-        </configuration>
-      </plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven-release-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>perform</goal>        			
+						</goals>
+						<configuration>
+							<pomFileName>pepperModules-TEIModules/pom.xml</pomFileName>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+				  <releaseProfiles>release</releaseProfiles>
+				  <goals>package assembly:single deploy</goals>
+				</configuration>
+			</plugin>
       <!-- 	start: creation of bundle jar
 			This plugIn creates a META-INF folder if not present and adds the entries into the MANIFEST.MF file required for OSGi. It
 			also creates an OSGI-INF folder necessary for using service-components in OSGi.
