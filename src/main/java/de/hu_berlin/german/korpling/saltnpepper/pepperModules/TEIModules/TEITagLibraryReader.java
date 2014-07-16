@@ -74,10 +74,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
 	
 	
-	
-	
-	
-	
 	private Stack<SNode> sNodeStack= null;
 	// returns stack containing node hierarchie
 	private Stack<SNode> getSNodeStack(){
@@ -164,10 +160,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		text.setSText(text.getSText()+" ");
 	}
 	
-	private void setFigureToken(){
+	private void setEmptyToken(){
 		SToken temp_tok = null;
 		temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
 		setDominatingToken(temp_tok);
+		
+		push_spans(temp_tok);
 	}
 	
 	private void setGapToken(){
@@ -177,6 +175,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			temp_tok.addSAnnotation(getSAnnoStack().pop());
 		}
 		setDominatingToken(temp_tok);
+		
+		push_spans(temp_tok);
 	}
 	
 	private void setToken (StringBuilder str) {
@@ -217,8 +217,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					temp_tok.addSAnnotation(getSAnnoStack().pop());
 				}
 				//add token to stack for sspans
-				lbSpanTokenStack.push(temp_tok);
-				pbSpanTokenStack.push(temp_tok);
+				push_spans(temp_tok);
 				
 			}
 			str.setLength(0);
@@ -228,7 +227,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	//this is the generic method for unary elements creating spans
 	//in addition to calling this function, the tokens have to be
 	//added in setToken
-	public void generic_break(String tag, Stack<SToken> tokenStack){
+	private void generic_break(String tag, Stack<SToken> tokenStack){
 		if (sub_tokenization){
 			setToken(txt);
 		}
@@ -242,6 +241,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			line.createSAnnotation(null, tag, null);
 		}
 
+	}
+	
+	public void push_spans(SToken tok){
+		lbSpanTokenStack.push(tok);
+		pbSpanTokenStack.push(tok);
 	}
 	
 	public void characters(char ch[], int start, int length) {
@@ -396,7 +400,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			
 			figure_struc.createSAnnotation(null, ATT_REND, attributes.getValue(ATT_REND));
 			
-			setFigureToken();
+			setEmptyToken();
 		}
 		
 		else if (TAG_M.equals(qName)) {
@@ -426,7 +430,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					tempanno2.setSName(ATT_ATLEAST);
 					tempanno2.setValue(attributes.getValue(ATT_ATLEAST));
 					getSAnnoStack().add(tempanno2);
-					
 				}
 			}
 		}
@@ -572,7 +575,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		
-		
 		if (TAG_W.equals(qName)) {
 			setToken(txt);
 			if (!(user_defined_default_tokenization && default_token_tag==TAG_W)){
@@ -625,9 +627,17 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (TAG_UNCLEAR.equals(qName)) {
 			if(unclear_as_token){
-				SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-				tempanno.setSName("uncertain transcription");
-				getSAnnoStack().add(tempanno);
+				if (txt.length()==0){
+					SToken temp_tok = null;
+					temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
+					setDominatingToken(temp_tok);
+					
+					push_spans(temp_tok);
+					while (!getSAnnoStack().isEmpty()) {
+						temp_tok.addSAnnotation(getSAnnoStack().pop());
+					}
+					
+				}
 				setToken(txt);
 			}
 		}
