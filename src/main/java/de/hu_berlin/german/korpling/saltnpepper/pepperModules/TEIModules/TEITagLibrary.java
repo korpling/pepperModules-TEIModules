@@ -188,4 +188,8 @@ public interface TEITagLibrary{
 		public static final String ATT_REND= "rend";
 		/** constant to address the xml-attribute 'resp'. **/
 		public static final String ATT_RESP= "resp";
+		/** constant to address the xml-attribute 'atLeast'. **/
+		public static final String ATT_ATLEAST= "atLeast";
+		/** constant to address the xml-attribute 'atMost'. **/
+		public static final String ATT_ATMOST= "atMost";
 }

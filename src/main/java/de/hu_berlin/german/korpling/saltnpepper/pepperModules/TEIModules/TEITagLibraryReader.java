@@ -43,6 +43,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	private Boolean surplus_removal = false;
 	private Boolean unclear_as_token = true;
+	private Boolean foreign_as_token = true;
 	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
 		user_defined_default_tokenization = true;
@@ -364,17 +365,18 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
-			//System.out.println(txt);
-			setToken(txt);
-			TagStack.push(TAG_FOREIGN);
-			
-			SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
-			getSAnnoStack().add(wordanno);
-			if(attributes.getValue(ATT_XML_LANG)!=null) {
-				SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-				tempanno.setSName(ATT_XML_LANG);
-				tempanno.setValue(attributes.getValue(ATT_XML_LANG));
-				getSAnnoStack().add(tempanno);
+			if (foreign_as_token){
+				setToken(txt);
+				TagStack.push(TAG_FOREIGN);
+				
+				SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
+				getSAnnoStack().add(wordanno);
+				if(attributes.getValue(ATT_XML_LANG)!=null) {
+					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+					tempanno.setSName(ATT_XML_LANG);
+					tempanno.setValue(attributes.getValue(ATT_XML_LANG));
+					getSAnnoStack().add(tempanno);
+				}
 			}
 		}
 		
@@ -406,6 +408,26 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			if(unclear_as_token){
 				setToken(txt);
 				TagStack.push(TAG_M);
+
+				SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
+				getSAnnoStack().add(wordanno);
+				
+				SAnnotation wordanno2 = SaltFactory.eINSTANCE.createSAnnotation();
+				wordanno2.setSName(TAG_UNCLEAR);
+				getSAnnoStack().add(wordanno2);
+				
+				if(attributes.getValue(ATT_ATMOST)!=null && attributes.getValue(ATT_ATLEAST)!=null) {
+					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+					tempanno.setSName(ATT_ATMOST);
+					tempanno.setValue(attributes.getValue(ATT_ATMOST));
+					getSAnnoStack().add(tempanno);
+					
+					SAnnotation tempanno2 = SaltFactory.eINSTANCE.createSAnnotation();
+					tempanno2.setSName(ATT_ATLEAST);
+					tempanno2.setValue(attributes.getValue(ATT_ATLEAST));
+					getSAnnoStack().add(tempanno2);
+					
+				}
 			}
 		}
 		
