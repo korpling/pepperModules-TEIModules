@@ -42,8 +42,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean no_input_tokenization = false;
 	
 	private Boolean surplus_removal = false;
-	private Boolean unclear_as_token = true;
-	private Boolean foreign_as_token = true;
+	private Boolean unclear_as_token = false;
+	private Boolean foreign_as_token = false;
 	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
 		user_defined_default_tokenization = true;
@@ -124,6 +124,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		surplus_removal = props.isSurplusRemoval();
 		unclear_as_token = props.isUnclearAsToken();
+		foreign_as_token = props.isForeignAsToken();
 		
 	}
 	
