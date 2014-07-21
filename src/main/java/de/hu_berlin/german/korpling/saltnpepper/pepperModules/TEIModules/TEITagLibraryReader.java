@@ -592,7 +592,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (TAG_PHR.equals(qName)) {
 			getSNodeStack().pop();
 		}
-		//<head> in figure not working right now
+		
 		else if (TAG_HEAD.equals(qName)) {
 			if ((TagStack.peek()==TAG_HEAD)){
 				if (txt.length()>0) {
