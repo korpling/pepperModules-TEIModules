@@ -163,6 +163,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	private void setEmptyToken(){
 		SToken temp_tok = null;
+		if (primaryText.getSEnd()==null){
+			addSpace(primaryText);
+		}
+		
 		temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
 		setDominatingToken(temp_tok);
 		
@@ -256,7 +260,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			for(int i=start; i<start+length; i++){
 				tempstr.append(ch[i]);
 			}
-			txt.append(tempstr);
+			txt.append(tempstr.toString().trim());
 		}
 		
 	}
@@ -360,13 +364,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_P.equals(qName)) {
-			TagStack.push(TAG_P);
-			
-			SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
-			p_struc.createSAnnotation(null, TAG_P, null);
-			sDocGraph.addSNode(p_struc);
-			setDominatingStruc(p_struc);
-			getSNodeStack().add(p_struc);
+			if (insidetext){
+				TagStack.push(TAG_P);
+				
+				SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
+				p_struc.createSAnnotation(null, TAG_P, null);
+				sDocGraph.addSNode(p_struc);
+				setDominatingStruc(p_struc);
+				getSNodeStack().add(p_struc);
+			}
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
@@ -589,7 +595,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		//<head> in figure not working right now
 		else if (TAG_HEAD.equals(qName)) {
 			if ((TagStack.peek()==TAG_HEAD)){
-				setToken(txt);
+				if (txt.length()>0) {
+					setToken(txt);
+				}
+				else{
+					setEmptyToken();
+				}
+				
 				getSNodeStack().pop();
 			}
 			if (TagStack.peek()==TAG_FIGURE){
@@ -604,9 +616,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (TAG_P.equals(qName)) {
-			setToken(txt);
-			
-			getSNodeStack().pop();
+			if (insidetext){
+				setToken(txt);
+				
+				getSNodeStack().pop();
+			}
 		}
 		
 		else if (TAG_FOREIGN.equals(qName)) {
