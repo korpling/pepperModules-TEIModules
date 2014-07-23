@@ -81,12 +81,12 @@
 		</sect1>
 		<sect1>
 			<title>Properties</title>
-			<para>Because TEI is a very complex format the behaviour of the TEIImporter depends on
-				the properties that the user can use to customize the behaviour of the TEIImporter.
-				The table <xref linkend="importer_prop_overview"/> contains an overview of all
-				usable properties to customize the behaviour of this Pepper module. The following
-				section contains a close description to each single property and describes the
-				resulting differences in the mapping to the Salt model.</para>
+			<para>Because TEI is a very complex format the behavior of the TEIImporter depends to a
+				great extent on the properties that the user can use to customize the behaviour of
+				the TEIImporter. The table <xref linkend="importer_prop_overview"/> contains an
+				overview of all usable properties to customize the behaviour of the TEIImporter. The
+				following section contains a close description to each single property and describes
+				the resulting differences in the mapping to the Salt model.</para>
 			<table frame="all" xml:id="importer_prop_overview">
 				<title>properties to customize importer behaviour</title>
 				<tgroup align="left" cols="4" colsep="1" rowsep="1">
@@ -103,20 +103,20 @@
 							<entry>
 								<xref endterm="importer_prop1_title" linkend="prop_prop1"/>
 							</entry>
-							<entry>data type (e.g. Boolean) or a list of possible values (e.g.
-								value1|value2)</entry>
-							<entry>optional|mandatory</entry>
-							<entry>default value</entry>
+							<entry>Boolean</entry>
+							<entry>optional</entry>
+							<entry>false</entry>
 						</row>
 					</tbody>
 				</tgroup>
 			</table>
 			<sect2 xml:id="prop_prop1">
-				<title xml:id="importer_prop1_title"> TEIImporter.property1</title>
+				<title xml:id="importer_prop1_title">
+					TEIImporter.USER_DEFINED_DEFAULT_TOKENIZATION</title>
 				<para><code>sampleImporter.property1=SYNOPSIS (e.g. &apos;value1, value2&apos; for
 						lsits)</code></para>
-				<para>A detailed description of the property and resulting differences in the
-					mapping to the Salt model.</para>
+				<para>The user declares that there is one and only element responsible for mapping
+					tokens to Salt. Default is &lt;w>.</para>
 			</sect2>
 		</sect1>
 	</chapter>
