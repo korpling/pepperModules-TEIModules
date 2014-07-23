@@ -130,6 +130,6 @@ public class TEIImporterTest extends PepperImporterTest{
 		getFixture().getCorpusDesc().getFormatDesc().setFormatName("tei").setFormatVersion("2.6.0");
 		this.start();
 		
-		System.out.println(getFixture().getSaltProject().getSCorpusGraphs().get(0).getSDocuments().get(0).getSDocumentGraph().getSTokens().size());
+		
 	}
 }
