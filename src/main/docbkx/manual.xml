@@ -118,6 +118,14 @@
 				<para>The user declares that there is one and only element responsible for mapping
 					tokens to Salt. Default is &lt;w>.</para>
 			</sect2>
+			<sect2 xml:id="prop_prop2">
+				<title xml:id="importer_prop2_title">
+					TEIImporter.USER_DEFINED_DEFAULT_TOKENIZATION</title>
+				<para><code>sampleImporter.property1=SYNOPSIS (e.g. &apos;value1, value2&apos; for
+					lsits)</code></para>
+				<para>The user declares that there is one and only element responsible for mapping
+					tokens to Salt. Default is &lt;w>.</para>
+			</sect2>
 		</sect1>
 	</chapter>
 </book>
