@@ -150,6 +150,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		//System.out.println(getSNodeStack().peek().toString());
 	}
 	
+	//set the dominating struct 
 	private void setDominatingStruc (SStructure struc) {
 		SDominanceRelation sDominatingRelation= SaltFactory.eINSTANCE.createSDominanceRelation();
 		sDominatingRelation.setSource((SStructuredNode) (getSNodeStack().peek()));
@@ -157,10 +158,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		sDocGraph.addSRelation(sDominatingRelation);
 	}
 	
+	//adding space to a primary text
 	private void addSpace (STextualDS text) {
 		text.setSText(text.getSText()+" ");
 	}
 	
+	//adding an empty token
 	private void setEmptyToken(){
 		SToken temp_tok = null;
 		if (primaryText.getSEnd()==null){
@@ -173,6 +176,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		push_spans(temp_tok);
 	}
 	
+	//adding an empty token for the <gap>-struct
 	private void setGapToken(){
 		SToken temp_tok = null;
 		temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
@@ -248,6 +252,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 
 	}
 	
+	//the different StackStacks have to be added here, so the spans are pushed to them
 	public void push_spans(SToken tok){
 		lbSpanTokenStack.push(tok);
 		pbSpanTokenStack.push(tok);
