@@ -107,6 +107,12 @@
 							<entry>optional</entry>
 							<entry>false</entry>
 						</row>
+						<row>
+							<entry xml:id="prop_prop1"> </entry>
+							<entry/>
+							<entry/>
+							<entry/>
+						</row>
 					</tbody>
 				</tgroup>
 			</table>
