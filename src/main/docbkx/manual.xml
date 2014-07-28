@@ -108,10 +108,39 @@
 							<entry>false</entry>
 						</row>
 						<row>
-							<entry xml:id="prop_prop1"> </entry>
-							<entry/>
-							<entry/>
-							<entry/>
+							<entry>
+								<xref endterm="importer_prop2_title" linkend="prop_prop2"/></entry>
+							<entry>Boolean</entry>
+							<entry>optional</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry>
+								<xref endterm="importer_prop3_title" linkend="prop_prop3"/></entry>
+							<entry>Boolean</entry>
+							<entry>optional</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry>
+								<xref endterm="importer_prop4_title" linkend="prop_prop4"/></entry>
+							<entry>Boolean</entry>
+							<entry>optional</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry>
+								<xref endterm="importer_prop5_title" linkend="prop_prop5"/></entry>
+							<entry>Boolean</entry>
+							<entry>optional</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry>
+								<xref endterm="importer_prop6_title" linkend="prop_prop6"/></entry>
+							<entry>Boolean</entry>
+							<entry>optional</entry>
+							<entry>false</entry>
 						</row>
 					</tbody>
 				</tgroup>
@@ -119,18 +148,35 @@
 			<sect2 xml:id="prop_prop1">
 				<title xml:id="importer_prop1_title">
 					TEIImporter.USER_DEFINED_DEFAULT_TOKENIZATION</title>
-				<para><code>sampleImporter.property1=SYNOPSIS (e.g. &apos;value1, value2&apos; for
-						lsits)</code></para>
+				
 				<para>The user declares that there is one and only element responsible for mapping
 					tokens to Salt. Default is &lt;w>.</para>
 			</sect2>
 			<sect2 xml:id="prop_prop2">
-				<title xml:id="importer_prop2_title">
-					TEIImporter.USER_DEFINED_DEFAULT_TOKENIZATION</title>
-				<para><code>sampleImporter.property1=SYNOPSIS (e.g. &apos;value1, value2&apos; for
-					lsits)</code></para>
-				<para>The user declares that there is one and only element responsible for mapping
-					tokens to Salt. Default is &lt;w>.</para>
+				<title xml:id="importer_prop2_title"> TEIImporter.SUB_TOKENIZATION</title>
+				
+				<para>In this scenario, units smaller than ‘words’ exist. Elements within &lt;w> etc. are
+					possible.</para>
+			</sect2>
+			<sect2 xml:id="prop_prop3">
+				<title xml:id="importer_prop3_title"> TEIImporter.SUB_TOKENIZATION</title>
+				
+				<para>Ask the tokenizer module to tokenize running text gathered according to same strategy as
+					in SubTokenization. !NOT YET IMPLEMENTED!</para>
+			</sect2>
+			<sect2 xml:id="prop_prop4">
+				<title xml:id="importer_prop4_title"> TEIImporter.SUB_TOKENIZATION</title>
+				<para>Will text from &lt;surplus> appear in Salt?</para>
+			</sect2>
+			<sect2 xml:id="prop_prop5">
+				<title xml:id="importer_prop5_title"> TEIImporter.SUB_TOKENIZATION</title>
+			
+				<para>Does &lt;unclear> exclusively create one token annotated as "unclear"?</para>
+			</sect2>
+			<sect2 xml:id="prop_prop6">
+				<title xml:id="importer_prop6_title"> TEIImporter.SUB_TOKENIZATION</title>
+			
+				<para>Does &lt;foreign> exclusively create one token annotated as "foreign"?</para>
 			</sect2>
 		</sect1>
 	</chapter>
