@@ -4,6 +4,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModulePrope
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperty;
 
 public class TEIImporterProperties extends PepperModuleProperties{
+	//String values for properties
 	public static final String PROP_USER_DEFINED_DEFAULT_TOKENIZATION = "UserDefinedDefaultTokenization";
 	public static final String PROP_SUB_TOKENIZATION = "SubTokenization";
 	public static final String PROP_NO_INPUT_TOKENIZATION = "NoInputTokenization";
@@ -12,6 +13,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_UNCLEAR_AS_TOKEN = "UnclearAsToken";
 	public static final String PROP_FOREIGN_AS_TOKEN = "ForeignAsToken";
 	
+	//registration of properties
 	public TEIImporterProperties(){
 		addProperty(new PepperModuleProperty<Boolean>(PROP_USER_DEFINED_DEFAULT_TOKENIZATION, Boolean.class, "The user declares the element responsible for tokenization. Default is <w> in this mode.", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SUB_TOKENIZATION, Boolean.class, "In this scenario, units smaller than ‘words’ exist. Elements within <w> etc. are possible", false, false));
@@ -21,6 +23,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_FOREIGN_AS_TOKEN, Boolean.class, "Does <foreign> exclusively include one token?", true, false));
 	}
 	
+	//functions to retrieve property values
 	public boolean isUserDefinedDefaultTokenization(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_USER_DEFINED_DEFAULT_TOKENIZATION).getValue().toString();
