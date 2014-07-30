@@ -13,6 +13,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_UNCLEAR_AS_TOKEN = "UnclearAsToken";
 	public static final String PROP_FOREIGN_AS_TOKEN = "ForeignAsToken";
 	
+	//tag naming config
 	public static final String PROP_LB_NAME = "ForeignAsToken";
 	public static final String PROP_PB_NAME = "ForeignAsToken";
 	public static final String PROP_W_NAME = "ForeignAsToken";
@@ -30,6 +31,12 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_APP_NAME = "ForeignAsToken";
 	//other tags to be added here in the future
 	public static final String PROP_TEXT_NAME = "ForeignAsToken";
+	
+	//annotation value config
+	public static final String PROP_LB_ANNO_VALUE = "ForeignAsToken";
+	public static final String PROP_PB_ANNO_VALUE = "ForeignAsToken";
+			
+	
 	
 	
 	

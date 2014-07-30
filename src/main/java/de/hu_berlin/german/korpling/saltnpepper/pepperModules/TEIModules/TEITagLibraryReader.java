@@ -45,6 +45,31 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean unclear_as_token = false;
 	private Boolean foreign_as_token = false;
 	
+	//naming config strings
+	private String lb_name = "";
+	private String pb_name = "";
+	private String w_name = "";
+	private String phr_bname = "";
+	private String body_head_name = "";
+	private String div_name = "";
+	private String p_name = "";
+	private String foreign_name = "";
+	private String figure_name = "";
+	private String m_name = "";
+	private String unclear_name = "";
+	private String surplus_name = "";
+	private String title_name = "";
+	private String gap_name = "";
+	private String app_name = "";
+	//other Strings to be added here in the future
+	private String text_name = "";
+	
+	//annotation config values
+	private String lb_anno_value = "";
+	private String pb_anno_value = "";
+	
+	
+	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
 		user_defined_default_tokenization = true;
 	}
@@ -236,7 +261,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	//this is the generic method for unary elements creating spans
 	//in addition to calling this function, the tokens have to be
 	//added in setToken
-	private void generic_break(String tag, Stack<SToken> tokenStack){
+	private void generic_break(String tag, Stack<SToken> tokenStack, String annovalue){
 		if (sub_tokenization){
 			setToken(txt);
 		}
@@ -247,7 +272,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		SSpan line = sDocGraph.createSSpan(overlappingTokens);
 		if (line != null){
-			line.createSAnnotation(null, tag, null);
+			line.createSAnnotation(null, tag, annovalue);
 		}
 
 	}
@@ -275,11 +300,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			Attributes attributes) throws SAXException {
 
 		if (TAG_LB.equals(qName)) {
-			generic_break("lb", lbSpanTokenStack);
+			generic_break("lb", lbSpanTokenStack, lbannovalue);
 		}
 		
 		else if (TAG_PB.equals(qName)) {
-			generic_break("pb", pbSpanTokenStack);
+			generic_break("pb", pbSpanTokenStack, pbannovalue);
 		}
 		
 		else if (TAG_W.equals(qName)) {
