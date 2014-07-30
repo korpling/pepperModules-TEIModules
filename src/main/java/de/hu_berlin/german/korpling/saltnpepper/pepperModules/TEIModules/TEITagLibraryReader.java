@@ -278,6 +278,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			generic_break("lb", lbSpanTokenStack);
 		}
 		
+		else if (TAG_PB.equals(qName)) {
+			generic_break("pb", pbSpanTokenStack);
+		}
+		
 		else if (TAG_W.equals(qName)) {
 			setToken(txt);
 			TagStack.push(TAG_W);
@@ -394,10 +398,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					getSAnnoStack().add(tempanno);
 				}
 			}
-		}
-		
-		else if (TAG_PB.equals(qName)) {
-			generic_break("pb", pbSpanTokenStack);
 		}
 		
 		else if (TAG_FIGURE.equals(qName)) {

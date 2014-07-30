@@ -13,6 +13,17 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_UNCLEAR_AS_TOKEN = "UnclearAsToken";
 	public static final String PROP_FOREIGN_AS_TOKEN = "ForeignAsToken";
 	
+	public static final String PROP_LB_NAME = "ForeignAsToken";
+	public static final String PROP_PB_NAME = "ForeignAsToken";
+	public static final String PROP_W_NAME = "ForeignAsToken";
+	public static final String PROP_PHR_NAME = "ForeignAsToken";
+	public static final String PROP_BODYHEAD_NAME = "ForeignAsToken";
+	public static final String PROP_DIV_NAME = "ForeignAsToken";
+	public static final String PROP_P_NAME = "ForeignAsToken";
+	public static final String PROP_FOREIGN_NAME = "ForeignAsToken";
+	
+	
+	
 	//registration of properties
 	public TEIImporterProperties(){
 		addProperty(new PepperModuleProperty<Boolean>(PROP_USER_DEFINED_DEFAULT_TOKENIZATION, Boolean.class, "The user declares the element responsible for tokenization. Default is <w> in this mode.", false, false));
