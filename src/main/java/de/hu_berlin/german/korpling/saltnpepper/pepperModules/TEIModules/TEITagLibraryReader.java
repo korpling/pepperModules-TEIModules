@@ -300,11 +300,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			Attributes attributes) throws SAXException {
 
 		if (TAG_LB.equals(qName)) {
-			generic_break("lb", lbSpanTokenStack, lbannovalue);
+			generic_break("lb", lbSpanTokenStack, lb_anno_value);
 		}
 		
 		else if (TAG_PB.equals(qName)) {
-			generic_break("pb", pbSpanTokenStack, pbannovalue);
+			generic_break("pb", pbSpanTokenStack, pb_anno_value);
 		}
 		
 		else if (TAG_W.equals(qName)) {
