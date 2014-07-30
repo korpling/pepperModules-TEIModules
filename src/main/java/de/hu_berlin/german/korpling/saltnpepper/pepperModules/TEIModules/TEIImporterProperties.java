@@ -21,6 +21,15 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_DIV_NAME = "ForeignAsToken";
 	public static final String PROP_P_NAME = "ForeignAsToken";
 	public static final String PROP_FOREIGN_NAME = "ForeignAsToken";
+	public static final String PROP_FIGURE_NAME = "ForeignAsToken";
+	public static final String PROP_M_NAME = "ForeignAsToken";
+	public static final String PROP_UNCLEAR_NAME = "ForeignAsToken";
+	public static final String PROP_SURPLUS_NAME = "ForeignAsToken";
+	public static final String PROP_TITLE_NAME = "ForeignAsToken";
+	public static final String PROP_GAP_NAME = "ForeignAsToken";
+	public static final String PROP_APP_NAME = "ForeignAsToken";
+	//other tags to be added here in the future
+	public static final String PROP_TEXT_NAME = "ForeignAsToken";
 	
 	
 	
