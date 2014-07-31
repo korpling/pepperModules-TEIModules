@@ -1,5 +1,6 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import java.awt.HeadlessException;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -46,36 +47,36 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean foreign_as_token = false;
 	
 	//naming config strings
-	private String lb_name = "";
-	private String pb_name = "";
-	private String w_name = "";
-	private String phr_name = "";
-	private String body_head_name = "";
-	private String div_name = "";
-	private String p_name = "";
-	private String foreign_name = "";
-	private String figure_name = "";
-	private String m_name = "";
-	private String unclear_name = "";
-	private String surplus_name = "";
-	private String title_name = "";
-	private String gap_name = "";
-	private String app_name = "";
+	private String lb_name = TAG_LB;
+	private String pb_name = TAG_PB;
+	private String w_name = TAG_W;
+	private String phr_name = TAG_PHR;
+	private String body_head_name = TAG_HEAD;
+	private String div_name = TAG_DIV;
+	private String p_name = TAG_P;
+	private String foreign_name = TAG_FOREIGN;
+	private String figure_name = TAG_FIGURE;
+	private String m_name = TAG_M;
+	private String unclear_name = TAG_UNCLEAR;
+	private String surplus_name = TAG_SURPLUS;
+	private String title_name = TAG_TITLE;
+	private String gap_name = TAG_GAP;
+	private String app_name = TAG_APP;
 	//other Strings to be added here in the future
-	private String text_name = "";
+	private String text_name = TAG_TEXT;
 	
 	//annotation config values spans
-	private String lb_anno_value = "";
-	private String pb_anno_value = "";
+	private String lb_anno_value = "lb";
+	private String pb_anno_value = "pb";
 	
 	//annotation config values strucs
-	private String phr_anno_value = "";
-	private String body_head_anno_value = "";
-	private String div_anno_value = "";
-	private String p_anno_value = "";
-	private String figure_anno_value = "";
-	private String app_anno_value = "";
-	private String text_anno_value = "";
+	private String phr_anno_value = "phr";
+	private String body_head_anno_value = "head";
+	private String div_anno_value = "div";
+	private String p_anno_value = "p";
+	private String figure_anno_value = "figure";
+	private String app_anno_value = "app";
+	private String text_anno_value = "text";
 	
 	
 	
@@ -341,11 +342,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			Attributes attributes) throws SAXException {
 
 		if (TAG_LB.equals(qName)) {
-			generic_break("lb", lbSpanTokenStack, lb_anno_value);
+			generic_break(lb_name, lbSpanTokenStack, lb_anno_value);
 		}
 		
 		else if (TAG_PB.equals(qName)) {
-			generic_break("pb", pbSpanTokenStack, pb_anno_value);
+			generic_break(pb_name, pbSpanTokenStack, pb_anno_value);
 		}
 		
 		else if (TAG_W.equals(qName)) {
@@ -405,7 +406,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_PHR);
 			
 			SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
-			phr_struc.createSAnnotation(null, "TAG_PHR", phr_anno_value);
+			phr_struc.createSAnnotation(null, phr_name, phr_anno_value);
 			sDocGraph.addSNode(phr_struc);
 			setDominatingStruc(phr_struc);
 			getSNodeStack().add(phr_struc);
@@ -417,7 +418,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				TagStack.push(TAG_HEAD);
 				
 				SStructure head_struc = SaltFactory.eINSTANCE.createSStructure();
-				head_struc.createSAnnotation(null, "Heading", body_head_anno_value);
+				head_struc.createSAnnotation(null, body_head_name, body_head_anno_value);
 				sDocGraph.addSNode(head_struc);
 				setDominatingStruc(head_struc);
 				getSNodeStack().add(head_struc);
@@ -431,7 +432,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_DIV);
 			
 			SStructure div_struc = SaltFactory.eINSTANCE.createSStructure();
-			div_struc.createSAnnotation(null, TAG_DIV, div_anno_value);
+			div_struc.createSAnnotation(null, div_name, div_anno_value);
 			div_struc.createSAnnotation(null, ATT_TYPE, attributes.getValue(ATT_TYPE));
 			sDocGraph.addSNode(div_struc);
 			setDominatingStruc(div_struc);
@@ -443,7 +444,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				TagStack.push(TAG_P);
 				
 				SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
-				p_struc.createSAnnotation(null, TAG_P, p_anno_value);
+				p_struc.createSAnnotation(null, p_name, p_anno_value);
 				sDocGraph.addSNode(p_struc);
 				setDominatingStruc(p_struc);
 				getSNodeStack().add(p_struc);
@@ -471,7 +472,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_FIGURE);
 			
 			SStructure figure_struc = SaltFactory.eINSTANCE.createSStructure();
-			figure_struc.createSAnnotation(null, "Figure", figure_anno_value);
+			figure_struc.createSAnnotation(null, figure_name, figure_anno_value);
 			sDocGraph.addSNode(figure_struc);
 			setDominatingStruc(figure_struc);
 			getSNodeStack().add(figure_struc);
@@ -546,7 +547,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_APP);
 			
 			SStructure app_struc = SaltFactory.eINSTANCE.createSStructure();
-			app_struc.createSAnnotation(null, TAG_APP, app_anno_value);
+			app_struc.createSAnnotation(null, app_name, app_anno_value);
 			
 			if(attributes.getValue(ATT_XML_LANG)!=null) {
 				app_struc.createSAnnotation(null, ATT_RESP, attributes.getValue(ATT_RESP));
@@ -596,7 +597,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			insidetext = true;
 			//represent the <text>-tag in Salt
 			SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
-			text_struc.createSAnnotation(null, "TAG_TEXT", text_anno_value);
+			text_struc.createSAnnotation(null, text_name, text_anno_value);
 			getSNodeStack().add(text_struc);
 			sDocGraph.addSNode(text_struc);
 		}
@@ -676,7 +677,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				getSNodeStack().pop();
 			}
 			if (TagStack.peek()==TAG_FIGURE){
-				getSNodeStack().peek().createSAnnotation(null, "Heading", txt.toString().trim());
+				getSNodeStack().peek().createSAnnotation(null, body_head_name, txt.toString().trim());
 				txt.setLength(0);
 			}
 			

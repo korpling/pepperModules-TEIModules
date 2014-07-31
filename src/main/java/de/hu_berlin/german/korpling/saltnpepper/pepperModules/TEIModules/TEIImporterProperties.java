@@ -14,36 +14,36 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_FOREIGN_AS_TOKEN = "ForeignAsToken";
 	
 	//tag naming config
-	public static final String PROP_LB_NAME = "LbName";
-	public static final String PROP_PB_NAME = "PbName";
-	public static final String PROP_W_NAME = "WName";
-	public static final String PROP_PHR_NAME = "PhrName";
-	public static final String PROP_BODYHEAD_NAME = "BodyHeadName";
-	public static final String PROP_DIV_NAME = "DivName";
-	public static final String PROP_P_NAME = "PName";
-	public static final String PROP_FOREIGN_NAME = "ForeignName";
-	public static final String PROP_FIGURE_NAME = "FigureName";
-	public static final String PROP_M_NAME = "MName";
-	public static final String PROP_UNCLEAR_NAME = "UnclearName";
-	public static final String PROP_SURPLUS_NAME = "SurplusName";
-	public static final String PROP_TITLE_NAME = "TitleName";
-	public static final String PROP_GAP_NAME = "GapName";
-	public static final String PROP_APP_NAME = "AppName";
+	public final String PROP_LB_NAME = "LbName";
+	public final String PROP_PB_NAME = "PbName";
+	public final String PROP_W_NAME = "WName";
+	public final String PROP_PHR_NAME = "PhrName";
+	public final String PROP_BODYHEAD_NAME = "BodyHeadName";
+	public final String PROP_DIV_NAME = "DivName";
+	public final String PROP_P_NAME = "PName";
+	public final String PROP_FOREIGN_NAME = "ForeignName";
+	public final String PROP_FIGURE_NAME = "FigureName";
+	public final String PROP_M_NAME = "MName";
+	public final String PROP_UNCLEAR_NAME = "UnclearName";
+	public final String PROP_SURPLUS_NAME = "SurplusName";
+	public final String PROP_TITLE_NAME = "TitleName";
+	public final String PROP_GAP_NAME = "GapName";
+	public final String PROP_APP_NAME = "AppName";
 	//other tags to be added here in the future
-	public static final String PROP_TEXT_NAME = "TextName";
+	public final String PROP_TEXT_NAME = "TextName";
 	
 	//annotation value config spans
-	public static final String PROP_LB_ANNO_VALUE = "LbAnnoValue";
-	public static final String PROP_PB_ANNO_VALUE = "PbAnnoValue";
+	public final String PROP_LB_ANNO_VALUE = "LbAnnoValue";
+	public final String PROP_PB_ANNO_VALUE = "PbAnnoValue";
 	
 	//annotation value config strucs
-	public static final String PROP_PHR_ANNO_VALUE = "PhrAnnoValue";
-	public static final String PROP_BODYHEAD_ANNO_VALUE = "BodyHeadAnnoValue";
-	public static final String PROP_DIV_ANNO_VALUE = "DivAnnoValue";
-	public static final String PROP_P_ANNO_VALUE = "PAnnoValue";
-	public static final String PROP_FIGURE_ANNO_VALUE = "FigureAnnoValue";
-	public static final String PROP_APP_ANNO_VALUE = "AppAnnoValue";
-	public static final String PROP_TEXT_ANNO_VALUE = "TextAnnoValue";
+	public final String PROP_PHR_ANNO_VALUE = "PhrAnnoValue";
+	public final String PROP_BODYHEAD_ANNO_VALUE = "BodyHeadAnnoValue";
+	public final String PROP_DIV_ANNO_VALUE = "DivAnnoValue";
+	public final String PROP_P_ANNO_VALUE = "PAnnoValue";
+	public final String PROP_FIGURE_ANNO_VALUE = "FigureAnnoValue";
+	public final String PROP_APP_ANNO_VALUE = "AppAnnoValue";
+	public final String PROP_TEXT_ANNO_VALUE = "TextAnnoValue";
 			
 	
 	
