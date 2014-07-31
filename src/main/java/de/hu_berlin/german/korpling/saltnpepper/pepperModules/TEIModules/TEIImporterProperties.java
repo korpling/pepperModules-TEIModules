@@ -144,4 +144,13 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		}
 		return retVal;
 	}
+	
+	public String customAnnotationString(String param){
+		String retVal = "";
+		String prop = getProperty(param).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = prop;
+		}
+		return retVal;
+	}
 }
