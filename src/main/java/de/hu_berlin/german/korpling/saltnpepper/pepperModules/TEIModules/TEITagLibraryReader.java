@@ -49,7 +49,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private String lb_name = "";
 	private String pb_name = "";
 	private String w_name = "";
-	private String phr_bname = "";
+	private String phr_name = "";
 	private String body_head_name = "";
 	private String div_name = "";
 	private String p_name = "";
@@ -160,6 +160,38 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		unclear_as_token = props.isUnclearAsToken();
 		foreign_as_token = props.isForeignAsToken();
 		
+		
+		//naming config strings
+		lb_name = props.customAnnotationString(props.PROP_LB_NAME);
+		pb_name = props.customAnnotationString(props.PROP_PB_NAME);
+		w_name = props.customAnnotationString(props.PROP_W_NAME);
+		phr_name = props.customAnnotationString(props.PROP_PHR_NAME);
+		body_head_name = props.customAnnotationString(props.PROP_BODYHEAD_NAME);
+		div_name = props.customAnnotationString(props.PROP_DIV_NAME);
+		p_name = props.customAnnotationString(props.PROP_P_NAME);
+		foreign_name = props.customAnnotationString(props.PROP_FOREIGN_NAME);
+		figure_name = props.customAnnotationString(props.PROP_FIGURE_NAME);
+		m_name = props.customAnnotationString(props.PROP_M_NAME);
+		unclear_name = props.customAnnotationString(props.PROP_UNCLEAR_NAME);
+		surplus_name = props.customAnnotationString(props.PROP_SURPLUS_NAME);
+		title_name = props.customAnnotationString(props.PROP_TITLE_NAME);
+		gap_name = props.customAnnotationString(props.PROP_GAP_NAME);
+		app_name = props.customAnnotationString(props.PROP_APP_NAME);
+		//other Strings to be added here in the future
+		text_name = props.customAnnotationString(props.PROP_TEXT_NAME);
+		
+		//annotation config values spans
+		lb_anno_value = props.customAnnotationString(props.PROP_LB_ANNO_VALUE);
+		pb_anno_value = props.customAnnotationString(props.PROP_PB_ANNO_VALUE);
+		
+		//annotation config values strucs
+		phr_anno_value = props.customAnnotationString(props.PROP_PHR_ANNO_VALUE);
+		body_head_anno_value = props.customAnnotationString(props.PROP_BODYHEAD_ANNO_VALUE);
+		div_anno_value = props.customAnnotationString(props.PROP_DIV_ANNO_VALUE);
+		p_anno_value = props.customAnnotationString(props.PROP_P_ANNO_VALUE);
+		figure_anno_value = props.customAnnotationString(props.PROP_FIGURE_ANNO_VALUE);
+		app_anno_value = props.customAnnotationString(props.PROP_APP_ANNO_VALUE);
+		text_anno_value = props.customAnnotationString(props.PROP_TEXT_ANNO_VALUE);
 	}
 	
 	//JUnit-Test compatability constructor
