@@ -64,10 +64,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	//other Strings to be added here in the future
 	private String text_name = "";
 	
-	//annotation config values
+	//annotation config values spans
 	private String lb_anno_value = "";
 	private String pb_anno_value = "";
 	
+	//annotation config values strucs
+	private String phr_anno_value = "";
 	
 	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){

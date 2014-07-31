@@ -32,9 +32,12 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	//other tags to be added here in the future
 	public static final String PROP_TEXT_NAME = "ForeignAsToken";
 	
-	//annotation value config
+	//annotation value config spans
 	public static final String PROP_LB_ANNO_VALUE = "ForeignAsToken";
 	public static final String PROP_PB_ANNO_VALUE = "ForeignAsToken";
+	
+	//annotation value config strucs
+	public static final String PROP_PHR_ANNO_VALUE = "ForeignAsToken";
 			
 	
 	
