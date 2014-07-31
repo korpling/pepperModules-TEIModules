@@ -162,6 +162,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		foreign_as_token = props.isForeignAsToken();
 		
 		
+		//annotation customization
+		
 		//naming config strings
 		lb_name = props.customAnnotationString(props.PROP_LB_NAME);
 		pb_name = props.customAnnotationString(props.PROP_PB_NAME);
