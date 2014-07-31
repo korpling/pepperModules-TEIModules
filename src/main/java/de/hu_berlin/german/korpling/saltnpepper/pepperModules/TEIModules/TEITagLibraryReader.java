@@ -70,6 +70,13 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	//annotation config values strucs
 	private String phr_anno_value = "";
+	private String body_head_anno_value = "";
+	private String div_anno_value = "";
+	private String p_anno_value = "";
+	private String figure_anno_value = "";
+	private String app_anno_value = "";
+	private String text_anno_value = "";
+	
 	
 	
 	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
@@ -366,7 +373,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_PHR);
 			
 			SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
-			phr_struc.createSAnnotation(null, "TAG_PHR", null);
+			phr_struc.createSAnnotation(null, "TAG_PHR", phr_anno_value);
 			sDocGraph.addSNode(phr_struc);
 			setDominatingStruc(phr_struc);
 			getSNodeStack().add(phr_struc);
@@ -378,7 +385,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				TagStack.push(TAG_HEAD);
 				
 				SStructure head_struc = SaltFactory.eINSTANCE.createSStructure();
-				head_struc.createSAnnotation(null, "Heading", null);
+				head_struc.createSAnnotation(null, "Heading", body_head_anno_value);
 				sDocGraph.addSNode(head_struc);
 				setDominatingStruc(head_struc);
 				getSNodeStack().add(head_struc);
@@ -392,7 +399,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_DIV);
 			
 			SStructure div_struc = SaltFactory.eINSTANCE.createSStructure();
-			div_struc.createSAnnotation(null, TAG_DIV, null);
+			div_struc.createSAnnotation(null, TAG_DIV, div_anno_value);
 			div_struc.createSAnnotation(null, ATT_TYPE, attributes.getValue(ATT_TYPE));
 			sDocGraph.addSNode(div_struc);
 			setDominatingStruc(div_struc);
@@ -404,7 +411,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				TagStack.push(TAG_P);
 				
 				SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
-				p_struc.createSAnnotation(null, TAG_P, null);
+				p_struc.createSAnnotation(null, TAG_P, p_anno_value);
 				sDocGraph.addSNode(p_struc);
 				setDominatingStruc(p_struc);
 				getSNodeStack().add(p_struc);
@@ -432,7 +439,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_FIGURE);
 			
 			SStructure figure_struc = SaltFactory.eINSTANCE.createSStructure();
-			figure_struc.createSAnnotation(null, "Figure", null);
+			figure_struc.createSAnnotation(null, "Figure", figure_anno_value);
 			sDocGraph.addSNode(figure_struc);
 			setDominatingStruc(figure_struc);
 			getSNodeStack().add(figure_struc);
@@ -507,7 +514,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_APP);
 			
 			SStructure app_struc = SaltFactory.eINSTANCE.createSStructure();
-			app_struc.createSAnnotation(null, TAG_APP, null);
+			app_struc.createSAnnotation(null, TAG_APP, app_anno_value);
 			
 			if(attributes.getValue(ATT_XML_LANG)!=null) {
 				app_struc.createSAnnotation(null, ATT_RESP, attributes.getValue(ATT_RESP));
@@ -557,7 +564,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			insidetext = true;
 			//represent the <text>-tag in Salt
 			SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
-			text_struc.createSAnnotation(null, "TAG_TEXT", null);
+			text_struc.createSAnnotation(null, "TAG_TEXT", text_anno_value);
 			getSNodeStack().add(text_struc);
 			sDocGraph.addSNode(text_struc);
 		}
