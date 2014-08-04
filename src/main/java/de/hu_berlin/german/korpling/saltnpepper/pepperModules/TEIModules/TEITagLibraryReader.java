@@ -8,6 +8,7 @@ import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
+import org.osgi.service.blueprint.reflect.PropsMetadata;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
@@ -149,10 +150,19 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		sDocGraph = DocGraph;
 	}
 	
+	private TEIImporterProperties props= null;
+	
+	public TEIImporterProperties getProps() {
+		return props;
+	}
+	public void setProps(TEIImporterProperties props) {
+		this.props = props;
+	}
 	//this constructor should usually be used!
 	public TEITagLibraryReader(TEIImporterProperties props){
 		//get the parameter values
 		super();
+		setProps(props);
 		user_defined_default_tokenization = props.isUserDefinedDefaultTokenization();
 		sub_tokenization = props.isSubTokenization();
 		no_input_tokenization = props.isNoInputTokenization();
@@ -408,7 +418,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			TagStack.push(TAG_PHR);
 			
 			SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
-			phr_struc.createSAnnotation(null, phr_name, phr_anno_value);
+			phr_struc.createSAnnotation(null, getProps().getTagName(qName) , phr_anno_value);
+//			phr_struc.createSAnnotation(null, phr_name, phr_anno_value);
 			sDocGraph.addSNode(phr_struc);
 			setDominatingStruc(phr_struc);
 			getSNodeStack().add(phr_struc);

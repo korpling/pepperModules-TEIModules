@@ -1,5 +1,8 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperties;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperty;
 
@@ -12,6 +15,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_SURPLUS_REMOVAL = "SurplusRemoval";
 	public static final String PROP_UNCLEAR_AS_TOKEN = "UnclearAsToken";
 	public static final String PROP_FOREIGN_AS_TOKEN = "ForeignAsToken";
+	public static final String PROP_RENAME_TAG = "tag.rename";
 	
 	//tag naming config
 	public final String PROP_LB_NAME = "LbName";
@@ -156,5 +160,34 @@ public class TEIImporterProperties extends PepperModuleProperties{
 			retVal = prop;
 		}
 		return retVal;
+	}
+	
+	private Map<String, String> tagRenameTable= null;
+	/**
+	 * 
+	 * @param tagName
+	 * @return
+	 */
+	public String getTagName(String tagName){
+		if (tagRenameTable== null){
+			tagRenameTable= new Hashtable<>();
+			Object propO = getProperty(PROP_RENAME_TAG).getValue();
+			String prop= null;
+			if (propO!= null){
+				prop= propO.toString();
+				String[] renameParts= prop.split(";");
+				for (String part: renameParts){
+					String[] attVal= part.split(":");
+					tagRenameTable.put(attVal[0], attVal[1]);
+				}
+			}
+		}
+		
+		String retVal= tagRenameTable.get(tagName);
+		if (retVal== null){
+			retVal= tagName;
+		}
+		return(retVal);
+		
 	}
 }
