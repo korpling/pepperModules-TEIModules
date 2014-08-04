@@ -58,36 +58,36 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_UNCLEAR_AS_TOKEN, Boolean.class, "Does <unclear> exclusively include one token?", true, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_FOREIGN_AS_TOKEN, Boolean.class, "Does <foreign> exclusively include one token?", true, false));
 		
-		addProperty(new PepperModuleProperty<String>(PROP_LB_NAME, String.class, "Name of <lb>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_PB_NAME, String.class, "Name of <pb>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_W_NAME, String.class, "Name of <w>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_PHR_NAME, String.class, "Name of <phr>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_BODYHEAD_NAME, String.class, "Name of <head>-annotation inside of <body>", false));
-		addProperty(new PepperModuleProperty<String>(PROP_DIV_NAME, String.class, "Name of <div>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_P_NAME, String.class, "Name of <p>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_FOREIGN_NAME, String.class, "Name of <foreign>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_FIGURE_NAME, String.class, "Name of <figure>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_M_NAME, String.class, "Name of <m>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_UNCLEAR_NAME, String.class, "Name of <unclear>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_SURPLUS_NAME, String.class, "Name of <surplus>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_TITLE_NAME, String.class, "Name of <title>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_GAP_NAME, String.class, "Name of <gap>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_APP_NAME, String.class, "Name of <app>-annotation", false));
+		addProperty(new PepperModuleProperty<String>(PROP_LB_NAME, String.class, "Name of <lb>-annotation", "lb", false));
+		addProperty(new PepperModuleProperty<String>(PROP_PB_NAME, String.class, "Name of <pb>-annotation", "pb", false));
+		addProperty(new PepperModuleProperty<String>(PROP_W_NAME, String.class, "Name of <w>-annotation", "w", false));
+		addProperty(new PepperModuleProperty<String>(PROP_PHR_NAME, String.class, "Name of <phr>-annotation", "phr", false));
+		addProperty(new PepperModuleProperty<String>(PROP_BODYHEAD_NAME, String.class, "Name of <head>-annotation inside of <body>", "body", false));
+		addProperty(new PepperModuleProperty<String>(PROP_DIV_NAME, String.class, "Name of <div>-annotation", "div", false));
+		addProperty(new PepperModuleProperty<String>(PROP_P_NAME, String.class, "Name of <p>-annotation", "p", false));
+		addProperty(new PepperModuleProperty<String>(PROP_FOREIGN_NAME, String.class, "Name of <foreign>-annotation", "foreign", false));
+		addProperty(new PepperModuleProperty<String>(PROP_FIGURE_NAME, String.class, "Name of <figure>-annotation", "figure", false));
+		addProperty(new PepperModuleProperty<String>(PROP_M_NAME, String.class, "Name of <m>-annotation", "m", false));
+		addProperty(new PepperModuleProperty<String>(PROP_UNCLEAR_NAME, String.class, "Name of <unclear>-annotation", "unclear", false));
+		addProperty(new PepperModuleProperty<String>(PROP_SURPLUS_NAME, String.class, "Name of <surplus>-annotation", "surplus", false));
+		addProperty(new PepperModuleProperty<String>(PROP_TITLE_NAME, String.class, "Name of <title>-annotation", "title", false));
+		addProperty(new PepperModuleProperty<String>(PROP_GAP_NAME, String.class, "Name of <gap>-annotation", "gap", false));
+		addProperty(new PepperModuleProperty<String>(PROP_APP_NAME, String.class, "Name of <app>-annotation", "app", false));
 		//other tags to be added here in the future
-		addProperty(new PepperModuleProperty<String>(PROP_TEXT_NAME, String.class, "Name of <text>-annotation", false));
+		addProperty(new PepperModuleProperty<String>(PROP_TEXT_NAME, String.class, "Name of <text>-annotation", "text", false));
 		
 		//annotation value config spans
-		addProperty(new PepperModuleProperty<String>(PROP_LB_ANNO_VALUE, String.class, "default value for <lb>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_PB_ANNO_VALUE, String.class, "default value for <lb>-annotation", false));
+		addProperty(new PepperModuleProperty<String>(PROP_LB_ANNO_VALUE, String.class, "default value for <lb>-annotation", "lb", false));
+		addProperty(new PepperModuleProperty<String>(PROP_PB_ANNO_VALUE, String.class, "default value for <pb>-annotation", "pb", false));
 		
 		//annotation value config strucs
-		addProperty(new PepperModuleProperty<String>(PROP_PHR_ANNO_VALUE, String.class, "default value for <phr>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_BODYHEAD_ANNO_VALUE, String.class, "default value for <head>-annotation inside <body>", false));
-		addProperty(new PepperModuleProperty<String>(PROP_DIV_ANNO_VALUE, String.class, "default value for <div>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_P_ANNO_VALUE, String.class, "default value for <p>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_FIGURE_ANNO_VALUE, String.class, "default value for <figure>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_APP_ANNO_VALUE, String.class, "default value for <app>-annotation", false));
-		addProperty(new PepperModuleProperty<String>(PROP_TEXT_ANNO_VALUE, String.class, "default value for <text>-annotation", false));
+		addProperty(new PepperModuleProperty<String>(PROP_PHR_ANNO_VALUE, String.class, "default value for <phr>-annotation", "phr", false));
+		addProperty(new PepperModuleProperty<String>(PROP_BODYHEAD_ANNO_VALUE, String.class, "default value for <head>-annotation inside of <body>", "head", false));
+		addProperty(new PepperModuleProperty<String>(PROP_DIV_ANNO_VALUE, String.class, "default value for <div>-annotation", "div", false));
+		addProperty(new PepperModuleProperty<String>(PROP_P_ANNO_VALUE, String.class, "default value for <p>-annotation", "p", false));
+		addProperty(new PepperModuleProperty<String>(PROP_FIGURE_ANNO_VALUE, String.class, "default value for <figure>-annotation", "figrue", false));
+		addProperty(new PepperModuleProperty<String>(PROP_APP_ANNO_VALUE, String.class, "default value for <app>-annotation", "app", false));
+		addProperty(new PepperModuleProperty<String>(PROP_TEXT_ANNO_VALUE, String.class, "default value for <text>-annotation", "text", false));
 	}
 	
 	//functions to retrieve property values
@@ -147,7 +147,11 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	
 	public String customAnnotationString(String param){
 		String retVal = "";
-		String prop = getProperty(param).getValue().toString();
+		Object propO = getProperty(param).getValue();
+		String prop= null;
+		if (propO!= null){
+			prop= propO.toString();
+		}
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = prop;
 		}
