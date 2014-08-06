@@ -175,36 +175,36 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		//annotation customization
 		
 		//naming config strings
-		lb_name = props.customAnnotationString(props.PROP_LB_NAME);
-		pb_name = props.customAnnotationString(props.PROP_PB_NAME);
-		w_name = props.customAnnotationString(props.PROP_W_NAME);
-		phr_name = props.customAnnotationString(props.PROP_PHR_NAME);
-		body_head_name = props.customAnnotationString(props.PROP_BODYHEAD_NAME);
-		div_name = props.customAnnotationString(props.PROP_DIV_NAME);
-		p_name = props.customAnnotationString(props.PROP_P_NAME);
-		foreign_name = props.customAnnotationString(props.PROP_FOREIGN_NAME);
-		figure_name = props.customAnnotationString(props.PROP_FIGURE_NAME);
-		m_name = props.customAnnotationString(props.PROP_M_NAME);
-		unclear_name = props.customAnnotationString(props.PROP_UNCLEAR_NAME);
-		surplus_name = props.customAnnotationString(props.PROP_SURPLUS_NAME);
-		title_name = props.customAnnotationString(props.PROP_TITLE_NAME);
-		gap_name = props.customAnnotationString(props.PROP_GAP_NAME);
-		app_name = props.customAnnotationString(props.PROP_APP_NAME);
+		lb_name = props.getTagName(TAG_LB);
+		pb_name = props.getTagName(TAG_PB);
+		w_name = props.getTagName(TAG_W);
+		phr_name = props.getTagName(TAG_PHR);
+		body_head_name = props.getTagName(TAG_HEAD);
+		div_name = props.getTagName(TAG_DIV);
+		p_name = props.getTagName(TAG_P);
+		foreign_name = props.getTagName(TAG_FOREIGN);
+		figure_name = props.getTagName(TAG_FIGURE);
+		m_name = props.getTagName(TAG_M);
+		unclear_name = props.getTagName(TAG_UNCLEAR);
+		surplus_name = props.getTagName(TAG_SURPLUS);
+		title_name = props.getTagName(TAG_TITLE);
+		gap_name = props.getTagName(TAG_GAP);
+		app_name = props.getTagName(TAG_APP);
 		//other Strings to be added here in the future
-		text_name = props.customAnnotationString(props.PROP_TEXT_NAME);
+		text_name = props.getTagName(TAG_TEXT);
 		
 		//annotation config values spans
-		lb_anno_value = props.customAnnotationString(props.PROP_LB_ANNO_VALUE);
-		pb_anno_value = props.customAnnotationString(props.PROP_PB_ANNO_VALUE);
+		lb_anno_value = props.getValuesName(TAG_LB);
+		pb_anno_value = props.getValuesName(TAG_PB);
 		
 		//annotation config values strucs
-		phr_anno_value = props.customAnnotationString(props.PROP_PHR_ANNO_VALUE);
-		body_head_anno_value = props.customAnnotationString(props.PROP_BODYHEAD_ANNO_VALUE);
-		div_anno_value = props.customAnnotationString(props.PROP_DIV_ANNO_VALUE);
-		p_anno_value = props.customAnnotationString(props.PROP_P_ANNO_VALUE);
-		figure_anno_value = props.customAnnotationString(props.PROP_FIGURE_ANNO_VALUE);
-		app_anno_value = props.customAnnotationString(props.PROP_APP_ANNO_VALUE);
-		text_anno_value = props.customAnnotationString(props.PROP_TEXT_ANNO_VALUE);
+		phr_anno_value = props.getValuesName(TAG_PHR);
+		body_head_anno_value = props.getValuesName(TAG_HEAD);
+		div_anno_value = props.getValuesName(TAG_DIV);
+		p_anno_value = props.getValuesName(TAG_P);
+		figure_anno_value = props.getValuesName(TAG_FIGURE);
+		app_anno_value = props.getValuesName(TAG_APP);
+		text_anno_value = props.getValuesName(TAG_TEXT);
 	}
 	
 	//JUnit-Test compatability constructor
