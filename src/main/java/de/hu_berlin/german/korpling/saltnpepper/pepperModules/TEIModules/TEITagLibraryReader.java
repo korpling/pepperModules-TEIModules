@@ -48,36 +48,36 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean foreign_as_token = false;
 	
 	//naming config strings
-	private String lb_name;
-	private String pb_name;
-	private String w_name;
-	private String phr_name;
-	private String body_head_name;
-	private String div_name;
-	private String p_name;
-	private String foreign_name;
-	private String figure_name;
-	private String m_name;
-	private String unclear_name;
-	private String surplus_name;
-	private String title_name;
-	private String gap_name;
-	private String app_name;
+	private String lb_name = "lb";
+	private String pb_name = "pb";
+	private String w_name = "w";
+	private String phr_name = "phr";
+	private String body_head_name = "head";
+	private String div_name = "div";
+	private String p_name = "p";
+	private String foreign_name = "foreign";
+	private String figure_name = "figure";
+	private String m_name = "m";
+	private String unclear_name = "unclear";
+	private String surplus_name = "surplus";
+	private String title_name = "title";
+	private String gap_name = "gap";
+	private String app_name = "app";
 	//other Strings to be added here in the future
-	private String text_name;
+	private String text_name = "text";
 	
 	//annotation config values spans
-	private String lb_anno_value;
-	private String pb_anno_value;
+	private String lb_anno_value = "lb";
+	private String pb_anno_value = "pb";
 	
 	//annotation config values strucs
-	private String phr_anno_value;
-	private String body_head_anno_value;
-	private String div_anno_value;
-	private String p_anno_value;
-	private String figure_anno_value;
-	private String app_anno_value;
-	private String text_anno_value;
+	private String phr_anno_value = "phr";
+	private String body_head_anno_value = "head";
+	private String div_anno_value = "div";
+	private String p_anno_value = "p";
+	private String figure_anno_value = "figure";
+	private String app_anno_value = "app";
+	private String text_anno_value = "text";
 	
 	
 	
