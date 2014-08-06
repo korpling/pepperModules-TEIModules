@@ -315,50 +315,45 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 	}
 	
+	private void setTokenList (List<String> tokenlist){
+		for (String tokstring: tokenlist){
+			SToken temp_tok = null;
+			if (primaryText.getSText() != null){
+				addSpace(primaryText);
+			}
+			
+			int oldposition = primaryText.getSEnd();
+			if (primaryText.getSText() == null){
+				primaryText.setSText(tokstring);
+			}
+			
+			else if (primaryText.getSText() != null){
+				primaryText.setSText(primaryText.getSText()+tokstring);
+			}
+				
+			temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+			setDominatingToken(temp_tok);
+			push_spans(temp_tok);
+		}
+	}
+	
+	de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.tokenizer.Tokenizer tokenizer = sDocGraph.createTokenizer();
+	
 	private void setTokenizedTokens (StringBuilder str) {
 		if (str.toString().trim().length() > 0){
 			if (primaryText != null){
-				SToken temp_tok = null;
-				/*in case primaryText is empty, but exists, initialize primaryText with temp
-				 *to avoid "null" as part of the string; otherwise add temp to primaryText
-				 */
-				if (str.length() > 0  && primaryText.getSText()==null){
 					String tempstr;
 					tempstr = str.toString();
 					tempstr = tempstr.replaceAll("\\s+"," ");
 					tempstr = tempstr.trim();
-					//needs to be named
-					primaryText.setSText(tempstr);
-					temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
-					setDominatingToken(temp_tok);
-				}
-			
-				/*add a single space character to split the first and last word from 
-				 *two neighboring chunks of text*
-				 */
-				else if (str.length() > 0 && !(primaryText.getSText()==null)){
-					addSpace(primaryText);
-					int oldposition = primaryText.getSEnd();
-					
-					String tempstr;
-					tempstr = str.toString();
-					tempstr = tempstr.replaceAll("\\s+"," ");
-					tempstr = tempstr.trim();
-					//needs to be named
-					primaryText.setSText(primaryText.getSText()+tempstr);
-					temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
-					setDominatingToken(temp_tok);
-				}
-				while (!getSAnnoStack().isEmpty()) {
-					temp_tok.addSAnnotation(getSAnnoStack().pop());
-				}
-				//add token to stack for sspans
-				push_spans(temp_tok);
-				
-			}
+					List<String> tokenliste = tokenizer.tokenizeToString(tempstr, LanguageCode.en);
+					setTokenList(tokenliste);
+			}	
 			str.setLength(0);
 		}
 	}
+	
+	
 	
 	//this is the generic method for unary elements creating spans
 	//in addition to calling this function, the tokens have to be
@@ -401,9 +396,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		
-		de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.tokenizer.Tokenizer tokenizer = sDocGraph.createTokenizer();
-		List<String> liste = tokenizer.tokenizeToString("Hallo Welt, wie geht es dir?", LanguageCode.de);
-		System.out.print(liste.get(1));
+		
 		
 		if (TAG_LB.equals(qName)) {
 			generic_break(lb_name, lbSpanTokenStack, lb_anno_value);
