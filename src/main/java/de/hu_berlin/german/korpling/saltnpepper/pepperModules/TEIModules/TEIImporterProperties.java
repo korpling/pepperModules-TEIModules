@@ -16,7 +16,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_UNCLEAR_AS_TOKEN = "UnclearAsToken";
 	public static final String PROP_FOREIGN_AS_TOKEN = "ForeignAsToken";
 	public static final String PROP_RENAME_TAG = "tag.rename";
-	public static final String PROP_RENAME_VALUES = "tag.rename.values";
+	public static final String PROP_RENAME_VALUES = "values.rename";
 
 	
 	
