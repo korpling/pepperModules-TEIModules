@@ -50,6 +50,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean unclear_as_token = false;
 	private Boolean foreign_as_token = false;
 	
+	private Boolean use_tokenizer = false;
+	
 	//naming config strings
 	private String lb_name = "lb";
 	private String pb_name = "pb";
@@ -270,7 +272,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		push_spans(temp_tok);
 	}
 	
-	private void setToken (StringBuilder str) {
+	private void setStandardToken (StringBuilder str) {
 		if (str.toString().trim().length() > 0){
 			if (primaryText != null){
 				SToken temp_tok = null;
@@ -352,6 +354,16 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			str.setLength(0);
 		}
 	}
+	
+	private void setToken (StringBuilder str){
+		if (use_tokenizer){
+			setTokenizedTokens(str);
+		}
+		else if (!use_tokenizer){
+			setStandardToken(str);
+		}
+	}
+	
 	
 	
 	
