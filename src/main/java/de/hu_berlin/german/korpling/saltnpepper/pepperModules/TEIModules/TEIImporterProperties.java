@@ -15,6 +15,9 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_SURPLUS_REMOVAL = "SurplusRemoval";
 	public static final String PROP_UNCLEAR_AS_TOKEN = "UnclearAsToken";
 	public static final String PROP_FOREIGN_AS_TOKEN = "ForeignAsToken";
+	
+	public static final String PROP_USE_TOKENIZER = "UseTokenizer";
+	
 	public static final String PROP_RENAME_TAG = "tag.rename";
 	public static final String PROP_RENAME_VALUES = "values.rename";
 
@@ -28,6 +31,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SURPLUS_REMOVAL, Boolean.class, "Will text from <surplus> appear in Salt?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_UNCLEAR_AS_TOKEN, Boolean.class, "Does <unclear> exclusively include one token?", true, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_FOREIGN_AS_TOKEN, Boolean.class, "Does <foreign> exclusively include one token?", true, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_USE_TOKENIZER, Boolean.class, "Do you want to tokenize the text?", false, false));
 		
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_TAG, String.class, "String containing the tag renaming configuration set by the user", "", false));
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
@@ -82,6 +86,15 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public boolean isForeignAsToken(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_FOREIGN_AS_TOKEN).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	public boolean isUseTokenizer(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_USE_TOKENIZER).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}

@@ -176,6 +176,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		unclear_as_token = props.isUnclearAsToken();
 		foreign_as_token = props.isForeignAsToken();
 		
+		use_tokenizer = props.isUseTokenizer();
+		
 		
 		//annotation customization
 		
