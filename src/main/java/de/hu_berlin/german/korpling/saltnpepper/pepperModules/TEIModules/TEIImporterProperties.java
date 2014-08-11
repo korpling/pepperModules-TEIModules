@@ -114,6 +114,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	
 	private Map<String, String> tagRenameTable= null;
 	/**
 	 * 
@@ -124,8 +125,9 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		if (tagRenameTable== null){
 			tagRenameTable= new Hashtable<>();
 			Object propO = getProperty(PROP_RENAME_TAG).getValue();
+			
 			String prop= null;
-			if (propO!= null){
+			if (propO.toString().trim()!= ""){
 				prop= propO.toString();
 				String[] renameParts= prop.split(";");
 				for (String part: renameParts){
@@ -154,7 +156,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 			tagRenameValuesTable= new Hashtable<>();
 			Object propO = getProperty(PROP_RENAME_VALUES).getValue();
 			String prop= null;
-			if (propO!= null){
+			if (propO.toString().trim()!= ""){
 				prop= propO.toString();
 				String[] renameParts= prop.split(";");
 				for (String part: renameParts){
