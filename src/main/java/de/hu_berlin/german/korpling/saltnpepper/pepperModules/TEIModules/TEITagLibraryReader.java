@@ -157,6 +157,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	private TEIImporterProperties props= null;
 	
+	//initialize tokenizer
+	de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.tokenizer.Tokenizer tokenizer = null;
+	
 	public TEIImporterProperties getProps() {
 		return props;
 	}
@@ -341,7 +344,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 	}
 	
-	de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.tokenizer.Tokenizer tokenizer = sDocGraph.createTokenizer();
+	
+	//de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.tokenizer.Tokenizer tokenizer = sDocGraph.createTokenizer();
 	
 	private void setTokenizedTokens (StringBuilder str) {
 		if (str.toString().trim().length() > 0){
@@ -410,7 +414,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		
-		
+		tokenizer = sDocGraph.createTokenizer();
 		
 		if (TAG_LB.equals(qName)) {
 			generic_break(lb_name, lbSpanTokenStack, lb_anno_value);
