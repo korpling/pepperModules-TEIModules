@@ -328,7 +328,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			if (primaryText.getSText() != null){
 				addSpace(primaryText);
 			}
-			
+			if (primaryText.getSText()==null){
+				primaryText.setSText("");
+			}
 			int oldposition = primaryText.getSEnd();
 			if (primaryText.getSText() == null){
 				primaryText.setSText(tokstring);
@@ -362,11 +364,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	}
 	
 	private void setToken (StringBuilder str){
-		if (use_tokenizer){
-			setTokenizedTokens(str);
-		}
-		else if (!use_tokenizer){
-			setStandardToken(str);
+		if (str.toString().trim().length() > 0){
+			if (primaryText != null){
+				if (use_tokenizer){
+					setTokenizedTokens(str);
+				}
+				else if (!use_tokenizer){
+					setStandardToken(str);
+				}
+			}
 		}
 	}
 	
