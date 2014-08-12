@@ -422,7 +422,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			Attributes attributes) throws SAXException {
 		
 		tokenizer = sDocGraph.createTokenizer();
-		System.out.println(LanguageCode.de);
 		
 		if (TAG_LB.equals(qName)) {
 			generic_break(lb_name, lbSpanTokenStack, lb_anno_value);
