@@ -42,7 +42,7 @@ import com.neovisionaries.i18n.LanguageCode;
 public class TEITagLibraryReader extends DefaultHandler2 implements
 		TEITagLibrary {
 	//options
-	private Boolean user_defined_default_tokenization = false;
+	private Boolean default_tokenization = false;
 	private Boolean sub_tokenization = false;
 	
 	private Boolean surplus_removal = false;
@@ -86,15 +86,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	
 	
-	public void setUSER_DEFINED_DEFAULT_TOKENIZATION(){
-		user_defined_default_tokenization = true;
+	public void setDEFAULT_TOKENIZATION(){
+		default_tokenization = true;
 	}
 	public void setSUB_TOKENIZATION(){
 		sub_tokenization = true;
 	}
 	
 	
-	//tag used for tokenization with option "user defined default tokenization"
+	//tag used for tokenization with option "default tokenization"
 	private String default_token_tag = TAG_W;
 	
 	public void set_default_token_tag(String param){
@@ -167,7 +167,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		//get the parameter values
 		super();
 		setProps(props);
-		user_defined_default_tokenization = props.isUserDefinedDefaultTokenization();
+		default_tokenization = props.isDefaultTokenization();
 		sub_tokenization = props.isSubTokenization();
 		
 		surplus_removal = props.isSurplusRemoval();
@@ -428,7 +428,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (TAG_W.equals(qName)) {
 			setToken(txt);
 			TagStack.push(TAG_W);
-			if (!(user_defined_default_tokenization && default_token_tag==TAG_W)){
+			if (!(default_tokenization && default_token_tag==TAG_W)){
 				SStructure w_struc = SaltFactory.eINSTANCE.createSStructure();
 				SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
 				w_struc.addSAnnotation(wordanno);
@@ -733,7 +733,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		if (TAG_W.equals(qName)) {
 			setToken(txt);
-			if (!(user_defined_default_tokenization && default_token_tag==TAG_W)){
+			if (!(default_tokenization && default_token_tag==TAG_W)){
 				getSNodeStack().pop();
 			}
 		}

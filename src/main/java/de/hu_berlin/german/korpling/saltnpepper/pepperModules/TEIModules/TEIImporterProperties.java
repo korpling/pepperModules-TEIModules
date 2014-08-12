@@ -11,7 +11,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModulePrope
 
 public class TEIImporterProperties extends PepperModuleProperties{
 	//String values for properties
-	public static final String PROP_USER_DEFINED_DEFAULT_TOKENIZATION = "UserDefinedDefaultTokenization";
+	public static final String PROP_DEFAULT_TOKENIZATION = "DefaultTokenization";
 	public static final String PROP_SUB_TOKENIZATION = "SubTokenization";
 	
 	public static final String PROP_SURPLUS_REMOVAL = "SurplusRemoval";
@@ -28,7 +28,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	
 	//registration of properties
 	public TEIImporterProperties(){
-		addProperty(new PepperModuleProperty<Boolean>(PROP_USER_DEFINED_DEFAULT_TOKENIZATION, Boolean.class, "The user declares the element responsible for tokenization. Default is <w> in this mode.", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_DEFAULT_TOKENIZATION, Boolean.class, "One element is responsible for tokenization. Default is <w> in this mode.", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SUB_TOKENIZATION, Boolean.class, "In this scenario, units smaller than ‘words’ exist. Elements within <w> etc. are possible", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SURPLUS_REMOVAL, Boolean.class, "Will text from <surplus> appear in Salt?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_UNCLEAR_AS_TOKEN, Boolean.class, "Does <unclear> exclusively include one token?", true, false));
@@ -41,9 +41,9 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	}
 	
 	//methods to retrieve property values
-	public boolean isUserDefinedDefaultTokenization(){
+	public boolean isDefaultTokenization(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_USER_DEFINED_DEFAULT_TOKENIZATION).getValue().toString();
+		String prop = getProperty(PROP_DEFAULT_TOKENIZATION).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}

@@ -123,7 +123,7 @@ public class TEIImporterTest extends PepperImporterTest{
 		File outFile = new File (filePath.concat("w_token_test"));
 		outFile.getParentFile().mkdirs();
 		
-		this.getFixture().getProperties().setPropertyValue(TEIImporterProperties.PROP_USER_DEFINED_DEFAULT_TOKENIZATION, true);
+		this.getFixture().getProperties().setPropertyValue(TEIImporterProperties.PROP_DEFAULT_TOKENIZATION, true);
 		
 		this.getFixture().setCorpusDesc(new CorpusDesc());
 		getFixture().getCorpusDesc().setCorpusPath(URI.createFileURI(outFile.getAbsolutePath())).setFormatDesc(new FormatDesc());

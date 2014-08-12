@@ -88,7 +88,7 @@ public class TEITagLibraryReaderTest {
 	
 	@Test
 	public void simple_p_default_tag_w(){
-		fixture.setUSER_DEFINED_DEFAULT_TOKENIZATION();
+		fixture.setDEFAULT_TOKENIZATION();
 		
 		File outFile = new File (filePath.concat("w_token_test/w_token_test.xml"));
 		outFile.getParentFile().mkdirs();
