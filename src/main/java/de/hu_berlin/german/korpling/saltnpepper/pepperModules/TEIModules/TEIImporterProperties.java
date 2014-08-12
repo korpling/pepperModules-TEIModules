@@ -4,6 +4,8 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
 
+import com.neovisionaries.i18n.LanguageCode;
+
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperties;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperty;
 
@@ -117,9 +119,9 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
-	public String languageString(String param){
+	private String tokenizer_lang(){
 		String retVal = "";
-		Object propO = getProperty(param).getValue();
+		Object propO = getProperty(PROP_USE_TOKENIZER_LANG).getValue();
 		String prop= null;
 		if (propO!= null){
 			prop= propO.toString();
@@ -127,7 +129,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = prop;
 		}
-		LinkedList<String> langlist = new LinkedList<>();
+		LinkedList<String> langlist = new LinkedList<String>();
 		langlist.push("de");
 		langlist.push("en");
 		langlist.push("fr");
@@ -141,6 +143,16 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		else{
 			return("en");
 		}
+	}
+	
+	public LanguageCode tokenizer_code(){
+		Map<String, LanguageCode> langmap = new Hashtable<>();
+		langmap.put("de", LanguageCode.de);
+		langmap.put("en", LanguageCode.en);
+		langmap.put("fr", LanguageCode.fr);
+		langmap.put("it", LanguageCode.it);
+		
+		return (langmap.get(tokenizer_lang()));
 	}
 	
 	

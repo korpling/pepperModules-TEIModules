@@ -51,6 +51,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	private Boolean foreign_as_token = false;
 	
 	private Boolean use_tokenizer = false;
+	private LanguageCode use_tokenizer_language = null;
 	
 	//naming config strings
 	private String lb_name = "lb";
@@ -180,6 +181,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		foreign_as_token = props.isForeignAsToken();
 		
 		use_tokenizer = props.isUseTokenizer();
+		use_tokenizer_language = props.tokenizer_code();
 		
 		
 		//annotation customization
