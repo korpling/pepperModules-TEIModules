@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pepperParams:PepperParams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:pepperParams="de.hu_berlin.german.korpling.saltnpepper.pepper.pepperParams">
+    <pepperJobParams id="1">
+        <importerParams moduleName="TEIImporter" sourcePath="./pb_test"
+        				specialParams="./pb_tokenize.properties"/>
+        <exporterParams moduleName="RelANNISExporter" destinationPath="./target/pbTokenize"/>
+    </pepperJobParams>
+</pepperParams:PepperParams>
