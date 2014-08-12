@@ -357,7 +357,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 					tempstr = str.toString();
 					tempstr = tempstr.replaceAll("\\s+"," ");
 					tempstr = tempstr.trim();
-					List<String> tokenliste = tokenizer.tokenizeToString(tempstr, LanguageCode.en);
+					List<String> tokenliste = tokenizer.tokenizeToString(tempstr, use_tokenizer_language);
 					setTokenList(tokenliste);
 			}	
 			str.setLength(0);
