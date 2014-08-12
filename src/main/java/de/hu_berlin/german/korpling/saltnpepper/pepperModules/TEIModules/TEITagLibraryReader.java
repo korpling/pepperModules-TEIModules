@@ -347,7 +347,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	}
 	
 	
-	//de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.tokenizer.Tokenizer tokenizer = sDocGraph.createTokenizer();
 	
 	private void setTokenizedTokens (StringBuilder str) {
 		if (str.toString().trim().length() > 0){
@@ -421,6 +420,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			Attributes attributes) throws SAXException {
 		
 		tokenizer = sDocGraph.createTokenizer();
+		System.out.println(LanguageCode.de);
 		
 		if (TAG_LB.equals(qName)) {
 			generic_break(lb_name, lbSpanTokenStack, lb_anno_value);
