@@ -44,7 +44,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	//options
 	private Boolean user_defined_default_tokenization = false;
 	private Boolean sub_tokenization = false;
-	private Boolean no_input_tokenization = false;
 	
 	private Boolean surplus_removal = false;
 	private Boolean unclear_as_token = false;
@@ -93,10 +92,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void setSUB_TOKENIZATION(){
 		sub_tokenization = true;
 	}
-	public void setNO_INPUT_TOKENIZATION(){
-		no_input_tokenization = true;
-	}
-	
 	
 	
 	//tag used for tokenization with option "user defined default tokenization"
@@ -174,7 +169,6 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		setProps(props);
 		user_defined_default_tokenization = props.isUserDefinedDefaultTokenization();
 		sub_tokenization = props.isSubTokenization();
-		no_input_tokenization = props.isNoInputTokenization();
 		
 		surplus_removal = props.isSurplusRemoval();
 		unclear_as_token = props.isUnclearAsToken();
