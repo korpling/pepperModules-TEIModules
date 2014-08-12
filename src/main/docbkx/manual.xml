@@ -117,6 +117,13 @@
 						
 						<row>
 							<entry>
+								<xref endterm="importer_prop3_title" linkend="prop_prop3"/></entry>
+							<entry>Boolean</entry>
+							<entry>optional</entry>
+							<entry>true</entry>
+						</row>
+						<row>
+							<entry>
 								<xref endterm="importer_prop4_title" linkend="prop_prop4"/></entry>
 							<entry>Boolean</entry>
 							<entry>optional</entry>
@@ -134,7 +141,14 @@
 								<xref endterm="importer_prop6_title" linkend="prop_prop6"/></entry>
 							<entry>Boolean</entry>
 							<entry>optional</entry>
-							<entry>true</entry>
+							<entry>false</entry>
+						</row>
+						<row>
+							<entry>
+								<xref endterm="importer_prop7_title" linkend="prop_prop7"/></entry>
+							<entry>String</entry>
+							<entry>optional</entry>
+							<entry>en</entry>
 						</row>
 					</tbody>
 				</tgroup>
@@ -152,22 +166,34 @@
 					possible.</para>
 			</sect2>
 			
-			<sect2 xml:id="prop_prop4">
-				<title xml:id="importer_prop4_title"> TEIImporter.SurplusRemoval</title>
+			<sect2 xml:id="prop_prop3">
+				<title xml:id="importer_prop3_title"> TEIImporter.SurplusRemoval</title>
 				<para>Will text from &lt;surplus> appear in Salt? If this is set "true" (default), then
 					&lt;surplus>-text will be removed.</para>
 			</sect2>
-			<sect2 xml:id="prop_prop5">
-				<title xml:id="importer_prop5_title"> TEIImporter.UnclearAsToken</title>
+			<sect2 xml:id="prop_prop4">
+				<title xml:id="importer_prop4_title"> TEIImporter.UnclearAsToken</title>
 			
 				<para>Does &lt;unclear> exclusively create one token annotated as "unclear"? If this is set
 					"true" (default), thentext in &lt;unclear> will appear as a token.</para>
 			</sect2>
-			<sect2 xml:id="prop_prop6">
-				<title xml:id="importer_prop6_title"> TEIImporter.ForeignAsToken</title>
+			<sect2 xml:id="prop_prop5">
+				<title xml:id="importer_prop5_title"> TEIImporter.ForeignAsToken</title>
 			
 				<para>Does &lt;foreign> exclusively create one token annotated as "foreign"? If this is set
 					"true" (default), then text in &lt;foreign> will appear as a token.</para>
+			</sect2>
+			<sect2 xml:id="prop_prop6">
+				<title xml:id="importer_prop6_title"> TEIImporter.UseTokenizer</title>
+				
+				<para>Do you want the tokenizer to tokenize text?</para>
+			</sect2>
+			<sect2 xml:id="prop_prop7">
+				<title xml:id="importer_prop7_title"> TEIImporter.UseTokenizerLang</title>
+				<para>The tokenizer currently has support for four languages: English, German,
+					Italian, French. To choose a language, use the respective ISO 639-1 language
+					code(en, de, it, fr). If no value or non-supported value is set, the tokenizer
+					will default to English.</para>
 			</sect2>
 		</sect1>
 	</chapter>
