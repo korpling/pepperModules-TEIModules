@@ -186,7 +186,8 @@
 			<sect2 xml:id="prop_prop6">
 				<title xml:id="importer_prop6_title"> TEIImporter.UseTokenizer</title>
 				
-				<para>Do you want the tokenizer to tokenize text?</para>
+				<para>Do you want the tokenizer to tokenize text? This option is useful, if your TEI document is
+					contains sections of text that are not tokenized.</para>
 			</sect2>
 			<sect2 xml:id="prop_prop7">
 				<title xml:id="importer_prop7_title"> TEIImporter.UseTokenizerLang</title>
