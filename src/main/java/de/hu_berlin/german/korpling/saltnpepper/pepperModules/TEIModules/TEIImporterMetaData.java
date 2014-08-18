@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class TEIImporterMetaData {
 	private Stack<String> pathStack = new Stack<String>();
-	private Map<String, String> xPathMap= null;
+	private Map<String, String> XPathMap= null;
 
 	
 	public TEIImporterMetaData(){
@@ -20,13 +20,13 @@ public class TEIImporterMetaData {
 		return(pathStack.pop());
 	}
 	
-	public String getxPath(String str){
+	public void putXPath(String str){
 		int size = pathStack.size();
 		String xpath = "";
 		for (int i=0; i<size;i++){
 			xpath = xpath + "/" + pathStack.get(i);
 		}
-		return(xpath);
+		XPathMap.put(xpath, str);
 	}
 }
 
