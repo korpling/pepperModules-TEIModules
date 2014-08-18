@@ -20,12 +20,13 @@ public class TEIImporterMetaData {
 		return(pathStack.pop());
 	}
 	
-	public void putxPath(String str){
+	public String getxPath(String str){
 		int size = pathStack.size();
 		String xpath = "";
-		
-			
-		
+		for (int i=0; i<size;i++){
+			xpath = xpath + "/" + pathStack.get(i);
+		}
+		return(xpath);
 	}
 }
 
