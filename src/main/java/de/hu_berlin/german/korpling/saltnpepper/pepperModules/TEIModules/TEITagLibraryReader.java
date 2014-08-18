@@ -104,6 +104,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	//returns whether the parser is inside <text>...</text>
 	private Boolean insidetext = false;
 	
+	//return whether the parser is inside <TEIHeader>...</TEIHeader>
+	private Boolean metadata = false;
+	
 	private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
 	
 	//stacks for unary break elementes creating spans
@@ -415,6 +418,15 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		
+		if (metadata){
+			
+		}
+		
+		if (TAG_TEIHEADER.equals(qName)){
+			metadata = true;
+		}
+		
+		//if inside <text>
 		tokenizer = sDocGraph.createTokenizer();
 		
 		if (TAG_LB.equals(qName)) {
@@ -730,6 +742,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	}
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
+		
+		if (TAG_TEIHEADER.equals(qName)){
+			metadata = false;
+		}
 		
 		if (TAG_W.equals(qName)) {
 			setToken(txt);
