@@ -8,5 +8,14 @@ public class TEIImporterMetaData {
 	public TEIImporterMetaData(){
 		
 	}
+	
+	public void push(String str){
+		pathStack.push(str);
+	}
+	
+	public String pop(){
+		return(pathStack.pop());
+	}
+	
 }
 

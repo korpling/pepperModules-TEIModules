@@ -142,6 +142,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	StringBuilder txt = new StringBuilder();
 	
 	private SDocumentGraph sDocGraph = null;
+	//add instance of metadata
+	private TEIImporterMetaData tei_metadata = new TEIImporterMetaData();
+	//add primaryText
 	private STextualDS primaryText = null;
 	
 	private SLayer primaryLayer = SaltFactory.eINSTANCE.createSLayer();
@@ -423,7 +426,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (metadata){
-			
+			tei_metadata.push(qName);
 		}
 		
 		else if (TAG_TEXT.equals(qName)) {
@@ -761,7 +764,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			metadata = false;
 		}
 		
-		if (TAG_W.equals(qName)) {
+		else if (metadata){
+			tei_metadata.pop();
+		}
+		
+		else if (TAG_W.equals(qName)) {
 			setToken(txt);
 			if (!(default_tokenization && default_token_tag==TAG_W)){
 				getSNodeStack().pop();
