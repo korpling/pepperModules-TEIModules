@@ -21,7 +21,7 @@ public class TEIImporterMetaData {
 		return(pathStack.pop());
 	}
 	
-	public void putXPath(String str){
+	public void putXPathText(String str){
 		if (XPathMap == null){
 			XPathMap = new Hashtable<>();
 		}
@@ -31,6 +31,22 @@ public class TEIImporterMetaData {
 			xpath = xpath + "/" + pathStack.get(i);
 		}
 		XPathMap.put(xpath, str);
+	}
+	
+	public void putXPathAttr(String str){
+		if (XPathMap == null){
+			XPathMap = new Hashtable<>();
+		}
+		int size = pathStack.size();
+		String xpath = "";
+		for (int i=0; i<size;i++){
+			xpath = xpath + "/" + pathStack.get(i);
+		}
+		XPathMap.put(xpath, str);
+	}
+	
+	public String getXPath(String str){
+		return(XPathMap.get(str));
 	}
 }
 
