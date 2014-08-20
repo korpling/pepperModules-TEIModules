@@ -1,5 +1,6 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Stack;
 
@@ -21,6 +22,9 @@ public class TEIImporterMetaData {
 	}
 	
 	public void putXPath(String str){
+		if (XPathMap == null){
+			XPathMap = new Hashtable<>();
+		}
 		int size = pathStack.size();
 		String xpath = "";
 		for (int i=0; i<size;i++){
