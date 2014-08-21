@@ -17,11 +17,26 @@ public class TEIImporterMetaData {
 	}
 	
 	public void push(String str){
-		pathStack.push(str);
+		boolean run = true;
+		for (int i= 1;run;i++){
+			if (!PathSet.contains(getcurrentpath()+"/"+str+"["+i+"]")){
+				pathStack.push(str+"["+i+"]");
+				run = false;
+			}
+		}
 	}
 	
 	public String pop(){
 		return(pathStack.pop());
+	}
+	
+	private String getcurrentpath(){
+		int size = pathStack.size();
+		String xpath = "";
+		for (int i=0; i<size;i++){
+			xpath = xpath + "/" + pathStack.get(i);
+		}
+		return (xpath);
 	}
 	
 	private String getPath(String oldpath, String newstring, int recursion){
