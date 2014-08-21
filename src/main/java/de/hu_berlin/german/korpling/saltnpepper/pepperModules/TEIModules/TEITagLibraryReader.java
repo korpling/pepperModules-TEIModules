@@ -545,15 +545,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			}
 			
 			else if (TAG_P.equals(qName)) {
-				if (insidetext){
-					TagStack.push(TAG_P);
-					
-					SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
-					p_struc.createSAnnotation(null, p_name, p_anno_value);
-					sDocGraph.addSNode(p_struc);
-					setDominatingStruc(p_struc);
-					getSNodeStack().add(p_struc);
-				}
+				TagStack.push(TAG_P);	
+				SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
+				p_struc.createSAnnotation(null, p_name, p_anno_value);
+				sDocGraph.addSNode(p_struc);
+				setDominatingStruc(p_struc);
+				getSNodeStack().add(p_struc);
 			}
 			
 			else if (TAG_FOREIGN.equals(qName)) {
