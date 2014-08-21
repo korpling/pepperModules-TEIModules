@@ -140,6 +140,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 	
 	//Stringbuilder used for collecting text between tags
 	StringBuilder txt = new StringBuilder();
+	//Stringbuilder used for collecting tags between metadata tags
+	StringBuilder meta_txt = new StringBuilder();
 	
 	private SDocumentGraph sDocGraph = null;
 	//add instance of metadata
@@ -413,6 +415,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 				tempstr.append(ch[i]);
 			}
 			txt.append(tempstr.toString().trim());
+		}
+		
+		if (metadata){
+			
 		}
 		
 	}
