@@ -768,175 +768,179 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			tei_metadata.pop();
 		}
 		
-		else if (TAG_W.equals(qName)) {
-			setToken(txt);
-			if (!(default_tokenization && default_token_tag==TAG_W)){
-				getSNodeStack().pop();
-			}
-		}
-		
-		else if (TAG_PHR.equals(qName)) {
-			getSNodeStack().pop();
-		}
-		
-		else if (TAG_HEAD.equals(qName)) {
-			if ((TagStack.peek()==TAG_HEAD)){
-				if (txt.length()>0) {
-					setToken(txt);
-				}
-				else{
-					setEmptyToken();
-				}
-				
-				getSNodeStack().pop();
-			}
-			if (TagStack.peek()==TAG_FIGURE){
-				getSNodeStack().peek().createSAnnotation(null, body_head_name, txt.toString().trim());
-				txt.setLength(0);
-			}
+		else if(insidetext){
 			
-		}
 		
-		else if (TAG_DIV.equals(qName)) {
-			getSNodeStack().pop();
-		}
-		
-		else if (TAG_P.equals(qName)) {
-			if (insidetext){
+			if (TAG_W.equals(qName)) {
 				setToken(txt);
-				
+				if (!(default_tokenization && default_token_tag==TAG_W)){
+					getSNodeStack().pop();
+				}
+			}
+			
+			else if (TAG_PHR.equals(qName)) {
 				getSNodeStack().pop();
 			}
-		}
-		
-		else if (TAG_FOREIGN.equals(qName)) {
-			setToken(txt);
-		}
-		
-		
-		else if (TAG_FIGURE.equals(qName)) {
-			getSNodeStack().pop();
-		}
-		
-		else if (TAG_M.equals(qName)) {
-			SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-			tempanno.setSName("morpheme");
-			getSAnnoStack().add(tempanno);
 			
-			setToken(txt);
-		}
-		
-		else if (TAG_UNCLEAR.equals(qName)) {
-			if(unclear_as_token){
-				if (txt.length()==0){
-					SToken temp_tok = null;
-					temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
-					setDominatingToken(temp_tok);
-					
-					push_spans(temp_tok);
-					while (!getSAnnoStack().isEmpty()) {
-						temp_tok.addSAnnotation(getSAnnoStack().pop());
+			else if (TAG_HEAD.equals(qName)) {
+				if ((TagStack.peek()==TAG_HEAD)){
+					if (txt.length()>0) {
+						setToken(txt);
+					}
+					else{
+						setEmptyToken();
 					}
 					
+					getSNodeStack().pop();
 				}
+				if (TagStack.peek()==TAG_FIGURE){
+					getSNodeStack().peek().createSAnnotation(null, body_head_name, txt.toString().trim());
+					txt.setLength(0);
+				}
+				
+			}
+			
+			else if (TAG_DIV.equals(qName)) {
+				getSNodeStack().pop();
+			}
+			
+			else if (TAG_P.equals(qName)) {
+				if (insidetext){
+					setToken(txt);
+					
+					getSNodeStack().pop();
+				}
+			}
+			
+			else if (TAG_FOREIGN.equals(qName)) {
 				setToken(txt);
 			}
-		}
-		
-		else if (TAG_SURPLUS.equals(qName)) {
-			if (surplus_removal) {
-				txt.setLength(0);
+			
+			
+			else if (TAG_FIGURE.equals(qName)) {
+				getSNodeStack().pop();
 			}
-			else {
+			
+			else if (TAG_M.equals(qName)) {
+				SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+				tempanno.setSName("morpheme");
+				getSAnnoStack().add(tempanno);
+				
 				setToken(txt);
 			}
-		}
-		
-		else if (TAG_TITLE.equals(qName)) {
-			//part of <head>
-		}
-		
-		else if (TAG_GAP.equals(qName)) {
 			
-		}
-		
-		else if (TAG_APP.equals(qName)) {
-			getSNodeStack().pop();
-		}
-		
-		else if (TAG_LEM.equals(qName)) {
+			else if (TAG_UNCLEAR.equals(qName)) {
+				if(unclear_as_token){
+					if (txt.length()==0){
+						SToken temp_tok = null;
+						temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
+						setDominatingToken(temp_tok);
+						
+						push_spans(temp_tok);
+						while (!getSAnnoStack().isEmpty()) {
+							temp_tok.addSAnnotation(getSAnnoStack().pop());
+						}
+						
+					}
+					setToken(txt);
+				}
+			}
 			
-		}
-		
-		else if (TAG_SUPPLIED.equals(qName)) {
+			else if (TAG_SURPLUS.equals(qName)) {
+				if (surplus_removal) {
+					txt.setLength(0);
+				}
+				else {
+					setToken(txt);
+				}
+			}
 			
+			else if (TAG_TITLE.equals(qName)) {
+				//part of <head>
+			}
+			
+			else if (TAG_GAP.equals(qName)) {
+				
+			}
+			
+			else if (TAG_APP.equals(qName)) {
+				getSNodeStack().pop();
+			}
+			
+			else if (TAG_LEM.equals(qName)) {
+				
+			}
+			
+			else if (TAG_SUPPLIED.equals(qName)) {
+				
+			}
+			
+			
+			if (TAG_SUMMARY.equals(qName)) {
+			} 
+			
+			else if (TAG_BODY.equals(qName)) {
+				//nothing
+			}
+			
+			else if (TAG_ORIGDATE.equals(qName)) {
+			} else if (TAG_MSNAME.equals(qName)) {
+			} else if (TAG_LANGUSAGE.equals(qName)) {
+			} else if (TAG_TEXTLANG.equals(qName)) {
+			} else if (TAG_CHANGE.equals(qName)) {
+			} else if (TAG_SURNAME.equals(qName)) {
+			} else if (TAG_PLACENAME.equals(qName)) {
+			} else if (TAG_MSDESC.equals(qName)) {
+			} else if (TAG_TITLESTMT.equals(qName)) {
+			} else if (TAG_REVISIONDESC.equals(qName)) {
+			} else if (TAG_LICENCE.equals(qName)) {
+			} 
+			
+			else if (TAG_TEXT.equals(qName)) {
+				insidetext = false;
+				getSNodeStack().pop();
+			} 
+			
+			else if (TAG_FORENAME.equals(qName)) {
+			} else if (TAG_FILEDESC.equals(qName)) {
+			} else if (TAG_LISTBIBL.equals(qName)) {
+			} else if (TAG_COUNTRY.equals(qName)) {
+			} else if (TAG_BIBLSCOPE.equals(qName)) {
+			} else if (TAG_LANGUAGE.equals(qName)) {
+			} else if (TAG_IDNO.equals(qName)) {
+			} else if (TAG_SERIES.equals(qName)) {
+			} else if (TAG_CREATION.equals(qName)) {
+			} else if (TAG_ENCODINGDESC.equals(qName)) {
+			} else if (TAG_COLLECTION.equals(qName)) {
+			} else if (TAG_DATE.equals(qName)) {
+			} else if (TAG_PUBLISHER.equals(qName)) {
+			} else if (TAG_MSIDENTIFIER.equals(qName)) {
+			} else if (TAG_AUTHOR.equals(qName)) {
+			} else if (TAG_AUTHORITY.equals(qName)) {
+			} else if (TAG_MSCONTENTS.equals(qName)) {
+			} else if (TAG_PUBPLACE.equals(qName)) {
+			} else if (TAG_TEI.equals(qName)) {
+			} else if (TAG_REPOSITORY.equals(qName)) {
+			} else if (TAG_MSPART.equals(qName)) {
+			} else if (TAG_SOURCEDESC.equals(qName)) {
+			} else if (TAG_PROFILEDESC.equals(qName)) {
+			} else if (TAG_PUBLICATIONSTMT.equals(qName)) {
+			} else if (TAG_LOCUS.equals(qName)) {
+			} else if (TAG_AVAILABILITY.equals(qName)) {
+			} else if (TAG_ORIGIN.equals(qName)) {
+			} else if (TAG_MSITEM.equals(qName)) {
+			} else if (TAG_INCIPIT.equals(qName)) {
+			} else if (TAG_HISTORY.equals(qName)) {
+			} else if (TAG_REF.equals(qName)) {
+			} else if (TAG_BIBL.equals(qName)) {
+			} else if (TAG_TEIHEADER.equals(qName)) {
+			} 
+			
+			else if (TAG_AB.equals(qName)) {
+			} else if (TAG_OBJECTTYPE.equals(qName)) {
+			} else if (TAG_ORIGPLACE.equals(qName)) {
+			} 
 		}
-		
-		
-		if (TAG_SUMMARY.equals(qName)) {
-		} 
-		
-		else if (TAG_BODY.equals(qName)) {
-			//nothing
-		}
-		
-		else if (TAG_ORIGDATE.equals(qName)) {
-		} else if (TAG_MSNAME.equals(qName)) {
-		} else if (TAG_LANGUSAGE.equals(qName)) {
-		} else if (TAG_TEXTLANG.equals(qName)) {
-		} else if (TAG_CHANGE.equals(qName)) {
-		} else if (TAG_SURNAME.equals(qName)) {
-		} else if (TAG_PLACENAME.equals(qName)) {
-		} else if (TAG_MSDESC.equals(qName)) {
-		} else if (TAG_TITLESTMT.equals(qName)) {
-		} else if (TAG_REVISIONDESC.equals(qName)) {
-		} else if (TAG_LICENCE.equals(qName)) {
-		} 
-		
-		else if (TAG_TEXT.equals(qName)) {
-			insidetext = false;
-			getSNodeStack().pop();
-		} 
-		
-		else if (TAG_FORENAME.equals(qName)) {
-		} else if (TAG_FILEDESC.equals(qName)) {
-		} else if (TAG_LISTBIBL.equals(qName)) {
-		} else if (TAG_COUNTRY.equals(qName)) {
-		} else if (TAG_BIBLSCOPE.equals(qName)) {
-		} else if (TAG_LANGUAGE.equals(qName)) {
-		} else if (TAG_IDNO.equals(qName)) {
-		} else if (TAG_SERIES.equals(qName)) {
-		} else if (TAG_CREATION.equals(qName)) {
-		} else if (TAG_ENCODINGDESC.equals(qName)) {
-		} else if (TAG_COLLECTION.equals(qName)) {
-		} else if (TAG_DATE.equals(qName)) {
-		} else if (TAG_PUBLISHER.equals(qName)) {
-		} else if (TAG_MSIDENTIFIER.equals(qName)) {
-		} else if (TAG_AUTHOR.equals(qName)) {
-		} else if (TAG_AUTHORITY.equals(qName)) {
-		} else if (TAG_MSCONTENTS.equals(qName)) {
-		} else if (TAG_PUBPLACE.equals(qName)) {
-		} else if (TAG_TEI.equals(qName)) {
-		} else if (TAG_REPOSITORY.equals(qName)) {
-		} else if (TAG_MSPART.equals(qName)) {
-		} else if (TAG_SOURCEDESC.equals(qName)) {
-		} else if (TAG_PROFILEDESC.equals(qName)) {
-		} else if (TAG_PUBLICATIONSTMT.equals(qName)) {
-		} else if (TAG_LOCUS.equals(qName)) {
-		} else if (TAG_AVAILABILITY.equals(qName)) {
-		} else if (TAG_ORIGIN.equals(qName)) {
-		} else if (TAG_MSITEM.equals(qName)) {
-		} else if (TAG_INCIPIT.equals(qName)) {
-		} else if (TAG_HISTORY.equals(qName)) {
-		} else if (TAG_REF.equals(qName)) {
-		} else if (TAG_BIBL.equals(qName)) {
-		} else if (TAG_TEIHEADER.equals(qName)) {
-		} 
-		
-		else if (TAG_AB.equals(qName)) {
-		} else if (TAG_OBJECTTYPE.equals(qName)) {
-		} else if (TAG_ORIGPLACE.equals(qName)) {
-		} 
 		
 		//remove adequate tag from TagStack
 		if (!getTagStack().isEmpty())
