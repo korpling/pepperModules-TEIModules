@@ -418,7 +418,11 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		if (metadata){
-			
+			StringBuilder tempstr = new StringBuilder();
+			for(int i=start; i<start+length; i++){
+				tempstr.append(ch[i]);
+			}
+			meta_txt.append(tempstr.toString().trim());
 		}
 		
 	}
@@ -433,6 +437,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		else if (metadata){
 			tei_metadata.push(qName);
+			tei_metadata.push_to_XPathMap(meta_txt.toString());
+			txt.setLength(0);
 		}
 		
 		else if (TAG_TEXT.equals(qName)) {

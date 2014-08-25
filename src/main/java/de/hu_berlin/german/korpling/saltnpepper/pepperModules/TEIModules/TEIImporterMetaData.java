@@ -16,15 +16,15 @@ public class TEIImporterMetaData {
 		
 	}
 	
-	public void push(String str){
+	public void push(String tag){
 		boolean run = true;
 		for (int i= 1;run;i++){
-			if (!PathSet.contains(getcurrentpath()+"/"+str+"["+i+"]")){
-				pathStack.push(str+"["+i+"]");
+			if (!PathSet.contains(getcurrentpath()+"/"+tag+"["+i+"]")){
+				pathStack.push(tag+"["+i+"]");
 				run = false;
 			}
-		PathSet.add(getcurrentpath());
 		}
+		PathSet.add(getcurrentpath());
 	}
 	
 	public String pop(){
@@ -43,5 +43,8 @@ public class TEIImporterMetaData {
 		return(temp);
 	}
 	
+	public void push_to_XPathMap(String value){
+		XPathMap.put(getcurrentpath(), value);
+	}
 }
 
