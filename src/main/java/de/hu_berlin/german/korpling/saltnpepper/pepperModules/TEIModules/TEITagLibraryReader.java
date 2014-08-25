@@ -436,9 +436,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (metadata){
+			//put text between tags into a map
 			tei_metadata.push(qName);
 			tei_metadata.push_to_XPathMap(meta_txt.toString());
 			txt.setLength(0);
+			
+			//put attribute keys and values into a map
 		}
 		
 		else if (TAG_TEXT.equals(qName)) {
