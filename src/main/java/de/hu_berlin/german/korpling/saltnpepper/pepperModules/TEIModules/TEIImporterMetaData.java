@@ -28,56 +28,16 @@ public class TEIImporterMetaData {
 	
 	public String pop(){
 		return(pathStack.pop());
+		
 	}
 	
 	private String getcurrentpath(){
-		int size = pathStack.size();
-		String xpath = "";
-		for (int i=0; i<size;i++){
-			xpath = xpath + "/" + pathStack.get(i);
+		String temp = "";
+		for (int i = 0; (i < pathStack.size()); i++){
+			temp = temp + pathStack.elementAt(i);
 		}
-		return (xpath);
+		return(temp);
 	}
 	
-	private String getPath(String oldpath, String newstring, int recursion){
-		int index = recursion;
-		if (PathSet.contains(oldpath+"/"+newstring+"["+index+"]")){
-			index += 1;
-			return (getPath(oldpath, newstring, index));
-		}
-		else{
-			PathSet.add(oldpath+"/"+newstring+"["+index+"]");
-			return(oldpath+"/"+newstring+"["+index+"]");
-		}
-	}
-	
-	public void putXPathText(String str){
-		if (XPathMap == null){
-			XPathMap = new Hashtable<>();
-		}
-		int size = pathStack.size();
-		String xpath = "";
-		for (int i=0; i<size;i++){
-			xpath = xpath + "/" + pathStack.get(i);
-		}
-		
-		XPathMap.put(xpath, str);
-	}
-	
-	public void putXPathAttr(String str){
-		if (XPathMap == null){
-			XPathMap = new Hashtable<>();
-		}
-		int size = pathStack.size();
-		String xpath = "";
-		for (int i=0; i<size;i++){
-			xpath = xpath + "/" + pathStack.get(i);
-		}
-		XPathMap.put(xpath, str);
-	}
-	
-	public String getXPath(String str){
-		return(XPathMap.get(str));
-	}
 }
 
