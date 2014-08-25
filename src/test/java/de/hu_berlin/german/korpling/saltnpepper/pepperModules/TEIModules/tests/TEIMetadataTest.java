@@ -11,7 +11,11 @@ public class TEIMetadataTest {
 	
 	@Test
 	public void pathStackTest(){
+		metadata.push("fileDesc");
+		metadata.push("titleStmt");
+		metadata.push("title");
 		
+		System.out.println(metadata.getcurrentpath());
 		
 	}
 }

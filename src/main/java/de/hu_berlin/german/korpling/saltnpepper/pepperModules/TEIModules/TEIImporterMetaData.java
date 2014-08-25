@@ -31,10 +31,10 @@ public class TEIImporterMetaData {
 		
 	}
 	
-	private String getcurrentpath(){
-		String temp = "";
+	public String getcurrentpath(){
+		String temp = "/";
 		for (int i = 0; (i < pathStack.size()); i++){
-			temp = temp + pathStack.elementAt(i);
+			temp = temp + pathStack.elementAt(i) + "/";
 		}
 		return(temp);
 	}
