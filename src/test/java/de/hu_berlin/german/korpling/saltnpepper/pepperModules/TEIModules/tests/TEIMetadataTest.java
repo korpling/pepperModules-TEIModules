@@ -14,6 +14,8 @@ public class TEIMetadataTest {
 		metadata.push("fileDesc");
 		metadata.push("titleStmt");
 		metadata.push("title");
+		metadata.pop();
+		metadata.push("title");
 		
 		System.out.println(metadata.getcurrentpath());
 		

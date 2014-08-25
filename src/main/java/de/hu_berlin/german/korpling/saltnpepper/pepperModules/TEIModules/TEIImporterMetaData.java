@@ -23,6 +23,7 @@ public class TEIImporterMetaData {
 				pathStack.push(str+"["+i+"]");
 				run = false;
 			}
+		PathSet.add(getcurrentpath());
 		}
 	}
 	
@@ -35,6 +36,9 @@ public class TEIImporterMetaData {
 		String temp = "/";
 		for (int i = 0; (i < pathStack.size()); i++){
 			temp = temp + pathStack.elementAt(i) + "/";
+		}
+		if (temp.length() > 0){
+			temp = temp.substring(0,temp.length()-1);
 		}
 		return(temp);
 	}
