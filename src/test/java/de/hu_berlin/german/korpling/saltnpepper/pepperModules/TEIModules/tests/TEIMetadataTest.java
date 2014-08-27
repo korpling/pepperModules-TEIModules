@@ -18,6 +18,7 @@ public class TEIMetadataTest {
 		metadata.push("title");
 		
 		System.out.println(metadata.getcurrentpath());
+		assertEquals("/fileDesc[1]/titleStmt[1]/title[2]", metadata.getcurrentpath());
 		
 		metadata.push_to_XPathMap("tag");
 		

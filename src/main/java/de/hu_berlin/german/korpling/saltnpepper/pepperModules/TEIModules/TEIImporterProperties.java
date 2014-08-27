@@ -21,6 +21,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_USE_TOKENIZER = "UseTokenizer";
 	public static final String PROP_USE_TOKENIZER_LANG = "UseTokenizerLang";
 	
+	public static final String PROP_DELETE_REDUNDANT_METADATA = "DeleteRedundantMetadata";
+	
 	public static final String PROP_RENAME_TAG = "tag.rename";
 	public static final String PROP_RENAME_VALUES = "values.rename";
 
@@ -35,6 +37,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_FOREIGN_AS_TOKEN, Boolean.class, "Does <foreign> exclusively include one token?", true, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_USE_TOKENIZER, Boolean.class, "Do you want to tokenize the text?", false, false));
 		addProperty(new PepperModuleProperty<String>(PROP_USE_TOKENIZER_LANG, String.class, "What language do you want to use for tokenization? (ISO 639-1 code)", false));
+		
+		addProperty(new PepperModuleProperty<Boolean>(PROP_DELETE_REDUNDANT_METADATA, Boolean.class, "Do you want metadata with a custom mapping to appear only once?", false, false));
 		
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_TAG, String.class, "String containing the tag renaming configuration set by the user", "", false));
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
@@ -89,6 +93,15 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public boolean isUseTokenizer(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_USE_TOKENIZER).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	public boolean isDelMetadata(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_DELETE_REDUNDANT_METADATA).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
