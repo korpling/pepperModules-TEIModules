@@ -439,9 +439,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 			//put text between tags into a map
 			tei_metadata.push(qName);
 			
-			
 			//put attribute keys and values into a map
-			System.out.println(attributes.getQName(0));
+			for (int i = 0; i < attributes.getLength();i++){
+				tei_metadata.push_attribute_XPathMap(attributes.getQName(i), attributes.getValue(i));
+			}
 		}
 		
 		else if (TAG_TEXT.equals(qName)) {
@@ -778,12 +779,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (metadata){
-			if (true){
-				tei_metadata.push_to_XPathMap(meta_txt.toString());
-				meta_txt.setLength(0);
-			}
+			tei_metadata.push_to_XPathMap(meta_txt.toString());
+			meta_txt.setLength(0);
+				
 			tei_metadata.pop();
-			
 		}
 		
 		else if(insidetext){
