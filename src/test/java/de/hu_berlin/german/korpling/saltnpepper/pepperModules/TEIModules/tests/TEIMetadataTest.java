@@ -19,5 +19,7 @@ public class TEIMetadataTest {
 		
 		System.out.println(metadata.getcurrentpath());
 		
+		metadata.push_to_XPathMap("tag");
+		
 	}
 }

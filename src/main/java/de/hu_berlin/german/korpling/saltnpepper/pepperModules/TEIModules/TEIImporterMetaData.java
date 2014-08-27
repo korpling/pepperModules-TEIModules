@@ -44,10 +44,16 @@ public class TEIImporterMetaData {
 	}
 	
 	public void push_to_XPathMap(String value){
+		if (XPathMap== null){
+			XPathMap= new Hashtable<>();
+		}
 		XPathMap.put(getcurrentpath(), value);
 	}
 	
 	public void push_attribute_XPathMap(String attribute, String value){
+		if (XPathMap== null){
+			XPathMap= new Hashtable<>();
+		}
 		XPathMap.put(getcurrentpath() + "/@" + attribute, value);
 	}
 }
