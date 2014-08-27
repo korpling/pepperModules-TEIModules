@@ -2,6 +2,7 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
 import java.awt.HeadlessException;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -775,7 +776,9 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		if (TAG_TEIHEADER.equals(qName)){
 			metadata = false;
-			System.out.println(tei_metadata.getXPathMap().toString());
+			
+			Map<String,String> temp = tei_metadata.delete_ones(tei_metadata.getXPathMap());
+			System.out.println(temp.toString());
 		}
 		
 		else if (metadata){

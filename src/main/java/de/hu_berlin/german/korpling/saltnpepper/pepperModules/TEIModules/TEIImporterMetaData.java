@@ -1,7 +1,9 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -80,6 +82,8 @@ public class TEIImporterMetaData {
 		}
 		XPathMap.put(getcurrentpath() + "/@" + attribute, value);
 	}
+	
+	
 }
 
 
