@@ -438,11 +438,8 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		else if (metadata){
 			//put text between tags into a map
 			tei_metadata.push(qName);
-			if (meta_txt.toString() != null){
-				tei_metadata.push_to_XPathMap(meta_txt.toString());
-				meta_txt.setLength(0);
-			}
-				
+			
+			
 			//put attribute keys and values into a map
 			System.out.println(attributes.getQName(0));
 		}
@@ -781,6 +778,10 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		}
 		
 		else if (metadata){
+			if (true){
+				tei_metadata.push_to_XPathMap(meta_txt.toString());
+				meta_txt.setLength(0);
+			}
 			tei_metadata.pop();
 			
 		}
