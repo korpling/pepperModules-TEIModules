@@ -12,6 +12,30 @@ public class TEIImporterMetaData {
 	private Set<String> PathSet = new HashSet<String>();
 
 	
+	public Stack<String> getPathStack() {
+		return pathStack;
+	}
+
+	public void setPathStack(Stack<String> pathStack) {
+		this.pathStack = pathStack;
+	}
+
+	public Map<String, String> getXPathMap() {
+		return XPathMap;
+	}
+
+	public void setXPathMap(Map<String, String> xPathMap) {
+		XPathMap = xPathMap;
+	}
+
+	public Set<String> getPathSet() {
+		return PathSet;
+	}
+
+	public void setPathSet(Set<String> pathSet) {
+		PathSet = pathSet;
+	}
+
 	public TEIImporterMetaData(){
 		
 	}

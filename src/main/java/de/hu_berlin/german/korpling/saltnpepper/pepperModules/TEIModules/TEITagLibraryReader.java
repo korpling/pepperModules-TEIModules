@@ -777,10 +777,12 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		
 		if (TAG_TEIHEADER.equals(qName)){
 			metadata = false;
+			System.out.println(tei_metadata.getXPathMap().toString());
 		}
 		
 		else if (metadata){
 			tei_metadata.pop();
+			
 		}
 		
 		else if(insidetext){
