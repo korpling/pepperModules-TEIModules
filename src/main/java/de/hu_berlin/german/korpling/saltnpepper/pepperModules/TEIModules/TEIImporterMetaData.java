@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
+
 public class TEIImporterMetaData {
 	private Stack<String> pathStack = new Stack<String>();
 	private Map<String, String> XPathMap= null;
@@ -83,7 +85,19 @@ public class TEIImporterMetaData {
 		XPathMap.put(getcurrentpath() + "/@" + attribute, value);
 	}
 	
-	
+	public void add_to_SDoc(SDocument sdoc, Map<String,String> map){
+		Set<String> keySet = map.keySet();
+		Iterator<String> it = keySet.iterator();
+		while (it.hasNext()){
+			String tempkey = it.next();
+			String tempvalue = map.get(tempkey);
+			tempkey = tempkey.replace("[1]", "");
+			if (tempvalue.length() > 0){
+				sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
+				System.out.println(tempvalue);
+			}
+		}
+	}
 }
 
 

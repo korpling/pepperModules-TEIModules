@@ -777,8 +777,7 @@ public class TEITagLibraryReader extends DefaultHandler2 implements
 		if (TAG_TEIHEADER.equals(qName)){
 			metadata = false;
 			
-			Map<String,String> temp = tei_metadata.delete_ones(tei_metadata.getXPathMap());
-			System.out.println(temp.toString());
+			tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), tei_metadata.getXPathMap());
 		}
 		
 		else if (metadata){
