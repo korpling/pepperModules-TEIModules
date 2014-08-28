@@ -14,6 +14,7 @@ public class TEIImporterMetaData {
 	private Stack<String> pathStack = new Stack<String>();
 	private Map<String, String> XPathMap= null;
 	private Set<String> PathSet = new HashSet<String>();
+	private Map<String, String> MappingMap= null;
 
 	
 	public Stack<String> getPathStack() {
