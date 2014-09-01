@@ -3,6 +3,7 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 import org.eclipse.emf.common.util.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.ext.DefaultHandler2;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
@@ -20,4 +21,8 @@ public class TEIMapper extends PepperMapperImpl{
 		return(DOCUMENT_STATUS.COMPLETED);
 	}
 	private static Logger logger = LoggerFactory.getLogger(TEIMapper.class);
+	
+	private class TEIImporterReader extends DefaultHandler2 implements TEITagLibrary{
+		
+	}
 }
