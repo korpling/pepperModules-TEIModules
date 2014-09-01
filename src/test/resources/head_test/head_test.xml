@@ -1,22 +1,7 @@
 <?oxygen RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="xml"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
 
-    <teiHeader>
-        <fileDesc>
-            <titleStmt>
-                <title>Flora oder botanische Zeitung</title>
-                <author>Königl. botanische Gesellschaft</author>
-            </titleStmt>
-            <publicationStmt>
-                <date>1821</date>
-                <pubPlace>Regensburg</pubPlace>
-            </publicationStmt>
-            <sourceDesc>
-                <bibl>Flora oder botanische Zeitung Nro. 7. Regensburg, am 21. Febr. 1821. 97-112.</bibl>
-            </sourceDesc>
-        </fileDesc>
-    </teiHeader>
-
+   
     <text>
         <body>
 		<head>Geſtalt.</head><lb/>
