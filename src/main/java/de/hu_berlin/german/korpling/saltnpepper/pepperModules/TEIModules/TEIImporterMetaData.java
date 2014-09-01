@@ -42,6 +42,11 @@ public class TEIImporterMetaData {
 	}
 
 	public TEIImporterMetaData(){
+		MappingMap = new Hashtable<>();
+		//add default mappings to MappingMap
+		MappingMap.put("/fileDesc/titleStmt/author", "author");
+		MappingMap.put("/fileDesc/titleStmt/title", "title");
+		
 		
 	}
 	
@@ -94,11 +99,14 @@ public class TEIImporterMetaData {
 			String tempvalue = map.get(tempkey);
 			tempkey = tempkey.replace("[1]", "");
 			if (tempvalue.length() > 0){
-				sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
+				System.out.println(tempkey);
 				System.out.println(tempvalue);
+				sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
 			}
 		}
 	}
+	
+	
 }
 
 
