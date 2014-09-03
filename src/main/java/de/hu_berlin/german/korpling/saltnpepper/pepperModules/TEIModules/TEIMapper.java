@@ -87,26 +87,42 @@ public class TEIMapper extends PepperMapperImpl{
 		private String text_anno_value = "text";
 		
 		
-		
+		/**
+		 * Helper method for compatibility to unit test.
+		 */
 		public void setDEFAULT_TOKENIZATION(){
 			default_tokenization = true;
 		}
+		/**
+		 * Helper method for compatibility to unit test.
+		 */
 		public void setSUB_TOKENIZATION(){
 			sub_tokenization = true;
 		}
 		
 		
-		//tag used for tokenization with option "default tokenization"
+		/**
+		 * The default value that is used for creating tokens when using the flag for creating
+		 * tokens from only one tag-name.
+		 */
 		private String default_token_tag = TAG_W;
 		
+		/**
+		 * Declares the tag-name that is used for creating tokens.
+		 * @param param The name of the tag to be used for creating tokens.
+		 */
 		public void set_default_token_tag(String param){
 			default_token_tag = param;
 		}
 		
-		//returns whether the parser is inside <text>...</text>
+		/**
+		 * true if the parser is inside <text>...</text>
+		 */
 		private Boolean insidetext = false;
 		
-		//return whether the parser is inside <TEIHeader>...</TEIHeader>
+		/**
+		 * true if the parser is inside <TEIHeader>...<TEIHeader>
+		 */
 		private Boolean metadata = false;
 		
 		private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
