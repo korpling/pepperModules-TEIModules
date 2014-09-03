@@ -28,7 +28,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIMapp
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
-public class TEITagLibraryReaderTest {
+public class TEIImporterReaderTest {
 	String filePath = new File("").getAbsolutePath();
 	
 	
