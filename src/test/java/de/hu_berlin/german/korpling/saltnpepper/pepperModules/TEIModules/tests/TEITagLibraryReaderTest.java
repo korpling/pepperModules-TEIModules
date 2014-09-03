@@ -1,21 +1,20 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
@@ -25,14 +24,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DefaultHandler2;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIMapper.TEIImporterReader;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibrary;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibraryReader;
-import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
-import static org.junit.Assert.*;
 
 public class TEITagLibraryReaderTest {
 	String filePath = new File("").getAbsolutePath();

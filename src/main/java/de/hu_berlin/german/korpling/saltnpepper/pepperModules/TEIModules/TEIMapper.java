@@ -5,7 +5,6 @@ import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -855,7 +854,6 @@ public class TEIMapper extends PepperMapperImpl{
 				if (getTagStack().peek().equals(qName)) {
 					getTagStack().pop();
 				}
-			
 		}
 	}
 }
