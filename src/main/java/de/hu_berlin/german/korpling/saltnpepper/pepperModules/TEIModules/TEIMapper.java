@@ -43,7 +43,7 @@ public class TEIMapper extends PepperMapperImpl{
 	}
 	private static Logger logger = LoggerFactory.getLogger(TEIMapper.class);
 	
-	private class TEIImporterReader extends DefaultHandler2 implements TEITagLibrary{
+	public static class TEIImporterReader extends DefaultHandler2 implements TEITagLibrary{
 		//options
 		private Boolean default_tokenization = false;
 		private Boolean sub_tokenization = false;

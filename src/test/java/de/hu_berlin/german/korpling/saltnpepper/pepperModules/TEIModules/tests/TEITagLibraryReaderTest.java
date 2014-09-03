@@ -25,6 +25,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DefaultHandler2;
 
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIMapper;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIMapper.TEIImporterReader;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibrary;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEITagLibraryReader;
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
@@ -36,20 +38,19 @@ public class TEITagLibraryReaderTest {
 	String filePath = new File("").getAbsolutePath();
 	
 	
-	
-	private TEITagLibraryReader fixture = null;
+	private TEIImporterReader fixture = null;
 
-	public TEITagLibraryReader getFixture() {
+	public TEIImporterReader getFixture() {
 		return fixture;
 	}
 
-	public void setFixture(TEITagLibraryReader fixture) {
+	public void setFixture(TEIImporterReader fixture) {
 		this.fixture = fixture;
 	}
 
 	@Before
 	public void setUp() {
-		setFixture(new TEITagLibraryReader());
+		setFixture(new TEIImporterReader());
 		filePath = filePath.concat("/src/test/resources/");
 	}
 
