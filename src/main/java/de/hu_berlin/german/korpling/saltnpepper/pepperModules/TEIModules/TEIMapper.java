@@ -120,9 +120,20 @@ public class TEIMapper extends PepperMapperImpl{
 		 */
 		private Boolean insidetext = false;
 		
+<<<<<<< HEAD
 		/**
 		 * true if the parser is inside <TEIHeader>...<TEIHeader>
 		 */
+=======
+<<<<<<< Updated upstream
+		//return whether the parser is inside <TEIHeader>...</TEIHeader>
+=======
+		/**
+		 * true if the parser is inside <TEIHeader>...<TEIHeader>
+		 */
+		
+>>>>>>> Stashed changes
+>>>>>>> feat_cleanup
 		private Boolean metadata = false;
 		
 		//stacks for unary break elementes creating spans
@@ -130,56 +141,107 @@ public class TEIMapper extends PepperMapperImpl{
 		 * stack for temporarily saving tokens later to be added to lbspan
 		 */
 		private Stack<SToken> lbSpanTokenStack = new Stack<SToken>();
+<<<<<<< HEAD
 		/**
 		 * stack for temporarily saving tokens later to be added to pbspan
 		 */
+=======
+<<<<<<< Updated upstream
+>>>>>>> feat_cleanup
 		private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
 		
 		/**
 		 * stack that follows the parser in adding and removing xml-elements
 		 */
 		private Stack<SNode> sNodeStack= null;
+<<<<<<< HEAD
 		/**
 		 * Method to retrieve sNodeStack and initialize if it is null
 		 */
+=======
+		// returns stack containing node hierarchie
+=======
+		
+		/**
+		 * stack for temporarily saving tokens later to be added to pbspan
+		 */
+		private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
+		
+		/**
+		 * stack that follows the parser in adding and removing certain elements that are also sNodes
+		 */
+		private Stack<SNode> sNodeStack= null;
+		
+		/**
+		 * Method to retrieve sNodeStack and initialize if it is null
+		 */
+>>>>>>> Stashed changes
+>>>>>>> feat_cleanup
 		private Stack<SNode> getSNodeStack(){
 			if (sNodeStack== null)
 				sNodeStack= new Stack<SNode>();
 			return(sNodeStack);
 		}
-
+		
+		/**
+		 * stack that follows the parser in adding and removing all elements
+		 */
 		private Stack<String> TagStack = new Stack<String>();
-		// returns stack containing xml-element hierarchie
+		
+		/**
+		 * Method to retrieve TagStack and initialize if it is null
+		 */
 		private Stack<String> getTagStack(){
 			if (TagStack== null)
 				TagStack= new Stack<String>();
 			return(TagStack);
 		}
 		
+		/**
+		 * stack that follows the parser in adding and removing all elements
+		 */
 		private Stack<SAnnotation> SAnnoStack = null;
 		
+		/**
+		 * Method to retrieve SAnnoStack and initialize if it is null
+		 */
 		private Stack<SAnnotation> getSAnnoStack(){
 			if (SAnnoStack == null) 
 				SAnnoStack= new Stack<SAnnotation>();
 			return(SAnnoStack);
 			}
 		
-		//Stringbuilder used for collecting text between tags
+		/**
+		 * Stringbuilder used for collecting text between insidetext-tags
+		 */
 		StringBuilder txt = new StringBuilder();
-		//Stringbuilder used for collecting tags between metadata tags
+		
+		/**
+		 * Stringbuilder used for collecting tags between metadata-tags
+		 */
 		StringBuilder meta_txt = new StringBuilder();
 		
+		/**
+		 * SDocumentGraph variable
+		 */
 		private SDocumentGraph sDocGraph = null;
-		//add instance of metadata
-		private TEIImporterMetaData tei_metadata = new TEIImporterMetaData();
-		//add primaryText
-		private STextualDS primaryText = null;
 		
-		private SLayer primaryLayer = SaltFactory.eINSTANCE.createSLayer();
-		
+		/**
+		 * Method to return the SDocumentGraph
+		 */
 		public SDocumentGraph getsDocGraph() {
 			return sDocGraph;
 		}
+		
+		/**
+		 * Instance of metadata-class
+		 */
+		private TEIImporterMetaData tei_metadata = new TEIImporterMetaData();
+		
+		/**
+		 * primary text variable
+		 */
+		private STextualDS primaryText = null;
 
 		public void setsDocGraph(SDocumentGraph DocGraph) {
 			sDocGraph = DocGraph;
@@ -255,8 +317,16 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		
 		public void startDocument () {
+<<<<<<< Updated upstream
 			sDocGraph.addSLayer(primaryLayer);
 			primaryLayer.setSName("primary");
+<<<<<<< HEAD
+=======
+			tokenrelation.add(STYPE_NAME.STEXT_OVERLAPPING_RELATION);
+=======
+			
+>>>>>>> Stashed changes
+>>>>>>> feat_cleanup
 	    }
 		
 		private void setDominatingToken (SToken token) {
