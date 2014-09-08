@@ -126,12 +126,22 @@ public class TEIMapper extends PepperMapperImpl{
 		private Boolean metadata = false;
 		
 		//stacks for unary break elementes creating spans
+		/**
+		 * stack for temporarily saving tokens later to be added to lbspan
+		 */
 		private Stack<SToken> lbSpanTokenStack = new Stack<SToken>();
+		/**
+		 * stack for temporarily saving tokens later to be added to pbspan
+		 */
 		private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
 		
-		
+		/**
+		 * stack that follows the parser in adding and removing xml-elements
+		 */
 		private Stack<SNode> sNodeStack= null;
-		// returns stack containing node hierarchie
+		/**
+		 * Method to retrieve sNodeStack and initialize if it is null
+		 */
 		private Stack<SNode> getSNodeStack(){
 			if (sNodeStack== null)
 				sNodeStack= new Stack<SNode>();
