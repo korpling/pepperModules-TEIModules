@@ -125,8 +125,6 @@ public class TEIMapper extends PepperMapperImpl{
 		 */
 		private Boolean metadata = false;
 		
-		private EList <STYPE_NAME> tokenrelation = new BasicEList<STYPE_NAME>();
-		
 		//stacks for unary break elementes creating spans
 		private Stack<SToken> lbSpanTokenStack = new Stack<SToken>();
 		private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
@@ -249,7 +247,6 @@ public class TEIMapper extends PepperMapperImpl{
 		public void startDocument () {
 			sDocGraph.addSLayer(primaryLayer);
 			primaryLayer.setSName("primary");
-			tokenrelation.add(STYPE_NAME.STEXT_OVERLAPPING_RELATION);
 	    }
 		
 		private void setDominatingToken (SToken token) {
