@@ -120,20 +120,9 @@ public class TEIMapper extends PepperMapperImpl{
 		 */
 		private Boolean insidetext = false;
 		
-<<<<<<< HEAD
 		/**
 		 * true if the parser is inside <TEIHeader>...<TEIHeader>
 		 */
-=======
-<<<<<<< Updated upstream
-		//return whether the parser is inside <TEIHeader>...</TEIHeader>
-=======
-		/**
-		 * true if the parser is inside <TEIHeader>...<TEIHeader>
-		 */
-		
->>>>>>> Stashed changes
->>>>>>> feat_cleanup
 		private Boolean metadata = false;
 		
 		//stacks for unary break elementes creating spans
@@ -141,31 +130,12 @@ public class TEIMapper extends PepperMapperImpl{
 		 * stack for temporarily saving tokens later to be added to lbspan
 		 */
 		private Stack<SToken> lbSpanTokenStack = new Stack<SToken>();
-<<<<<<< HEAD
-		/**
-		 * stack for temporarily saving tokens later to be added to pbspan
-		 */
-=======
-<<<<<<< Updated upstream
->>>>>>> feat_cleanup
-		private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
-		
-		/**
-		 * stack that follows the parser in adding and removing xml-elements
-		 */
-		private Stack<SNode> sNodeStack= null;
-<<<<<<< HEAD
-		/**
-		 * Method to retrieve sNodeStack and initialize if it is null
-		 */
-=======
-		// returns stack containing node hierarchie
-=======
 		
 		/**
 		 * stack for temporarily saving tokens later to be added to pbspan
 		 */
 		private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
+		//
 		
 		/**
 		 * stack that follows the parser in adding and removing certain elements that are also sNodes
@@ -175,8 +145,6 @@ public class TEIMapper extends PepperMapperImpl{
 		/**
 		 * Method to retrieve sNodeStack and initialize if it is null
 		 */
->>>>>>> Stashed changes
->>>>>>> feat_cleanup
 		private Stack<SNode> getSNodeStack(){
 			if (sNodeStack== null)
 				sNodeStack= new Stack<SNode>();
@@ -317,16 +285,7 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		
 		public void startDocument () {
-<<<<<<< Updated upstream
-			sDocGraph.addSLayer(primaryLayer);
-			primaryLayer.setSName("primary");
-<<<<<<< HEAD
-=======
-			tokenrelation.add(STYPE_NAME.STEXT_OVERLAPPING_RELATION);
-=======
-			
->>>>>>> Stashed changes
->>>>>>> feat_cleanup
+
 	    }
 		
 		private void setDominatingToken (SToken token) {
