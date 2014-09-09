@@ -107,6 +107,9 @@ public class TEIImporterMetaData {
 	
 	/**
 	 * commits mappings to XPathMap 
+	 * @param delmetada boolean that determines whether
+	 * redundant mappings will cause the deletion of
+	 * the original key(xpath) value pair
 	 */
 	public void commitmappings(boolean delmetadata){
 		if (delmetadata){
@@ -114,7 +117,6 @@ public class TEIImporterMetaData {
 			Iterator<String> it = MappingMap.keySet().iterator();
 			//forloop…
 			logger.warn("");
-			
 		}
 		else{
 			//replicate XPathMap-keys with mappings found in MappingMap
