@@ -144,6 +144,7 @@ public class TEIMapper extends PepperMapperImpl{
 		
 		/**
 		 * Method to retrieve sNodeStack and initialize if it is null
+		 * @return sNodeStack
 		 */
 		private Stack<SNode> getSNodeStack(){
 			if (sNodeStack== null)
@@ -158,6 +159,7 @@ public class TEIMapper extends PepperMapperImpl{
 		
 		/**
 		 * Method to retrieve TagStack and initialize if it is null
+		 * @return TagStack
 		 */
 		private Stack<String> getTagStack(){
 			if (TagStack== null)
@@ -172,6 +174,7 @@ public class TEIMapper extends PepperMapperImpl{
 		
 		/**
 		 * Method to retrieve SAnnoStack and initialize if it is null
+		 * @return SAnnoStack
 		 */
 		private Stack<SAnnotation> getSAnnoStack(){
 			if (SAnnoStack == null) 
@@ -196,6 +199,7 @@ public class TEIMapper extends PepperMapperImpl{
 		
 		/**
 		 * Method to return the SDocumentGraph
+		 * @return sDocGraph
 		 */
 		public SDocumentGraph getsDocGraph() {
 			return sDocGraph;
@@ -211,15 +215,28 @@ public class TEIMapper extends PepperMapperImpl{
 		 */
 		private STextualDS primaryText = null;
 
+		/**
+		 * Sets the SDocGraph
+		 * @param SDocumentGraph of the reader
+		 */
 		public void setsDocGraph(SDocumentGraph DocGraph) {
 			sDocGraph = DocGraph;
 		}
 		
+		/**
+		 * properties instance that influences the behavior of the mapper
+		 */
 		private TEIImporterProperties props= null;
 		
-		//initialize tokenizer
+		/**
+		 * tokenizer variable
+		 */
 		de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.tokenizer.Tokenizer tokenizer = null;
 		
+		/**
+		 * gets the properties instance
+		 * @return props
+		 */
 		public TEIImporterProperties getProps() {
 			return props;
 		}
