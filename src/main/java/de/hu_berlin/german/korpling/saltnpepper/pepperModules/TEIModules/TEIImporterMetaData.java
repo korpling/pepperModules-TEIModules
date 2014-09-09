@@ -24,9 +24,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
 public class TEIImporterMetaData {
+	private static Logger logger = LoggerFactory.getLogger(TEIImporterMetaData.class);
+	
 	/**
 	 * stack saving the names of tags
 	 */
@@ -99,9 +105,15 @@ public class TEIImporterMetaData {
 		MappingMap.put("/fileDesc/titleStmt/title", "title");
 	}
 	
+	/**
+	 * commits mappings to XPathMap 
+	 */
 	public void commitmappings(boolean delmetadata){
 		if (delmetadata){
 			//replace XPathMap-keys with mappings found in MappingMap
+			Iterator<String> it = MappingMap.keySet().iterator();
+			logger.warn("");
+			
 		}
 		else{
 			//replicate XPathMap-keys with mappings found in MappingMap
