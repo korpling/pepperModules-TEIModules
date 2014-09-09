@@ -112,6 +112,7 @@ public class TEIImporterMetaData {
 		if (delmetadata){
 			//replace XPathMap-keys with mappings found in MappingMap
 			Iterator<String> it = MappingMap.keySet().iterator();
+			//forloop…
 			logger.warn("");
 			
 		}
