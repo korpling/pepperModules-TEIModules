@@ -28,7 +28,9 @@ public class TEIImporterProperties extends PepperModuleProperties{
 
 	
 	
-	//registration of properties
+	/**
+	 * constructor that also adds the properties 
+	 */
 	public TEIImporterProperties(){
 		addProperty(new PepperModuleProperty<Boolean>(PROP_DEFAULT_TOKENIZATION, Boolean.class, "One element is responsible for tokenization. Default is <w> in this mode.", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SUB_TOKENIZATION, Boolean.class, "In this scenario, units smaller than ‘words’ exist. Elements within <w> etc. are possible", true, false));
@@ -44,7 +46,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
 	}
 	
-	//methods to retrieve property values
+	/**
+	 * method to retrieve value of default tokenization property
+	 * @return boolean value set by the user(or default)
+	 */
 	public boolean isDefaultTokenization(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_DEFAULT_TOKENIZATION).getValue().toString();
@@ -54,6 +59,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	/**
+	 * method to retrieve value of sub tokenization property
+	 * @return boolean value set by the user(or default)
+	 */
 	public boolean isSubTokenization(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_SUB_TOKENIZATION).getValue().toString();
@@ -63,6 +72,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	/**
+	 * method to retrieve value of surplus removal property
+	 * @return boolean value set by the user(or default)
+	 */
 	public boolean isSurplusRemoval(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_SURPLUS_REMOVAL).getValue().toString();
@@ -72,6 +85,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	/**
+	 * method to retrieve value of unclear as token property
+	 * @return boolean value set by the user(or default)
+	 */
 	public boolean isUnclearAsToken(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_UNCLEAR_AS_TOKEN).getValue().toString();
@@ -81,6 +98,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	/**
+	 * method to retrieve value of foreign as token property
+	 * @return boolean value set by the user(or default)
+	 */
 	public boolean isForeignAsToken(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_FOREIGN_AS_TOKEN).getValue().toString();
@@ -90,6 +111,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	/**
+	 * method to retrieve value of use tokenizer property
+	 * @return boolean value set by the user(or default)
+	 */
 	public boolean isUseTokenizer(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_USE_TOKENIZER).getValue().toString();
@@ -99,6 +124,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	/**
+	 * method to retrieve value of delete redundant metadata property
+	 * @return boolean value set by the user(or default)
+	 */
 	public boolean isDelMetadata(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_DELETE_REDUNDANT_METADATA).getValue().toString();
@@ -108,6 +137,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	/**
+	 * method to retrieve value of the custom annotation string
+	 * @return values set by the user(or default)
+	 */
 	public String customAnnotationString(String param){
 		String retVal = "";
 		Object propO = getProperty(param).getValue();
@@ -121,6 +154,10 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return retVal;
 	}
 	
+	/**
+	 * method to retrieve value of the tokenization language
+	 * @return value set by the user(or default)
+	 */
 	private String tokenizer_lang(){
 		String retVal = "";
 		Object propO = getProperty(PROP_USE_TOKENIZER_LANG).getValue();
@@ -147,6 +184,11 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		}
 	}
 	
+	/**
+	 * returns a language code that is supported by the tokenizer
+	 * defaults to "en" if the user used a unsupported value
+	 * @return supported language code)
+	 */
 	public LanguageCode tokenizer_code(){
 		Map<String, LanguageCode> langmap = new Hashtable<>();
 		langmap.put("de", LanguageCode.de);
@@ -157,12 +199,15 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		return (langmap.get(tokenizer_lang()));
 	}
 	
-	
-	private Map<String, String> tagRenameTable= null;
 	/**
-	 * 
-	 * @param tagName
-	 * @return
+	 * map containing tag renamings
+	 */
+	private Map<String, String> tagRenameTable= null;
+	
+	/**
+	 * gets the name in the tagRenameTable fitting the wanted lookup
+	 * @param tagName name to look up
+	 * @return the demanded string from the tagRenameTable
 	 */
 	public String getTagName(String tagName){
 		if (tagRenameTable== null){
@@ -188,11 +233,15 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		
 	}
 	
-	private Map<String, String> tagRenameValuesTable= null;
 	/**
-	 * 
-	 * @param tagName
-	 * @return
+	 * map containing tag-value renamings
+	 */
+	private Map<String, String> tagRenameValuesTable= null;
+	
+	/**
+	 * gets the name in the tagRenameValuesTable fitting the wanted lookup
+	 * @param tagName name to look up
+	 * @return the demanded string from the tagRenameValuesTable
 	 */
 	public String getValuesName(String tagName){
 		if (tagRenameValuesTable== null){
