@@ -479,7 +479,7 @@ public class TEIMapper extends PepperMapperImpl{
 		}
 		
 		/**
-		 * sets tokens generically by checking wether tokenization is set 
+		 * sets tokens generically by checking whether tokenization is set 
 		 * by the user
 		 * @param str StringBuilder that contains text that is to be added
 		 * as one or more tokens
