@@ -97,8 +97,15 @@ public class TEIImporterMetaData {
 		//add default mappings to MappingMap
 		MappingMap.put("/fileDesc/titleStmt/author", "author");
 		MappingMap.put("/fileDesc/titleStmt/title", "title");
-		
-		
+	}
+	
+	public void commitmappings(boolean delmetadata){
+		if (delmetadata){
+			//replace XPathMap-keys with mappings found in MappingMap
+		}
+		else{
+			//replicate XPathMap-keys with mappings found in MappingMap
+		}
 	}
 	
 	/**
