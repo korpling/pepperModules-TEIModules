@@ -217,7 +217,7 @@ public class TEIMapper extends PepperMapperImpl{
 
 		/**
 		 * Sets the SDocGraph
-		 * @param SDocumentGraph of the reader
+		 * @param DocGraph SDocumentGraph of the reader
 		 */
 		public void setsDocGraph(SDocumentGraph DocGraph) {
 			sDocGraph = DocGraph;
@@ -240,10 +240,19 @@ public class TEIMapper extends PepperMapperImpl{
 		public TEIImporterProperties getProps() {
 			return props;
 		}
+		
+		/**
+		 * sets the properties instance
+		 * @param props the properties instance that is to be used by the mapper
+		 */
 		public void setProps(TEIImporterProperties props) {
 			this.props = props;
 		}
-		//this constructor should usually be used!
+		
+		/**
+		 * The standard constructor that should always be used!
+		 * @param props the properties instance that is to be used by the mapper
+		 */
 		public TEIImporterReader(TEIImporterProperties props){
 			//get the parameter values
 			super();
@@ -294,27 +303,37 @@ public class TEIMapper extends PepperMapperImpl{
 			text_anno_value = props.getValuesName(TAG_TEXT);
 		}
 		
-		//JUnit-Test compatability constructor
-			public TEIImporterReader(){
+		/**
+		 * Legacy constructor used by the reader-jUnit-test
+		 */
+		public TEIImporterReader(){
 				//get the parameter values
 				super();
 				sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
-			}
+		}
 		
+		/**
+		 * called when reader starts reading the input document
+		 */
 		public void startDocument () {
 
 	    }
 		
+		/**
+		 * adds token to sDocGraph dominated by SStructure on top of SNodeStack
+		 * @param token token to be added
+		 */
 		private void setDominatingToken (SToken token) {
 			SDominanceRelation sDominatingRelation= SaltFactory.eINSTANCE.createSDominanceRelation();
 			sDominatingRelation.setSource((SStructuredNode) (getSNodeStack().peek()));
 			sDominatingRelation.setSStructuredTarget(token);
 			sDocGraph.addSRelation(sDominatingRelation);
-			
-			//System.out.println(getSNodeStack().peek().toString());
 		}
 		
-		//set the dominating struct 
+		/**
+		 * adds SStructure to sDocGraph dominated by SStructure on top of SNodeStack
+		 * @param struc SStructure to be added
+		 */
 		private void setDominatingStruc (SStructure struc) {
 			SDominanceRelation sDominatingRelation= SaltFactory.eINSTANCE.createSDominanceRelation();
 			sDominatingRelation.setSource((SStructuredNode) (getSNodeStack().peek()));
@@ -322,12 +341,17 @@ public class TEIMapper extends PepperMapperImpl{
 			sDocGraph.addSRelation(sDominatingRelation);
 		}
 		
-		//adding space to a primary text
+		/**
+		 * adds a single space character to a primary text
+		 * @param text primary text that is to be manipulated
+		 */
 		private void addSpace (STextualDS text) {
 			text.setSText(text.getSText()+" ");
 		}
 		
-		//adding an empty token
+		/**
+		 * adds an empty token to the sDocGraph
+		 */
 		private void setEmptyToken(){
 			SToken temp_tok = null;
 			if (primaryText.getSEnd()==null){
@@ -340,7 +364,10 @@ public class TEIMapper extends PepperMapperImpl{
 			push_spans(temp_tok);
 		}
 		
-		//adding an empty token for the <gap>-struct
+		/**
+		 * adds an empty token to the sDocGraph. This token
+		 * is dominated by an SStructure as required by the <gap>-tag
+		 */
 		private void setGapToken(){
 			SToken temp_tok = null;
 			temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
@@ -352,6 +379,11 @@ public class TEIMapper extends PepperMapperImpl{
 			push_spans(temp_tok);
 		}
 		
+		/**
+		 * default method to add a token to the sDocGraph
+		 * @param str Stringbuilder that contains the text
+		 * to be used for the token
+		 */
 		private void setStandardToken (StringBuilder str) {
 			if (str.toString().trim().length() > 0){
 				if (primaryText != null){
@@ -397,6 +429,10 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		}
 		
+		/**
+		 * adds a list of tokens to the sDocGraph
+		 * @param tokenlist a list containing tokens
+		 */
 		private void setTokenList (List<String> tokenlist){
 			for (String tokstring: tokenlist){
 				SToken temp_tok = null;
@@ -421,8 +457,13 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		}
 		
-		
-		
+		/**
+		 * creates list of tokens and calls setTokenList to add
+		 * these tokens to the sDocGraph
+		 * @param str StringBuilder that contains text that is tokenized
+		 * and subsequently added to the sDocGraph as a list of tokens
+		 * that was returned by tokenizing
+		 */
 		private void setTokenizedTokens (StringBuilder str) {
 			if (str.toString().trim().length() > 0){
 				if (primaryText != null){
@@ -437,6 +478,12 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		}
 		
+		/**
+		 * sets tokens generically by checking wether tokenization is set 
+		 * by the user
+		 * @param str StringBuilder that contains text that is to be added
+		 * as one or more tokens
+		 */
 		private void setToken (StringBuilder str){
 			if (str.toString().trim().length() > 0){
 				if (primaryText != null){
@@ -449,9 +496,6 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 			}
 		}
-		
-		
-		
 		
 		//this is the generic method for unary elements creating spans
 		//in addition to calling this function, the tokens have to be
