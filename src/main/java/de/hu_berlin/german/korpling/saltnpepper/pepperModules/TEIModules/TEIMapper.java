@@ -497,9 +497,14 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		}
 		
-		//this is the generic method for unary elements creating spans
-		//in addition to calling this function, the tokens have to be
-		//added in setToken
+		/**
+		 *this is the generic method for unary elements creating spans
+		 *in addition to calling this function, the tokens have to be
+		 *added in setToken
+		 * @param tag string that is used for annotating the span
+		 * @param tokenStack stack containing the germane tokens
+		 * @param annovalue annotation value that is to be annotated
+		 */
 		private void generic_break(String tag, Stack<SToken> tokenStack, String annovalue){
 			if (sub_tokenization){
 				setToken(txt);
@@ -516,12 +521,21 @@ public class TEIMapper extends PepperMapperImpl{
 
 		}
 		
-		//the different StackStacks have to be added here, so the spans are pushed to them
+		/**
+		 * pushes the spans to the added stacks
+		 * @param tok token that is pushed
+		 */
 		public void push_spans(SToken tok){
 			lbSpanTokenStack.push(tok);
 			pbSpanTokenStack.push(tok);
 		}
 		
+		/**
+		 * method to collect characters between tags
+		 * @param ch array of characters
+		 * @param start starting position
+		 * @param length length of the array
+		 */
 		public void characters(char ch[], int start, int length) {
 			//change tokenization to higher level
 			if (insidetext){
