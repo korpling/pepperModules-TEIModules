@@ -33,7 +33,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 @Component(name="TEIImporterComponent", factory="PepperImporterComponentFactory")
 public class TEIImporter extends PepperImporterImpl implements PepperImporter{
-// =================================================== mandatory ===================================================
+	
 	// this is a logger, for recording messages during program process, like debug messages
 	private static final Logger logger= LoggerFactory.getLogger(TEIImporter.class);
 	
@@ -70,7 +70,6 @@ public class TEIImporter extends PepperImporterImpl implements PepperImporter{
 	 * @return 1 if corpus is importable, 0 if corpus is not importable, 0 < X < 1, if no definitive answer is possible,  null if method is not overridden 
 	 */
 	public Double isImportable(URI corpusPath){
-		//TODO some code to analyze the given corpus-structure
 		return(null);
 	}
 
@@ -87,7 +86,6 @@ public class TEIImporter extends PepperImporterImpl implements PepperImporter{
 	 */
 	@Override
 	public boolean isReadyToStart() throws PepperModuleNotReadyException{
-		//TODO make some initializations if necessary
 		return(super.isReadyToStart());
 	}
 }
