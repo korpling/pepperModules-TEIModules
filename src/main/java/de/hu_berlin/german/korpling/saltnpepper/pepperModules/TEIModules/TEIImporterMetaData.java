@@ -10,36 +10,71 @@ import java.util.Stack;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
 public class TEIImporterMetaData {
+	/**
+	 * stack saving the names of tags
+	 */
 	private Stack<String> pathStack = new Stack<String>();
+	
+	/**
+	 * map with xpaths as keys and text between tags as values
+	 */
 	private Map<String, String> XPathMap= null;
+	
+	/**
+	 * set containing all existing xpaths
+	 */
 	private Set<String> PathSet = new HashSet<String>();
+	
+	/**
+	 * map with xpaths as keys and customized(or hardcoded) SMetaAnnotations as values
+	 */
 	private Map<String, String> MappingMap= null;
 
-	
+	/**
+	 * gets pathStack
+	 */
 	public Stack<String> getPathStack() {
 		return pathStack;
 	}
 
+	/**
+	 * sets pathStack
+	 */
 	public void setPathStack(Stack<String> pathStack) {
 		this.pathStack = pathStack;
 	}
 
+	/**
+	 * gets XPathmap
+	 */
 	public Map<String, String> getXPathMap() {
 		return XPathMap;
 	}
 
+	/**
+	 * sets XPathmap
+	 */
 	public void setXPathMap(Map<String, String> xPathMap) {
 		XPathMap = xPathMap;
 	}
 
+	/**
+	 * gets PathSet
+	 */
 	public Set<String> getPathSet() {
 		return PathSet;
 	}
 
+	/**
+	 * sets PathSet
+	 */
 	public void setPathSet(Set<String> pathSet) {
 		PathSet = pathSet;
 	}
 
+	/**
+	 * constructor that also adds default mappings	 
+	 */
 	public TEIImporterMetaData(){
 		MappingMap = new Hashtable<>();
 		//add default mappings to MappingMap
@@ -49,6 +84,10 @@ public class TEIImporterMetaData {
 		
 	}
 	
+	/**
+	 * pushes tag-name to pathStack
+	 * @param tag tag-name	 
+	 */
 	public void push(String tag){
 		boolean run = true;
 		for (int i= 1;run;i++){
@@ -60,11 +99,18 @@ public class TEIImporterMetaData {
 		PathSet.add(getcurrentpath());
 	}
 	
+	/**
+	 * pops pathStack
+	 * @return name of popped tag	 
+	 */
 	public String pop(){
 		return(pathStack.pop());
-		
 	}
 	
+	/**
+	 * returns current path
+	 * @return current path of metadata 
+	 */
 	public String getcurrentpath(){
 		String temp = "/";
 		for (int i = 0; (i < pathStack.size()); i++){
@@ -76,6 +122,11 @@ public class TEIImporterMetaData {
 		return(temp);
 	}
 	
+	/**
+	 * pushes text inside tags to XPathMap and creates empty Hashtable if
+	 * XPathMap == null
+	 * @param value that is pushed to XPathMap
+	 */
 	public void push_to_XPathMap(String value){
 		if (XPathMap== null){
 			XPathMap= new Hashtable<>();
@@ -83,6 +134,12 @@ public class TEIImporterMetaData {
 		XPathMap.put(getcurrentpath(), value);
 	}
 	
+	/**
+	 * pushes attributes to XPathMap and creates empty Hashtable if
+	 * XPathMap == null
+	 * @param attribute relevant attribute to be pushed
+	 * @param value that is pushed to XPathMap
+	 */
 	public void push_attribute_XPathMap(String attribute, String value){
 		if (XPathMap== null){
 			XPathMap= new Hashtable<>();
@@ -90,6 +147,11 @@ public class TEIImporterMetaData {
 		XPathMap.put(getcurrentpath() + "/@" + attribute, value);
 	}
 	
+	/**
+	 * adds SMetaAnnotations to SDocument(not SDocGraph!)
+	 * @param sdoc SDocument
+	 * @param map contains mappings from xpath to customized annotation
+	 */
 	public void add_to_SDoc(SDocument sdoc, Map<String,String> map){
 		Set<String> keySet = map.keySet();
 		Iterator<String> it = keySet.iterator();
