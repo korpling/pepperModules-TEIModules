@@ -536,6 +536,7 @@ public class TEIMapper extends PepperMapperImpl{
 		 * @param start starting position
 		 * @param length length of the array
 		 */
+		@Override
 		public void characters(char ch[], int start, int length) {
 			//change tokenization to higher level
 			if (insidetext){
@@ -555,7 +556,7 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 			
 		}
-
+		
 		@Override
 		public void startElement(String uri, String localName, String qName,
 				Attributes attributes) throws SAXException {
