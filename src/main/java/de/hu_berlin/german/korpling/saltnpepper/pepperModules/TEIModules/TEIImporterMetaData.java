@@ -186,10 +186,21 @@ public class TEIImporterMetaData {
 		XPathMap.put(getcurrentpath() + "/@" + attribute, value);
 	}
 	
+	/**
+	 * merges hardcoded mappings with those set by the user
+	 * @param overwritingMap map from TEIImporterProperties
+	 * @return returns the united map
+	 */
 	public Map<String,String> uniteMappings(Map<String,String> overwritingMap){
 		MappingMap.putAll(overwritingMap);
 		return (MappingMap);
 	}
+	
+	public Map<String,String> mapToXpathmap(Map<String,String> XpathMap, Map<String,String> customMap){
+		//add program logic
+		return XpathMap;
+	}
+	
 	
 	/**
 	 * adds SMetaAnnotations to SDocument(not SDocGraph!)

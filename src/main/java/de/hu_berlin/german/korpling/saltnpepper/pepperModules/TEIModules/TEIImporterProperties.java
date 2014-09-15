@@ -306,7 +306,6 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		String retVal= mappingTable.get(mappingString);
 
 		return(retVal);
-		
 	}
 	
 	/**
