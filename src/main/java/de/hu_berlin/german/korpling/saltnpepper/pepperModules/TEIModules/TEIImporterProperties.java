@@ -42,6 +42,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	
 	public static final String PROP_RENAME_TAG = "tag.rename";
 	public static final String PROP_RENAME_VALUES = "values.rename";
+	public static final String PROP_MAPPINGS = "mapping.rename";
 
 	
 	
@@ -280,6 +281,43 @@ public class TEIImporterProperties extends PepperModuleProperties{
 			retVal= tagName;
 		}
 		return(retVal);
+		
+	}
+	
+	/**
+	 * list containing the mappings set by the user
+	 */
+	private Map<String,String> mappingTable = null;
+	
+	/**
+	 * gets the name in the mapping mappingTable fitting the wanted lookup
+	 * @param mappingString name to look up
+	 * @return the demanded string from the mappingTable
+	 */
+	public String getMappings(String mappingString){
+		
+		
+		String retVal= mappingTable.get(mappingString);
+
+		return(retVal);
+		
+	}
+	
+	public void fillMappings(){
+		if (mappingTable== null){
+			mappingTable= new Hashtable<>();
+			Object propO = getProperty(PROP_MAPPINGS).getValue();
+			
+			String prop= null;
+			if (propO.toString().trim()!= ""){
+				prop= propO.toString();
+				String[] renameParts= prop.split(";");
+				for (String part: renameParts){
+					String[] attVal= part.split(":");
+					mappingTable.put(attVal[0], attVal[1]);
+				}
+			}
+		}
 		
 	}
 }
