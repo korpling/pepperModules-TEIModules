@@ -290,19 +290,28 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	private Map<String,String> mappingTable = null;
 	
 	/**
+	 * gets the mappingTable
+	 * @return mappingTable
+	 */
+	public Map<String, String> getMappingTable() {
+		return mappingTable;
+	}
+
+	/**
 	 * gets the name in the mapping mappingTable fitting the wanted lookup
 	 * @param mappingString name to look up
 	 * @return the demanded string from the mappingTable
 	 */
 	public String getMappings(String mappingString){
-		
-		
 		String retVal= mappingTable.get(mappingString);
 
 		return(retVal);
 		
 	}
 	
+	/**
+	 * uses the customized mapping set by the user to fill mappingTable
+	 */
 	public void fillMappings(){
 		if (mappingTable== null){
 			mappingTable= new Hashtable<>();
