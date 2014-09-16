@@ -314,7 +314,14 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public void fillMappings(){
 		if (mappingTable== null){
 			mappingTable= new Hashtable<>();
-			Object propO = getProperty(PROP_MAPPINGS).getValue();
+			Object propO = null;
+			
+			if (getProperty(PROP_MAPPINGS)!= null){
+				propO = getProperty(PROP_MAPPINGS).getValue();
+			}
+			else{
+				propO = "";
+			}
 			
 			String prop= null;
 			if (propO.toString().trim()!= ""){

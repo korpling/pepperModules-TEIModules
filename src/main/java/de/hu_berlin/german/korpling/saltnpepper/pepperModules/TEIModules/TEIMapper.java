@@ -18,6 +18,7 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -70,6 +71,8 @@ public class TEIMapper extends PepperMapperImpl{
 		
 		private Boolean use_tokenizer = false;
 		private LanguageCode use_tokenizer_language = null;
+		
+		private Boolean del_redundant_metadata = null;
 		
 		//naming config strings
 		private String lb_name = "lb";
@@ -284,6 +287,10 @@ public class TEIMapper extends PepperMapperImpl{
 			use_tokenizer = props.isUseTokenizer();
 			use_tokenizer_language = props.tokenizer_code();
 			
+			del_redundant_metadata = props.isDelMetadata();
+			
+			//fill metadata
+			props.fillMappings();
 			
 			//annotation customization
 			
@@ -862,8 +869,12 @@ public class TEIMapper extends PepperMapperImpl{
 			
 			if (TAG_TEIHEADER.equals(qName)){
 				metadata = false;
+				Map<String, String> custommappings = props.getMappingTable();
+				Map<String, String> united = tei_metadata.uniteMappings(custommappings);
+				Map sineonesmap = tei_metadata.remove_ones(tei_metadata.getXPathMap());
+				Map<String, String> completedmappings = tei_metadata.mapToXpathMap(sineonesmap, united, del_redundant_metadata);
 				
-				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), tei_metadata.getXPathMap());
+				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings);
 			}
 			
 			else if (metadata){

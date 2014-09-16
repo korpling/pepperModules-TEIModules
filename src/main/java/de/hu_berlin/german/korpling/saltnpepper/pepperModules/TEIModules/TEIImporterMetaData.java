@@ -200,6 +200,7 @@ public class TEIImporterMetaData {
 	 */
 	public Map<String,String> uniteMappings(Map<String,String> overwritingMap){
 		MappingMap.putAll(overwritingMap);
+		System.out.println(MappingMap);
 		return (MappingMap);
 	}
 	
@@ -215,9 +216,12 @@ public class TEIImporterMetaData {
 		Iterator<String> it = customSet.iterator();
 		while (it.hasNext()){
 			String oldKey = it.next();
-			String value = MetaMap.get(oldKey);
-			String newKey = customMap.get(oldKey);
-			MetaMap.put(newKey, value);
+			String value;
+			if (MetaMap.containsKey(oldKey)){
+				value = MetaMap.get(oldKey);
+				String newKey = customMap.get(oldKey);
+				MetaMap.put(newKey, value);
+			}
 		}
 		if (delRedundant){
 			it = customSet.iterator();
@@ -229,6 +233,17 @@ public class TEIImporterMetaData {
 		return MetaMap;
 	}
 	
+	public Map remove_ones(Map<String,String> map){
+		Map<String, String> newMap= new Hashtable<>();
+		System.out.println(map);
+		Set<String> keySet = XPathMap.keySet();
+		for (String s : keySet) {
+		    String t = s.replace("[1]", "");
+		    String tempvalue = XPathMap.get(s);
+		    newMap.put(t,tempvalue);
+		}
+		return newMap;
+	}
 	
 	/**
 	 * adds SMetaAnnotations to SDocument(not SDocGraph!)
@@ -241,10 +256,7 @@ public class TEIImporterMetaData {
 		while (it.hasNext()){
 			String tempkey = it.next();
 			String tempvalue = map.get(tempkey);
-			tempkey = tempkey.replace("[1]", "");
 			if (tempvalue.length() > 0){
-				System.out.println(tempkey);
-				System.out.println(tempvalue);
 				sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
 			}
 		}
