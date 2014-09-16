@@ -196,9 +196,16 @@ public class TEIImporterMetaData {
 		return (MappingMap);
 	}
 	
-	public Map<String,String> mapToXpathmap(Map<String,String> XpathMap, Map<String,String> customMap){
+	/**
+	 * adds and manipulates the metadata stored in a map
+	 * @param MetaMap map containing metadata before mappings applied
+	 * @param customMap map containing the mappings
+	 * @param delRedundant boolean for the decision to delete or keep redundant metadata after applying mappings
+	 * @return returns a map with applied mappings
+	 */
+	public Map<String,String> mapToXpathMap(Map<String,String> MetaMap, Map<String,String> customMap, Boolean delRedundant){
 		//add program logic
-		return XpathMap;
+		return MetaMap;
 	}
 	
 	
