@@ -233,7 +233,7 @@ public class TEIImporterMetaData {
 		return MetaMap;
 	}
 	
-	public Map remove_ones(Map<String,String> map){
+	public Map<String,String> remove_ones(Map<String,String> map){
 		Map<String, String> newMap= new Hashtable<>();
 		System.out.println(map);
 		Set<String> keySet = XPathMap.keySet();

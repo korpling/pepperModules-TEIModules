@@ -871,7 +871,7 @@ public class TEIMapper extends PepperMapperImpl{
 				metadata = false;
 				Map<String, String> custommappings = props.getMappingTable();
 				Map<String, String> united = tei_metadata.uniteMappings(custommappings);
-				Map sineonesmap = tei_metadata.remove_ones(tei_metadata.getXPathMap());
+				Map<String, String> sineonesmap = tei_metadata.remove_ones(tei_metadata.getXPathMap());
 				Map<String, String> completedmappings = tei_metadata.mapToXpathMap(sineonesmap, united, del_redundant_metadata);
 				
 				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings);
