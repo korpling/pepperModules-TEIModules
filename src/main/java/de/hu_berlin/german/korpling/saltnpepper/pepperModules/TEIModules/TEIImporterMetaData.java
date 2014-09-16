@@ -27,7 +27,6 @@ import java.util.Stack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
 public class TEIImporterMetaData {
@@ -205,6 +204,21 @@ public class TEIImporterMetaData {
 	 */
 	public Map<String,String> mapToXpathMap(Map<String,String> MetaMap, Map<String,String> customMap, Boolean delRedundant){
 		//add program logic
+		Set<String> customSet = customMap.keySet();
+		Iterator<String> it = customSet.iterator();
+		while (it.hasNext()){
+			String oldKey = it.next();
+			String value = MetaMap.get(oldKey);
+			String newKey = customMap.get(oldKey);
+			MetaMap.put(newKey, value);
+		}
+		if (delRedundant){
+			it = customSet.iterator();
+			while (it.hasNext()){
+				String oldKey = it.next();
+				MetaMap.remove(oldKey);
+			}
+		}
 		return MetaMap;
 	}
 	
