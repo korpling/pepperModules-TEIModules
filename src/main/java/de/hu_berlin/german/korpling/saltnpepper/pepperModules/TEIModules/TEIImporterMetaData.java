@@ -53,6 +53,14 @@ public class TEIImporterMetaData {
 	private Map<String, String> MappingMap= null;
 
 	/**
+	 * gets MappingMap
+	 * @return returns MappingMap
+	 */
+	public Map<String, String> getMappingMap() {
+		return MappingMap;
+	}
+
+	/**
 	 * gets pathStack
 	 */
 	public Stack<String> getPathStack() {
@@ -203,7 +211,6 @@ public class TEIImporterMetaData {
 	 * @return returns a map with applied mappings
 	 */
 	public Map<String,String> mapToXpathMap(Map<String,String> MetaMap, Map<String,String> customMap, Boolean delRedundant){
-		//add program logic
 		Set<String> customSet = customMap.keySet();
 		Iterator<String> it = customSet.iterator();
 		while (it.hasNext()){

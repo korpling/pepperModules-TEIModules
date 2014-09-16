@@ -19,6 +19,9 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import org.junit.Test;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIImporterMetaData;
@@ -39,5 +42,14 @@ public class TEIMetadataTest {
 		
 		metadata.push_to_XPathMap("tag");
 		
+	}
+	
+	@Test
+	public void unifyTest(){
+		Map<String,String> map1 = new Hashtable<>();
+		map1.put("/fileDesc/titleStmt/author", "A Great Author");
+		metadata.uniteMappings(map1);
+		
+		assertEquals("A Great Author", metadata.getMappingMap().get("/fileDesc/titleStmt/author"));
 	}
 }
