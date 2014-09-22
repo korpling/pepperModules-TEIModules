@@ -788,10 +788,6 @@ public class TEIMapper extends PepperMapperImpl{
 					setToken(txt);
 				}
 				
-				else if (TAG_TITLE.equals(qName)) {
-					//part of <head>
-				}
-				
 				else if (TAG_GAP.equals(qName)) {
 					setToken(txt);
 					TagStack.push(TAG_FIGURE);
@@ -833,15 +829,6 @@ public class TEIMapper extends PepperMapperImpl{
 					
 				}
 				
-				else if (TAG_LEM.equals(qName)) {
-					
-				}
-				
-				else if (TAG_SUPPLIED.equals(qName)) {
-					
-				}
-				
-				
 				else if (TAG_TEXT.equals(qName)) {
 					TagStack.push(TAG_TEXT);
 					//create STextualDS
@@ -854,9 +841,6 @@ public class TEIMapper extends PepperMapperImpl{
 					getSNodeStack().add(text_struc);
 					sDocGraph.addSNode(text_struc);
 				}
-				
-				else if (TAG_SUMMARY.equals(qName)) {
-				} 
 				
 				else if (TAG_BODY.equals(qName)) {
 					//nothing
@@ -990,14 +974,6 @@ public class TEIMapper extends PepperMapperImpl{
 				else if (TAG_LEM.equals(qName)) {
 					
 				}
-				
-				else if (TAG_SUPPLIED.equals(qName)) {
-					
-				}
-				
-				
-				if (TAG_SUMMARY.equals(qName)) {
-				} 
 				
 				else if (TAG_BODY.equals(qName)) {
 					//nothing
