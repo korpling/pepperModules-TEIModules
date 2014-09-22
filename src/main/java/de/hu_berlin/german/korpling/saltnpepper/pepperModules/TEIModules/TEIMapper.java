@@ -680,8 +680,7 @@ public class TEIMapper extends PepperMapperImpl{
 					TagStack.push(TAG_PHR);
 					
 					SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
-					phr_struc.createSAnnotation(null, getProps().getTagName(qName) , phr_anno_value);
-		//			phr_struc.createSAnnotation(null, phr_name, phr_anno_value);
+					phr_struc.createSAnnotation(null, phr_name, phr_anno_value);
 					sDocGraph.addSNode(phr_struc);
 					setDominatingStruc(phr_struc);
 					getSNodeStack().add(phr_struc);
