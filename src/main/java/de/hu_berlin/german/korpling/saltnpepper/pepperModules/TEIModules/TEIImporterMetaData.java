@@ -200,7 +200,6 @@ public class TEIImporterMetaData {
 	 */
 	public Map<String,String> uniteMappings(Map<String,String> overwritingMap){
 		MappingMap.putAll(overwritingMap);
-		System.out.println(MappingMap);
 		return (MappingMap);
 	}
 	
@@ -235,7 +234,6 @@ public class TEIImporterMetaData {
 	
 	public Map<String,String> remove_ones(Map<String,String> map){
 		Map<String, String> newMap= new Hashtable<>();
-		System.out.println(map);
 		Set<String> keySet = XPathMap.keySet();
 		for (String s : keySet) {
 		    String t = s.replace("[1]", "");
