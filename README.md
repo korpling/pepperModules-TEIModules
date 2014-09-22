@@ -79,7 +79,6 @@ This project has been funded by the [department of corpus linguistics and morpho
 
 
 # TEIImporter
-## TEIImporter
 
 General information about this importer.
 
