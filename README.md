@@ -78,7 +78,7 @@ This project has been funded by the [department of corpus linguistics and morpho
 
 
 
-##<a name="details"/>TEIImporter
+#**TEIImporter**
 
 General information about this importer.
 
@@ -112,18 +112,6 @@ to the Salt model.
 | TEIImporter.ForeignAsToken          		| Boolean          | optional           | true               |
 | TEIImporter.UseTokenizer| XPath            	| Boolean          | optional           | false		     |
 | TEIImporter.UseTokenizerLang                  | String           | optional           | en	             |
-
-  Name of property   Type of property   optional/ mandatory   default value
-  ------------------ ------------------ --------------------- ---------------
-  ?                  Boolean            optional              false
-  ?                  Boolean            optional              true
-  ?                  Boolean            optional              true
-  ?                  Boolean            optional              true
-  ?                  Boolean            optional              true
-  ?                  Boolean            optional              false
-  ?                  String             optional              en
-
-  : properties to customize importer behaviour
 
 ### TEIImporter.DefaultTokenization
 
