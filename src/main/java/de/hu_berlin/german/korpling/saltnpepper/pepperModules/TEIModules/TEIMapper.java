@@ -720,6 +720,7 @@ public class TEIMapper extends PepperMapperImpl{
 					sDocGraph.addSNode(p_struc);
 					setDominatingStruc(p_struc);
 					getSNodeStack().add(p_struc);
+					System.out.println(primaryText);
 				}
 				
 				else if (TAG_FOREIGN.equals(qName)) {
