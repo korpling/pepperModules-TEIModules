@@ -417,6 +417,17 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		}
 		
+		private void popNodeWithNoTokenCheck(){
+			if (checkOutgoingRelations(getSNodeStack().peek())){
+				getSNodeStack().pop();
+			}
+			
+			else{
+				setEmptyToken();
+				getSNodeStack().pop();
+			}
+		}
+		
 		/**
 		 * default method to add a token to the sDocGraph
 		 * @param str Stringbuilder that contains the text
@@ -924,7 +935,8 @@ public class TEIMapper extends PepperMapperImpl{
 						
 						System.out.println(checkOutgoingRelations(getSNodeStack().peek()));
 						
-						getSNodeStack().pop();
+						//getSNodeStack().pop();
+						popNodeWithNoTokenCheck();
 					}
 				}
 				
