@@ -404,6 +404,20 @@ public class TEIMapper extends PepperMapperImpl{
 		}
 		
 		/**
+		 * method to check whether a SNode has outgoing sRelations
+		 * @param closingStructure the SNode to be checked
+		 * @return return true if one or more outgoing sRelations exist, false alternatively
+		 */
+		private Boolean checkOutgoingRelations(SNode closingStructure){
+			if (closingStructure.getOutgoingSRelations().size() < 1){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		
+		/**
 		 * default method to add a token to the sDocGraph
 		 * @param str Stringbuilder that contains the text
 		 * to be used for the token
@@ -908,7 +922,7 @@ public class TEIMapper extends PepperMapperImpl{
 					if (insidetext){
 						setToken(txt);
 						
-						System.out.println(getSNodeStack().peek().getOutgoingSRelations());
+						System.out.println(checkOutgoingRelations(getSNodeStack().peek()));
 						
 						getSNodeStack().pop();
 					}
