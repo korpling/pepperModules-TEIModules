@@ -107,15 +107,19 @@ to the Salt model.
 |-----------------------------------------------|------------------|--------------------|--------------------|
 | TEIImporter.DefaultTokenization               | Boolean          | optional           | false              |
 | TEIImporter.SubTokenization                   | Boolean          | optional           | true               |
-| TEIImporter.SurplusRemoval			| Boolean          | optional           | true               |
-| TEIImporter.UnclearAsToken        		| Boolean          | optional           | true               |
-| TEIImporter.ForeignAsToken          		| Boolean          | optional           | true               |
-| TEIImporter.UseTokenizer| XPath            	| Boolean          | optional           | false		     |
+| TEIImporter.SurplusRemoval			        | Boolean          | optional           | true               |
+| TEIImporter.UnclearAsToken            		| Boolean          | optional           | true               |
+| TEIImporter.ForeignAsToken              		| Boolean          | optional           | true               |
+| TEIImporter.UseTokenizer                  	| Boolean          | optional           | false              |
 | TEIImporter.UseTokenizerLang                  | String           | optional           | en	             |
+| TEIImporter.DeleteRedundantMetadata           | Boolean          | optional           | false	             |
+| TEIImporter.tag.rename                        | String           | optional           | ""                 |
+| TEIImporter.values.rename                     | String           | optional           | ""                 |
+| TEIImporter.mapping.rename                    | String           | optional           | ""                 |
 
 ### TEIImporter.DefaultTokenization
 
-The user declares that there is one and only element responsible for
+The user declares that there is one and only one element responsible for
 mapping tokens to Salt. Default is \<w\>.
 
 ### TEIImporter.SubTokenization
