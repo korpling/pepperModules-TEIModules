@@ -62,6 +62,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_TAG, String.class, "String containing the tag renaming configuration set by the user", "", false));
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
+		
+		addProperty(new PepperModuleProperty<String>(PROP_MAPPINGS, String.class, "String containing the metadata mappings set by the user", "", false));
 	}
 	
 	/**

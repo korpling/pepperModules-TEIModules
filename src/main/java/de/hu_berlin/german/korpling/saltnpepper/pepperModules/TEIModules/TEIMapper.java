@@ -404,6 +404,31 @@ public class TEIMapper extends PepperMapperImpl{
 		}
 		
 		/**
+		 * method to check whether a SNode has outgoing sRelations
+		 * @param closingStructure the SNode to be checked
+		 * @return return true if one or more outgoing sRelations exist, false alternatively
+		 */
+		private Boolean checkOutgoingRelations(SNode closingStructure){
+			if (closingStructure.getOutgoingSRelations().size() < 1){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		
+		private void popNodeWithNoTokenCheck(){
+			if (checkOutgoingRelations(getSNodeStack().peek())){
+				getSNodeStack().pop();
+			}
+			
+			else{
+				setEmptyToken();
+				getSNodeStack().pop();
+			}
+		}
+		
+		/**
 		 * default method to add a token to the sDocGraph
 		 * @param str Stringbuilder that contains the text
 		 * to be used for the token
@@ -720,7 +745,7 @@ public class TEIMapper extends PepperMapperImpl{
 					sDocGraph.addSNode(p_struc);
 					setDominatingStruc(p_struc);
 					getSNodeStack().add(p_struc);
-					System.out.println(primaryText);
+					//System.out.println(getSNodeStack());
 				}
 				
 				else if (TAG_FOREIGN.equals(qName)) {
@@ -812,6 +837,7 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 				
 				else if (TAG_APP.equals(qName)) {
+					/*
 					TagStack.push(TAG_APP);
 					
 					SStructure app_struc = SaltFactory.eINSTANCE.createSStructure();
@@ -827,7 +853,7 @@ public class TEIMapper extends PepperMapperImpl{
 					sDocGraph.addSNode(app_struc);
 					setDominatingStruc(app_struc);
 					getSNodeStack().add(app_struc);
-					
+					*/
 				}
 				
 				else if (TAG_TEXT.equals(qName)) {
@@ -874,12 +900,12 @@ public class TEIMapper extends PepperMapperImpl{
 				if (TAG_W.equals(qName)) {
 					setToken(txt);
 					if (!(default_tokenization && default_token_tag==TAG_W)){
-						getSNodeStack().pop();
+						popNodeWithNoTokenCheck();
 					}
 				}
 				
 				else if (TAG_PHR.equals(qName)) {
-					getSNodeStack().pop();
+					popNodeWithNoTokenCheck();
 				}
 				
 				else if (TAG_HEAD.equals(qName)) {
@@ -891,7 +917,7 @@ public class TEIMapper extends PepperMapperImpl{
 							setEmptyToken();
 						}
 						
-						getSNodeStack().pop();
+						popNodeWithNoTokenCheck();
 					}
 					if (TagStack.peek()==TAG_FIGURE){
 						getSNodeStack().peek().createSAnnotation(null, body_head_name, txt.toString().trim());
@@ -901,14 +927,14 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 				
 				else if (TAG_DIV.equals(qName)) {
-					getSNodeStack().pop();
+					popNodeWithNoTokenCheck();
 				}
 				
 				else if (TAG_P.equals(qName)) {
 					if (insidetext){
 						setToken(txt);
 						
-						getSNodeStack().pop();
+						popNodeWithNoTokenCheck();
 					}
 				}
 				
@@ -918,7 +944,7 @@ public class TEIMapper extends PepperMapperImpl{
 				
 				
 				else if (TAG_FIGURE.equals(qName)) {
-					getSNodeStack().pop();
+					popNodeWithNoTokenCheck();
 				}
 				
 				else if (TAG_M.equals(qName)) {
@@ -948,7 +974,7 @@ public class TEIMapper extends PepperMapperImpl{
 				
 				else if (TAG_TEXT.equals(qName)) {
 					insidetext = false;
-					getSNodeStack().pop();
+					popNodeWithNoTokenCheck();
 				}
 				
 				else if (TAG_SURPLUS.equals(qName)) {
@@ -969,7 +995,7 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 				
 				else if (TAG_APP.equals(qName)) {
-					getSNodeStack().pop();
+					popNodeWithNoTokenCheck();
 				}
 				
 				else if (TAG_LEM.equals(qName)) {
