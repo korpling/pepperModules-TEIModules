@@ -155,3 +155,10 @@ The tokenizer currently has support for four languages: English, German,
 Italian, French. To choose a language, use the respective ISO 639-1
 language code(en, de, it, fr). If no value or a non-supported value is
 set, the tokenizer will default to English.
+
+### TEIImporter.DeleteRedundantMetadata
+
+When handling metadata, the TEIImporter uses default mappings(reference…)
+and mappings set by the user. This flag decides whether more than one
+SMetaAnnotation can contain the same information when metadata mappings are
+used. If set true, redudant metadata will be deleted.
