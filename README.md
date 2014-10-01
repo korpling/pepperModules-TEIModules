@@ -113,9 +113,9 @@ to the Salt model.
 | TEIImporter.UseTokenizer                  	| Boolean          | optional           | false              |
 | TEIImporter.UseTokenizerLang                  | String           | optional           | en	             |
 | TEIImporter.DeleteRedundantMetadata           | Boolean          | optional           | false	             |
-| TEIImporter.tag.rename                        | String           | optional           | ""                 |
-| TEIImporter.values.rename                     | String           | optional           | ""                 |
-| TEIImporter.mapping.rename                    | String           | optional           | ""                 |
+| TEIImporter.tag.rename                        | String           | optional           |                    |
+| TEIImporter.values.rename                     | String           | optional           |                    |
+| TEIImporter.mapping.rename                    | String           | optional           |                    |
 
 ### TEIImporter.DefaultTokenization
 
