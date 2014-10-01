@@ -10,6 +10,8 @@
   <exporter name="RelANNISExporter" path="./target/MaKoHiZZOutput">
 	<customization>
 		<property key="relANNIS.exporter.linebreak_escape">BLANK</property>
+		<property key="relANNIS.exporter.tab_escape">TAB</property>
+		
 	</customization>
   </exporter>
 </pepper-job>
