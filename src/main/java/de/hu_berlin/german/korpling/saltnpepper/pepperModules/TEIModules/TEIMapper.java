@@ -73,7 +73,7 @@ public class TEIMapper extends PepperMapperImpl{
 		private LanguageCode use_tokenizer_language = null;
 		
 		private Boolean del_redundant_metadata = null;
-		private Boolean skip_default_annotations = null;
+		private Boolean skip_default_annotations = false;
 		
 		//naming config strings
 		private String lb_name = "lb";
@@ -375,9 +375,15 @@ public class TEIMapper extends PepperMapperImpl{
 			text.setSText(text.getSText()+" ");
 		}
 		
-		private void addDefaultAnnotation(SAnnotation defaultAnno){
-			if(true){
-				//setAnnotiation
+		/**
+		 * method to add annotations to nodes
+		 * @param node node to be annotated
+		 * @param name annotation name
+		 * @param value annotation value
+		 */
+		private void addDefaultAnnotation(SNode node, String name, String value){
+			if(!skip_default_annotations){
+				node.createSAnnotation(null, name, value);
 			}
 		}
 		
@@ -640,7 +646,7 @@ public class TEIMapper extends PepperMapperImpl{
 				insidetext = true;
 				//represent the <text>-tag in Salt
 				SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
-				text_struc.createSAnnotation(null, text_name, text_anno_value);
+				addDefaultAnnotation(text_struc, text_name, text_anno_value);
 				getSNodeStack().add(text_struc);
 				sDocGraph.addSNode(text_struc);
 			}
@@ -713,7 +719,7 @@ public class TEIMapper extends PepperMapperImpl{
 					TagStack.push(TAG_PHR);
 					
 					SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
-					phr_struc.createSAnnotation(null, phr_name, phr_anno_value);
+					addDefaultAnnotation(phr_struc, phr_name, phr_anno_value);
 					sDocGraph.addSNode(phr_struc);
 					setDominatingStruc(phr_struc);
 					getSNodeStack().add(phr_struc);
@@ -725,7 +731,7 @@ public class TEIMapper extends PepperMapperImpl{
 						TagStack.push(TAG_HEAD);
 						
 						SStructure head_struc = SaltFactory.eINSTANCE.createSStructure();
-						head_struc.createSAnnotation(null, body_head_name, body_head_anno_value);
+						addDefaultAnnotation(head_struc, body_head_name, body_head_anno_value);
 						sDocGraph.addSNode(head_struc);
 						setDominatingStruc(head_struc);
 						getSNodeStack().add(head_struc);
@@ -739,7 +745,7 @@ public class TEIMapper extends PepperMapperImpl{
 					TagStack.push(TAG_DIV);
 					
 					SStructure div_struc = SaltFactory.eINSTANCE.createSStructure();
-					div_struc.createSAnnotation(null, div_name, div_anno_value);
+					addDefaultAnnotation(div_struc, div_name, div_anno_value);
 					div_struc.createSAnnotation(null, ATT_TYPE, attributes.getValue(ATT_TYPE));
 					sDocGraph.addSNode(div_struc);
 					setDominatingStruc(div_struc);
@@ -749,7 +755,7 @@ public class TEIMapper extends PepperMapperImpl{
 				else if (TAG_P.equals(qName)) {
 					TagStack.push(TAG_P);	
 					SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
-					p_struc.createSAnnotation(null, p_name, p_anno_value);
+					addDefaultAnnotation(p_struc, p_name, p_anno_value);
 					sDocGraph.addSNode(p_struc);
 					setDominatingStruc(p_struc);
 					getSNodeStack().add(p_struc);
@@ -777,7 +783,7 @@ public class TEIMapper extends PepperMapperImpl{
 					TagStack.push(TAG_FIGURE);
 					
 					SStructure figure_struc = SaltFactory.eINSTANCE.createSStructure();
-					figure_struc.createSAnnotation(null, figure_name, figure_anno_value);
+					addDefaultAnnotation(figure_struc, figure_name, figure_anno_value);
 					sDocGraph.addSNode(figure_struc);
 					setDominatingStruc(figure_struc);
 					getSNodeStack().add(figure_struc);
@@ -862,19 +868,6 @@ public class TEIMapper extends PepperMapperImpl{
 					setDominatingStruc(app_struc);
 					getSNodeStack().add(app_struc);
 					*/
-				}
-				
-				else if (TAG_TEXT.equals(qName)) {
-					TagStack.push(TAG_TEXT);
-					//create STextualDS
-					primaryText = SaltFactory.eINSTANCE.createSTextualDS();
-					sDocGraph.addSNode(primaryText);
-					insidetext = true;
-					//represent the <text>-tag in Salt
-					SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
-					text_struc.createSAnnotation(null, text_name, text_anno_value);
-					getSNodeStack().add(text_struc);
-					sDocGraph.addSNode(text_struc);
 				}
 				
 				else if (TAG_BODY.equals(qName)) {
