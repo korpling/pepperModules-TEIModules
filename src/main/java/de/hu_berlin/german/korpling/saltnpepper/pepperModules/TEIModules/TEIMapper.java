@@ -73,6 +73,7 @@ public class TEIMapper extends PepperMapperImpl{
 		private LanguageCode use_tokenizer_language = null;
 		
 		private Boolean del_redundant_metadata = null;
+		private Boolean skip_default_annotations = null;
 		
 		//naming config strings
 		private String lb_name = "lb";
@@ -288,6 +289,7 @@ public class TEIMapper extends PepperMapperImpl{
 			use_tokenizer_language = props.tokenizer_code();
 			
 			del_redundant_metadata = props.isDelMetadata();
+			skip_default_annotations = props.isSkipAnnotations();
 			
 			//fill metadata
 			props.fillMappings();
@@ -377,7 +379,6 @@ public class TEIMapper extends PepperMapperImpl{
 			if(true){
 				//setAnnotiation
 			}
-			
 		}
 		
 		/**
