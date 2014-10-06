@@ -107,15 +107,19 @@ to the Salt model.
 |-----------------------------------------------|------------------|--------------------|--------------------|
 | TEIImporter.DefaultTokenization               | Boolean          | optional           | false              |
 | TEIImporter.SubTokenization                   | Boolean          | optional           | true               |
-| TEIImporter.SurplusRemoval			| Boolean          | optional           | true               |
-| TEIImporter.UnclearAsToken        		| Boolean          | optional           | true               |
-| TEIImporter.ForeignAsToken          		| Boolean          | optional           | true               |
-| TEIImporter.UseTokenizer| XPath            	| Boolean          | optional           | false		     |
+| TEIImporter.SurplusRemoval			        | Boolean          | optional           | true               |
+| TEIImporter.UnclearAsToken            		| Boolean          | optional           | true               |
+| TEIImporter.ForeignAsToken              		| Boolean          | optional           | true               |
+| TEIImporter.UseTokenizer                  	| Boolean          | optional           | false              |
 | TEIImporter.UseTokenizerLang                  | String           | optional           | en	             |
+| TEIImporter.DeleteRedundantMetadata           | Boolean          | optional           | false	             |
+| TEIImporter.tag.rename                        | String           | optional           |                    |
+| TEIImporter.values.rename                     | String           | optional           |                    |
+| TEIImporter.mapping.rename                    | String           | optional           |                    |
 
 ### TEIImporter.DefaultTokenization
 
-The user declares that there is one and only element responsible for
+The user declares that there is one and only one element responsible for
 mapping tokens to Salt. Default is \<w\>.
 
 ### TEIImporter.SubTokenization
@@ -151,3 +155,32 @@ The tokenizer currently has support for four languages: English, German,
 Italian, French. To choose a language, use the respective ISO 639-1
 language code(en, de, it, fr). If no value or a non-supported value is
 set, the tokenizer will default to English.
+
+### TEIImporter.DeleteRedundantMetadata
+
+When handling metadata, the TEIImporter uses default mappings(reference…)
+and mappings set by the user. This flag decides whether more than one
+SMetaAnnotation can contain the same information when metadata mappings are
+used. If set true, redudant metadata will be deleted.
+
+### TEIImporter.tag.rename
+
+A large number of annotations in Salt come from the tags existing in TEI.
+To be able to differentiate, e.g. two struct coming first from <p> and second
+from <phr>, a generic annotation is used. The default is to use the tag-name.
+The tag.rename flag allows customization for the key of such an annotation.
+The following format has to be met: 
+> tag.rename = pb:PNAME;graphic:Grafikname;phr:Phrase
+
+### TEIImporter.values.rename
+
+The values.rename flag is very similiar to tag.rename, beside here the name of
+the value of the annotation can be customized in this case. The format is:
+> values.rename = pb:PBVALUE;graphic:GrafikAnnotationValue;phr:PhraseValue
+
+### TEIImporter.mapping.rename
+
+In addition (or even replacing) to the default metadata mappings, the user is
+able to set his own metadata mappings with this flag. The following example
+illustrates this:
+> mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
