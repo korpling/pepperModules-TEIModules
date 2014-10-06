@@ -373,6 +373,13 @@ public class TEIMapper extends PepperMapperImpl{
 			text.setSText(text.getSText()+" ");
 		}
 		
+		private void addDefaultAnnotation(SAnnotation defaultAnno){
+			if(true){
+				//setAnnotiation
+			}
+			
+		}
+		
 		/**
 		 * adds an empty token to the sDocGraph
 		 */
