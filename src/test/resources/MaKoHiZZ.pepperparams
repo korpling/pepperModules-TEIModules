@@ -5,6 +5,7 @@
 		<property key="SubTokenization">true</property>
 		<property key="ForeignAsToken">true</property>
 		<property key="UnclearAsToken">true</property>
+		<property key="SkipDefaultAnnotations">false</property>
 	</customization>
   </importer>
   <exporter name="RelANNISExporter" path="./target/MaKoHiZZOutput">

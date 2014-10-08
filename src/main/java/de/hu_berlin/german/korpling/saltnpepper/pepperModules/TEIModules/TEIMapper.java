@@ -431,6 +431,11 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		}
 		
+		/**
+		 * method to pop SNode, that checks whether there
+		 * is at least one token assigned to the SNode; if
+		 * not an empty token is added
+		 */
 		private void popNodeWithNoTokenCheck(){
 			if (checkOutgoingRelations(getSNodeStack().peek())){
 				getSNodeStack().pop();

@@ -60,7 +60,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<String>(PROP_USE_TOKENIZER_LANG, String.class, "What language do you want to use for tokenization? (ISO 639-1 code)", false));
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_DELETE_REDUNDANT_METADATA, Boolean.class, "Do you want metadata with a custom mapping to appear only once?", false, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_SKIP_DEFAULT_ANNOTATIONS, Boolean.class, "Do you want to add default annotations(e.g. p=p)?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_SKIP_DEFAULT_ANNOTATIONS, Boolean.class, "Do you want to remove default annotations(e.g. p=p)?", false, false));
 		
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_TAG, String.class, "String containing the tag renaming configuration set by the user", "", false));
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
