@@ -40,6 +40,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	
 	public static final String PROP_DELETE_REDUNDANT_METADATA = "DeleteRedundantMetadata";
 	public static final String PROP_SKIP_DEFAULT_ANNOTATIONS = "SkipDefaultAnnotations";
+	public static final String PROP_USE_NAMESPACE = "UseNamespace";
 	
 	public static final String PROP_RENAME_TAG = "tag.rename";
 	public static final String PROP_RENAME_VALUES = "values.rename";
@@ -61,6 +62,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_DELETE_REDUNDANT_METADATA, Boolean.class, "Do you want metadata with a custom mapping to appear only once?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SKIP_DEFAULT_ANNOTATIONS, Boolean.class, "Do you want to remove default annotations(e.g. p=p)?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_USE_NAMESPACE, Boolean.class, "Do you want to add the tag-namespace to SAnnotations?", false, false));
 		
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_TAG, String.class, "String containing the tag renaming configuration set by the user", "", false));
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
@@ -160,12 +162,25 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	}
 	
 	/**
-	 * method to retrieve value of skip default annotations
+	 * method to retrieve value of skip_default_annotaions
 	 * @return boolean value set by the user(or default)
 	 */
 	public boolean isSkipAnnotations(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_SKIP_DEFAULT_ANNOTATIONS).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	/**
+	 * method to retrieve value of use_namespace
+	 * @return boolean value set by the user(or default)
+	 */
+	public boolean isUseNamespace(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_USE_NAMESPACE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
