@@ -387,6 +387,18 @@ public class TEIMapper extends PepperMapperImpl{
 			}
 		}
 		
+		private String retrieveNamespace(Boolean prop, String name){
+			String namespace = null;
+			if(prop){
+				namespace = name;
+				return(namespace);
+			}
+			else if(!prop){
+				return(namespace);
+			}
+			return("erratic namespace");
+		}
+		
 		/**
 		 * adds an empty token to the sDocGraph
 		 */
