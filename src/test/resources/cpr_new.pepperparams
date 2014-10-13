@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pepper-job>
+  <importer name="TEIImporter" path="./cpr_test">
+	<customization>
+		<property key="SubTokenization">true</property>
+		<property key="ForeignAsToken">true</property>
+		<property key="UnclearAsToken">true</property>
+	</customization>
+  </importer>
+  <exporter name="RelANNISExporter" path="./target/cprOutput">
+	<customization>
+		<property key="relANNIS.exporter.linebreak_escape">BLANK</property>
+		<property key="relANNIS.exporter.tab_escape">TAB</property>
+		
+	</customization>
+  </exporter>
+</pepper-job>

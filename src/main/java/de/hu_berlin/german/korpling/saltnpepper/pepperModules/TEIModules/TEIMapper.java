@@ -642,7 +642,7 @@ public class TEIMapper extends PepperMapperImpl{
 		@Override
 		public void startElement(String uri, String localName, String qName,
 				Attributes attributes) throws SAXException {
-			
+			System.out.println(getSNodeStack().toString());
 			if (TAG_TEIHEADER.equals(qName)){
 				metadata = true;
 			}
@@ -938,7 +938,7 @@ public class TEIMapper extends PepperMapperImpl{
 			
 			else if(insidetext){
 				
-			
+				System.out.println(getSNodeStack().size());
 				if (TAG_W.equals(qName)) {
 					setToken(txt);
 					if (!(default_tokenization && default_token_tag==TAG_W)){
@@ -1006,7 +1006,9 @@ public class TEIMapper extends PepperMapperImpl{
 							setDominatingToken(temp_tok);
 							
 							push_spans(temp_tok);
+							System.out.println(getSAnnoStack().toString());
 							while (!getSAnnoStack().isEmpty()) {
+								
 								temp_tok.addSAnnotation(getSAnnoStack().pop());
 							}
 							
@@ -1017,6 +1019,7 @@ public class TEIMapper extends PepperMapperImpl{
 				
 				else if (TAG_TEXT.equals(qName)) {
 					insidetext = false;
+					
 					popNodeWithNoTokenCheck();
 				}
 				
@@ -1038,7 +1041,7 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 				
 				else if (TAG_APP.equals(qName)) {
-					popNodeWithNoTokenCheck();
+					//popNodeWithNoTokenCheck();
 				}
 				
 				else if (TAG_LEM.equals(qName)) {
