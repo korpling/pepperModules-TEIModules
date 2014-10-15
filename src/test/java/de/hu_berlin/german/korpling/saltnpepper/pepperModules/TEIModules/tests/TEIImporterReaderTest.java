@@ -172,6 +172,23 @@ public class TEIImporterReaderTest {
 	}
 	
 	@Test
+	public void genericSpan_test(){
+		fixture.setSUB_TOKENIZATION();
+		fixture.setGENERIC_SPAN();
+		
+		File outFile = new File (filePath.concat("genericSpan_test/genericSpan_test.xml"));
+		outFile.getParentFile().mkdirs();
+		
+		readXMLResource(getFixture(),
+				URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+
+		assertEquals(1, getFixture().getsDocGraph().getSTokens().size());
+		assertEquals("Der Stengel ist aufrecht und nicht.",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(0))));
+	}
+	
+	@Test
 	public void pb_test(){
 		fixture.setSUB_TOKENIZATION();
 		

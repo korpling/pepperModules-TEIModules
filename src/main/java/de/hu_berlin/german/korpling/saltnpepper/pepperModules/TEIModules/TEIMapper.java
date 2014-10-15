@@ -653,12 +653,13 @@ public class TEIMapper extends PepperMapperImpl{
 		 * @param token token that is pushed
 		 */
 		private void pushToGenerics(SToken token){
-			Set<String> keySet = genericSpanStack.keySet();
-			for (String s : keySet) {
-			    Stack<SToken> tempStack = genericSpanStack.get(s);
-			    tempStack.push(token);
+			if (genericSpanStack != null){
+				Set<String> keySet = genericSpanStack.keySet();
+				for (String s : keySet) {
+				    Stack<SToken> tempStack = genericSpanStack.get(s);
+				    tempStack.push(token);
+				}
 			}
-			
 		}
 		
 		/**
@@ -1122,6 +1123,10 @@ public class TEIMapper extends PepperMapperImpl{
 				else if (generic_struct) {
 					setToken(txt);
 					popNodeWithNoTokenCheck();
+				}
+				
+				else if (generic_span) {
+					generic_break(qName, genericSpanStack.get(qName), qName);
 				}
 			}
 			
