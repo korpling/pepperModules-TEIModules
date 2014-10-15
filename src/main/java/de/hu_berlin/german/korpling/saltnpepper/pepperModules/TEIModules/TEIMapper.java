@@ -536,6 +536,7 @@ public class TEIMapper extends PepperMapperImpl{
 						setDominatingToken(temp_tok);
 					}
 					while (!getSAnnoStack().isEmpty()) {
+						createTokenAnnoSpan(temp_tok, getSAnnoStack().peek());
 						temp_tok.addSAnnotation(getSAnnoStack().pop());
 					}
 					//add token to stack for sspans
