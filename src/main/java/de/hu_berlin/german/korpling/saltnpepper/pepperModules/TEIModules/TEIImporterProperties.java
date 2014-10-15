@@ -48,6 +48,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	
 	public static final String PROP_GENERIC_STRUCT = "generic.struct";
 	public static final String PROP_GENERIC_SPAN = "generic.span";
+	
+	public static final String PROP_TOKEN_ANNO_SPAN = "tokenAnnoSpan";
 
 	
 	
@@ -69,6 +71,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_STRUCT, Boolean.class, "Do you want to use generic structs?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_SPAN, Boolean.class, "Do you want to use generic spans?", false, false));
+		
+		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_ANNO_SPAN, Boolean.class, "Do you want to have spans for all token annotations?", false, false));
 		
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_TAG, String.class, "String containing the tag renaming configuration set by the user", "", false));
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
@@ -213,6 +217,19 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public boolean isUseGenericSpan(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_GENERIC_SPAN).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	/**
+	 * method to retrieve value of use_namespace
+	 * @return boolean value set by the user(or default)
+	 */
+	public boolean isUseTokenAnnoSpan(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_TOKEN_ANNO_SPAN).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}

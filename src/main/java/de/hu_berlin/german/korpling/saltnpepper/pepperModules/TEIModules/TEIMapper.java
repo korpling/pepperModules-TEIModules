@@ -315,6 +315,8 @@ public class TEIMapper extends PepperMapperImpl{
 			generic_struct = props.isUseGenericStruct();
 			generic_span = props.isUseGenericSpan();
 			
+			token_anno_span = props.isUseTokenAnnoSpan();
+			
 			//fill metadata
 			props.fillMappings();
 			
