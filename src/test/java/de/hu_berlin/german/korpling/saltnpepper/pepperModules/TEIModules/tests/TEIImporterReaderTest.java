@@ -184,8 +184,12 @@ public class TEIImporterReaderTest {
 
 		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
 
-		assertEquals(1, getFixture().getsDocGraph().getSTokens().size());
+		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
 		assertEquals("Der Stengel ist aufrecht und nicht.",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(0))));
+		//testing the spans
+		assertEquals("Der Stengel ist aufrecht und nicht.",getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSSpans().get(0)));
+		assertEquals("Die Blätter sind fast rundlich.",getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSSpans().get(1)));
+		
 	}
 	
 	@Test
