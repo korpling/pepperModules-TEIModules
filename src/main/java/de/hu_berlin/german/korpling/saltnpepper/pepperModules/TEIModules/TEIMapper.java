@@ -307,6 +307,9 @@ public class TEIMapper extends PepperMapperImpl{
 			del_redundant_metadata = props.isDelMetadata();
 			skip_default_annotations = props.isSkipAnnotations();
 			
+			generic_struct = props.isUseGenericStruct();
+			generic_span = props.isUseGenericSpan();
+			
 			//fill metadata
 			props.fillMappings();
 			

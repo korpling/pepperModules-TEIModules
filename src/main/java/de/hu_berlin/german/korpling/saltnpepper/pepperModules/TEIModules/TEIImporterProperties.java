@@ -45,6 +45,9 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_RENAME_TAG = "tag.rename";
 	public static final String PROP_RENAME_VALUES = "values.rename";
 	public static final String PROP_MAPPINGS = "mapping.rename";
+	
+	public static final String PROP_GENERIC_STRUCT = "generic.struct";
+	public static final String PROP_GENERIC_SPAN = "generic.span";
 
 	
 	
@@ -63,6 +66,9 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_DELETE_REDUNDANT_METADATA, Boolean.class, "Do you want metadata with a custom mapping to appear only once?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SKIP_DEFAULT_ANNOTATIONS, Boolean.class, "Do you want to remove default annotations(e.g. p=p)?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_USE_NAMESPACE, Boolean.class, "Do you want to add the tag-namespace to SAnnotations?", false, false));
+		
+		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_STRUCT, Boolean.class, "Do you want to use generic structs?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_SPAN, Boolean.class, "Do you want to use generic spans?", false, false));
 		
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_TAG, String.class, "String containing the tag renaming configuration set by the user", "", false));
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
@@ -181,6 +187,32 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public boolean isUseNamespace(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_USE_NAMESPACE).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	/**
+	 * method to retrieve value of use_namespace
+	 * @return boolean value set by the user(or default)
+	 */
+	public boolean isUseGenericStruct(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_GENERIC_STRUCT).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	/**
+	 * method to retrieve value of use_namespace
+	 * @return boolean value set by the user(or default)
+	 */
+	public boolean isUseGenericSpan(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_GENERIC_SPAN).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
