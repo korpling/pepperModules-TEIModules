@@ -76,6 +76,9 @@ public class TEIMapper extends PepperMapperImpl{
 		private Boolean skip_default_annotations = false;
 		private Boolean use_namespace = false;
 		
+		private Boolean generic_struct = false;
+		private Boolean generic_span = false;
+		
 		//naming config strings
 		private String lb_name = "lb";
 		private String pb_name = "pb";
@@ -120,6 +123,18 @@ public class TEIMapper extends PepperMapperImpl{
 		 */
 		public void setSUB_TOKENIZATION(){
 			sub_tokenization = true;
+		}
+		/**
+		 * Helper method for compatibility to unit test.
+		 */
+		public void setGENERIC_STRUCT(){
+			generic_struct = true;
+		}
+		/**
+		 * Helper method for compatibility to unit test.
+		 */
+		public void setGENERIC_SPAN(){
+			generic_span = true;
 		}
 		
 		
@@ -914,6 +929,25 @@ public class TEIMapper extends PepperMapperImpl{
 				else if (TAG_BODY.equals(qName)) {
 					//nothing
 				}
+				
+				else if (generic_struct){
+					String namespace = retrieveNamespace(use_namespace, qName);
+					
+					TagStack.push(qName);
+					
+					SStructure gen_struc = SaltFactory.eINSTANCE.createSStructure();
+					addDefaultAnnotation(gen_struc, qName, qName, namespace);
+					sDocGraph.addSNode(gen_struc);
+					setDominatingStruc(gen_struc);
+					getSNodeStack().add(gen_struc);
+					
+				}
+				
+				else if(generic_span){
+						
+				}
+					
+				
 			}
 		}
 		@Override
@@ -1050,6 +1084,11 @@ public class TEIMapper extends PepperMapperImpl{
 				
 				else if (TAG_BODY.equals(qName)) {
 					//nothing
+				}
+				
+				else if (generic_struct) {
+					setToken(txt);
+					popNodeWithNoTokenCheck();
 				}
 			}
 			
