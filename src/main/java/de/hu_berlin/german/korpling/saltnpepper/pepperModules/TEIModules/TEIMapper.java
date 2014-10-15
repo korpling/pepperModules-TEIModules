@@ -81,6 +81,8 @@ public class TEIMapper extends PepperMapperImpl{
 		private Boolean generic_struct = false;
 		private Boolean generic_span = false;
 		
+		private Boolean token_anno_span = false;
+		
 		//naming config strings
 		private String lb_name = "lb";
 		private String pb_name = "pb";
@@ -438,6 +440,17 @@ public class TEIMapper extends PepperMapperImpl{
 		}
 		
 		/**
+		 * creates a span for each token annotation
+		 * 
+		 */
+		private void createTokenAnnoSpan(SToken token, SAnnotation anno){
+			if (token_anno_span){
+				SSpan span = sDocGraph.createSSpan(token);
+				span.addSAnnotation(anno);
+			}
+		}
+		
+		/**
 		 * adds an empty token to the sDocGraph. This token
 		 * is dominated by an SStructure as required by the <gap>-tag
 		 */
@@ -445,6 +458,7 @@ public class TEIMapper extends PepperMapperImpl{
 			SToken temp_tok = null;
 			temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
 			for(int i=0; i<3; i++){
+				createTokenAnnoSpan(temp_tok, getSAnnoStack().peek());
 				temp_tok.addSAnnotation(getSAnnoStack().pop());
 			}
 			setDominatingToken(temp_tok);
