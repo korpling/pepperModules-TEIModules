@@ -17,8 +17,10 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -174,6 +176,7 @@ public class TEIMapper extends PepperMapperImpl{
 		private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
 		//
 		
+		private Map<String,Stack<SToken>> genericSpanStack = null;
 		/**
 		 * stack that follows the parser in adding and removing certain elements that are also sNodes
 		 */
@@ -625,9 +628,37 @@ public class TEIMapper extends PepperMapperImpl{
 		 * pushes the spans to the added stacks
 		 * @param tok token that is pushed
 		 */
-		public void push_spans(SToken tok){
+		private void push_spans(SToken tok){
 			lbSpanTokenStack.push(tok);
 			pbSpanTokenStack.push(tok);
+			
+			pushToGenerics(tok);
+		}
+		
+		/**
+		 * add a tag to the stack of spans
+		 * @param name tag-name
+		 */
+		private void addToGenericSpans(String name){
+			if (genericSpanStack==null){
+				genericSpanStack = new Hashtable<>();
+			}
+			Stack<SToken> gen_stack = new Stack<>();
+			genericSpanStack.put(name, gen_stack);
+		}
+		
+		/**
+		 * pushes the tokens to the stacks of the
+		 * generic spans
+		 * @param token token that is pushed
+		 */
+		private void pushToGenerics(SToken token){
+			Set<String> keySet = genericSpanStack.keySet();
+			for (String s : keySet) {
+			    Stack<SToken> tempStack = genericSpanStack.get(s);
+			    tempStack.push(token);
+			}
+			
 		}
 		
 		/**
@@ -947,7 +978,7 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 				
 				else if(generic_span){
-						
+					addToGenericSpans(qName);
 				}
 					
 				
