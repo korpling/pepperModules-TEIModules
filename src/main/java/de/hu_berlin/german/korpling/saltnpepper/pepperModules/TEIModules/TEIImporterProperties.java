@@ -69,7 +69,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SKIP_DEFAULT_ANNOTATIONS, Boolean.class, "Do you want to remove default annotations(e.g. p=p)?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_USE_NAMESPACE, Boolean.class, "Do you want to add the tag-namespace to SAnnotations?", false, false));
 		
-		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_STRUCT, Boolean.class, "Do you want to use generic structs?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_STRUCT, Boolean.class, "Do you want to use generic structs?", true, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_SPAN, Boolean.class, "Do you want to use generic spans?", false, false));
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_ANNO_SPAN, Boolean.class, "Do you want to have spans for all token annotations?", false, false));

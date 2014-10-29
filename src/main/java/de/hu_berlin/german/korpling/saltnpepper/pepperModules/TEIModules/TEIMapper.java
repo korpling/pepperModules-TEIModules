@@ -993,6 +993,10 @@ public class TEIMapper extends PepperMapperImpl{
 					setDominatingStruc(gen_struc);
 					getSNodeStack().add(gen_struc);
 					
+					if (generic_attributes){
+						
+					}
+					
 				}
 				
 				else if(generic_span){
