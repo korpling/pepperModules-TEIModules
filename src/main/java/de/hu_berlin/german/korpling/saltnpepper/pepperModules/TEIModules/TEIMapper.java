@@ -769,7 +769,7 @@ public class TEIMapper extends PepperMapperImpl{
 						}
 						
 						if(attributes.getValue(ATT_XML_LANG)!=null) {
-							w_struc.createSAnnotation(namespace, ATT_XML_LANG, attributes.getValue(ATT_XML_LANG));
+							w_struc.createSAnnotation(namespace, "lang", attributes.getValue(ATT_XML_LANG));
 						}
 						
 						sDocGraph.addSNode(w_struc);
