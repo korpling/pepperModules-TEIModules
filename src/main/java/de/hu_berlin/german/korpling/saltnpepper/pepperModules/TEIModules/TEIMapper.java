@@ -1005,10 +1005,8 @@ public class TEIMapper extends PepperMapperImpl{
 					if (generic_attr){
 						int length = attributes.getLength();
 						for(int i=0; i<length; i++){
-							//String a = attributes.getLocalName(i);
 							String name = attributes.getQName(i);
 							String value = attributes.getValue(i);
-							//String d = attributes.getType(i);
 							
 							SAnnotation tempAnno = sDocGraph.createSAnnotation(namespace, name, value);
 							gen_struc.addSAnnotation(tempAnno);
