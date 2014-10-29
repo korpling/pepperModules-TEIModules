@@ -186,7 +186,13 @@ public class TEIMapper extends PepperMapperImpl{
 		private Stack<SToken> pbSpanTokenStack = new Stack<SToken>();
 		//
 		
-		private Map<String,Stack<SToken>> genericSpanStack = null;
+		/**
+		 * Map for storing tokens belonging to generic spans
+		 */
+		private Map<String,Stack<SToken>> genericSpanMap = null;
+		
+		private Map<String,Attributes> attrMap = null;
+		
 		/**
 		 * stack that follows the parser in adding and removing certain elements that are also sNodes
 		 */
@@ -647,6 +653,23 @@ public class TEIMapper extends PepperMapperImpl{
 			if (line != null){
 				line.createSAnnotation(null, tag, annovalue);
 			}
+			
+			if (generic_attr){
+				Attributes attributes = attrMap.get(tag);
+				int length = attributes.getLength();
+				for(int i=0; i<length; i++){
+					String name = attributes.getQName(i);
+					String value = attributes.getValue(i);
+					
+					SAnnotation tempAnno = sDocGraph.createSAnnotation(null , name, value);
+					line.addSAnnotation(tempAnno);
+				}
+				
+				
+				
+			}
+			
+			
 
 		}
 		
@@ -665,12 +688,18 @@ public class TEIMapper extends PepperMapperImpl{
 		 * add a tag to the stack of spans
 		 * @param name tag-name
 		 */
-		private void addToGenericSpans(String name){
-			if (genericSpanStack==null){
-				genericSpanStack = new Hashtable<>();
+		private void addToGenericSpans(String name, Attributes attr){
+			if (genericSpanMap==null){
+				genericSpanMap = new Hashtable<>();
 			}
+			if (attrMap == null){
+				attrMap = new Hashtable<>();
+			}
+		    
+			attrMap.put(name, attr);
+			
 			Stack<SToken> gen_stack = new Stack<>();
-			genericSpanStack.put(name, gen_stack);
+			genericSpanMap.put(name, gen_stack);
 		}
 		
 		/**
@@ -679,10 +708,10 @@ public class TEIMapper extends PepperMapperImpl{
 		 * @param token token that is pushed
 		 */
 		private void pushToGenerics(SToken token){
-			if (genericSpanStack != null){
-				Set<String> keySet = genericSpanStack.keySet();
+			if (genericSpanMap != null){
+				Set<String> keySet = genericSpanMap.keySet();
 				for (String s : keySet) {
-				    Stack<SToken> tempStack = genericSpanStack.get(s);
+				    Stack<SToken> tempStack = genericSpanMap.get(s);
 				    tempStack.push(token);
 				}
 			}
@@ -1019,8 +1048,7 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 				
 				else if(generic_span){
-					
-					addToGenericSpans(qName);
+					addToGenericSpans(qName, attributes);
 				}
 					
 				
@@ -1168,7 +1196,7 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 				
 				else if (generic_span) {
-					generic_break(qName, genericSpanStack.get(qName), qName);
+					generic_break(qName, genericSpanMap.get(qName), qName);
 				}
 			}
 			

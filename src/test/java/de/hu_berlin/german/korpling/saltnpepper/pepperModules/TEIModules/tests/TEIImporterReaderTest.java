@@ -230,6 +230,23 @@ public class TEIImporterReaderTest {
 		assertEquals("Ein",getFixture().getsDocGraph().getSStructures().get(2).getSAnnotations().get(1).getSValueSTEXT());
 	}
 	
+	@Test
+	public void genericSpanAttr_test(){
+		fixture.setSUB_TOKENIZATION();
+		fixture.setGENERIC_SPAN();
+		fixture.setGENERIC_ATTR();
+		
+		File outFile = new File (filePath.concat("genericSpan_test/genericSpan_test.xml"));
+		outFile.getParentFile().mkdirs();
+		
+		readXMLResource(getFixture(),
+				URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals("kop",getFixture().getsDocGraph().getSSpans().get(0).getSAnnotations().get(1).getName());
+		
+		assertEquals("lat",getFixture().getsDocGraph().getSSpans().get(1).getSAnnotations().get(1).getName());
+	}
+	
 
 	protected void readXMLResource(DefaultHandler2 contentHandler,
 			URI documentLocation) {
