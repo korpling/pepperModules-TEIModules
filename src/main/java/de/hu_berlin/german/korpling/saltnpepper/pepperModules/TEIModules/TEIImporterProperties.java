@@ -48,6 +48,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	
 	public static final String PROP_GENERIC_STRUCT = "generic.struct";
 	public static final String PROP_GENERIC_SPAN = "generic.span";
+	public static final String PROP_GENERIC_ATTR = "generic.attributes";
 	
 	public static final String PROP_TOKEN_ANNO_SPAN = "tokenAnnoSpan";
 
@@ -71,6 +72,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_STRUCT, Boolean.class, "Do you want to use generic structs?", true, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_SPAN, Boolean.class, "Do you want to use generic spans?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_ATTR, Boolean.class, "Do you want to include generic attribute annotations?", false, false));
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_ANNO_SPAN, Boolean.class, "Do you want to have spans for all token annotations?", false, false));
 		
@@ -198,7 +200,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	}
 	
 	/**
-	 * method to retrieve value of use_namespace
+	 * method to retrieve value of generic.struct
 	 * @return boolean value set by the user(or default)
 	 */
 	public boolean isUseGenericStruct(){
@@ -211,12 +213,25 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	}
 	
 	/**
-	 * method to retrieve value of use_namespace
+	 * method to retrieve value of generic.span
 	 * @return boolean value set by the user(or default)
 	 */
 	public boolean isUseGenericSpan(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_GENERIC_SPAN).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	/**
+	 * method to retrieve value of generic.attributes
+	 * @return boolean value set by the user(or default)
+	 */
+	public boolean isUseGenericAttr(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_GENERIC_ATTR).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}

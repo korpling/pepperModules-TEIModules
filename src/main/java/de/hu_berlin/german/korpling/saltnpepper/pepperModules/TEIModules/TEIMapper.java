@@ -80,6 +80,7 @@ public class TEIMapper extends PepperMapperImpl{
 		
 		private Boolean generic_struct = false;
 		private Boolean generic_span = false;
+		private Boolean generic_attr = false;
 		
 		private Boolean token_anno_span = false;
 		
@@ -314,6 +315,7 @@ public class TEIMapper extends PepperMapperImpl{
 			
 			generic_struct = props.isUseGenericStruct();
 			generic_span = props.isUseGenericSpan();
+			generic_attr = props.isUseGenericAttr();
 			
 			token_anno_span = props.isUseTokenAnnoSpan();
 			
