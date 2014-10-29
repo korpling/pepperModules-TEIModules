@@ -211,6 +211,25 @@ public class TEIImporterReaderTest {
 		assertEquals("Geſtalt.",(getFixture().getsDocGraph().getSText((SNode) getFixture().getsDocGraph().getNodes().get(2))));
 	}
 	
+	@Test
+	public void genericAttr_test(){
+		fixture.setSUB_TOKENIZATION();
+		fixture.setGENERIC_STRUCT();
+		fixture.setGENERIC_ATTR();
+		
+		File outFile = new File (filePath.concat("genericSpan_test/genericSpan_test.xml"));
+		outFile.getParentFile().mkdirs();
+		
+		readXMLResource(getFixture(),
+				URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals("kop",getFixture().getsDocGraph().getSStructures().get(1).getSAnnotations().get(1).getName());
+		assertEquals("Tisch",getFixture().getsDocGraph().getSStructures().get(1).getSAnnotations().get(1).getSValueSTEXT());
+		
+		assertEquals("lat",getFixture().getsDocGraph().getSStructures().get(2).getSAnnotations().get(1).getName());
+		assertEquals("Ein",getFixture().getsDocGraph().getSStructures().get(2).getSAnnotations().get(1).getSValueSTEXT());
+	}
+	
 
 	protected void readXMLResource(DefaultHandler2 contentHandler,
 			URI documentLocation) {

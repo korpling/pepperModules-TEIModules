@@ -2,9 +2,9 @@
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
     <text>
         <body>
-            	<KOMeT>Der Stengel ist aufrecht und nicht.
+            	<KOMeT kop="Tisch">Der Stengel ist aufrecht und nicht.
             	</KOMeT>
-		<KOMeT>Die Blätter sind fast rundlich.
+		<KOMeT lat="Ein">Die Blätter sind fast rundlich.
             	</KOMeT>
         </body>
     </text>

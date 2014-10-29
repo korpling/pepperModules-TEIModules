@@ -142,6 +142,13 @@ public class TEIMapper extends PepperMapperImpl{
 			generic_span = true;
 		}
 		
+		/**
+		 * Helper method for compatibility to unit test.
+		 */
+		public void setGENERIC_ATTR(){
+			generic_attr = true;
+		}
+		
 		
 		/**
 		 * The default value that is used for creating tokens when using the flag for creating
@@ -995,7 +1002,19 @@ public class TEIMapper extends PepperMapperImpl{
 					setDominatingStruc(gen_struc);
 					getSNodeStack().add(gen_struc);
 					
-					if (generic_attributes){
+					if (generic_attr){
+						int length = attributes.getLength();
+						for(int i=0; i<length; i++){
+							//String a = attributes.getLocalName(i);
+							String name = attributes.getQName(i);
+							String value = attributes.getValue(i);
+							//String d = attributes.getType(i);
+							
+							SAnnotation tempAnno = sDocGraph.createSAnnotation(namespace, name, value);
+							gen_struc.addSAnnotation(tempAnno);
+						}
+						
+						
 						
 					}
 					
