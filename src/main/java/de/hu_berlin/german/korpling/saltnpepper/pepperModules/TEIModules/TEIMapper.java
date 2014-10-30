@@ -503,13 +503,15 @@ public class TEIMapper extends PepperMapperImpl{
 		 * not an empty token is added
 		 */
 		private void popNodeWithNoTokenCheck(){
-			if (checkOutgoingRelations(getSNodeStack().peek())){
-				getSNodeStack().pop();
-			}
-			
-			else{
-				setEmptyToken();
-				getSNodeStack().pop();
+			if (!getSNodeStack().empty()){
+				if (checkOutgoingRelations(getSNodeStack().peek())){
+					getSNodeStack().pop();
+				}
+				
+				else{
+					setEmptyToken();
+					getSNodeStack().pop();
+				}
 			}
 		}
 		
@@ -1064,7 +1066,7 @@ public class TEIMapper extends PepperMapperImpl{
 				Map<String, String> sineonesmap = tei_metadata.remove_ones(tei_metadata.getXPathMap());
 				Map<String, String> completedmappings = tei_metadata.mapToXpathMap(sineonesmap, united, del_redundant_metadata);
 				
-				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings);
+				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings, true);
 			}
 			
 			else if (metadata){
