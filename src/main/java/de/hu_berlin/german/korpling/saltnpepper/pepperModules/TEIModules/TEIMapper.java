@@ -84,6 +84,8 @@ public class TEIMapper extends PepperMapperImpl{
 		
 		private Boolean token_anno_span = false;
 		
+		private Boolean lastPart = false;
+		
 		//naming config strings
 		private String lb_name = "lb";
 		private String pb_name = "pb";
@@ -329,6 +331,8 @@ public class TEIMapper extends PepperMapperImpl{
 			generic_struct = props.isUseGenericStruct();
 			generic_span = props.isUseGenericSpan();
 			generic_attr = props.isUseGenericAttr();
+			
+			lastPart = props.isUseLastPart();
 			
 			token_anno_span = props.isUseTokenAnnoSpan();
 			
@@ -1066,7 +1070,7 @@ public class TEIMapper extends PepperMapperImpl{
 				Map<String, String> sineonesmap = tei_metadata.remove_ones(tei_metadata.getXPathMap());
 				Map<String, String> completedmappings = tei_metadata.mapToXpathMap(sineonesmap, united, del_redundant_metadata);
 				
-				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings, true);
+				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings, lastPart);
 			}
 			
 			else if (metadata){

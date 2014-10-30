@@ -51,6 +51,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_GENERIC_ATTR = "generic.attributes";
 	
 	public static final String PROP_TOKEN_ANNO_SPAN = "tokenAnnoSpan";
+	
+	public static final String PROP_LAST_PART_ONLY_METADATA = "LastPartOnlyMetadata";
 
 	
 	
@@ -245,6 +247,19 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public boolean isUseTokenAnnoSpan(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_TOKEN_ANNO_SPAN).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	/**
+	 * method to retrieve value of LastPartOnlyMetadata
+	 * @return boolean value set by the user(or default)
+	 */
+	public boolean isUseLastPart(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_LAST_PART_ONLY_METADATA).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
