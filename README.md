@@ -97,7 +97,7 @@ problems occuring because of this.
 
 Because TEI is a very complex format the behavior of the TEIImporter
 depends to a great extent on the properties that the user can use to
-customize the behaviour of the TEIImporter. The table ? contains an
+customize the behaviour of the TEIImporter. The table following table  contains an
 overview of all usable properties to customize the behaviour of the
 TEIImporter. The following section contains a close description to each
 single property and describes the resulting differences in the mapping
@@ -113,9 +113,14 @@ to the Salt model.
 | TEIImporter.UseTokenizer                  	| Boolean          | optional           | false              |
 | TEIImporter.UseTokenizerLang                  | String           | optional           | en	             |
 | TEIImporter.DeleteRedundantMetadata           | Boolean          | optional           | false	             |
+| TEIImporter.SkipDefaultAnnotations            | Boolean          | optional           | false              |
+| TEIImporter.UseNamespace                      | Boolean          | optional           | false              |
 | TEIImporter.tag.rename                        | String           | optional           |                    |
 | TEIImporter.values.rename                     | String           | optional           |                    |
 | TEIImporter.mapping.rename                    | String           | optional           |                    |
+| TEIImporter.generic.struct                    | Boolean          | optional           | true               |
+| TEIImporter.generic.span                      | Boolean          | optional           | false              |
+| TEIImporter.generic.attributes                | Boolean          | optional           | false              |
 
 ### TEIImporter.DefaultTokenization
 
@@ -163,6 +168,20 @@ and mappings set by the user. This flag decides whether more than one
 SMetaAnnotation can contain the same information when metadata mappings are
 used. If set true, redudant metadata will be deleted.
 
+### TEIImporter.SkipDefaultAnnotations
+
+By default there is an annotation added to each SNode to indicate which tag
+is responsible for this SNode. This flag disables adding these annotations.
+
+### TEIImporter.UseNamespace
+
+To differentiate annotations with the same name, it is possible to add the
+namespace coming from TEI to annotations. Example:
+> <a attr="good"> text </a> <b attr="good"> text </b>
+
+Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
+annotations.
+
 ### TEIImporter.tag.rename
 
 A large number of annotations in Salt come from the tags existing in TEI.
@@ -184,3 +203,21 @@ In addition (or even replacing) to the default metadata mappings, the user is
 able to set his own metadata mappings with this flag. The following example
 illustrates this:
 > mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
+
+### TEIImporter.generic.struct
+
+By default elements without an nongeneric handling in the importer are added
+as SStructs. If you do not want this to happen (e.g. by enabling generic.span)
+you have to disable this flag.
+
+### TEIImporter.generic.span
+
+If you disable generic.struct you will be able to use this flag to instead import
+elements without an nongeneric handling as SSpans.
+
+### TEIImporter.generic.attributes
+
+By default attributes to elements without nongeneric handling are ignored. To add
+these attributes enable this flag.
+
+
