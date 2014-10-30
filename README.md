@@ -177,7 +177,7 @@ is responsible for this SNode. This flag disables adding these annotations.
 
 To differentiate annotations with the same name, it is possible to add the
 namespace coming from TEI to annotations. Example:
-> <a attr="good"> text </a> <b attr="good"> text </b>
+> ```<a attr="good"> text </a> <b attr="good"> text </b>```
 
 Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
 annotations.
