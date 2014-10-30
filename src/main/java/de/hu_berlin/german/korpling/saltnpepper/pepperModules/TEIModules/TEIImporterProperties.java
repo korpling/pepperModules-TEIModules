@@ -82,6 +82,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
 		
 		addProperty(new PepperModuleProperty<String>(PROP_MAPPINGS, String.class, "String containing the metadata mappings set by the user", "", false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_LAST_PART_ONLY_METADATA, Boolean.class, "Do you want to remove everything from metadata but what is after the last '/'?", false, false));
 	}
 	
 	/**
