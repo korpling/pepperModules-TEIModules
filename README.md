@@ -121,6 +121,7 @@ to the Salt model.
 | TEIImporter.generic.struct                    | Boolean          | optional           | true               |
 | TEIImporter.generic.span                      | Boolean          | optional           | false              |
 | TEIImporter.generic.attributes                | Boolean          | optional           | false              |
+| TEIImporter.LastPartOnlyMetadata              | Boolean          | optional           | false              |
 
 ### TEIImporter.DefaultTokenization
 
@@ -219,5 +220,10 @@ elements without an nongeneric handling as SSpans.
 
 By default attributes to elements without nongeneric handling are ignored. To add
 these attributes enable this flag.
+
+### TEIImporter.LastPartOnlyMetadata
+
+Enabling this flag triggers the deletion of everything from metadata keys but what is
+after the last '/'. '@' characters are also removed.
 
 
