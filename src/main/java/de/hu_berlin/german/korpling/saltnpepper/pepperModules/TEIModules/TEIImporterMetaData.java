@@ -254,7 +254,12 @@ public class TEIImporterMetaData {
 		while (it.hasNext()){
 			String tempkey = it.next();
 			if (lastPartOnly){
-				tempkey = tempkey.split("/")[tempkey.split("/").length+1];
+				System.out.println(tempkey);
+				String[] tempArray = tempkey.split("/");
+			
+				System.out.println(tempArray.length);
+				int len = tempArray.length;
+				tempkey = tempArray[len-1];
 				tempkey = tempkey.replace("@", "");
 			}
 			String tempvalue = map.get(tempkey);
