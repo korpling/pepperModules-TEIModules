@@ -1196,6 +1196,14 @@ public class TEIMapper extends PepperMapperImpl{
 					//nothing
 				}
 				
+				else if (TAG_LB.equals(qName)) {
+					
+				}
+				
+				else if (TAG_PB.equals(qName)) {
+					
+				}
+				
 				else if (generic_struct) {
 					setToken(txt);
 					popNodeWithNoTokenCheck();
