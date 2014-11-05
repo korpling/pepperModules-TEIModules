@@ -1196,6 +1196,13 @@ public class TEIMapper extends PepperMapperImpl{
 					//nothing
 				}
 				
+				/*these empty clauses must not be removed
+				everything not to be handled generically has to appear
+				before the generic clauses could be called, otherwise
+				elements with ungeneric handling would be considered
+				as generic elements at least partially */
+
+
 				else if (TAG_LB.equals(qName)) {
 					
 				}
