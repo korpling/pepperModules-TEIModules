@@ -232,6 +232,11 @@ public class TEIImporterMetaData {
 		return MetaMap;
 	}
 	
+	/**
+	 * This method removes the "1" from the pseudo-Xpath
+	 * @param map the map to to be corrected
+	 * @return the corrected map
+	 */
 	public Map<String,String> remove_ones(Map<String,String> map){
 		Map<String, String> newMap= new Hashtable<>();
 		Set<String> keySet = XPathMap.keySet();
