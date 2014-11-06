@@ -258,18 +258,22 @@ public class TEIImporterMetaData {
 		Iterator<String> it = keySet.iterator();
 		while (it.hasNext()){
 			String tempkey = it.next();
+			String tempvalue = map.get(tempkey);
 			if (lastPartOnly){
-				System.out.println(tempkey);
 				String[] tempArray = tempkey.split("/");
-			
-				System.out.println(tempArray.length);
 				int len = tempArray.length;
 				tempkey = tempArray[len-1];
 				tempkey = tempkey.replace("@", "");
 			}
-			String tempvalue = map.get(tempkey);
+			
 			if (tempvalue.length() > 0){
-				sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
+				if(sdoc.getSMetaAnnotation(tempkey) == null){
+					System.out.println(sdoc.getSMetaAnnotation(tempkey));
+					sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
+				}
+				else{
+					logger.warn("You try to add a metadatum using a key for the second time. This second one will be ignored!");
+				}
 			}
 		}
 	}
