@@ -93,6 +93,11 @@ Instead, "SSpan" is used. Tokens can be defined and interpreted in many
 different ways and thus customization through properties deal with the
 problems occuring because of this.
 
+### Metadata
+A metadata key can only be used once. If for some reason (e.g. by using a property)
+a key is used for a second time, the TEIImporter will ignore the second
+usage.
+
 ### Properties
 
 Because TEI is a very complex format the behavior of the TEIImporter
