@@ -65,6 +65,5 @@ public class TEIMetadataTest {
 		assertEquals("Joseph Addison", map1.get("/fileDesc/titleStmt/author"));
 		Map<String, String> map = metadata.mapToXpathMap(map1, metadata.getMappingMap(), true);
 		assertEquals("Joseph Addison", map1.get("author"));
-		//assertEquals("Joseph Addison", map1.get("/fileDesc/titleStmt/author"));
 	}
 }
