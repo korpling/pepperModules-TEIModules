@@ -80,23 +80,23 @@ This project has been funded by the [department of corpus linguistics and morpho
 
 # TEIImporter
 
-General information about this importer.
+The TEIImporter imports data coming from TEI-XML files to a Salt model. This importer provides a wide range of customization possibilities via the here described set of properties. Before we talk about the possibility of customizing the mapping, we describe the general and default mapping from TEI to a Salt model.
 
 ### Mapping to Salt
 
 The fact that TEI is a XML-format results in the decision to primarily
-use "SStructure" while mapping TEI to Salt. There are two important
-exceptions to this: Tokens("SToken" is used) and the unary "break"
-elements like \<lb\> and \<pb\>(these cannot be mapped as "SStructure"
+use tree-like structures that conserve hierarchies. There are two important
+exceptions to this: Tokens and the unary "break"
+elements like \<lb\> and \<pb\>(these cannot be mapped like this
 because their semantic does not fit into the hierarchy provided by XML).
-Instead, "SSpan" is used. Tokens can be defined and interpreted in many
+Instead, spans are used. Tokens can be defined and interpreted in many
 different ways and thus customization through properties deal with the
 problems occuring because of this.
 
 ### Metadata
-A metadata key can only be used once. If for some reason (e.g. by using a property)
+A metadate key can only be used once. If for some reason (e.g. by using a property)
 a key is used for a second time, the TEIImporter will ignore the second
-usage.
+usage and throw and warning.
 
 ### Properties
 
