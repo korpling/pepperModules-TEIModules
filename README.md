@@ -216,6 +216,7 @@ illustrates this:
 By default elements without an nongeneric handling in the importer are added
 as hierarchical nodes. You can also import them as spans or ignore them.
 > generic.node = span
+
 > generic.node = false
 
 
