@@ -88,7 +88,6 @@ public class TEIImporterTest extends PepperImporterTest{
 		
 		
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		System.out.println(outStream.toString());
 
 		File outFile = new File (filePath.concat("w_token_test"));
 		outFile.getParentFile().mkdirs();

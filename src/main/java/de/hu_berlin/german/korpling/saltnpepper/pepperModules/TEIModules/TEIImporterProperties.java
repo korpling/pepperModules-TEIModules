@@ -231,7 +231,6 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		String prop = getProperty(PROP_GENERIC_NODE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			if (prop.equals("span")){
-				System.out.println("right!");
 				retVal = true;
 			}
 		}

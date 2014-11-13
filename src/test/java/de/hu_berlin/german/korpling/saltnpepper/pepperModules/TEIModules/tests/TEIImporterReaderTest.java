@@ -72,7 +72,6 @@ public class TEIImporterReaderTest {
 		fixture.setSUB_TOKENIZATION();
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		System.out.println(outStream.toString());
 
 		File outFile = new File (filePath.concat("no_token_test_1/no_token_test_1.xml"));
 		outFile.getParentFile().mkdirs();
