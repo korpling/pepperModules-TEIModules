@@ -59,10 +59,10 @@ Since this Pepper module is under a free license, please feel free to fork it fr
 If you have found any bugs, or have some feature request, please open an issue on github. If you need any help, please write an e-mail to saltnpepper@lists.hu-berlin.de .
 
 ## Funders
-This project has been funded by the [department of corpus linguistics and morphology](https://www.linguistik.hu-berlin.de/institut/professuren/korpuslinguistik/) of the Humboldt-Universität zu Berlin, the Institut national de recherche en informatique et en automatique ([INRIA](www.inria.fr/en/)) and the [Sonderforschungsbereich 632](https://www.sfb632.uni-potsdam.de/en/). 
+This project has been funded by the [department of corpus linguistics and morphology](https://www.linguistik.hu-berlin.de/institut/professuren/korpuslinguistik/) of Humboldt-Universität zu Berlin, [Georgetown University](http://www.georgetown.edu/), [KOMeT](http://korpling.german.hu-berlin.de/komet/) and the [Sonderforschungsbereich 632](https://www.sfb632.uni-potsdam.de/en/). 
 
 ## License
-  Copyright 2009 Humboldt University of Berlin, INRIA.
+  Copyright 2014 Humboldt Universität zu Berlin.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -93,6 +93,11 @@ Instead, "SSpan" is used. Tokens can be defined and interpreted in many
 different ways and thus customization through properties deal with the
 problems occuring because of this.
 
+### Metadata
+A metadata key can only be used once. If for some reason (e.g. by using a property)
+a key is used for a second time, the TEIImporter will ignore the second
+usage.
+
 ### Properties
 
 Because TEI is a very complex format the behavior of the TEIImporter
@@ -118,10 +123,11 @@ to the Salt model.
 | TEIImporter.tag.rename                        | String           | optional           |                    |
 | TEIImporter.values.rename                     | String           | optional           |                    |
 | TEIImporter.mapping.rename                    | String           | optional           |                    |
-| TEIImporter.generic.struct                    | Boolean          | optional           | true               |
-| TEIImporter.generic.span                      | Boolean          | optional           | false              |
+| TEIImporter.generic.node                      | String           | optional           | struct             |
 | TEIImporter.generic.attributes                | Boolean          | optional           | false              |
 | TEIImporter.LastPartOnlyMetadata              | Boolean          | optional           | false              |
+| TEIImporter.ExcludeMetadata                   | Boolean          | optional           | false              |
+| TEIImporter.ExcludeMetadataList               | String           | optional           |                    |
 
 ### TEIImporter.DefaultTokenization
 
@@ -205,16 +211,17 @@ able to set his own metadata mappings with this flag. The following example
 illustrates this:
 > mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
 
-### TEIImporter.generic.struct
+### TEIImporter.generic.node
 
-By default elements without an nongeneric handling in the importer are added
-as SStructs. If you do not want this to happen (e.g. by enabling generic.span)
-you have to disable this flag.
+By default elements without a nongeneric handling in the importer are added
+as hierarchical nodes. You can also import them as spans or ignore them.
+> generic.node = span
 
-### TEIImporter.generic.span
+> generic.node = false
 
-If you disable generic.struct you will be able to use this flag to instead import
-elements without an nongeneric handling as SSpans.
+Values different than "struct", "span" or "false" will make the importer ignore
+elements without a nongeneric as well.
+
 
 ### TEIImporter.generic.attributes
 
@@ -225,5 +232,15 @@ these attributes enable this flag.
 
 Enabling this flag triggers the deletion of everything from metadata keys but what is
 after the last '/'. '@' characters are also removed.
+
+### TEIImporter.ExcludeMetadata
+
+This flag enables the mechanism to exclude certain metadata defined by the keys in
+ExcludeMetadataList.
+
+### TEIImporter.ExcludeMetadataList
+
+List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
+> ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
 
 
