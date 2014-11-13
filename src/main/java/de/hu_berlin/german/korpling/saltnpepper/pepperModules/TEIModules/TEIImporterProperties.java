@@ -49,8 +49,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_RENAME_VALUES = "values.rename";
 	public static final String PROP_MAPPINGS = "mapping.rename";
 	
-	public static final String PROP_GENERIC_STRUCT = "generic.struct";
-	public static final String PROP_GENERIC_SPAN = "generic.span";
+	public static final String PROP_GENERIC_NODE = "generic.node";
 	public static final String PROP_GENERIC_ATTR = "generic.attributes";
 	
 	public static final String PROP_TOKEN_ANNO_SPAN = "tokenAnnoSpan";
@@ -77,9 +76,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_SKIP_DEFAULT_ANNOTATIONS, Boolean.class, "Do you want to remove default annotations(e.g. p=p)?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_USE_NAMESPACE, Boolean.class, "Do you want to add the tag-namespace to SAnnotations?", false, false));
 		
-		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_STRUCT, Boolean.class, "Do you want to use generic structs?", true, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_SPAN, Boolean.class, "Do you want to use generic spans?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_ATTR, Boolean.class, "Do you want to include generic attribute annotations?", false, false));
+		addProperty(new PepperModuleProperty<String>(PROP_GENERIC_NODE, String.class, "Do you want generic nodes? And if yes what kind?", "struct", false));
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_ANNO_SPAN, Boolean.class, "Do you want to have spans for all token annotations?", false, false));
 		
@@ -215,9 +213,11 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseGenericStruct(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_GENERIC_STRUCT).getValue().toString();
+		String prop = getProperty(PROP_GENERIC_NODE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
-			retVal = Boolean.valueOf(prop);
+			if (prop.equals("struct")){
+				retVal = true;
+			}
 		}
 		return retVal;
 	}
@@ -228,9 +228,12 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseGenericSpan(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_GENERIC_SPAN).getValue().toString();
+		String prop = getProperty(PROP_GENERIC_NODE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
-			retVal = Boolean.valueOf(prop);
+			if (prop.equals("span")){
+				System.out.println("right!");
+				retVal = true;
+			}
 		}
 		return retVal;
 	}

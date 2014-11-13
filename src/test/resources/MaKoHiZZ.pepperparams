@@ -6,13 +6,13 @@
 		<property key="ForeignAsToken">true</property>
 		<property key="UnclearAsToken">true</property>
 		<property key="SkipDefaultAnnotations">false</property>
+		<property key="generic.node">span</property>
 	</customization>
   </importer>
   <exporter name="RelANNISExporter" path="./target/MaKoHiZZOutput">
 	<customization>
 		<property key="relANNIS.exporter.linebreak_escape">BLANK</property>
 		<property key="relANNIS.exporter.tab_escape">TAB</property>
-		
 	</customization>
   </exporter>
 </pepper-job>
