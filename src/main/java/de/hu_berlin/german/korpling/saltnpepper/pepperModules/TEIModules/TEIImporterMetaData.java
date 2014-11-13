@@ -113,24 +113,6 @@ public class TEIImporterMetaData {
 	}
 	
 	/**
-	 * commits mappings to XPathMap 
-	 * @param delmetadata boolean that determines whether
-	 * redundant mappings will cause the deletion of
-	 * the original key(xpath) value pair
-	 */
-	public void commitmappings(boolean delmetadata){
-		if (delmetadata){
-			//replace XPathMap-keys with mappings found in MappingMap
-			Iterator<String> it = MappingMap.keySet().iterator();
-			//forloop…
-			logger.warn("");
-		}
-		else{
-			//replicate XPathMap-keys with mappings found in MappingMap
-		}
-	}
-	
-	/**
 	 * pushes tag-name to pathStack
 	 * @param tag tag-name	 
 	 */

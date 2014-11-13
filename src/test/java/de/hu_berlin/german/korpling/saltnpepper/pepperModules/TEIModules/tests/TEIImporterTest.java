@@ -17,7 +17,6 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.tests;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -61,7 +60,6 @@ public class TEIImporterTest extends PepperImporterTest{
 		
 		filePath = filePath.concat("/src/test/resources/");
 		
-		//TODO set the formats to be supported by your importer, so that they can be checked
 		FormatDesc formatDef= new FormatDesc();
 		formatDef.setFormatName("tei");
 		formatDef.setFormatVersion("2.6.0");
@@ -87,7 +85,6 @@ public class TEIImporterTest extends PepperImporterTest{
 
 		
 		
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
 		File outFile = new File (filePath.concat("w_token_test"));
 		outFile.getParentFile().mkdirs();

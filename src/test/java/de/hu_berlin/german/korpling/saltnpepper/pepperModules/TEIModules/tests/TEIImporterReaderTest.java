@@ -20,7 +20,6 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -71,7 +70,6 @@ public class TEIImporterReaderTest {
 		
 		fixture.setSUB_TOKENIZATION();
 
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
 		File outFile = new File (filePath.concat("no_token_test_1/no_token_test_1.xml"));
 		outFile.getParentFile().mkdirs();

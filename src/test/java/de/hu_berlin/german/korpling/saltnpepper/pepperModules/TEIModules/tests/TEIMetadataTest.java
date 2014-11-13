@@ -23,7 +23,6 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.junit.Test;
-import org.osgi.util.measurement.Measurement;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIImporterMetaData;
 

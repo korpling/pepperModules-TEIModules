@@ -25,7 +25,6 @@ import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.junit.experimental.categories.Categories.ExcludeCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -42,11 +41,9 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpan;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructure;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructuredNode;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STYPE_NAME;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SLayer;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SWordAnnotation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SaltSemanticsFactory;
@@ -100,12 +97,7 @@ public class TEIMapper extends PepperMapperImpl{
 		private String p_name = "p";
 		private String foreign_name = "foreign";
 		private String figure_name = "figure";
-		private String m_name = "m";
 		private String unclear_name = "unclear";
-		private String surplus_name = "surplus";
-		private String title_name = "title";
-		private String gap_name = "gap";
-		private String app_name = "app";
 		//other Strings to be added here in the future
 		private String text_name = "text";
 		
@@ -121,7 +113,6 @@ public class TEIMapper extends PepperMapperImpl{
 		private String div_anno_value = "div";
 		private String p_anno_value = "p";
 		private String figure_anno_value = "figure";
-		private String app_anno_value = "app";
 		private String text_anno_value = "text";
 		
 		
@@ -359,12 +350,9 @@ public class TEIMapper extends PepperMapperImpl{
 			p_name = props.getTagName(TAG_P);
 			foreign_name = props.getTagName(TAG_FOREIGN);
 			figure_name = props.getTagName(TAG_FIGURE);
-			m_name = props.getTagName(TAG_M);
+
 			unclear_name = props.getTagName(TAG_UNCLEAR);
-			surplus_name = props.getTagName(TAG_SURPLUS);
-			title_name = props.getTagName(TAG_TITLE);
-			gap_name = props.getTagName(TAG_GAP);
-			app_name = props.getTagName(TAG_APP);
+
 			//other Strings to be added here in the future
 			text_name = props.getTagName(TAG_TEXT);
 			
@@ -378,7 +366,7 @@ public class TEIMapper extends PepperMapperImpl{
 			div_anno_value = props.getValuesName(TAG_DIV);
 			p_anno_value = props.getValuesName(TAG_P);
 			figure_anno_value = props.getValuesName(TAG_FIGURE);
-			app_anno_value = props.getValuesName(TAG_APP);
+
 			text_anno_value = props.getValuesName(TAG_TEXT);
 		}
 		
