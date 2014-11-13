@@ -110,8 +110,8 @@ to the Salt model.
 
 | Name of property                              | Type of property | optional/mandatory | default value      |
 |-----------------------------------------------|------------------|--------------------|--------------------|
-| TEIImporter.DefaultTokenization               | Boolean          | optional           | false              |
 | TEIImporter.SubTokenization                   | Boolean          | optional           | true               |
+| TEIImporter.DefaultTokenization               | Boolean          | optional           | false              |
 | TEIImporter.SurplusRemoval			        | Boolean          | optional           | true               |
 | TEIImporter.UnclearAsToken            		| Boolean          | optional           | true               |
 | TEIImporter.ForeignAsToken              		| Boolean          | optional           | true               |
@@ -129,15 +129,15 @@ to the Salt model.
 | TEIImporter.ExcludeMetadata                   | Boolean          | optional           | false              |
 | TEIImporter.ExcludeMetadataList               | String           | optional           |                    |
 
+### TEIImporter.SubTokenization
+
+In this default scenarion, the smallest units of text between tags will be imported as tokens everywhere. This option should only be disabled if you can guarantee that there is no text outside of the <w>-tag or if you can get over losing parts of the primary text.
+
 ### TEIImporter.DefaultTokenization
 
 The user declares that there is one and only one element responsible for
-mapping tokens to Salt. Default is \<w\>.
+mapping tokens to Salt. Default is \<w\>. In this case SubTokenization should be disabled, otherwise unexpected behaviour may occur.
 
-### TEIImporter.SubTokenization
-
-In this scenario, units smaller than ‘words’ exist. Elements within
-\<w\> etc. are possible.
 
 ### TEIImporter.SurplusRemoval
 
@@ -159,7 +159,7 @@ token.
 ### TEIImporter.UseTokenizer
 
 Do you want the tokenizer to tokenize text? This option is useful, if
-your TEI document contains sections of text that are not tokenized.
+your TEI document contains sections of text that are not tokenized. Using the tokenizer will slow the processing by a considerable amout of time.
 
 ### TEIImporter.UseTokenizerLang
 
