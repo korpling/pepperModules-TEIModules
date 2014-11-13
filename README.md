@@ -127,6 +127,8 @@ to the Salt model.
 | TEIImporter.generic.span                      | Boolean          | optional           | false              |
 | TEIImporter.generic.attributes                | Boolean          | optional           | false              |
 | TEIImporter.LastPartOnlyMetadata              | Boolean          | optional           | false              |
+| TEIImporter.ExcludeMetadata                   | Boolean          | optional           | false              |
+| TEIImporter.ExcludeMetadataList               | String           | optional           |                    |
 
 ### TEIImporter.DefaultTokenization
 
@@ -230,5 +232,15 @@ these attributes enable this flag.
 
 Enabling this flag triggers the deletion of everything from metadata keys but what is
 after the last '/'. '@' characters are also removed.
+
+### TEIImporter.ExcludeMetadata
+
+This flag enables the mechanism to exclude certain metadata defined by the keys in
+ExcludeMetadataList.
+
+### TEIImporter.ExcludeMetadataList
+
+List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
+> ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
 
 
