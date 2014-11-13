@@ -75,7 +75,7 @@ public class TEIImporterTest extends PepperImporterTest{
 	 * salt model.
 	 * <br/>
 	 * You can create as many test cases as you like, just create further methods having the annotation
-	 * @Test. Note that it is very helpful, to give them self explaining names and a short JavaDoc explaining
+	 * "@Test". Note that it is very helpful, to give them self explaining names and a short JavaDoc explaining
 	 * their purpose. This could help very much, when searching for bugs or extending the tests.
 	 * <br/>
 	 * In our case, we just test, if correct number of corpora and documents was created, if all corpora have

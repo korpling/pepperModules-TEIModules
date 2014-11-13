@@ -114,7 +114,7 @@ public class TEIImporterMetaData {
 	
 	/**
 	 * commits mappings to XPathMap 
-	 * @param delmetada boolean that determines whether
+	 * @param delmetadata boolean that determines whether
 	 * redundant mappings will cause the deletion of
 	 * the original key(xpath) value pair
 	 */
@@ -253,7 +253,7 @@ public class TEIImporterMetaData {
 	 * @param sdoc SDocument
 	 * @param map contains mappings from xpath to customized annotation
 	 */
-	public void add_to_SDoc(SDocument sdoc, Map<String,String> map, Boolean lastPartOnly){
+	public void add_to_SDoc(SDocument sdoc, Map<String,String> map, Boolean lastPartOnly, Set<String> exclude, Boolean excludeMetadata){
 		Set<String> keySet = map.keySet();
 		Iterator<String> it = keySet.iterator();
 		while (it.hasNext()){
@@ -266,13 +266,15 @@ public class TEIImporterMetaData {
 				tempkey = tempkey.replace("@", "");
 			}
 			
+			
 			if (tempvalue.length() > 0){
-				if(sdoc.getSMetaAnnotation(tempkey) == null){
-					System.out.println(sdoc.getSMetaAnnotation(tempkey));
-					sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
-				}
-				else{
-					logger.warn("You try to add a metadatum using a key for the second time. This second one will be ignored!");
+				if(!(excludeMetadata && exclude.contains(tempkey))){
+					if(sdoc.getSMetaAnnotation(tempkey) == null){
+						sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
+					}
+					else{
+						logger.warn("You try to add a metadatum using a key for the second time. This second one will be ignored!");
+					}
 				}
 			}
 		}

@@ -17,9 +17,12 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 import com.neovisionaries.i18n.LanguageCode;
 
@@ -53,6 +56,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_TOKEN_ANNO_SPAN = "tokenAnnoSpan";
 	
 	public static final String PROP_LAST_PART_ONLY_METADATA = "LastPartOnlyMetadata";
+	public static final String PROP_EXCLUDE_METADATA = "ExcludeMetadata";
+	public static final String PROP_EXCLUDE_METADATA_LIST = "ExcludeMetadataList";
 
 	
 	
@@ -83,6 +88,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		
 		addProperty(new PepperModuleProperty<String>(PROP_MAPPINGS, String.class, "String containing the metadata mappings set by the user", "", false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_LAST_PART_ONLY_METADATA, Boolean.class, "Do you want to remove everything from metadata but what is after the last '/'?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_EXCLUDE_METADATA, Boolean.class, "Do you want to exclude metadata with keys defined in ExcludeMetadataList?", false, false));
+		addProperty(new PepperModuleProperty<String>(PROP_EXCLUDE_METADATA_LIST, String.class, "List of keys of metadata to be omitted.", "", false));
 	}
 	
 	/**
@@ -268,6 +275,19 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	}
 	
 	/**
+	 * method to retrieve value of LastPartOnlyMetadata
+	 * @return boolean value set by the user(or default)
+	 */
+	public boolean isUseExcludeMetadata(){
+		boolean retVal = false;
+		String prop = getProperty(PROP_EXCLUDE_METADATA).getValue().toString();
+		if((prop!=null)&&(!prop.isEmpty())){
+			retVal = Boolean.valueOf(prop);
+		}
+		return retVal;
+	}
+	
+	/**
 	 * method to retrieve value of the custom annotation string
 	 * @return values set by the user(or default)
 	 */
@@ -446,5 +466,17 @@ public class TEIImporterProperties extends PepperModuleProperties{
 			}
 		}
 		
+	}
+	
+	public Set<String> retrieveExcludeMetadataSet(){
+		Object propO = null;
+		Set<String> excludeSet = null;
+		if (getProperty(PROP_EXCLUDE_METADATA_LIST)!= null){
+			propO = getProperty(PROP_EXCLUDE_METADATA_LIST).getValue();
+			String prop = propO.toString();
+			String[] propList = prop.split(";");
+			excludeSet = new HashSet<>(Arrays.asList(propList));
+		}
+		return(excludeSet);
 	}
 }
