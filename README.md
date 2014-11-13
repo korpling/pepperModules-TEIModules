@@ -213,11 +213,14 @@ illustrates this:
 
 ### TEIImporter.generic.node
 
-By default elements without an nongeneric handling in the importer are added
+By default elements without a nongeneric handling in the importer are added
 as hierarchical nodes. You can also import them as spans or ignore them.
 > generic.node = span
 
 > generic.node = false
+
+Values different than "struct", "span" or "false" will make the importer ignore
+elements without a nongeneric as well.
 
 
 ### TEIImporter.generic.attributes
