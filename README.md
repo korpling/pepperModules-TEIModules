@@ -80,23 +80,23 @@ This project has been funded by the [department of corpus linguistics and morpho
 
 # TEIImporter
 
-General information about this importer.
+The TEIImporter imports data coming from TEI-XML files to a Salt model. This importer provides a wide range of customization possibilities via the here described set of properties. Before we talk about the possibility of customizing the mapping, we describe the general and default mapping from TEI to a Salt model.
 
 ### Mapping to Salt
 
 The fact that TEI is a XML-format results in the decision to primarily
-use "SStructure" while mapping TEI to Salt. There are two important
-exceptions to this: Tokens("SToken" is used) and the unary "break"
-elements like \<lb\> and \<pb\>(these cannot be mapped as "SStructure"
+use tree-like structures that conserve hierarchies. There are two important
+exceptions to this: Tokens and the unary "break"
+elements like \<lb\> and \<pb\>(these cannot be mapped like this
 because their semantic does not fit into the hierarchy provided by XML).
-Instead, "SSpan" is used. Tokens can be defined and interpreted in many
+Instead, spans are used. Tokens can be defined and interpreted in many
 different ways and thus customization through properties deal with the
 problems occuring because of this.
 
 ### Metadata
-A metadata key can only be used once. If for some reason (e.g. by using a property)
+A metadate key can only be used once. If for some reason (e.g. by using a property)
 a key is used for a second time, the TEIImporter will ignore the second
-usage.
+usage and throw and warning.
 
 ### Properties
 
@@ -110,8 +110,8 @@ to the Salt model.
 
 | Name of property                              | Type of property | optional/mandatory | default value      |
 |-----------------------------------------------|------------------|--------------------|--------------------|
-| TEIImporter.DefaultTokenization               | Boolean          | optional           | false              |
 | TEIImporter.SubTokenization                   | Boolean          | optional           | true               |
+| TEIImporter.DefaultTokenization               | Boolean          | optional           | false              |
 | TEIImporter.SurplusRemoval			        | Boolean          | optional           | true               |
 | TEIImporter.UnclearAsToken            		| Boolean          | optional           | true               |
 | TEIImporter.ForeignAsToken              		| Boolean          | optional           | true               |
@@ -129,15 +129,15 @@ to the Salt model.
 | TEIImporter.ExcludeMetadata                   | Boolean          | optional           | false              |
 | TEIImporter.ExcludeMetadataList               | String           | optional           |                    |
 
+### TEIImporter.SubTokenization
+
+In this default scenarion, the smallest units of text between tags will be imported as tokens everywhere. This option should only be disabled if you can guarantee that there is no text outside of the <w>-tag or if you can get over losing parts of the primary text.
+
 ### TEIImporter.DefaultTokenization
 
 The user declares that there is one and only one element responsible for
-mapping tokens to Salt. Default is \<w\>.
+mapping tokens to Salt. Default is \<w\>. In this case SubTokenization should be disabled, otherwise unexpected behaviour may occur.
 
-### TEIImporter.SubTokenization
-
-In this scenario, units smaller than ‘words’ exist. Elements within
-\<w\> etc. are possible.
 
 ### TEIImporter.SurplusRemoval
 
@@ -159,7 +159,7 @@ token.
 ### TEIImporter.UseTokenizer
 
 Do you want the tokenizer to tokenize text? This option is useful, if
-your TEI document contains sections of text that are not tokenized.
+your TEI document contains sections of text that are not tokenized. Using the tokenizer will slow the processing by a considerable amout of time.
 
 ### TEIImporter.UseTokenizerLang
 
