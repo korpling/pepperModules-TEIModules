@@ -123,8 +123,7 @@ to the Salt model.
 | TEIImporter.tag.rename                        | String           | optional           |                    |
 | TEIImporter.values.rename                     | String           | optional           |                    |
 | TEIImporter.mapping.rename                    | String           | optional           |                    |
-| TEIImporter.generic.struct                    | Boolean          | optional           | true               |
-| TEIImporter.generic.span                      | Boolean          | optional           | false              |
+| TEIImporter.generic.node                      | String           | optional           | struct             |
 | TEIImporter.generic.attributes                | Boolean          | optional           | false              |
 | TEIImporter.LastPartOnlyMetadata              | Boolean          | optional           | false              |
 | TEIImporter.ExcludeMetadata                   | Boolean          | optional           | false              |
@@ -212,16 +211,13 @@ able to set his own metadata mappings with this flag. The following example
 illustrates this:
 > mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
 
-### TEIImporter.generic.struct
+### TEIImporter.generic.node
 
 By default elements without an nongeneric handling in the importer are added
-as SStructs. If you do not want this to happen (e.g. by enabling generic.span)
-you have to disable this flag.
+as hierarchical nodes. You can also import them as spans or ignore them.
+> generic.node = span
+> generic.node = false
 
-### TEIImporter.generic.span
-
-If you disable generic.struct you will be able to use this flag to instead import
-elements without an nongeneric handling as SSpans.
 
 ### TEIImporter.generic.attributes
 
