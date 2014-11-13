@@ -114,7 +114,7 @@ public class TEIImporterMetaData {
 	
 	/**
 	 * commits mappings to XPathMap 
-	 * @param delmetada boolean that determines whether
+	 * @param delmetadata boolean that determines whether
 	 * redundant mappings will cause the deletion of
 	 * the original key(xpath) value pair
 	 */
@@ -232,6 +232,11 @@ public class TEIImporterMetaData {
 		return MetaMap;
 	}
 	
+	/**
+	 * This method removes the "1" from the pseudo-Xpath
+	 * @param map the map to to be corrected
+	 * @return the corrected map
+	 */
 	public Map<String,String> remove_ones(Map<String,String> map){
 		Map<String, String> newMap= new Hashtable<>();
 		Set<String> keySet = XPathMap.keySet();
@@ -248,18 +253,29 @@ public class TEIImporterMetaData {
 	 * @param sdoc SDocument
 	 * @param map contains mappings from xpath to customized annotation
 	 */
-	public void add_to_SDoc(SDocument sdoc, Map<String,String> map, Boolean lastPartOnly){
+	public void add_to_SDoc(SDocument sdoc, Map<String,String> map, Boolean lastPartOnly, Set<String> exclude, Boolean excludeMetadata){
 		Set<String> keySet = map.keySet();
 		Iterator<String> it = keySet.iterator();
 		while (it.hasNext()){
 			String tempkey = it.next();
+			String tempvalue = map.get(tempkey);
 			if (lastPartOnly){
-				tempkey = tempkey.split("/")[tempkey.split("/").length+1];
+				String[] tempArray = tempkey.split("/");
+				int len = tempArray.length;
+				tempkey = tempArray[len-1];
 				tempkey = tempkey.replace("@", "");
 			}
-			String tempvalue = map.get(tempkey);
+			
+			
 			if (tempvalue.length() > 0){
-				sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
+				if(!(excludeMetadata && exclude.contains(tempkey))){
+					if(sdoc.getSMetaAnnotation(tempkey) == null){
+						sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
+					}
+					else{
+						logger.warn("You try to add a metadatum using a key for the second time. This second one will be ignored!");
+					}
+				}
 			}
 		}
 	}

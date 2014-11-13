@@ -25,6 +25,7 @@ import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.junit.experimental.categories.Categories.ExcludeCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -85,6 +86,9 @@ public class TEIMapper extends PepperMapperImpl{
 		private Boolean token_anno_span = false;
 		
 		private Boolean lastPart = false;
+		private Boolean excludeMetadata = false;
+		
+		private Set<String> excludeMetaSet = null;
 		
 		//naming config strings
 		private String lb_name = "lb";
@@ -104,6 +108,8 @@ public class TEIMapper extends PepperMapperImpl{
 		private String app_name = "app";
 		//other Strings to be added here in the future
 		private String text_name = "text";
+		
+		
 		
 		//annotation config values spans
 		private String lb_anno_value = "lb";
@@ -335,9 +341,11 @@ public class TEIMapper extends PepperMapperImpl{
 			lastPart = props.isUseLastPart();
 			
 			token_anno_span = props.isUseTokenAnnoSpan();
+			excludeMetadata = props.isUseExcludeMetadata();
 			
 			//fill metadata
 			props.fillMappings();
+			excludeMetaSet = props.retrieveExcludeMetadataSet();
 			
 			//annotation customization
 			
@@ -1070,7 +1078,7 @@ public class TEIMapper extends PepperMapperImpl{
 				Map<String, String> sineonesmap = tei_metadata.remove_ones(tei_metadata.getXPathMap());
 				Map<String, String> completedmappings = tei_metadata.mapToXpathMap(sineonesmap, united, del_redundant_metadata);
 				
-				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings, lastPart);
+				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings, lastPart, excludeMetaSet, excludeMetadata);
 			}
 			
 			else if (metadata){
@@ -1196,11 +1204,11 @@ public class TEIMapper extends PepperMapperImpl{
 					//nothing
 				}
 				
-				/*these empty clauses must not be removed
+				/*these empty clauses must not be removed.
 				everything not to be handled generically has to appear
 				before the generic clauses could be called, otherwise
 				elements with ungeneric handling would be considered
-				as generic elements at least partially */
+				as generic elements at least partially, causing bugs */
 
 
 				else if (TAG_LB.equals(qName)) {
