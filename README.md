@@ -133,15 +133,61 @@ to the Salt model.
 | TEIImporter.token.tokenize                  	| Boolean          | optional           | false              |
 | TEIImporter.token.tokenize.lang               | String           | optional           | en	             |
 
-### TEIImporter.token.tokenization.sub
 
-In this default scenarion, the smallest units of text between elements will be imported as tokens everywhere. This option should only be disabled if you can guarantee that there is no text outside of the <w>-element or if you can get over losing parts of the primary text.
+### TEIImporter.annotation.default.remove
 
-### TEIImporter.token.tokenization.defaulttag
+By default there is an annotation added to each SNode to indicate which element
+is responsible for this SNode. This flag disables adding these annotations.
 
-The user declares that there is one and only one element responsible for
-mapping tokens to Salt. Default is \<w\>. In this case SubTokenization should be disabled, otherwise unexpected behaviour may occur.
+### TEIImporter.annotation.element.rename
 
+A large number of annotations in Salt comes from the element names existing in TEI.
+To be able to differentiate, e.g. two struct coming first from <p> and second
+from <phr>, a generic annotation is used. The default is to use the element-name.
+The tag.rename flag allows customization for the key of such an annotation.
+The following format has to be met: 
+> tag.rename = pb:PNAME;graphic:Grafikname;phr:Phrase
+
+### TEIImporter.annotation.namespace
+
+To differentiate annotations with the same name, it is possible to add the
+namespace coming from TEI to annotations. Example:
+> ```<a attr="good"> text </a> <b attr="good"> text </b>```
+
+Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
+annotations.
+
+### TEIImporter.annotation.token.span
+
+By enabling this flag annotations for tokens are additionally imported as spans.
+
+### TEIImporter.annotation.value.rename
+
+The values.rename flag is very similiar to tag.rename, beside here the name of
+the value of the annotation can be customized in this case. The format is:
+> values.rename = pb:PBVALUE;graphic:GrafikAnnotationValue;phr:PhraseValue
+
+### TEIImporter.element.foreign.token
+
+Does \<foreign\> exclusively create one token annotated as "foreign"? If
+this is set "true" (default), then text in \<foreign\> will appear as a
+token.
+
+### TEIImporter.element.generic.attribute
+
+By default attributes to elements without nongeneric handling are ignored. To add
+these attributes enable this flag.
+
+### TEIImporter.element.generic.node
+
+By default elements without a nongeneric handling in the importer are added
+as hierarchical nodes. You can also import them as spans or ignore them.
+> generic.node = span
+
+> generic.node = false
+
+Values different than "struct", "span" or "false" will make the importer ignore
+elements without a nongeneric handling as well.
 
 ### TEIImporter.element.surplus.remove
 
@@ -154,11 +200,45 @@ Does \<unclear\> exclusively create one token annotated as "unclear"? If
 this is set "true" (default), thentext in \<unclear\> will appear as a
 token.
 
-### TEIImporter.element.foreign.token
+### TEIImporter.metadata.lastpartonly
 
-Does \<foreign\> exclusively create one token annotated as "foreign"? If
-this is set "true" (default), then text in \<foreign\> will appear as a
-token.
+Enabling this flag triggers the deletion of everything from metadata keys but what is
+after the last '/'. '@' characters are also removed.
+
+### TEIImporter.metadata.redundant.remove
+
+When handling metadata, the TEIImporter uses default mappings(reference…)
+and mappings set by the user. This flag decides whether more than one
+SMetaAnnotation can contain the same information when metadata mappings are
+used. If set true, redudant metadata will be deleted.
+
+### TEIImporter.metadata.remove
+
+This flag enables the mechanism to exclude certain metadata defined by the keys in
+ExcludeMetadataList.
+
+### TEIImporter.metadata.remove.list
+
+List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
+> ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
+
+### TEIImporter.metadata.rename
+
+In addition to(or even replacing) the default metadata key mappings, the user is
+able to set his own metadata key mappings with this flag. The following example
+illustrates this:
+> mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
+
+### TEIImporter.token.tokenization.defaulttag
+
+The user declares that there is one and only one element responsible for
+mapping tokens to Salt. Default is \<w\>. In this case SubTokenization should be disabled, otherwise unexpected behaviour may occur.
+
+### TEIImporter.token.tokenization.sub
+
+In this default scenarion, the smallest units of text between elements will be imported as tokens everywhere.
+This option should only be disabled if you can guarantee that there is no text outside of the <w>-element or
+if you can get over losing parts of the primary text.
 
 ### TEIImporter.token.tokenize
 
@@ -171,84 +251,3 @@ The tokenizer currently has support for four languages: English, German,
 Italian, French. To choose a language, use the respective ISO 639-1
 language code(en, de, it, fr). If no value or a non-supported value is
 set, the tokenizer will default to English.
-
-### TEIImporter.metadata.redundant.remove
-
-When handling metadata, the TEIImporter uses default mappings(reference…)
-and mappings set by the user. This flag decides whether more than one
-SMetaAnnotation can contain the same information when metadata mappings are
-used. If set true, redudant metadata will be deleted.
-
-### TEIImporter.annotation.default.remove
-
-By default there is an annotation added to each SNode to indicate which element
-is responsible for this SNode. This flag disables adding these annotations.
-
-### TEIImporter.annotation.namespace
-
-To differentiate annotations with the same name, it is possible to add the
-namespace coming from TEI to annotations. Example:
-> ```<a attr="good"> text </a> <b attr="good"> text </b>```
-
-Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
-annotations.
-
-### TEIImporter.annotation.element.rename
-
-A large number of annotations in Salt comes from the element names existing in TEI.
-To be able to differentiate, e.g. two struct coming first from <p> and second
-from <phr>, a generic annotation is used. The default is to use the element-name.
-The tag.rename flag allows customization for the key of such an annotation.
-The following format has to be met: 
-> tag.rename = pb:PNAME;graphic:Grafikname;phr:Phrase
-
-### TEIImporter.annotation.value.rename
-
-The values.rename flag is very similiar to tag.rename, beside here the name of
-the value of the annotation can be customized in this case. The format is:
-> values.rename = pb:PBVALUE;graphic:GrafikAnnotationValue;phr:PhraseValue
-
-### TEIImporter.metadata.rename
-
-In addition to(or even replacing) the default metadata key mappings, the user is
-able to set his own metadata key mappings with this flag. The following example
-illustrates this:
-> mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
-
-### TEIImporter.element.generic.node
-
-By default elements without a nongeneric handling in the importer are added
-as hierarchical nodes. You can also import them as spans or ignore them.
-> generic.node = span
-
-> generic.node = false
-
-Values different than "struct", "span" or "false" will make the importer ignore
-elements without a nongeneric as well.
-
-
-### TEIImporter.element.generic.attribute
-
-By default attributes to elements without nongeneric handling are ignored. To add
-these attributes enable this flag.
-
-### TEIImporter.metadata.lastpartonly
-
-Enabling this flag triggers the deletion of everything from metadata keys but what is
-after the last '/'. '@' characters are also removed.
-
-### TEIImporter.metadata.remove
-
-This flag enables the mechanism to exclude certain metadata defined by the keys in
-ExcludeMetadataList.
-
-### TEIImporter.metadata.remove.list
-
-List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
-> ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
-
-### TEIImporter.annotation.token.span
-
-By enabling this flag annotations for tokens are additionally imported as spans.
-
-
