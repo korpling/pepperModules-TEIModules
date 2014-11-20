@@ -113,7 +113,7 @@ to the Salt model.
 
 | Name of property                              | Type of property | optional/mandatory | default value      |
 |-----------------------------------------------|------------------|--------------------|--------------------|
-| TEIImporter.annotation.default.remove         | Boolean          | optional           | false              |
+| [TEIImporter.annotation.default.remove](#adr)         | Boolean          | optional           | false              |
 | TEIImporter.annotation.element.rename         | String           | optional           |                    |
 | TEIImporter.annotation.namespace              | Boolean          | optional           | false              |
 | TEIImporter.annotation.token.span             | Boolean          | optional           | false              |
@@ -133,8 +133,8 @@ to the Salt model.
 | TEIImporter.token.tokenize                  	| Boolean          | optional           | false              |
 | TEIImporter.token.tokenize.lang               | String           | optional           | en	             |
 
-
-### TEIImporter.annotation.default.remove
+<a name="adr"></a>
+### TEIImporter.annotation.default.remove 
 
 By default there is an annotation added to each SNode to indicate which element
 is responsible for this SNode. This flag disables adding these annotations.
