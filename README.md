@@ -80,16 +80,16 @@ This project has been funded by the [department of corpus linguistics and morpho
 
 # TEIImporter
 
-The TEIImporter imports data coming from TEI-XML files to a Salt model. This importer provides a wide range of customization possibilities via the here described set of properties. Before we talk about the possibility of customizing the mapping, we describe the general and default mapping from TEI to a Salt model.
+The TEIImporter imports data coming from [TEI-XML](http://www.tei-c.org/Guidelines/P5/) files to a [Salt](https://github.com/korpling/salt) model. This importer provides a wide range of customization possibilities via the here described set of properties. Before we talk about the possibility of customizing the mapping, we describe the general and default mapping from TEI to a Salt model.
 
 ### Mapping to Salt
 
 The fact that TEI is a XML-format results in the decision to primarily
 use tree-like structures that conserve hierarchies. There are two important
 exceptions to this: Tokens and the unary "break"
-elements like \<lb\> and \<pb\>(these cannot be mapped like this
-because their semantic does not fit into the hierarchy provided by XML).
-Instead, spans are used. Tokens can be defined and interpreted in many
+elements like \<lb\> and \<pb\> (these cannot be mapped like this
+because their semantic does not fit into XML hierarchie).
+For these spans are used. Tokens can be defined and interpreted in many
 different ways and thus customization through properties deal with the
 problems occuring because of this.
 
