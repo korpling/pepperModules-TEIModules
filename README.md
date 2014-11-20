@@ -247,13 +247,14 @@ illustrates this:
 ### TEIImporter.token.tokenization.defaulttag
 
 The user declares that there is one and only one element responsible for
-mapping tokens to Salt. Default is \<w\>. In this case SubTokenization should be disabled, otherwise unexpected behaviour may occur.
+mapping tokens to Salt. Default is \<w\>. In this case [SubTokenization](#tts) should be disabled, otherwise
+unexpected behaviour may occur.
 
 <a name="tts"></a>
 ### TEIImporter.token.tokenization.sub
 
-In this default scenarion, the smallest units of text between elements will be imported as tokens everywhere.
-This option should only be disabled if you can guarantee that there is no text outside of the <w>-element or
+In this default scenario, the text nodes between elements will be imported as tokens everywhere.
+This option should only be disabled if you can [guarantee that there is no text outside of the <w>-element](#ttd) or
 if you can get over losing parts of the primary text.
 
 <a name="tt"></a>
