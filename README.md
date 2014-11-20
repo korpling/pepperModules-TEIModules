@@ -89,8 +89,8 @@ use tree-like structures that conserve hierarchies. There are two important
 exceptions to this: Tokens and the unary "break"
 elements like \<lb\> and \<pb\> (these cannot be mapped like this
 because their semantic does not fit into XML hierarchie).
-For these spans are used. Tokens can be defined and interpreted in many
-different ways and thus customization through properties deal with the
+For these spans are used. Tokens in TEI can be defined and interpreted in many
+different ways and thus customization through properties deals with the
 problems occuring because of this.
 
 ### Metadata
