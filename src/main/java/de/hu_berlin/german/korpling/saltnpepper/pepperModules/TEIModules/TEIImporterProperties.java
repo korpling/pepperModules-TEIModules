@@ -35,32 +35,32 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	private static final long serialVersionUID = -2871690146180228706L;
 	//String values for properties
-	public static final String PROP_DEFAULT_TOKENIZATION = "DefaultTokenization";
-	public static final String PROP_SUB_TOKENIZATION = "SubTokenization";
+	public static final String PROP_TOKEN_TOKENIZATION_SUB = "token.tokenization.sub";
+	public static final String PROP_TOKEN_TOKENIZATION_DEFAULTTAG = "token.tokenization.defaulttag";
 	
-	public static final String PROP_SURPLUS_REMOVAL = "SurplusRemoval";
-	public static final String PROP_UNCLEAR_AS_TOKEN = "UnclearAsToken";
-	public static final String PROP_FOREIGN_AS_TOKEN = "ForeignAsToken";
+	public static final String PROP_ELEMENT_SURPLUS_REMOVE = "element.surplus.remove";
+	public static final String PROP_ELEMENT_UNCLEAR_TOKEN = "element.unclear.token";
+	public static final String PROP_ELEMENT_FOREIGN_TOKEN = "element.foreign.token";
 	
-	public static final String PROP_USE_TOKENIZER = "UseTokenizer";
-	public static final String PROP_USE_TOKENIZER_LANG = "UseTokenizerLang";
+	public static final String PROP_TOKEN_TOKENIZE = "token.tokenize";
+	public static final String PROP_TOKEN_TOKENIZE_LANG = "token.tokenize.lang";
 	
-	public static final String PROP_DELETE_REDUNDANT_METADATA = "DeleteRedundantMetadata";
-	public static final String PROP_SKIP_DEFAULT_ANNOTATIONS = "SkipDefaultAnnotations";
-	public static final String PROP_USE_NAMESPACE = "UseNamespace";
+	public static final String PROP_METADATA_REDUNDANT_REMOVE = "metadata.redundant.remove";
+	public static final String PROP_ANNOTATION_DEFAULT_REMOVE = "annotation.default.remove";
+	public static final String PROP_ANNOTATION_NAMESPACE = "annotation.namespace";
 	
-	public static final String PROP_RENAME_TAG = "tag.rename";
-	public static final String PROP_RENAME_VALUES = "values.rename";
-	public static final String PROP_MAPPINGS = "mapping.rename";
+	public static final String PROP_ANNOTATION_ELEMENT_RENAME = "annotation.element.rename";
+	public static final String PROP_ANNOTATION_VALUE_RENAME = "annotation.value.rename";
+	public static final String PROP_METADATA_RENAME = "metadata.rename";
 	
-	public static final String PROP_GENERIC_NODE = "generic.node";
-	public static final String PROP_GENERIC_ATTR = "generic.attributes";
+	public static final String PROP_ELEMENT_GENERIC_NODE = "element.generic.node";
+	public static final String PROP_ELEMENT_GENERIC_ATTRIBUTE = "element.generic.attribute";
 	
-	public static final String PROP_TOKEN_ANNO_SPAN = "tokenAnnoSpan";
+	public static final String PROP_ANNOTATION_TOKEN_SPAN = "annotation.token.span";
 	
-	public static final String PROP_LAST_PART_ONLY_METADATA = "LastPartOnlyMetadata";
-	public static final String PROP_EXCLUDE_METADATA = "ExcludeMetadata";
-	public static final String PROP_EXCLUDE_METADATA_LIST = "ExcludeMetadataList";
+	public static final String PROP_METADATA_LASTPARTONLY = "metadata.lastpartonly";
+	public static final String PROP_METADATA_REMOVE = "metadata.remove";
+	public static final String PROP_METADATA_REMOVE_LIST = "metadata.remove.list";
 
 	
 	
@@ -68,30 +68,31 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 * constructor that also adds the properties 
 	 */
 	public TEIImporterProperties(){
-		addProperty(new PepperModuleProperty<Boolean>(PROP_DEFAULT_TOKENIZATION, Boolean.class, "One element is responsible for tokenization. Default is <w> in this mode.", false, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_SUB_TOKENIZATION, Boolean.class, "In this scenario, units smaller than ‘words’ exist. Elements within <w> etc. are possible", true, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_SURPLUS_REMOVAL, Boolean.class, "Will text from <surplus> appear in Salt?", true, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_UNCLEAR_AS_TOKEN, Boolean.class, "Does <unclear> exclusively include one token?", true, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_FOREIGN_AS_TOKEN, Boolean.class, "Does <foreign> exclusively include one token?", true, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_USE_TOKENIZER, Boolean.class, "Do you want to tokenize the text?", false, false));
-		addProperty(new PepperModuleProperty<String>(PROP_USE_TOKENIZER_LANG, String.class, "What language do you want to use for tokenization? (ISO 639-1 code)", false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_TOKENIZATION_SUB, Boolean.class, "In this scenario, units smaller than ‘words’ exist. Elements within <w> etc. are possible", true, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_TOKENIZATION_DEFAULTTAG, Boolean.class, "One element is responsible for tokenization. Default is <w> in this mode.", false, false));
 		
-		addProperty(new PepperModuleProperty<Boolean>(PROP_DELETE_REDUNDANT_METADATA, Boolean.class, "Do you want metadata with a custom mapping to appear only once?", false, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_SKIP_DEFAULT_ANNOTATIONS, Boolean.class, "Do you want to remove default annotations(e.g. p=p)?", false, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_USE_NAMESPACE, Boolean.class, "Do you want to add the tag-namespace to SAnnotations?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_ELEMENT_SURPLUS_REMOVE, Boolean.class, "Will text from <surplus> appear in Salt?", true, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_ELEMENT_UNCLEAR_TOKEN, Boolean.class, "Does <unclear> exclusively include one token?", true, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_ELEMENT_FOREIGN_TOKEN, Boolean.class, "Does <foreign> exclusively include one token?", true, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_TOKENIZE, Boolean.class, "Do you want to tokenize the text?", false, false));
+		addProperty(new PepperModuleProperty<String>(PROP_TOKEN_TOKENIZE_LANG, String.class, "What language do you want to use for tokenization? (ISO 639-1 code)", false));
 		
-		addProperty(new PepperModuleProperty<Boolean>(PROP_GENERIC_ATTR, Boolean.class, "Do you want to include generic attribute annotations?", false, false));
-		addProperty(new PepperModuleProperty<String>(PROP_GENERIC_NODE, String.class, "Do you want generic nodes? And if yes what kind?", "struct", false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_METADATA_REDUNDANT_REMOVE, Boolean.class, "Do you want metadata with a custom mapping to appear only once?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_ANNOTATION_DEFAULT_REMOVE, Boolean.class, "Do you want to remove default annotations(e.g. p=p)?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_ANNOTATION_NAMESPACE, Boolean.class, "Do you want to add the tag-namespace to SAnnotations?", false, false));
 		
-		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_ANNO_SPAN, Boolean.class, "Do you want to have spans for all token annotations?", false, false));
+		addProperty(new PepperModuleProperty<String>(PROP_ELEMENT_GENERIC_NODE, String.class, "Do you want generic nodes? And if yes what kind?", "struct", false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_ELEMENT_GENERIC_ATTRIBUTE, Boolean.class, "Do you want to include generic attribute annotations?", false, false));
 		
-		addProperty(new PepperModuleProperty<String>(PROP_RENAME_TAG, String.class, "String containing the tag renaming configuration set by the user", "", false));
-		addProperty(new PepperModuleProperty<String>(PROP_RENAME_VALUES, String.class, "String containing the value renaming configuration set by the user", "", false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_ANNOTATION_TOKEN_SPAN, Boolean.class, "Do you want to have spans for all token annotations?", false, false));
 		
-		addProperty(new PepperModuleProperty<String>(PROP_MAPPINGS, String.class, "String containing the metadata mappings set by the user", "", false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_LAST_PART_ONLY_METADATA, Boolean.class, "Do you want to remove everything from metadata but what is after the last '/'?", false, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_EXCLUDE_METADATA, Boolean.class, "Do you want to exclude metadata with keys defined in ExcludeMetadataList?", false, false));
-		addProperty(new PepperModuleProperty<String>(PROP_EXCLUDE_METADATA_LIST, String.class, "List of keys of metadata to be omitted.", "", false));
+		addProperty(new PepperModuleProperty<String>(PROP_ANNOTATION_ELEMENT_RENAME, String.class, "String containing the tag renaming configuration set by the user", "", false));
+		addProperty(new PepperModuleProperty<String>(PROP_ANNOTATION_VALUE_RENAME, String.class, "String containing the value renaming configuration set by the user", "", false));
+		
+		addProperty(new PepperModuleProperty<String>(PROP_METADATA_RENAME, String.class, "String containing the metadata mappings set by the user", "", false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_METADATA_LASTPARTONLY, Boolean.class, "Do you want to remove everything from metadata but what is after the last '/'?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_METADATA_REMOVE, Boolean.class, "Do you want to exclude metadata with keys defined in ExcludeMetadataList?", false, false));
+		addProperty(new PepperModuleProperty<String>(PROP_METADATA_REMOVE_LIST, String.class, "List of keys of metadata to be omitted.", "", false));
 	}
 	
 	/**
@@ -100,7 +101,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isDefaultTokenization(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_DEFAULT_TOKENIZATION).getValue().toString();
+		String prop = getProperty(PROP_TOKEN_TOKENIZATION_DEFAULTTAG).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -113,7 +114,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isSubTokenization(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_SUB_TOKENIZATION).getValue().toString();
+		String prop = getProperty(PROP_TOKEN_TOKENIZATION_SUB).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -126,7 +127,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isSurplusRemoval(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_SURPLUS_REMOVAL).getValue().toString();
+		String prop = getProperty(PROP_ELEMENT_SURPLUS_REMOVE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -139,7 +140,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUnclearAsToken(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_UNCLEAR_AS_TOKEN).getValue().toString();
+		String prop = getProperty(PROP_ELEMENT_UNCLEAR_TOKEN).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -152,7 +153,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isForeignAsToken(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_FOREIGN_AS_TOKEN).getValue().toString();
+		String prop = getProperty(PROP_ELEMENT_FOREIGN_TOKEN).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -165,7 +166,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseTokenizer(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_USE_TOKENIZER).getValue().toString();
+		String prop = getProperty(PROP_TOKEN_TOKENIZE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -178,7 +179,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isDelMetadata(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_DELETE_REDUNDANT_METADATA).getValue().toString();
+		String prop = getProperty(PROP_METADATA_REDUNDANT_REMOVE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -191,7 +192,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isSkipAnnotations(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_SKIP_DEFAULT_ANNOTATIONS).getValue().toString();
+		String prop = getProperty(PROP_ANNOTATION_DEFAULT_REMOVE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -204,7 +205,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseNamespace(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_USE_NAMESPACE).getValue().toString();
+		String prop = getProperty(PROP_ANNOTATION_NAMESPACE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -217,7 +218,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseGenericStruct(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_GENERIC_NODE).getValue().toString();
+		String prop = getProperty(PROP_ELEMENT_GENERIC_NODE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			if (prop.equals("struct")){
 				retVal = true;
@@ -232,7 +233,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseGenericSpan(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_GENERIC_NODE).getValue().toString();
+		String prop = getProperty(PROP_ELEMENT_GENERIC_NODE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			if (prop.equals("span")){
 				retVal = true;
@@ -247,7 +248,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseGenericAttr(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_GENERIC_ATTR).getValue().toString();
+		String prop = getProperty(PROP_ELEMENT_GENERIC_ATTRIBUTE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -255,12 +256,12 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	}
 	
 	/**
-	 * method to retrieve value of use_namespace
+	 * method to retrieve value of anno_token_span
 	 * @return boolean value set by the user(or default)
 	 */
 	public boolean isUseTokenAnnoSpan(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_TOKEN_ANNO_SPAN).getValue().toString();
+		String prop = getProperty(PROP_ANNOTATION_TOKEN_SPAN).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -273,7 +274,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseLastPart(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_LAST_PART_ONLY_METADATA).getValue().toString();
+		String prop = getProperty(PROP_METADATA_LASTPARTONLY).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -286,7 +287,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	public boolean isUseExcludeMetadata(){
 		boolean retVal = false;
-		String prop = getProperty(PROP_EXCLUDE_METADATA).getValue().toString();
+		String prop = getProperty(PROP_METADATA_REMOVE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}
@@ -316,7 +317,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	 */
 	private String tokenizer_lang(){
 		String retVal = "";
-		Object propO = getProperty(PROP_USE_TOKENIZER_LANG).getValue();
+		Object propO = getProperty(PROP_TOKEN_TOKENIZE_LANG).getValue();
 		String prop= null;
 		if (propO!= null){
 			prop= propO.toString();
@@ -368,7 +369,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public String getTagName(String tagName){
 		if (tagRenameTable== null){
 			tagRenameTable= new Hashtable<>();
-			Object propO = getProperty(PROP_RENAME_TAG).getValue();
+			Object propO = getProperty(PROP_ANNOTATION_ELEMENT_RENAME).getValue();
 			
 			String prop= null;
 			if (propO.toString().trim()!= ""){
@@ -402,7 +403,7 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public String getValuesName(String tagName){
 		if (tagRenameValuesTable== null){
 			tagRenameValuesTable= new Hashtable<>();
-			Object propO = getProperty(PROP_RENAME_VALUES).getValue();
+			Object propO = getProperty(PROP_ANNOTATION_VALUE_RENAME).getValue();
 			String prop= null;
 			if (propO.toString().trim()!= ""){
 				prop= propO.toString();
@@ -454,8 +455,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 			mappingTable= new Hashtable<>();
 			Object propO = null;
 			
-			if (getProperty(PROP_MAPPINGS)!= null){
-				propO = getProperty(PROP_MAPPINGS).getValue();
+			if (getProperty(PROP_METADATA_RENAME)!= null){
+				propO = getProperty(PROP_METADATA_RENAME).getValue();
 			}
 			else{
 				propO = "";
@@ -477,8 +478,8 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public Set<String> retrieveExcludeMetadataSet(){
 		Object propO = null;
 		Set<String> excludeSet = null;
-		if (getProperty(PROP_EXCLUDE_METADATA_LIST)!= null){
-			propO = getProperty(PROP_EXCLUDE_METADATA_LIST).getValue();
+		if (getProperty(PROP_METADATA_REMOVE_LIST)!= null){
+			propO = getProperty(PROP_METADATA_REMOVE_LIST).getValue();
 			String prop = propO.toString();
 			String[] propList = prop.split(";");
 			excludeSet = new HashSet<>(Arrays.asList(propList));
