@@ -113,25 +113,25 @@ to the Salt model.
 
 | Name of property                              | Type of property | optional/mandatory | default value      |
 |-----------------------------------------------|------------------|--------------------|--------------------|
-| TEIImporter.token.tokenization.sub            | Boolean          | optional           | true               |
-| TEIImporter.token.tokenization.defaulttag     | Boolean          | optional           | false              |
+| TEIImporter.annotation.default.remove         | Boolean          | optional           | false              |
+| TEIImporter.annotation.element.rename         | String           | optional           |                    |
+| TEIImporter.annotation.namespace              | Boolean          | optional           | false              |
+| TEIImporter.annotation.token.span             | Boolean          | optional           | false              |
+| TEIImporter.annotation.value.rename           | String           | optional           |                    |
+| TEIImporter.element.foreign.token        		| Boolean          | optional           | true               |
+| TEIImporter.element.generic.attribute         | Boolean          | optional           | false              |
+| TEIImporter.element.generic.node              | String           | optional           | struct             |
 | TEIImporter.element.surplus.remove	        | Boolean          | optional           | true               |
 | TEIImporter.element.unclear.token        		| Boolean          | optional           | true               |
-| TEIImporter.element.foreign.token        		| Boolean          | optional           | true               |
-| TEIImporter.token.tokenize                  	| Boolean          | optional           | false              |
-| TEIImporter.token.tokenize.lang               | String           | optional           | en	             |
-| TEIImporter.metadata.redundant.remove         | Boolean          | optional           | false	             |
-| TEIImporter.annotation.default.remove         | Boolean          | optional           | false              |
-| TEIImporter.annotation.namespace              | Boolean          | optional           | false              |
-| TEIImporter.annotation.element.rename         | String           | optional           |                    |
-| TEIImporter.annotation.value.rename           | String           | optional           |                    |
-| TEIImporter.metadata.rename                   | String           | optional           |                    |
-| TEIImporter.element.generic.node              | String           | optional           | struct             |
-| TEIImporter.element.generic.attribute         | Boolean          | optional           | false              |
 | TEIImporter.metadata.lastpartonly             | Boolean          | optional           | false              |
+| TEIImporter.metadata.redundant.remove         | Boolean          | optional           | false	             |
 | TEIImporter.metadata.remove                   | Boolean          | optional           | false              |
 | TEIImporter.metadata.remove.list              | String           | optional           |                    |
-| TEIImporter.annotation.token.span             | Boolean          | optional           | false
+| TEIImporter.metadata.rename                   | String           | optional           |                    |
+| TEIImporter.token.tokenization.defaulttag     | Boolean          | optional           | false              |
+| TEIImporter.token.tokenization.sub            | Boolean          | optional           | true               |
+| TEIImporter.token.tokenize                  	| Boolean          | optional           | false              |
+| TEIImporter.token.tokenize.lang               | String           | optional           | en	             |
 
 ### TEIImporter.token.tokenization.sub
 
