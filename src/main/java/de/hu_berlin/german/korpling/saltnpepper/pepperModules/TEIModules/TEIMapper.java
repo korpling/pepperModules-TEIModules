@@ -25,8 +25,6 @@ import java.util.Stack;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
@@ -58,7 +56,6 @@ public class TEIMapper extends PepperMapperImpl{
 		this.readXMLResource(reader, getResourceURI());
 		return(DOCUMENT_STATUS.COMPLETED);
 	}
-	private static Logger logger = LoggerFactory.getLogger(TEIMapper.class);
 	
 	public static class TEIImporterReader extends DefaultHandler2 implements TEITagLibrary{
 		//options

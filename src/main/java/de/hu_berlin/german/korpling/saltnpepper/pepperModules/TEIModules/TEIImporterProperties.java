@@ -30,6 +30,10 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModulePrope
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperty;
 
 public class TEIImporterProperties extends PepperModuleProperties{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2871690146180228706L;
 	//String values for properties
 	public static final String PROP_DEFAULT_TOKENIZATION = "DefaultTokenization";
 	public static final String PROP_SUB_TOKENIZATION = "SubTokenization";

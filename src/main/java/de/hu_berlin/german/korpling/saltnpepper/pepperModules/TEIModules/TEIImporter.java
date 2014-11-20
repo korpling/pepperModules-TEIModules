@@ -19,8 +19,6 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperImporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
@@ -33,9 +31,6 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 @Component(name="TEIImporterComponent", factory="PepperImporterComponentFactory")
 public class TEIImporter extends PepperImporterImpl implements PepperImporter{
-	
-	// this is a logger, for recording messages during program process, like debug messages
-	private static final Logger logger= LoggerFactory.getLogger(TEIImporter.class);
 	
 	
 	public TEIImporter(){
