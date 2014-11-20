@@ -131,6 +131,7 @@ to the Salt model.
 | TEIImporter.metadata.lastpartonly             | Boolean          | optional           | false              |
 | TEIImporter.metadata.remove                   | Boolean          | optional           | false              |
 | TEIImporter.metadata.remove.list              | String           | optional           |                    |
+| TEIImporter.annotation.token.span             | Boolean          | optional           | false
 
 ### TEIImporter.token.tokenization.sub
 
@@ -245,5 +246,9 @@ ExcludeMetadataList.
 
 List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
 > ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
+
+### TEIImporter.annotation.token.span
+
+By enabling this flag annotations for tokens are additionally imported as spans.
 
 
