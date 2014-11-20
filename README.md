@@ -113,32 +113,33 @@ to the Salt model.
 
 | Name of property                              | Type of property | optional/mandatory | default value      |
 |-----------------------------------------------|------------------|--------------------|--------------------|
-| TEIImporter.annotation.default.remove         | Boolean          | optional           | false              |
-| TEIImporter.annotation.element.rename         | String           | optional           |                    |
-| TEIImporter.annotation.namespace              | Boolean          | optional           | false              |
-| TEIImporter.annotation.token.span             | Boolean          | optional           | false              |
-| TEIImporter.annotation.value.rename           | String           | optional           |                    |
-| TEIImporter.element.foreign.token        		| Boolean          | optional           | true               |
-| TEIImporter.element.generic.attribute         | Boolean          | optional           | false              |
-| TEIImporter.element.generic.node              | String           | optional           | struct             |
-| TEIImporter.element.surplus.remove	        | Boolean          | optional           | true               |
-| TEIImporter.element.unclear.token        		| Boolean          | optional           | true               |
-| TEIImporter.metadata.lastpartonly             | Boolean          | optional           | false              |
-| TEIImporter.metadata.redundant.remove         | Boolean          | optional           | false	             |
-| TEIImporter.metadata.remove                   | Boolean          | optional           | false              |
-| TEIImporter.metadata.remove.list              | String           | optional           |                    |
-| TEIImporter.metadata.rename                   | String           | optional           |                    |
-| TEIImporter.token.tokenization.defaulttag     | Boolean          | optional           | false              |
-| TEIImporter.token.tokenization.sub            | Boolean          | optional           | true               |
-| TEIImporter.token.tokenize                  	| Boolean          | optional           | false              |
-| TEIImporter.token.tokenize.lang               | String           | optional           | en	             |
+| [TEIImporter.annotation.default.remove](#adr)         | Boolean          | optional           | false              |
+| [TEIImporter.annotation.element.rename](#aer)         | String           | optional           |                    |
+| [TEIImporter.annotation.namespace](#an)              | Boolean          | optional           | false              |
+| [TEIImporter.annotation.token.span](#ats)             | Boolean          | optional           | false              |
+| [TEIImporter.annotation.value.rename](#avr)           | String           | optional           |                    |
+| [TEIImporter.element.foreign.token](#eft)        		| Boolean          | optional           | true               |
+| [TEIImporter.element.generic.attribute](#ega)         | Boolean          | optional           | false              |
+| [TEIImporter.element.generic.node](#egn)              | String           | optional           | struct             |
+| [TEIImporter.element.surplus.remove](#esr)	        | Boolean          | optional           | true               |
+| [TEIImporter.element.unclear.token](#eut)        		| Boolean          | optional           | true               |
+| [TEIImporter.metadata.lastpartonly](#ml)             | Boolean          | optional           | false              |
+| [TEIImporter.metadata.redundant.remove](#mrr)         | Boolean          | optional           | false	             |
+| [TEIImporter.metadata.remove](#mr1)                   | Boolean          | optional           | false              |
+| [TEIImporter.metadata.remove.list](#mrl)              | String           | optional           |                    |
+| [TEIImporter.metadata.rename](#mr2)                   | String           | optional           |                    |
+| [TEIImporter.token.tokenization.defaulttag](#ttd)     | Boolean          | optional           | false              |
+| [TEIImporter.token.tokenization.sub](#tts)            | Boolean          | optional           | true               |
+| [TEIImporter.token.tokenize](#tt)                  	| Boolean          | optional           | false              |
+| [TEIImporter.token.tokenize.lang](#ttl)               | String           | optional           | en	             |
 
-
-### TEIImporter.annotation.default.remove
+<a name="adr"></a>
+### TEIImporter.annotation.default.remove 
 
 By default there is an annotation added to each SNode to indicate which element
 is responsible for this SNode. This flag disables adding these annotations.
 
+<a name="aer"></a>
 ### TEIImporter.annotation.element.rename
 
 A large number of annotations in Salt comes from the element names existing in TEI.
@@ -148,6 +149,7 @@ The tag.rename flag allows customization for the key of such an annotation.
 The following format has to be met: 
 > tag.rename = pb:PNAME;graphic:Grafikname;phr:Phrase
 
+<a name="an"></a>
 ### TEIImporter.annotation.namespace
 
 To differentiate annotations with the same name, it is possible to add the
@@ -157,27 +159,32 @@ namespace coming from TEI to annotations. Example:
 Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
 annotations.
 
+<a name="ats"></a>
 ### TEIImporter.annotation.token.span
 
 By enabling this flag annotations for tokens are additionally imported as spans.
 
+<a name="avr"></a>
 ### TEIImporter.annotation.value.rename
 
 The values.rename flag is very similiar to tag.rename, beside here the name of
 the value of the annotation can be customized in this case. The format is:
 > values.rename = pb:PBVALUE;graphic:GrafikAnnotationValue;phr:PhraseValue
 
+<a name="eft"></a>
 ### TEIImporter.element.foreign.token
 
 Does \<foreign\> exclusively create one token annotated as "foreign"? If
 this is set "true" (default), then text in \<foreign\> will appear as a
 token.
 
+<a name="ega"></a>
 ### TEIImporter.element.generic.attribute
 
 By default attributes to elements without nongeneric handling are ignored. To add
 these attributes enable this flag.
 
+<a name="egn"></a>
 ### TEIImporter.element.generic.node
 
 By default elements without a nongeneric handling in the importer are added
@@ -189,22 +196,26 @@ as hierarchical nodes. You can also import them as spans or ignore them.
 Values different than "struct", "span" or "false" will make the importer ignore
 elements without a nongeneric handling as well.
 
+<a name="esr"></a>
 ### TEIImporter.element.surplus.remove
 
 Will text from \<surplus\> appear in Salt? If this is set "true"
 (default), then \<surplus\>-text will be removed.
 
+<a name="eut"></a>
 ### TEIImporter.element.unclear.token
 
 Does \<unclear\> exclusively create one token annotated as "unclear"? If
 this is set "true" (default), thentext in \<unclear\> will appear as a
 token.
 
+<a name="ml"></a>
 ### TEIImporter.metadata.lastpartonly
 
 Enabling this flag triggers the deletion of everything from metadata keys but what is
 after the last '/'. '@' characters are also removed.
 
+<a name="mrr"></a>
 ### TEIImporter.metadata.redundant.remove
 
 When handling metadata, the TEIImporter uses default mappings(reference…)
@@ -212,16 +223,19 @@ and mappings set by the user. This flag decides whether more than one
 SMetaAnnotation can contain the same information when metadata mappings are
 used. If set true, redudant metadata will be deleted.
 
+<a name="mr1"></a>
 ### TEIImporter.metadata.remove
 
 This flag enables the mechanism to exclude certain metadata defined by the keys in
 ExcludeMetadataList.
 
+<a name="mrl"></a>
 ### TEIImporter.metadata.remove.list
 
 List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
 > ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
 
+<a name="mr2"></a>
 ### TEIImporter.metadata.rename
 
 In addition to(or even replacing) the default metadata key mappings, the user is
@@ -229,22 +243,27 @@ able to set his own metadata key mappings with this flag. The following example
 illustrates this:
 > mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
 
+<a name="ttd"></a>
 ### TEIImporter.token.tokenization.defaulttag
 
 The user declares that there is one and only one element responsible for
-mapping tokens to Salt. Default is \<w\>. In this case SubTokenization should be disabled, otherwise unexpected behaviour may occur.
+mapping tokens to Salt. Default is \<w\>. In this case [SubTokenization](#tts) should be disabled, otherwise
+unexpected behaviour may occur.
 
+<a name="tts"></a>
 ### TEIImporter.token.tokenization.sub
 
-In this default scenarion, the smallest units of text between elements will be imported as tokens everywhere.
-This option should only be disabled if you can guarantee that there is no text outside of the <w>-element or
+In this default scenario, the text nodes between elements will be imported as tokens everywhere.
+This option should only be disabled if you can [guarantee that there is no text outside of the <w>-element](#ttd) or
 if you can get over losing parts of the primary text.
 
+<a name="tt"></a>
 ### TEIImporter.token.tokenize
 
 Do you want the tokenizer to tokenize text? This option is useful, if
 your TEI document contains sections of text that are not tokenized. Using the tokenizer will slow the processing by a considerable amout of time.
 
+<a name="ttl"></a>
 ### TEIImporter.token.tokenize.lang
 
 The tokenizer currently has support for four languages: English, German,
