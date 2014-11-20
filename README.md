@@ -94,15 +94,18 @@ different ways and thus customization through properties deals with the
 problems occuring because of this.
 
 ### Metadata
-A metadate key can only be used once. If for some reason (e.g. by using a property)
+A metadata key in Salt like
+> /fileDesc/publicationStmt/pubPlace
+
+can only be used once. If for some reason (e.g. by using a property)
 a key is used for a second time, the TEIImporter will ignore the second
-usage and throw and warning.
+usage and give a warning.
 
 ### Properties
 
 Because TEI is a very complex format the behavior of the TEIImporter
 depends to a great extent on the properties that the user can use to
-customize the behaviour of the TEIImporter. The table following table  contains an
+customize the behaviour of the TEIImporter. The following table contains an
 overview of all usable properties to customize the behaviour of the
 TEIImporter. The following section contains a close description to each
 single property and describes the resulting differences in the mapping
@@ -110,77 +113,42 @@ to the Salt model.
 
 | Name of property                              | Type of property | optional/mandatory | default value      |
 |-----------------------------------------------|------------------|--------------------|--------------------|
-| TEIImporter.SubTokenization                   | Boolean          | optional           | true               |
-| TEIImporter.DefaultTokenization               | Boolean          | optional           | false              |
-| TEIImporter.SurplusRemoval			        | Boolean          | optional           | true               |
-| TEIImporter.UnclearAsToken            		| Boolean          | optional           | true               |
-| TEIImporter.ForeignAsToken              		| Boolean          | optional           | true               |
-| TEIImporter.UseTokenizer                  	| Boolean          | optional           | false              |
-| TEIImporter.UseTokenizerLang                  | String           | optional           | en	             |
-| TEIImporter.DeleteRedundantMetadata           | Boolean          | optional           | false	             |
-| TEIImporter.SkipDefaultAnnotations            | Boolean          | optional           | false              |
-| TEIImporter.UseNamespace                      | Boolean          | optional           | false              |
-| TEIImporter.tag.rename                        | String           | optional           |                    |
-| TEIImporter.values.rename                     | String           | optional           |                    |
-| TEIImporter.mapping.rename                    | String           | optional           |                    |
-| TEIImporter.generic.node                      | String           | optional           | struct             |
-| TEIImporter.generic.attributes                | Boolean          | optional           | false              |
-| TEIImporter.LastPartOnlyMetadata              | Boolean          | optional           | false              |
-| TEIImporter.ExcludeMetadata                   | Boolean          | optional           | false              |
-| TEIImporter.ExcludeMetadataList               | String           | optional           |                    |
-
-### TEIImporter.SubTokenization
-
-In this default scenarion, the smallest units of text between tags will be imported as tokens everywhere. This option should only be disabled if you can guarantee that there is no text outside of the <w>-tag or if you can get over losing parts of the primary text.
-
-### TEIImporter.DefaultTokenization
-
-The user declares that there is one and only one element responsible for
-mapping tokens to Salt. Default is \<w\>. In this case SubTokenization should be disabled, otherwise unexpected behaviour may occur.
+| TEIImporter.annotation.default.remove         | Boolean          | optional           | false              |
+| TEIImporter.annotation.element.rename         | String           | optional           |                    |
+| TEIImporter.annotation.namespace              | Boolean          | optional           | false              |
+| TEIImporter.annotation.token.span             | Boolean          | optional           | false              |
+| TEIImporter.annotation.value.rename           | String           | optional           |                    |
+| TEIImporter.element.foreign.token        		| Boolean          | optional           | true               |
+| TEIImporter.element.generic.attribute         | Boolean          | optional           | false              |
+| TEIImporter.element.generic.node              | String           | optional           | struct             |
+| TEIImporter.element.surplus.remove	        | Boolean          | optional           | true               |
+| TEIImporter.element.unclear.token        		| Boolean          | optional           | true               |
+| TEIImporter.metadata.lastpartonly             | Boolean          | optional           | false              |
+| TEIImporter.metadata.redundant.remove         | Boolean          | optional           | false	             |
+| TEIImporter.metadata.remove                   | Boolean          | optional           | false              |
+| TEIImporter.metadata.remove.list              | String           | optional           |                    |
+| TEIImporter.metadata.rename                   | String           | optional           |                    |
+| TEIImporter.token.tokenization.defaulttag     | Boolean          | optional           | false              |
+| TEIImporter.token.tokenization.sub            | Boolean          | optional           | true               |
+| TEIImporter.token.tokenize                  	| Boolean          | optional           | false              |
+| TEIImporter.token.tokenize.lang               | String           | optional           | en	             |
 
 
-### TEIImporter.SurplusRemoval
+### TEIImporter.annotation.default.remove
 
-Will text from \<surplus\> appear in Salt? If this is set "true"
-(default), then \<surplus\>-text will be removed.
-
-### TEIImporter.UnclearAsToken
-
-Does \<unclear\> exclusively create one token annotated as "unclear"? If
-this is set "true" (default), thentext in \<unclear\> will appear as a
-token.
-
-### TEIImporter.ForeignAsToken
-
-Does \<foreign\> exclusively create one token annotated as "foreign"? If
-this is set "true" (default), then text in \<foreign\> will appear as a
-token.
-
-### TEIImporter.UseTokenizer
-
-Do you want the tokenizer to tokenize text? This option is useful, if
-your TEI document contains sections of text that are not tokenized. Using the tokenizer will slow the processing by a considerable amout of time.
-
-### TEIImporter.UseTokenizerLang
-
-The tokenizer currently has support for four languages: English, German,
-Italian, French. To choose a language, use the respective ISO 639-1
-language code(en, de, it, fr). If no value or a non-supported value is
-set, the tokenizer will default to English.
-
-### TEIImporter.DeleteRedundantMetadata
-
-When handling metadata, the TEIImporter uses default mappings(reference…)
-and mappings set by the user. This flag decides whether more than one
-SMetaAnnotation can contain the same information when metadata mappings are
-used. If set true, redudant metadata will be deleted.
-
-### TEIImporter.SkipDefaultAnnotations
-
-By default there is an annotation added to each SNode to indicate which tag
+By default there is an annotation added to each SNode to indicate which element
 is responsible for this SNode. This flag disables adding these annotations.
 
-### TEIImporter.UseNamespace
+### TEIImporter.annotation.element.rename
+
+A large number of annotations in Salt comes from the element names existing in TEI.
+To be able to differentiate, e.g. two struct coming first from <p> and second
+from <phr>, a generic annotation is used. The default is to use the element-name.
+The tag.rename flag allows customization for the key of such an annotation.
+The following format has to be met: 
+> tag.rename = pb:PNAME;graphic:Grafikname;phr:Phrase
+
+### TEIImporter.annotation.namespace
 
 To differentiate annotations with the same name, it is possible to add the
 namespace coming from TEI to annotations. Example:
@@ -189,29 +157,28 @@ namespace coming from TEI to annotations. Example:
 Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
 annotations.
 
-### TEIImporter.tag.rename
+### TEIImporter.annotation.token.span
 
-A large number of annotations in Salt come from the tags existing in TEI.
-To be able to differentiate, e.g. two struct coming first from <p> and second
-from <phr>, a generic annotation is used. The default is to use the tag-name.
-The tag.rename flag allows customization for the key of such an annotation.
-The following format has to be met: 
-> tag.rename = pb:PNAME;graphic:Grafikname;phr:Phrase
+By enabling this flag annotations for tokens are additionally imported as spans.
 
-### TEIImporter.values.rename
+### TEIImporter.annotation.value.rename
 
 The values.rename flag is very similiar to tag.rename, beside here the name of
 the value of the annotation can be customized in this case. The format is:
 > values.rename = pb:PBVALUE;graphic:GrafikAnnotationValue;phr:PhraseValue
 
-### TEIImporter.mapping.rename
+### TEIImporter.element.foreign.token
 
-In addition (or even replacing) to the default metadata mappings, the user is
-able to set his own metadata mappings with this flag. The following example
-illustrates this:
-> mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
+Does \<foreign\> exclusively create one token annotated as "foreign"? If
+this is set "true" (default), then text in \<foreign\> will appear as a
+token.
 
-### TEIImporter.generic.node
+### TEIImporter.element.generic.attribute
+
+By default attributes to elements without nongeneric handling are ignored. To add
+these attributes enable this flag.
+
+### TEIImporter.element.generic.node
 
 By default elements without a nongeneric handling in the importer are added
 as hierarchical nodes. You can also import them as spans or ignore them.
@@ -220,27 +187,67 @@ as hierarchical nodes. You can also import them as spans or ignore them.
 > generic.node = false
 
 Values different than "struct", "span" or "false" will make the importer ignore
-elements without a nongeneric as well.
+elements without a nongeneric handling as well.
 
+### TEIImporter.element.surplus.remove
 
-### TEIImporter.generic.attributes
+Will text from \<surplus\> appear in Salt? If this is set "true"
+(default), then \<surplus\>-text will be removed.
 
-By default attributes to elements without nongeneric handling are ignored. To add
-these attributes enable this flag.
+### TEIImporter.element.unclear.token
 
-### TEIImporter.LastPartOnlyMetadata
+Does \<unclear\> exclusively create one token annotated as "unclear"? If
+this is set "true" (default), thentext in \<unclear\> will appear as a
+token.
+
+### TEIImporter.metadata.lastpartonly
 
 Enabling this flag triggers the deletion of everything from metadata keys but what is
 after the last '/'. '@' characters are also removed.
 
-### TEIImporter.ExcludeMetadata
+### TEIImporter.metadata.redundant.remove
+
+When handling metadata, the TEIImporter uses default mappings(reference…)
+and mappings set by the user. This flag decides whether more than one
+SMetaAnnotation can contain the same information when metadata mappings are
+used. If set true, redudant metadata will be deleted.
+
+### TEIImporter.metadata.remove
 
 This flag enables the mechanism to exclude certain metadata defined by the keys in
 ExcludeMetadataList.
 
-### TEIImporter.ExcludeMetadataList
+### TEIImporter.metadata.remove.list
 
 List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
 > ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
 
+### TEIImporter.metadata.rename
 
+In addition to(or even replacing) the default metadata key mappings, the user is
+able to set his own metadata key mappings with this flag. The following example
+illustrates this:
+> mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
+
+### TEIImporter.token.tokenization.defaulttag
+
+The user declares that there is one and only one element responsible for
+mapping tokens to Salt. Default is \<w\>. In this case SubTokenization should be disabled, otherwise unexpected behaviour may occur.
+
+### TEIImporter.token.tokenization.sub
+
+In this default scenarion, the smallest units of text between elements will be imported as tokens everywhere.
+This option should only be disabled if you can guarantee that there is no text outside of the <w>-element or
+if you can get over losing parts of the primary text.
+
+### TEIImporter.token.tokenize
+
+Do you want the tokenizer to tokenize text? This option is useful, if
+your TEI document contains sections of text that are not tokenized. Using the tokenizer will slow the processing by a considerable amout of time.
+
+### TEIImporter.token.tokenize.lang
+
+The tokenizer currently has support for four languages: English, German,
+Italian, French. To choose a language, use the respective ISO 639-1
+language code(en, de, it, fr). If no value or a non-supported value is
+set, the tokenizer will default to English.
