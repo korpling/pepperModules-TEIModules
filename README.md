@@ -62,7 +62,7 @@ If you have found any bugs, or have some feature request, please open an issue o
 This project has been funded by the [department of corpus linguistics and morphology](https://www.linguistik.hu-berlin.de/institut/professuren/korpuslinguistik/) of Humboldt-Universität zu Berlin, [Georgetown University](http://www.georgetown.edu/), [KOMeT](http://korpling.german.hu-berlin.de/komet/) and the [Sonderforschungsbereich 632](https://www.sfb632.uni-potsdam.de/en/). 
 
 ## License
-  Copyright 2014 Humboldt Universität zu Berlin.
+  Copyright 2014 Humboldt-Universität zu Berlin.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
