@@ -62,7 +62,7 @@ If you have found any bugs, or have some feature request, please open an issue o
 This project has been funded by the [department of corpus linguistics and morphology](https://www.linguistik.hu-berlin.de/institut/professuren/korpuslinguistik/) of Humboldt-Universität zu Berlin, [Georgetown University](http://www.georgetown.edu/), [KOMeT](http://korpling.german.hu-berlin.de/komet/) and the [Sonderforschungsbereich 632](https://www.sfb632.uni-potsdam.de/en/). 
 
 ## License
-  Copyright 2014 Humboldt Universität zu Berlin.
+  Copyright 2014 Humboldt-Universität zu Berlin.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -80,17 +80,17 @@ This project has been funded by the [department of corpus linguistics and morpho
 
 # TEIImporter
 
-The TEIImporter imports data coming from TEI-XML files to a Salt model. This importer provides a wide range of customization possibilities via the here described set of properties. Before we talk about the possibility of customizing the mapping, we describe the general and default mapping from TEI to a Salt model.
+The TEIImporter imports data coming from [TEI-XML](http://www.tei-c.org/Guidelines/P5/) files to a [Salt](https://github.com/korpling/salt) model. This importer provides a wide range of customization possibilities via the here described set of properties. Before we talk about the possibility of customizing the mapping, we describe the general and default mapping from TEI to a Salt model.
 
 ### Mapping to Salt
 
 The fact that TEI is a XML-format results in the decision to primarily
 use tree-like structures that conserve hierarchies. There are two important
 exceptions to this: Tokens and the unary "break"
-elements like \<lb\> and \<pb\>(these cannot be mapped like this
-because their semantic does not fit into the hierarchy provided by XML).
-Instead, spans are used. Tokens can be defined and interpreted in many
-different ways and thus customization through properties deal with the
+elements like \<lb\> and \<pb\> (these cannot be mapped like this
+because their semantic does not fit into XML hierarchie).
+For these spans are used. Tokens in TEI can be defined and interpreted in many
+different ways and thus customization through properties deals with the
 problems occuring because of this.
 
 ### Metadata
