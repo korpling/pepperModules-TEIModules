@@ -154,7 +154,9 @@ The following format has to be met:
 
 To differentiate annotations with the same name, it is possible to add the
 namespace coming from TEI to annotations. Example:
-> ```<a attr="good"> text </a> <b attr="good"> text </b>```
+```xml
+<a attr="good"> text </a> <b attr="good"> text </b>
+```
 
 Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
 annotations.
@@ -242,10 +244,28 @@ after the last '/'. '@' characters are also removed.
 <a name="mrr"></a>
 ### TEIImporter.metadata.redundant.remove
 
-When handling metadata, the TEIImporter uses default mappings(reference…)
+When handling metadata, the TEIImporter uses default mappings
 and mappings set by the user. This flag decides whether more than one
 SMetaAnnotation can contain the same information when metadata mappings are
-used. If set true, redudant metadata will be deleted.
+used. If set to "true", redudant metadata will be deleted. By default redundant metadata
+are not removed.
+
+In case of a mapping like:
+```
+annotation.element.rename=/fileDesc/titleStmt/author:author
+```
+By default these metadata would be imported:
+```
+/fileDesc/titleStmt/author:Joseph Addison
+author:Joseph Addison
+```
+
+If this property is set to "true", this would be the result:
+```
+author:Joseph Addison
+```
+
+
 
 <a name="mr1"></a>
 ### TEIImporter.metadata.remove
