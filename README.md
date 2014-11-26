@@ -284,8 +284,8 @@ if you can get over losing parts of the primary text.
 <a name="tt"></a>
 ### TEIImporter.token.tokenize
 
-Do you want the tokenizer to tokenize text? This option is useful, if
-your TEI document contains sections of text that are not tokenized. Using the tokenizer will slow the processing by a considerable amout of time.
+This option is useful, if your TEI document contains sections of text that are not tokenized.
+By default text is not tokenized. Using the tokenizer will slow the processing by a considerable amount of time.
 
 <a name="ttl"></a>
 ### TEIImporter.token.tokenize.lang
