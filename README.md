@@ -199,15 +199,28 @@ elements without a nongeneric handling as well.
 <a name="esr"></a>
 ### TEIImporter.element.surplus.remove
 
-Will text from \<surplus\> appear in Salt? If this is set "true"
-(default), then \<surplus\>-text will be removed.
+This property determines the behaviour of the TEIImporter regarding the element [\<surplus\>](http://www.tei-c.org/release/doc/tei-p5-doc/de/html/ref-surplus.html).
+If it is set to "true", the text node will be ignored. If it is set  to "false", the text node
+will be imported as a token. The default value is "true".
 
 <a name="eut"></a>
 ### TEIImporter.element.unclear.token
 
-Does \<unclear\> exclusively create one token annotated as "unclear"? If
-this is set "true" (default), thentext in \<unclear\> will appear as a
-token.
+By default this flag imports the text node inside of a \<unclear\> element as a token. By setting this property
+to "false" you can make the TEIImporter ignore the element.
+
+In case of "false" these examples will be treated identically:
+
+```xml
+<p>500 mg <unclear reason="illegible">placebo</unclear>
+ </p>
+```
+
+```xml
+<p>500 mg placebo
+ </p>
+```
+
 
 <a name="ml"></a>
 ### TEIImporter.metadata.lastpartonly
