@@ -158,11 +158,14 @@ By enabling this property no such annotation would be imported.
 ### TEIImporter.annotation.element.rename
 
 A large number of annotations in Salt comes from the element names existing in TEI.
-To be able to differentiate, e.g. two struct coming first from <p> and second
-from <phr>, a generic annotation is used. The default is to use the element-name.
+To be able to differentiate, e.g. two hierarchical nodes coming first from \<p\> and a second
+from \<phr\>, a generic annotation is used. The default is to use the element-name.
 The tag.rename flag allows customization for the key of such an annotation.
 The following format has to be met: 
-> tag.rename = pb:PNAME;graphic:Grafikname;phr:Phrase
+
+```
+annotation.element.rename = pb:PNAME;graphic:Graphicname;phr:Phrase
+```
 
 <a name="an"></a>
 ### TEIImporter.annotation.namespace
