@@ -174,9 +174,20 @@ the value of the annotation can be customized in this case. The format is:
 <a name="eft"></a>
 ### TEIImporter.element.foreign.token
 
-Does \<foreign\> exclusively create one token annotated as "foreign"? If
-this is set "true" (default), then text in \<foreign\> will appear as a
-token.
+By default this flag imports the text node inside of a \<foreign\> element as a token. By setting this property
+to "false" you can make the TEIImporter ignore the element.
+
+In case of "false" these examples will be treated identically:
+
+```xml
+<p>And seeing the <foreign xml:lang="la">multitudes</foreign>, he went up into a mountain:
+ </p>
+```
+
+```xml
+<p>And seeing the multitudes, he went up into a mountain:
+ </p>
+```
 
 <a name="ega"></a>
 ### TEIImporter.element.generic.attribute
