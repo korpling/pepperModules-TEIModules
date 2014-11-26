@@ -301,10 +301,13 @@ List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
 <a name="mr2"></a>
 ### TEIImporter.metadata.rename
 
-In addition to(or even replacing) the default metadata key mappings, the user is
-able to set his own metadata key mappings with this flag. The following example
+In addition to (or even replacing) the default metadata key mappings you can
+set your own metadata key mappings with this flag. The following example
 illustrates this:
-> mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
+
+```
+metadata.rename = /fileDesc/publicationStmt/pubPlace:Place;/fileDesc/titleStmt/author:Author
+```
 
 <a name="ttd"></a>
 ### TEIImporter.token.tokenization.defaulttag
