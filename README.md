@@ -290,7 +290,9 @@ By default, text is not tokenized. Using the tokenizer will slow the processing 
 <a name="ttl"></a>
 ### TEIImporter.token.tokenize.lang
 
-The tokenizer currently has support for four languages: English, German,
+The tokenizer currently supports four languages: English, German,
 Italian, French. To choose a language, use the respective ISO 639-1
 language code(en, de, it, fr). If no value or a non-supported value is
-set, the tokenizer will default to English.
+set, the tokenizer will default to English. The tokenizer produces good
+results for other languages besides those four as well, the only problem
+are missing lists of abbreviations.
