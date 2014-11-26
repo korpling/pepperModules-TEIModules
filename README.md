@@ -95,7 +95,9 @@ problems occuring because of this.
 
 ### Metadata
 A metadata key in Salt like
-> /fileDesc/publicationStmt/pubPlace
+```
+/fileDesc/publicationStmt/pubPlace
+```
 
 can only be used once. If for some reason (e.g. by using a property)
 a key is used for a second time, the TEIImporter will ignore the second
@@ -136,8 +138,21 @@ to the Salt model.
 <a name="adr"></a>
 ### TEIImporter.annotation.default.remove 
 
-By default there is an annotation added to each SNode to indicate which element
-is responsible for this SNode. This flag disables adding these annotations.
+By default there is an annotation added to each node to indicate which element
+is responsible for this node. This flag disables adding these annotations.
+
+For example this
+```xml
+<p>In the beginning was the Word, and the Word was with God, and the Word was God.</p>
+```
+would result in a node containing the text with the annotation
+```
+p=p
+```
+By enabling this property no such annotation would be imported.
+
+
+
 
 <a name="aer"></a>
 ### TEIImporter.annotation.element.rename
@@ -154,6 +169,7 @@ The following format has to be met:
 
 To differentiate annotations with the same name, it is possible to add the
 namespace coming from TEI to annotations. Example:
+
 ```xml
 <a attr="good"> text </a> <b attr="good"> text </b>
 ```
