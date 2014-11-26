@@ -212,12 +212,12 @@ to "false" you can make the TEIImporter ignore the element.
 In case of "false" these examples will be treated identically:
 
 ```xml
-<p>500 mg <unclear reason="illegible">placebo</unclear>
+<p>In the beginning was the Word, and the Word was with God, and the <unclear reason="illegible">Word</unclear> was God.
  </p>
 ```
 
 ```xml
-<p>500 mg placebo
+<p>In the beginning was the Word, and the Word was with God, and the Word was God.
  </p>
 ```
 
