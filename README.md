@@ -228,12 +228,15 @@ these attributes enable this flag.
 ### TEIImporter.element.generic.node
 
 By default elements without a nongeneric handling in the importer are added
-as hierarchical nodes. You can also import them as spans or ignore them.
-> generic.node = span
+as hierarchical nodes. You can also import them as spans (by setting the
+property to "span") or ignore (by setting the property to "false") them.
 
-> generic.node = false
+```
+element.generic.node = span
+element.generic.node = false
+```
 
-Values different than "struct", "span" or "false" will make the importer ignore
+Values different to "struct", "span" or "false" will make the importer ignore
 elements without a nongeneric handling as well.
 
 <a name="esr"></a>
