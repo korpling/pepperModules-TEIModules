@@ -221,8 +221,8 @@ In case of "false" these examples will be treated identically:
 <a name="ega"></a>
 ### TEIImporter.element.generic.attribute
 
-By default attributes to elements without nongeneric handling are ignored. To add
-these attributes enable this flag.
+By default, attributes to elements without nongeneric handling are ignored. To add
+those attributes, enable this flag.
 
 <a name="egn"></a>
 ### TEIImporter.element.generic.node
