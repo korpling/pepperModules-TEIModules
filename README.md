@@ -333,7 +333,7 @@ metadata.rename = /fileDesc/publicationStmt/pubPlace:Place;/fileDesc/titleStmt/a
 ### TEIImporter.token.tokenization.defaulttag
 
 The user declares that there is one and only one element responsible for
-mapping tokens to Salt. Default is \<w\>. In this case [SubTokenization](#tts) should be disabled, otherwise
+mapping tokens to Salt. Default is \<w\>. In this case [token.tokenization.sub](#tts) should be disabled, otherwise
 unexpected behaviour may occur.
 
 <a name="tts"></a>
