@@ -103,6 +103,14 @@ can only be used once. If for some reason (e.g. by using a property)
 a key is used for a second time, the TEIImporter will ignore the second
 usage and give a warning.
 
+#### Default Metadata
+Currently the following metadata keys are mapped by default:
+
+```
+/fileDesc/titleStmt/author:author
+/fileDesc/titleStmt/title:title
+```
+
 ### Properties
 
 Because TEI is a very complex format the behavior of the TEIImporter
@@ -148,9 +156,8 @@ For example this
 would result in a node containing the text with the annotation
 ```
 p=p
-```
+```
 By enabling this property no such annotation would be imported.
-
 
 
 
@@ -279,7 +286,7 @@ By default these metadata would be imported:
 author:Joseph Addison
 ```
 
-If this property is set to "true", this would be the result:
+If this property is set to "true", the following would be the result:
 ```
 author:Joseph Addison
 ```
