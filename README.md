@@ -310,12 +310,12 @@ author:Joseph Addison
 ### TEIImporter.metadata.remove
 
 This flag enables the mechanism to exclude certain metadata defined by the keys in
-ExcludeMetadataList.
+metadata.remove.list .
 
 <a name="mrl"></a>
 ### TEIImporter.metadata.remove.list
 
-List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
+Here you can define a list of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
 > ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
 
 <a name="mr2"></a>
