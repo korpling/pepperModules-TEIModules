@@ -271,6 +271,15 @@ In case of "false" these examples will be treated identically:
 Enabling this flag triggers the deletion of everything from metadata keys but what is
 after the last '/'. '@' characters are also removed.
 
+For example, this
+```
+/fileDesc/publicationStmt/date
+```
+would become:
+```
+date
+```
+
 <a name="mrr"></a>
 ### TEIImporter.metadata.redundant.remove
 
