@@ -156,7 +156,8 @@ For example this
 would result in a node containing the text with the annotation
 ```
 p=p
-```
+```
+
 By enabling this property no such annotation would be imported.
 
 
