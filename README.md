@@ -317,7 +317,7 @@ metadata.remove.list .
 
 Here you can define a list of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
 ```
-ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
+metadata.remove.list = bibl;date;/fileDesc/publicationStmt/pubPlace
 ```
 
 <a name="mr2"></a>
