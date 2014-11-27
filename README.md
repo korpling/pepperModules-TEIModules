@@ -196,8 +196,8 @@ By enabling this flag annotations for tokens are additionally imported as spans.
 <a name="avr"></a>
 ### TEIImporter.annotation.value.rename
 
-The values.rename flag is very similiar to [annotation.element.rename](#aer), beside here the name of
-the value of the annotation can be customized in this case. The format is:
+The annotation.value.rename flag is very similiar to [annotation.element.rename](#aer), beside here the name of
+the value of the annotation can be customized. The format is:
 > values.rename = pb:PBVALUE;graphic:GraphicAnnotationValue;phr:PhraseValue
 
 <a name="eft"></a>
