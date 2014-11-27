@@ -95,11 +95,21 @@ problems occuring because of this.
 
 ### Metadata
 A metadata key in Salt like
-> /fileDesc/publicationStmt/pubPlace
+```
+/fileDesc/publicationStmt/pubPlace
+```
 
 can only be used once. If for some reason (e.g. by using a property)
 a key is used for a second time, the TEIImporter will ignore the second
 usage and give a warning.
+
+#### Default Metadata
+Currently the following metadata keys are mapped by default:
+
+```
+/fileDesc/titleStmt/author:author
+/fileDesc/titleStmt/title:title
+```
 
 ### Properties
 
@@ -136,25 +146,44 @@ to the Salt model.
 <a name="adr"></a>
 ### TEIImporter.annotation.default.remove 
 
-By default there is an annotation added to each SNode to indicate which element
-is responsible for this SNode. This flag disables adding these annotations.
+By default there is an annotation added to each node to indicate which element
+is responsible for this node. This flag disables adding these annotations.
+
+For example this
+```xml
+<p>In the beginning was the Word, and the Word was with God, and the Word was God.</p>
+```
+would result in a node containing the text with the annotation
+```
+p=p
+```
+
+By enabling this property no such annotation would be imported.
+
+
 
 <a name="aer"></a>
 ### TEIImporter.annotation.element.rename
 
 A large number of annotations in Salt comes from the element names existing in TEI.
-To be able to differentiate, e.g. two struct coming first from <p> and second
-from <phr>, a generic annotation is used. The default is to use the element-name.
-The tag.rename flag allows customization for the key of such an annotation.
+To be able to differentiate, e.g. two hierarchical nodes coming first from \<p\> and a second
+from \<phr\>, a generic annotation is used. The default is to use the element-name.
+The annotation.element.rename flag allows for customizing the key of such an annotation.
 The following format has to be met: 
-> tag.rename = pb:PNAME;graphic:Grafikname;phr:Phrase
+
+```
+annotation.element.rename = pb:PNAME;graphic:Graphicname;phr:Phrase
+```
 
 <a name="an"></a>
 ### TEIImporter.annotation.namespace
 
 To differentiate annotations with the same name, it is possible to add the
 namespace coming from TEI to annotations. Example:
-> ```<a attr="good"> text </a> <b attr="good"> text </b>```
+
+```xml
+<a attr="good"> text </a> <b attr="good"> text </b>
+```
 
 Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
 annotations.
@@ -167,47 +196,74 @@ By enabling this flag annotations for tokens are additionally imported as spans.
 <a name="avr"></a>
 ### TEIImporter.annotation.value.rename
 
-The values.rename flag is very similiar to tag.rename, beside here the name of
-the value of the annotation can be customized in this case. The format is:
-> values.rename = pb:PBVALUE;graphic:GrafikAnnotationValue;phr:PhraseValue
+The annotation.value.rename flag is very similiar to [annotation.element.rename](#aer), beside here the name of
+the value of the annotation can be customized. The format is:
+> values.rename = pb:PBVALUE;graphic:GraphicAnnotationValue;phr:PhraseValue
 
 <a name="eft"></a>
 ### TEIImporter.element.foreign.token
 
-Does \<foreign\> exclusively create one token annotated as "foreign"? If
-this is set "true" (default), then text in \<foreign\> will appear as a
-token.
+By default this flag imports the text node inside of a \<foreign\> element as a token. By setting this property
+to "false" you can make the TEIImporter ignore the element.
+
+In case of "false" these examples will be treated identically:
+
+```xml
+<p>And seeing the <foreign xml:lang="la">multitudes</foreign>, he went up into a mountain:
+ </p>
+```
+
+```xml
+<p>And seeing the multitudes, he went up into a mountain:
+ </p>
+```
 
 <a name="ega"></a>
 ### TEIImporter.element.generic.attribute
 
-By default attributes to elements without nongeneric handling are ignored. To add
-these attributes enable this flag.
+By default, attributes to elements without nongeneric handling are ignored. To add
+those attributes, enable this flag.
 
 <a name="egn"></a>
 ### TEIImporter.element.generic.node
 
 By default elements without a nongeneric handling in the importer are added
-as hierarchical nodes. You can also import them as spans or ignore them.
-> generic.node = span
+as hierarchical nodes. You can also import them as spans (by setting the
+property to "span") or ignore (by setting the property to "false") them.
 
-> generic.node = false
+```
+element.generic.node = span
+element.generic.node = false
+```
 
-Values different than "struct", "span" or "false" will make the importer ignore
+Values different to "struct", "span" or "false" will make the importer ignore
 elements without a nongeneric handling as well.
 
 <a name="esr"></a>
 ### TEIImporter.element.surplus.remove
 
-Will text from \<surplus\> appear in Salt? If this is set "true"
-(default), then \<surplus\>-text will be removed.
+This property determines the behaviour of the TEIImporter regarding the element [\<surplus\>](http://www.tei-c.org/release/doc/tei-p5-doc/de/html/ref-surplus.html).
+If it is set to "true", the text node will be ignored. If it is set  to "false", the text node
+will be imported as a token. The default value is "true".
 
 <a name="eut"></a>
 ### TEIImporter.element.unclear.token
 
-Does \<unclear\> exclusively create one token annotated as "unclear"? If
-this is set "true" (default), thentext in \<unclear\> will appear as a
-token.
+By default this flag imports the text node inside of a \<unclear\> element as a token. By setting this property
+to "false" you can make the TEIImporter ignore the element.
+
+In case of "false" these examples will be treated identically:
+
+```xml
+<p>In the beginning was the Word, and the Word was with God, and the <unclear reason="illegible">Word</unclear> was God.
+ </p>
+```
+
+```xml
+<p>In the beginning was the Word, and the Word was with God, and the Word was God.
+ </p>
+```
+
 
 <a name="ml"></a>
 ### TEIImporter.metadata.lastpartonly
@@ -215,58 +271,92 @@ token.
 Enabling this flag triggers the deletion of everything from metadata keys but what is
 after the last '/'. '@' characters are also removed.
 
+For example, this
+```
+/fileDesc/publicationStmt/date
+```
+would become:
+```
+date
+```
+
 <a name="mrr"></a>
 ### TEIImporter.metadata.redundant.remove
 
-When handling metadata, the TEIImporter uses default mappings(reference…)
+When handling metadata, the TEIImporter uses default mappings
 and mappings set by the user. This flag decides whether more than one
 SMetaAnnotation can contain the same information when metadata mappings are
-used. If set true, redudant metadata will be deleted.
+used. If set to "true", redudant metadata will be deleted. By default redundant metadata
+are not removed.
+
+In case of a mapping like:
+```
+annotation.element.rename=/fileDesc/titleStmt/author:author
+```
+By default these metadata would be imported:
+```
+/fileDesc/titleStmt/author:Joseph Addison
+author:Joseph Addison
+```
+
+If this property is set to "true", the following would be the result:
+```
+author:Joseph Addison
+```
+
+
 
 <a name="mr1"></a>
 ### TEIImporter.metadata.remove
 
 This flag enables the mechanism to exclude certain metadata defined by the keys in
-ExcludeMetadataList.
+metadata.remove.list .
 
 <a name="mrl"></a>
 ### TEIImporter.metadata.remove.list
 
-List of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
-> ExcludeMetadataList = bibl;date;/fileDesc/publicationStmt/pubPlace
+Here you can define a list of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
+```
+metadata.remove.list = bibl;date;/fileDesc/publicationStmt/pubPlace
+```
 
 <a name="mr2"></a>
 ### TEIImporter.metadata.rename
 
-In addition to(or even replacing) the default metadata key mappings, the user is
-able to set his own metadata key mappings with this flag. The following example
+In addition to (or even replacing) the default metadata key mappings you can
+set your own metadata key mappings with this flag. The following example
 illustrates this:
-> mapping.rename = /fileDesc/publicationStmt/pubPlace:Ort
+
+```
+metadata.rename = /fileDesc/publicationStmt/pubPlace:Place;/fileDesc/titleStmt/author:Author
+```
 
 <a name="ttd"></a>
 ### TEIImporter.token.tokenization.defaulttag
 
 The user declares that there is one and only one element responsible for
-mapping tokens to Salt. Default is \<w\>. In this case [SubTokenization](#tts) should be disabled, otherwise
+mapping tokens to Salt. Default is \<w\>. In this case [token.tokenization.sub](#tts) should be disabled, otherwise
 unexpected behaviour may occur.
 
 <a name="tts"></a>
 ### TEIImporter.token.tokenization.sub
 
 In this default scenario, the text nodes between elements will be imported as tokens everywhere.
-This option should only be disabled if you can [guarantee that there is no text outside of the <w>-element](#ttd) or
+This option should only be disabled if you can [guarantee that there is no text outside of the \<w\>-element](#ttd) or
 if you can get over losing parts of the primary text.
 
 <a name="tt"></a>
 ### TEIImporter.token.tokenize
 
-Do you want the tokenizer to tokenize text? This option is useful, if
-your TEI document contains sections of text that are not tokenized. Using the tokenizer will slow the processing by a considerable amout of time.
+This option is useful, if your TEI document contains sections of text that are not tokenized.
+By default, text is not tokenized. Using the tokenizer will slow the processing by a considerable amount of time.
 
 <a name="ttl"></a>
 ### TEIImporter.token.tokenize.lang
 
-The tokenizer currently has support for four languages: English, German,
+The tokenizer currently supports four languages: English, German,
 Italian, French. To choose a language, use the respective ISO 639-1
 language code(en, de, it, fr). If no value or a non-supported value is
-set, the tokenizer will default to English.
+set, the tokenizer will default to English. The tokenizer produces good
+results for other languages besides those four as well, the main problem
+are missing lists of abbreviations.
