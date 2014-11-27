@@ -342,7 +342,7 @@ unexpected behaviour may occur.
 ### TEIImporter.token.tokenization.sub
 
 In this default scenario, the text nodes between elements will be imported as tokens everywhere.
-This option should only be disabled if you can [guarantee that there is no text outside of the <w>-element](#ttd) or
+This option should only be disabled if you can [guarantee that there is no text outside of the \<w\>-element](#ttd) or
 if you can get over losing parts of the primary text.
 
 <a name="tt"></a>
