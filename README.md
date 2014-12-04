@@ -133,7 +133,7 @@ In addition to that, the following metadata names are shortened by default:
 
 ### Properties
 
-Because TEI is a very complex format the behavior of the TEIImporter
+Because TEI is a very complex format the behaviour of the TEIImporter
 depends to a great extent on the properties that the user can use to
 customize the behaviour of the TEIImporter. The following table contains an
 overview of all usable properties to customize the behaviour of the
@@ -150,7 +150,7 @@ to the Salt model.
 | [annotation.value.rename](#avr)           | String           | optional           |                    |
 | [element.foreign.token](#eft)        		| Boolean          | optional           | true               |
 | [element.generic.attribute](#ega)         | Boolean          | optional           | false              |
-| [element.generic.node](#egn)              | String           | optional           | struct             |
+| [element.generic.node](#egn)              | span \| struct \| false| optional     | struct             |
 | [element.surplus.remove](#esr)	        | Boolean          | optional           | true               |
 | [element.unclear.token](#eut)        		| Boolean          | optional           | true               |
 | [metadata.lastpartonly](#ml)              | Boolean          | optional           | false              |
@@ -171,28 +171,53 @@ is responsible for this node. This flag disables adding these annotations.
 
 For example this
 ```xml
-<p>In the beginning was the Word, and the Word was with God, and the Word was God.</p>
+<p>In the beginning was the Word, and the Word was with God,</p><phr>and the Word was God.</phr>
 ```
-would result in a node containing the text with the annotation
+would result in two nodes containing the text and the annotations, here marked with curly brackets:
 ```
-p=p
+[Node1]{p=p}: In the beginning was the Word, and the Word was with God,
+[Node2]{phr=phr}: and the Word was God.
 ```
 
-By enabling this property no such annotation would be imported.
+By enabling this property no such annotation would be created:
 
+```
+[Node1]: In the beginning was the Word, and the Word was with God,
+[Node2]: and the Word was God.
+```
 
 
 <a name="aer"></a>
 ### annotation.element.rename
 
-A large number of annotations in Salt comes from the element names existing in TEI.
+A [large number of annotations](#adr) in Salt comes from the element names existing in TEI.
 To be able to differentiate, e.g. two hierarchical nodes coming first from \<p\> and a second
-from \<phr\>, a generic annotation is used. The default is to use the element-name.
+from \<phr\>,
+
+```xml
+<p>In the beginning was the Word, and the Word was with God,</p><phr>and the Word was God.</phr>
+```
+
+
+a generic annotation is used. The default is to use the element-name.
 The annotation.element.rename flag allows for customizing the key of such an annotation.
 The following format has to be met: 
 
 ```
-annotation.element.rename = pb:PNAME;graphic:Graphicname;phr:Phrase
+annotation.element.rename = pb:PNAME;phr:Phrase
+```
+
+While the default would look like this:
+
+```
+[Node1]{p=p}: In the beginning was the Word, and the Word was with God,
+[Node2]{phr=phr}: and the Word was God.
+```
+
+Using the examplary renamings results in:
+```
+[Node1]{PNAME=p}: In the beginning was the Word, and the Word was with God,
+[Node2]{Phrase=phr}: and the Word was God.
 ```
 
 <a name="an"></a>
@@ -205,20 +230,44 @@ namespace coming from TEI to annotations. Example:
 <a attr="good"> text </a> <b attr="good"> text </b>
 ```
 
-Here enabling this flag would add the namespaces "a" and "b" to the "attr=good"
-annotations.
+Here, enabling this flag would add the namespaces "a" and "b" to the "attr=good"
+annotations:
+
+```
+a:attr=good
+b:attr=good
+```
+
 
 <a name="ats"></a>
 ### annotation.token.span
 
-By enabling this flag annotations for tokens are additionally imported as spans.
+Sometimes tokens are annotated directly. This flag enables adding these annotations
+as spans (SSpan). By default, token annotations are not added as spans.
 
 <a name="avr"></a>
 ### annotation.value.rename
 
-The annotation.value.rename flag is very similiar to [annotation.element.rename](#aer), beside here the name of
-the value of the annotation can be customized. The format is:
-> values.rename = pb:PBVALUE;graphic:GraphicAnnotationValue;phr:PhraseValue
+The annotation.value.rename flag is very similar to [annotation.element.rename](#aer), beside here the annotation value can be customized. The format is:
+
+The following format has to be met: 
+
+```
+annotation.element.rename = pb:PVALUE;phr:Phrase
+```
+
+While the default would look like this:
+
+```
+[Node1]{p=p}: In the beginning was the Word, and the Word was with God,
+[Node2]{phr=phr}: and the Word was God.
+```
+
+Using the examplary renamings results in:
+```
+[Node1]{p=PVALUE}: In the beginning was the Word, and the Word was with God,
+[Node2]{phr=Phrase}: and the Word was God.
+```
 
 <a name="eft"></a>
 ### element.foreign.token
