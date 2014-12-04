@@ -85,31 +85,51 @@ The TEIImporter imports data coming from [TEI-XML](http://www.tei-c.org/Guidelin
 ### Mapping to Salt
 
 The fact that TEI is a XML-format results in the decision to primarily
-use tree-like structures that conserve hierarchies. There are two important
+use tree-like structures in Salt (SStructure) that conserve hierarchies. There are two important
 exceptions to this: Tokens and the unary "break"
-elements like \<lb\> and \<pb\> (these cannot be mapped like this
+elements like \<lb\> and \<pb\> (these cannot be mapped to trees
 because their semantic does not fit into XML hierarchie).
-For these spans are used. Tokens in TEI can be defined and interpreted in many
+For these elements spans (SSpan) are used. Tokens in TEI can be defined and interpreted in many
 different ways and thus customization through properties deals with the
 problems occuring because of this.
 
 ### Metadata
-A metadata key in Salt like
-```
-/fileDesc/publicationStmt/pubPlace
+Metadata in Salt are represented by attribute-value pairs (having a name and a value). Since
+metadata in TEI can occur in very deep structures like
+
+```xml
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Gospel According to Mark</title>
+                <author>Mark the Evangelist</author>
+            </titleStmt>
+        </fileDesc>
+    </teiHeader>
+    ...
 ```
 
-can only be used once. If for some reason (e.g. by using a property)
-a key is used for a second time, the TEIImporter will ignore the second
+they need to be flattened, e.g. to 
+
+```
+/fileDesc/titleStmt/title = "Gospel According to Mark"
+/fileDesc/titleStmt/author = "Mark the Evangelist"
+```
+
+A metadata key in Salt like can only be used once. If for some reason (e.g. by using a property)
+a metadata name is used for a second time, the TEIImporter will ignore the second
 usage and give a warning.
 
-#### Default Metadata
-Currently the following metadata keys are mapped by default:
+#### Default Metadata Mapping
+Long metadata names can be very annoying, therefore they can be shortened by using the
+[metadata.rename](#mr2) property.
+In addition to that, the following metadata names are shortened by default:
 
-```
-/fileDesc/titleStmt/author:author
-/fileDesc/titleStmt/title:title
-```
+| TEI-Path          | Shortened Salt Name|
+|-------------------|--------------------|
+|/fileDesc/titleStmt/title|title         |
+|/fileDesc/titleStmt/author|author       |
 
 ### Properties
 
