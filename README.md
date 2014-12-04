@@ -134,7 +134,7 @@ In addition to that, the following metadata names are shortened by default:
 ### Properties
 
 Because TEI is a very complex format the behaviour of the TEIImporter
-depends to a great extent on the properties that the user can use to
+depends to a great extent on the properties that you can use to
 customize the behaviour of the TEIImporter. The following table contains an
 overview of all usable properties to customize the behaviour of the
 TEIImporter. The following section contains a close description to each
@@ -354,7 +354,7 @@ date
 ### metadata.redundant.remove
 
 When handling metadata, the TEIImporter uses default mappings
-and mappings set by the user. This flag decides whether more than one
+and mappings you set. This flag decides whether more than one
 SMetaAnnotation can contain the same information when metadata mappings are
 used. If set to "false", redudant metadata will not be deleted. By default redundant metadata
 are removed.
@@ -438,7 +438,7 @@ Place = Berlin
 <a name="ttd"></a>
 ### token.tokenization.defaulttag
 
-The user declares that there is one and only one element responsible for
+You declare that there is one and only one element responsible for
 mapping tokens to Salt. Default is \<w\>. In this case [token.tokenization.sub](#tts) should be disabled, otherwise
 unexpected behaviour may occur.
 
