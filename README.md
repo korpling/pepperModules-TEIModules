@@ -290,7 +290,7 @@ In case of "false" these examples will be treated identically:
 <a name="ega"></a>
 ### element.generic.attribute
 
-By default, attributes to elements without nongeneric handling are ignored. To add
+By default, attributes to elements without [nongeneric](#elements) handling are ignored. To add
 those attributes, enable this flag.
 
 <a name="egn"></a>
@@ -429,3 +429,25 @@ language code(en, de, it, fr). If no value or a non-supported value is
 set, the tokenizer will default to English. The tokenizer produces good
 results for other languages besides those four as well, the main problem
 are missing lists of abbreviations.
+
+<a name="elements"></a>
+## Elements with nongeneric Handling (beside metadata)
+| element name       
+|----------------------------------------|
+| text      |
+| body      |
+| lb        |
+| pb        |
+| w         |
+| phr       |
+| head      |
+| figure    |
+| div       |
+| p         |
+| foreign   |
+| m         |
+| unclear   |
+| surplus   |
+| gap       |
+| surplus   |
+
