@@ -296,7 +296,7 @@ those attributes, enable this flag.
 <a name="egn"></a>
 ### element.generic.node
 
-By default elements without a nongeneric handling in the importer are added
+By default elements without a [nongeneric](#elements) handling in the importer are added
 as hierarchical nodes. You can also import them as spans (by setting the
 property to "span") or ignore (by setting the property to "false") them.
 
@@ -306,7 +306,7 @@ element.generic.node = false
 ```
 
 Values different to "struct", "span" or "false" will make the importer ignore
-elements without a nongeneric handling as well.
+elements without a nongeneric handling as well. The default value is "struct".
 
 <a name="esr"></a>
 ### element.surplus.remove
@@ -324,7 +324,8 @@ to "false" you can make the TEIImporter ignore the element.
 In case of "false" these examples will be treated identically:
 
 ```xml
-<p>In the beginning was the Word, and the Word was with God, and the <unclear reason="illegible">Word</unclear> was God.
+<p>In the beginning was the Word, and the Word was with God,
+and the <unclear reason="illegible">Word</unclear> was God.
  </p>
 ```
 
@@ -337,8 +338,8 @@ In case of "false" these examples will be treated identically:
 <a name="ml"></a>
 ### metadata.lastpartonly
 
-Enabling this flag triggers the deletion of everything from metadata keys but what is
-after the last '/'. '@' characters are also removed.
+Enabling this flag triggers the deletion of everything from metadata keys aside from the part
+after the last '/'. The same goes for attributes, only the attribute name is kept.
 
 For example, this
 ```
@@ -355,21 +356,36 @@ date
 When handling metadata, the TEIImporter uses default mappings
 and mappings set by the user. This flag decides whether more than one
 SMetaAnnotation can contain the same information when metadata mappings are
-used. If set to "true", redudant metadata will be deleted. By default redundant metadata
-are not removed.
+used. If set to "false", redudant metadata will not be deleted. By default redundant metadata
+are removed.
 
 In case of a mapping like:
 ```
 annotation.element.rename=/fileDesc/titleStmt/author:author
 ```
-By default these metadata would be imported:
+and TEI-XML like:
+```xml
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <author>Joseph Addison</author>
+            </titleStmt>
+        </fileDesc>
+    </teiHeader>
+    ...
 ```
-/fileDesc/titleStmt/author:Joseph Addison
+
+
+By default only this metadate would be created:
+```
 author:Joseph Addison
 ```
 
-If this property is set to "true", the following would be the result:
+
+If this property is set to "false", the following would be the result:
 ```
+/fileDesc/titleStmt/author:Joseph Addison
 author:Joseph Addison
 ```
 
@@ -378,13 +394,13 @@ author:Joseph Addison
 <a name="mr1"></a>
 ### metadata.remove
 
-This flag enables the mechanism to exclude certain metadata defined by the keys in
+This flag enables the mechanism to exclude certain metadata defined by the names in
 metadata.remove.list .
 
 <a name="mrl"></a>
 ### metadata.remove.list
 
-Here you can define a list of keys of metadata to be omitted. Keys have to be separated by ";", e.g.:
+Here you can define a list of names to be omitted. Names have to be separated by ";", e.g.:
 ```
 metadata.remove.list = bibl;date;/fileDesc/publicationStmt/pubPlace
 ```
@@ -392,12 +408,31 @@ metadata.remove.list = bibl;date;/fileDesc/publicationStmt/pubPlace
 <a name="mr2"></a>
 ### metadata.rename
 
-In addition to (or even replacing) the default metadata key mappings you can
-set your own metadata key mappings with this flag. The following example
+In addition to (or even replacing) the default metadata name mappings you can
+set your own metadata name mappings with this flag. The following example
 illustrates this:
 
+```xml
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <sourceDesc>
+                <pubPlace>Berlin</pubPlace>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    ...
 ```
-metadata.rename = /fileDesc/publicationStmt/pubPlace:Place;/fileDesc/titleStmt/author:Author
+
+
+```
+metadata.rename = /fileDesc/sourceDesc/pubPlace:Place;/fileDesc/titleStmt/author:Author
+```
+
+this would lead to this created metadate:
+
+```
+Place = Berlin
 ```
 
 <a name="ttd"></a>
@@ -410,7 +445,7 @@ unexpected behaviour may occur.
 <a name="tts"></a>
 ### token.tokenization.sub
 
-In this default scenario, the text nodes between elements will be imported as tokens everywhere.
+By default, the text nodes between elements will be imported as tokens everywhere.
 This option should only be disabled if you can [guarantee that there is no text outside of the \<w\>-element](#ttd) or
 if you can get over losing parts of the primary text.
 
@@ -418,17 +453,17 @@ if you can get over losing parts of the primary text.
 ### token.tokenize
 
 This option is useful, if your TEI document contains sections of text that are not tokenized.
-By default, text is not tokenized. Using the tokenizer will slow the processing by a considerable amount of time.
+By default, text will not be tokenized by the TEIImporter. Using the tokenizer will slow the processing by a considerable amount of time.
 
 <a name="ttl"></a>
 ### token.tokenize.lang
 
 The tokenizer currently supports four languages: English, German,
 Italian, French. To choose a language, use the respective ISO 639-1
-language code(en, de, it, fr). If no value or a non-supported value is
+language code (en, de, it, fr). If no value or a non-supported value is
 set, the tokenizer will default to English. The tokenizer produces good
 results for other languages besides those four as well, the main problem
-are missing lists of abbreviations.
+would be missing lists for abbreviations.
 
 <a name="elements"></a>
 ## Elements with nongeneric Handling (beside metadata)
