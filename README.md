@@ -1,5 +1,5 @@
 ![SaltNPepper project](./md/img/SaltNPepper_logo2010.png)
-# pepperModules-GenericXMLModules
+# pepperModules-TEILModules
 This project provides a plugin for the linguistic converter framework Pepper (see https://github.com/korpling/pepper). Pepper is a pluggable framework to convert a variety of linguistic formats (like [TigerXML](http://www.ims.uni-stuttgart.de/forschung/ressourcen/werkzeuge/TIGERSearch/doc/html/TigerXML.html), the [EXMARaLDA format](http://www.exmaralda.org/), [PAULA](http://www.sfb632.uni-potsdam.de/paula.html) etc.) into each other. Furthermore Pepper uses Salt (see https://github.com/korpling/salt), the graph-based meta model for linguistic data, which acts as an intermediate model to reduce the number of mappings to be implemented. That means converting data from a format _A_ to format _B_ consists of two steps. First the data is mapped from format _A_ to Salt and second from Salt to format _B_. This detour reduces the number of Pepper modules from _n<sup>2</sup>-n_ (in the case of a direct mapping) to _2n_ to handle a number of n formats.
 
 ![n:n mappings via SaltNPepper](./md/img/puzzle.png)
@@ -11,7 +11,7 @@ In Pepper there are three different types of modules:
 
 For a simple Pepper workflow you need at least one importer and one exporter.
 
-This project provides an importer to import data coming from a wide range of xml formats to Salt. A detailed description of that mapping can be found in section [GenericXMLImporter](#details).
+This project provides an importer to import data coming from the [TEI P5 format](http://www.tei-c.org/Guidelines/P5/) to Salt. A detailed description of that mapping can be found in section [TEIImporter](#details).
 
 ## Requirements
 Since the here provided module is a plugin for Pepper, you need an instance of the Pepper framework. If you do not already have a running Pepper instance, click on the link below and download the latest stable version (not a SNAPSHOT):
@@ -21,25 +21,29 @@ Since the here provided module is a plugin for Pepper, you need an instance of t
 
 
 ## Install module
-If this Pepper module is not yet contained in your Pepper distribution, you can easily install it. Just open a command line and enter one of the following program calls:
+If this Pepper module is not yet contained in your Pepper distribution, you can easily install it. Just open a command line and start pepper.
 
-### Windows
+* Windows
 
-    pepperStart.bat is https://korpling.german.hu-berlin.de/saltnpepper/repository/repo/de/hu_berlin/german/korpling/saltnpepper/pepperModules/pepperModules-GenericXMLModules/1.1.2/de.hu_berlin.german.korpling.saltnpepper.pepperModules.pepperModules-GenericXMLModules_1.1.2.zip
+    pepperStart.bat 
 
-### Linux/Unix
+* Linux/Unix
 
-    bash pepperStart.sh is https://korpling.german.hu-berlin.de/saltnpepper/repository/repo/de/hu_berlin/german/korpling/saltnpepper/pepperModules/pepperModules-GenericXMLModules/1.1.2/de.hu_berlin.german.korpling.saltnpepper.pepperModules.pepperModules-GenericXMLModules_1.1.2.zip
+    bash pepperStart.sh 
 
+then type in command *is* and the path from where to install the module :
+```
+pepper> is XXX
+```
 
 ## Usage
-To use this module in your Pepper workflow, put the following lines into the workflow description file. Note the fixed order of xml elements in the workflow description file: &lt;importer/>, &lt;manipulator/>, &lt;exporter>. The GenericXMLImporter is an importer module, which can be addressed by one of the following alternatives.
+To use this module in your Pepper workflow, put the following lines into the workflow description file. Note the fixed order of xml elements in the workflow description file: &lt;importer/>, &lt;manipulator/>, &lt;exporter>. The TEIImporter is an importer module, which can be addressed by one of the following alternatives.
 A detailed description of the Pepper workflow can be found on the [Pepper project site](https://github.com/korpling/pepper). 
 
 ### a) Identify the module by name
 
 ```xml
-<importer name="GenericXMLImporter" path="PATH_TO_CORPUS"/>
+<importer name="TEIImporter" path="PATH_TO_CORPUS"/>
 ```
 
 ### b) Identify the module by formats
@@ -49,7 +53,7 @@ A detailed description of the Pepper workflow can be found on the [Pepper projec
 
 ### c) Use properties
 ```xml
-<importer name="GenericXMLImporter" path="PATH_TO_CORPUS">
+<importer name="TEIImporter" path="PATH_TO_CORPUS">
   <property key="PROPERTY_NAME">PROPERTY_VALUE</key>
 </importer>
 ```
