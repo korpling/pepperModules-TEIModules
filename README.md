@@ -23,13 +23,15 @@ Since the here provided module is a plugin for Pepper, you need an instance of t
 ## Install module
 If this Pepper module is not yet contained in your Pepper distribution, you can easily install it. Just open a command line and start pepper.
 
-* Windows
+**Windows**
+```
+pepperStart.bat 
+```
 
-    pepperStart.bat 
-
-* Linux/Unix
-
-    bash pepperStart.sh 
+**Linux/Unix**
+```
+bash pepperStart.sh 
+```
 
 then type in command *is* and the path from where to install the module :
 ```
