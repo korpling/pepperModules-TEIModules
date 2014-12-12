@@ -35,11 +35,11 @@ bash pepperStart.sh
 
 Then type in command *is* and the path from where to install the module:
 ```
-pepper> is XXX
+pepper> update de.hu_berlin.german.korpling.saltnpepper::pepperModules-TEIModules::https://korpling.german.hu-berlin.de/maven2/
 ```
 
 ## Usage
-To use this module in your Pepper workflow, put the following lines into the workflow description file. Note the fixed order of xml elements in the workflow description file: &lt;importer/>, &lt;manipulator/>, &lt;exporter>. The TEIImporter is an importer module, which can be addressed by one of the following alternatives.
+To use this module in your Pepper workflow, put the following lines into the workflow description file. Note the fixed order of xml elements in the workflow description file: &lt;importer/>, &lt;manipulator/>, &lt;exporter/>. The TEIImporter is an importer module, which can be addressed by one of the following alternatives.
 A detailed description of the Pepper workflow can be found on the [Pepper project site](https://github.com/korpling/pepper). 
 
 ### a) Identify the module by name
