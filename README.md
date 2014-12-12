@@ -82,7 +82,7 @@ This project has been funded by the [department of corpus linguistics and morpho
 
 
 
-# TEIImporter
+# <a name="details">TEIImporter</a>
 
 The TEIImporter imports data coming from [TEI-XML](http://www.tei-c.org/Guidelines/P5/) files to a [Salt](https://github.com/korpling/salt) model. This importer provides a wide range of customization possibilities via the here described set of properties. Before we talk about the possibility of customizing the mapping, we describe the general and default mapping from TEI to a Salt model.
 
