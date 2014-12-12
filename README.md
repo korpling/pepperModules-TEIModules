@@ -33,7 +33,7 @@ pepperStart.bat
 bash pepperStart.sh 
 ```
 
-then type in command *is* and the path from where to install the module :
+Then type in command *is* and the path from where to install the module:
 ```
 pepper> is XXX
 ```
