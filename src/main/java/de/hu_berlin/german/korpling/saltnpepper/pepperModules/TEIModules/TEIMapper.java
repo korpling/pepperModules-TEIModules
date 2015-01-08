@@ -996,23 +996,7 @@ public class TEIMapper extends PepperMapperImpl{
 				}
 				
 				else if (TAG_APP.equals(qName)) {
-					/*
-					getTagStack().push(TAG_APP);
 					
-					SStructure app_struc = SaltFactory.eINSTANCE.createSStructure();
-					app_struc.createSAnnotation(null, app_name, app_anno_value);
-					
-					if(attributes.getValue(ATT_XML_LANG)!=null) {
-						app_struc.createSAnnotation(null, ATT_RESP, attributes.getValue(ATT_RESP));
-					}
-					if(attributes.getValue(ATT_XML_LANG)!=null) {
-						app_struc.createSAnnotation(null, ATT_TYPE, attributes.getValue(ATT_TYPE));
-					}
-					
-					sDocGraph.addSNode(app_struc);
-					setDominatingStruc(app_struc);
-					getSNodeStack().add(app_struc);
-					*/
 				}
 				
 				else if (TAG_BODY.equals(qName)) {
