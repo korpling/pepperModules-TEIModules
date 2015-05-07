@@ -25,12 +25,12 @@ If this Pepper module is not yet contained in your Pepper distribution, you can 
 
 **Windows**
 ```
-pepperStart.bat 
+pepperStart.bat
 ```
 
 **Linux/Unix**
 ```
-bash pepperStart.sh 
+bash pepperStart.sh
 ```
 
 Then type in command *is* and the path from where to install the module:
@@ -40,7 +40,7 @@ pepper> update de.hu_berlin.german.korpling.saltnpepper::pepperModules-TEIModule
 
 ## Usage
 To use this module in your Pepper workflow, put the following lines into the workflow description file. Note the fixed order of xml elements in the workflow description file: &lt;importer/>, &lt;manipulator/>, &lt;exporter/>. The TEIImporter is an importer module, which can be addressed by one of the following alternatives.
-A detailed description of the Pepper workflow can be found on the [Pepper project site](https://github.com/korpling/pepper). 
+A detailed description of the Pepper workflow can be found on the [Pepper project site](https://github.com/korpling/pepper).
 
 ### a) Identify the module by name
 
@@ -65,7 +65,7 @@ Since this Pepper module is under a free license, please feel free to fork it fr
 If you have found any bugs, or have some feature request, please open an issue on github. If you need any help, please write an e-mail to saltnpepper@lists.hu-berlin.de .
 
 ## Funders
-This project has been funded by the [department of corpus linguistics and morphology](https://www.linguistik.hu-berlin.de/institut/professuren/korpuslinguistik/) of Humboldt-Universität zu Berlin, [Georgetown University](http://www.georgetown.edu/), [KOMeT](http://korpling.german.hu-berlin.de/komet/) and the [Sonderforschungsbereich 632](https://www.sfb632.uni-potsdam.de/en/). 
+This project has been funded by the [department of corpus linguistics and morphology](https://www.linguistik.hu-berlin.de/institut/professuren/korpuslinguistik/) of Humboldt-Universität zu Berlin, [Georgetown University](http://www.georgetown.edu/), [KOMeT](http://korpling.german.hu-berlin.de/komet/) and the [Sonderforschungsbereich 632](https://www.sfb632.uni-potsdam.de/en/).
 
 ## License
   Copyright 2014 Humboldt-Universität zu Berlin.
@@ -73,7 +73,7 @@ This project has been funded by the [department of corpus linguistics and morpho
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
- 
+
   http://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing, software
@@ -116,7 +116,7 @@ metadata in TEI can occur in very deep structures like
     ...
 ```
 
-they need to be flattened, e.g. to 
+they need to be flattened, e.g. to
 
 ```
 /fileDesc/titleStmt/title = "Gospel According to Mark"
@@ -155,7 +155,7 @@ to the Salt model.
 | [annotation.token.span](#ats)             | Boolean          | optional           | false              |
 | [annotation.value.rename](#avr)           | String           | optional           |                    |
 | [element.foreign.token](#eft)        		| Boolean          | optional           | true               |
-| [element.generic.attribute](#ega)         | Boolean          | optional           | false              |
+| [element.generic.attribute](#ega)         | Boolean          | optional           | true              |
 | [element.generic.node](#egn)              | span \| struct \| false| optional     | struct             |
 | [element.surplus.remove](#esr)	        | Boolean          | optional           | true               |
 | [element.unclear.token](#eut)        		| Boolean          | optional           | true               |
@@ -170,7 +170,7 @@ to the Salt model.
 | [token.tokenize.lang](#ttl)               | String           | optional           | en	             |
 
 <a name="adr"></a>
-### annotation.default.remove 
+### annotation.default.remove
 
 By default there is an annotation added to each node to indicate which element
 is responsible for this node. This flag disables adding these annotations.
@@ -207,7 +207,7 @@ from \<phr\>,
 
 a generic annotation is used. The default is to use the element-name.
 The annotation.element.rename flag allows for customizing the key of such an annotation.
-The following format has to be met: 
+The following format has to be met:
 
 ```
 annotation.element.rename = pb:PNAME;phr:Phrase
@@ -256,7 +256,7 @@ as spans (SSpan). By default, token annotations are not added as spans.
 
 The annotation.value.rename flag is very similar to [annotation.element.rename](#aer), beside here the annotation value can be customized. The format is:
 
-The following format has to be met: 
+The following format has to be met:
 
 ```
 annotation.element.rename = pb:PVALUE;phr:Phrase
@@ -296,8 +296,8 @@ In case of "false" these examples will be treated identically:
 <a name="ega"></a>
 ### element.generic.attribute
 
-By default, attributes to elements without [nongeneric](#elements) handling are ignored. To add
-those attributes, enable this flag.
+By default, attributes to elements without [nongeneric](#elements) handling are added. To disable adding
+these attributes, disable this flag.
 
 <a name="egn"></a>
 ### element.generic.node
@@ -473,7 +473,7 @@ would be missing lists for abbreviations.
 
 <a name="elements"></a>
 ## Elements with nongeneric Handling (beside metadata)
-| element name       
+| element name
 |----------------------------------------|
 | text      |
 | body      |
@@ -491,4 +491,3 @@ would be missing lists for abbreviations.
 | surplus   |
 | gap       |
 | surplus   |
-

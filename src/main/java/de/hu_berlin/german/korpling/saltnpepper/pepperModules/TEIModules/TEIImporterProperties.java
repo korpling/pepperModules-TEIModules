@@ -75,14 +75,14 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		addProperty(new PepperModuleProperty<Boolean>(PROP_ELEMENT_UNCLEAR_TOKEN, Boolean.class, "Does <unclear> exclusively include one token?", true, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_ELEMENT_FOREIGN_TOKEN, Boolean.class, "Does <foreign> exclusively include one token?", true, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_TOKEN_TOKENIZE, Boolean.class, "Do you want to tokenize the text?", false, false));
-		addProperty(new PepperModuleProperty<String>(PROP_TOKEN_TOKENIZE_LANG, String.class, "What language do you want to use for tokenization? (ISO 639-1 code)", false));
+		addProperty(new PepperModuleProperty<String>(PROP_TOKEN_TOKENIZE_LANG, String.class, "What language do you want to use for tokenization? (ISO 639-1 code)","", false));
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_METADATA_REDUNDANT_REMOVE, Boolean.class, "Do you want metadata with a custom mapping to appear only once?", true, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_ANNOTATION_DEFAULT_REMOVE, Boolean.class, "Do you want to remove default annotations(e.g. p=p)?", false, false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_ANNOTATION_NAMESPACE, Boolean.class, "Do you want to add the tag-namespace to SAnnotations?", false, false));
 		
 		addProperty(new PepperModuleProperty<String>(PROP_ELEMENT_GENERIC_NODE, String.class, "Do you want generic nodes? And if yes what kind?", "struct", false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_ELEMENT_GENERIC_ATTRIBUTE, Boolean.class, "Do you want to include generic attribute annotations?", false, false));
+		addProperty(new PepperModuleProperty<Boolean>(PROP_ELEMENT_GENERIC_ATTRIBUTE, Boolean.class, "Do you want to include generic attribute annotations?", true, false));
 		
 		addProperty(new PepperModuleProperty<Boolean>(PROP_ANNOTATION_TOKEN_SPAN, Boolean.class, "Do you want to have spans for all token annotations?", false, false));
 		
