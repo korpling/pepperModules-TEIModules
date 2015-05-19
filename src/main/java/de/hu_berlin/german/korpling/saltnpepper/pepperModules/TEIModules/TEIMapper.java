@@ -553,7 +553,12 @@ public class TEIMapper extends PepperMapperImpl{
 					}
 					while (!getSAnnoStack().isEmpty()) {
 						createTokenAnnoSpan(temp_tok, getSAnnoStack().peek());
-						temp_tok.addSAnnotation(getSAnnoStack().pop());
+						if (temp_tok.getLabel(null, getSAnnoStack().peek().getName()) == null){
+							temp_tok.addSAnnotation(getSAnnoStack().pop());
+						}
+						else {
+							getSAnnoStack().pop();
+						}
 					}
 					//add token to stack for sspans
 					push_spans(temp_tok);
@@ -653,7 +658,7 @@ public class TEIMapper extends PepperMapperImpl{
 				line.createSAnnotation(null, tag, annovalue);
 			}
 			
-			if (generic_attr){
+			if (generic_attr && attrMap != null){
 				Attributes attributes = attrMap.get(tag);
 				int length = attributes.getLength();
 				for(int i=0; i<length; i++){
@@ -905,8 +910,6 @@ public class TEIMapper extends PepperMapperImpl{
 						setToken(txt);
 						getTagStack().push(TAG_FOREIGN);
 						
-						SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
-						getSAnnoStack().add(wordanno);
 						if(attributes.getValue(ATT_XML_LANG)!=null) {
 							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
 							tempanno.setSName(ATT_XML_LANG);
