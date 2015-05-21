@@ -667,14 +667,19 @@ public class TEIMapper extends PepperMapperImpl{
 					
 					SAnnotation tempAnno = sDocGraph.createSAnnotation(null , name, value);
 					line.addSAnnotation(tempAnno);
-				}
-				
-				
-				
+				}	
 			}
-			
-			
-
+		}
+		
+		private void addGenericAnno(SNode node, Attributes attr, String namespace){
+			int length = attr.getLength();
+			for(int i=0; i<length; i++){
+				String name = attr.getQName(i);
+				String value = attr.getValue(i);
+				
+				SAnnotation tempAnno = sDocGraph.createSAnnotation(namespace, name, value);
+				node.addSAnnotation(tempAnno);
+			}
 		}
 		
 		/**
@@ -777,6 +782,9 @@ public class TEIMapper extends PepperMapperImpl{
 				//represent the <text>-tag in Salt
 				SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
 				addDefaultAnnotation(text_struc, text_name, text_anno_value, namespace);
+				
+				addGenericAnno(text_struc, attributes, null);
+				
 				getSNodeStack().add(text_struc);
 				sDocGraph.addSNode(text_struc);
 			}
