@@ -222,7 +222,6 @@ public class TEIImporterReaderTest {
 
 		assertEquals("kop",getFixture().getsDocGraph().getSStructures().get(1).getSAnnotations().get(1).getName());
 		assertEquals("Tisch",getFixture().getsDocGraph().getSStructures().get(1).getSAnnotations().get(1).getSValueSTEXT());
-		
 		assertEquals("lat",getFixture().getsDocGraph().getSStructures().get(2).getSAnnotations().get(1).getName());
 		assertEquals("Ein",getFixture().getsDocGraph().getSStructures().get(2).getSAnnotations().get(1).getSValueSTEXT());
 	}

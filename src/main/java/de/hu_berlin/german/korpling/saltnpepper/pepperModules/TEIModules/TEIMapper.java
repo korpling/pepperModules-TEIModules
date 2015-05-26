@@ -783,7 +783,7 @@ public class TEIMapper extends PepperMapperImpl{
 				SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
 				addDefaultAnnotation(text_struc, text_name, text_anno_value, namespace);
 				
-				addGenericAnno(text_struc, attributes, null);
+				addGenericAnno(text_struc, attributes, namespace);
 				
 				getSNodeStack().add(text_struc);
 				sDocGraph.addSNode(text_struc);
@@ -853,6 +853,7 @@ public class TEIMapper extends PepperMapperImpl{
 					
 					SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
 					addDefaultAnnotation(phr_struc, phr_name, phr_anno_value, namespace);
+					addGenericAnno(phr_struc, attributes, namespace);
 					sDocGraph.addSNode(phr_struc);
 					setDominatingStruc(phr_struc);
 					getSNodeStack().add(phr_struc);
@@ -867,6 +868,7 @@ public class TEIMapper extends PepperMapperImpl{
 						
 						SStructure head_struc = SaltFactory.eINSTANCE.createSStructure();
 						addDefaultAnnotation(head_struc, body_head_name, body_head_anno_value, namespace);
+						addGenericAnno(head_struc, attributes, namespace);
 						sDocGraph.addSNode(head_struc);
 						setDominatingStruc(head_struc);
 						getSNodeStack().add(head_struc);
@@ -883,7 +885,7 @@ public class TEIMapper extends PepperMapperImpl{
 					
 					SStructure div_struc = SaltFactory.eINSTANCE.createSStructure();
 					addDefaultAnnotation(div_struc, div_name, div_anno_value, namespace);
-					div_struc.createSAnnotation(namespace, ATT_TYPE, attributes.getValue(ATT_TYPE));
+					addGenericAnno(div_struc, attributes, namespace);
 					sDocGraph.addSNode(div_struc);
 					setDominatingStruc(div_struc);
 					getSNodeStack().add(div_struc);
@@ -895,6 +897,7 @@ public class TEIMapper extends PepperMapperImpl{
 					getTagStack().push(TAG_P);	
 					SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
 					addDefaultAnnotation(p_struc, p_name, p_anno_value, namespace);
+					addGenericAnno(p_struc, attributes, namespace);
 					sDocGraph.addSNode(p_struc);
 					setDominatingStruc(p_struc);
 					getSNodeStack().add(p_struc);
@@ -906,10 +909,13 @@ public class TEIMapper extends PepperMapperImpl{
 						setToken(txt);
 						getTagStack().push(TAG_FOREIGN);
 						
-						if(attributes.getValue(ATT_XML_LANG)!=null) {
+						int length = attributes.getLength();
+						for(int i=0; i<length; i++){
+							String name = attributes.getQName(i);
+							String value = attributes.getValue(i);
 							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno.setSName(ATT_XML_LANG);
-							tempanno.setValue(attributes.getValue(ATT_XML_LANG));
+							tempanno.setSName(name);
+							tempanno.setValue(attributes.getValue(value));
 							tempanno.setNamespace(namespace);
 							getSAnnoStack().add(tempanno);
 						}
@@ -924,18 +930,31 @@ public class TEIMapper extends PepperMapperImpl{
 					
 					SStructure figure_struc = SaltFactory.eINSTANCE.createSStructure();
 					addDefaultAnnotation(figure_struc, figure_name, figure_anno_value, namespace);
+					addGenericAnno(figure_struc, attributes, namespace);
 					sDocGraph.addSNode(figure_struc);
 					setDominatingStruc(figure_struc);
 					getSNodeStack().add(figure_struc);
 					
-					figure_struc.createSAnnotation(namespace, ATT_REND, attributes.getValue(ATT_REND));
+					
 					
 					setEmptyToken();
 				}
 				
 				else if (TAG_M.equals(qName)) {
+					String namespace = retrieveNamespace(use_namespace, figure_name);
 					setToken(txt);
 					getTagStack().push(TAG_M);
+					
+					int length = attributes.getLength();
+					for(int i=0; i<length; i++){
+						String name = attributes.getQName(i);
+						String value = attributes.getValue(i);
+						SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+						tempanno.setSName(name);
+						tempanno.setValue(attributes.getValue(value));
+						tempanno.setNamespace(namespace);
+						getSAnnoStack().add(tempanno);
+					}
 				}
 				
 				else if (TAG_UNCLEAR.equals(qName)) {
@@ -951,45 +970,52 @@ public class TEIMapper extends PepperMapperImpl{
 						SAnnotation wordanno2 = SaltFactory.eINSTANCE.createSAnnotation();
 						wordanno2.setSName(TAG_UNCLEAR);
 						getSAnnoStack().add(wordanno2);
-						
-						if(attributes.getValue(ATT_ATMOST)!=null && attributes.getValue(ATT_ATLEAST)!=null) {
+
+						int length = attributes.getLength();
+						for(int i=0; i<length; i++){
+							String name = attributes.getQName(i);
+							String value = attributes.getValue(i);
 							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno.setSName(ATT_ATMOST);
-							tempanno.setValue(attributes.getValue(ATT_ATMOST));
+							tempanno.setSName(name);
+							tempanno.setValue(attributes.getValue(value));
 							tempanno.setNamespace(namespace);
 							getSAnnoStack().add(tempanno);
-							
-							SAnnotation tempanno2 = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno2.setSName(ATT_ATLEAST);
-							tempanno2.setValue(attributes.getValue(ATT_ATLEAST));
-							tempanno2.setNamespace(namespace);
-							getSAnnoStack().add(tempanno2);
 						}
+						
 					}
 				}
 				
 				else if (TAG_SURPLUS.equals(qName)) {
+					String namespace = retrieveNamespace(use_namespace, unclear_name);
 					setToken(txt);
+					
+					int length = attributes.getLength();
+					for(int i=0; i<length; i++){
+						String name = attributes.getQName(i);
+						String value = attributes.getValue(i);
+						SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+						tempanno.setSName(name);
+						tempanno.setValue(attributes.getValue(value));
+						tempanno.setNamespace(namespace);
+						getSAnnoStack().add(tempanno);
+					}
 				}
 				
 				else if (TAG_GAP.equals(qName)) {
+					String namespace = retrieveNamespace(use_namespace, unclear_name);
 					setToken(txt);
 					getTagStack().push(TAG_GAP);
 					
-					SAnnotation reasonanno = SaltFactory.eINSTANCE.createSAnnotation();
-					reasonanno.setSName(ATT_REASON);
-					reasonanno.setValue(attributes.getValue(ATT_REASON));
-					getSAnnoStack().add(reasonanno);
-					
-					SAnnotation extentanno = SaltFactory.eINSTANCE.createSAnnotation();
-					extentanno.setSName(ATT_EXTENT);
-					extentanno.setValue(attributes.getValue(ATT_EXTENT));
-					getSAnnoStack().add(extentanno);
-					
-					SAnnotation unitanno = SaltFactory.eINSTANCE.createSAnnotation();
-					unitanno.setSName(ATT_UNIT);
-					unitanno.setValue(attributes.getValue(ATT_UNIT));
-					getSAnnoStack().add(unitanno);
+					int length = attributes.getLength();
+					for(int i=0; i<length; i++){
+						String name = attributes.getQName(i);
+						String value = attributes.getValue(i);
+						SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
+						tempanno.setSName(name);
+						tempanno.setValue(attributes.getValue(value));
+						tempanno.setNamespace(namespace);
+						getSAnnoStack().add(tempanno);
+					}
 					
 					setGapToken();
 				}
