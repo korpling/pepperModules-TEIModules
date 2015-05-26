@@ -471,7 +471,7 @@ public class TEIMapper extends PepperMapperImpl{
 		private void setGapToken(){
 			SToken temp_tok = null;
 			temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
-			for(int i=0; !getSAnnoStack().isEmpty(); i++){
+			while(!getSAnnoStack().isEmpty()){
 				createTokenAnnoSpan(temp_tok, getSAnnoStack().peek());
 				temp_tok.addSAnnotation(getSAnnoStack().pop());
 			}
