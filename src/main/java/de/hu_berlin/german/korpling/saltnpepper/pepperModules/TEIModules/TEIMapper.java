@@ -807,6 +807,7 @@ public class TEIMapper extends PepperMapperImpl{
 					getTagStack().push(TAG_W);
 					if (!(default_tokenization && default_token_tag==TAG_W)){
 						SStructure w_struc = SaltFactory.eINSTANCE.createSStructure();
+						addGenericAnno(w_struc, attributes, namespace);
 						SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
 						w_struc.addSAnnotation(wordanno);
 						
@@ -831,26 +832,13 @@ public class TEIMapper extends PepperMapperImpl{
 						SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
 						getSAnnoStack().add(wordanno);
 						
-						if(attributes.getValue(ATT_TYPE)!=null) {
+						int length = attributes.getLength();
+						for(int i=0; i<length; i++){
+							String name = attributes.getQName(i);
+							String value = attributes.getValue(i);
 							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno.setSName(ATT_TYPE);
-							tempanno.setValue(attributes.getValue(ATT_TYPE));
-							tempanno.setNamespace(namespace);
-							getSAnnoStack().add(tempanno);
-						}
-						
-						if(attributes.getValue(ATT_LEMMA)!=null) {
-							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno.setSName(ATT_LEMMA);
-							tempanno.setValue(attributes.getValue(ATT_LEMMA));
-							tempanno.setNamespace(namespace);
-							getSAnnoStack().add(tempanno);
-						}
-						
-						if(attributes.getValue(ATT_XML_LANG)!=null) {
-							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno.setSName(ATT_XML_LANG);
-							tempanno.setValue(attributes.getValue(ATT_XML_LANG));
+							tempanno.setSName(name);
+							tempanno.setValue(attributes.getValue(value));
 							tempanno.setNamespace(namespace);
 							getSAnnoStack().add(tempanno);
 						}
