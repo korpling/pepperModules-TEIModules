@@ -473,7 +473,13 @@ public class TEIMapper extends PepperMapperImpl{
 			temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
 			while(!getSAnnoStack().isEmpty()){
 				createTokenAnnoSpan(temp_tok, getSAnnoStack().peek());
-				temp_tok.addSAnnotation(getSAnnoStack().pop());
+				
+				if (temp_tok.getLabel(null, getSAnnoStack().peek().getName()) == null){
+					temp_tok.addSAnnotation(getSAnnoStack().pop());
+				}
+				else {
+					getSAnnoStack().pop();
+				}
 			}
 			setDominatingToken(temp_tok);
 			
@@ -1155,9 +1161,13 @@ public class TEIMapper extends PepperMapperImpl{
 							
 							while (!getSAnnoStack().isEmpty()) {
 								
-								temp_tok.addSAnnotation(getSAnnoStack().pop());
+								if (temp_tok.getLabel(null, getSAnnoStack().peek().getName()) == null){
+									temp_tok.addSAnnotation(getSAnnoStack().pop());
+								}
+								else {
+									getSAnnoStack().pop();
+								}
 							}
-							
 						}
 						setToken(txt);
 					}
