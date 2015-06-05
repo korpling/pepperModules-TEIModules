@@ -62,7 +62,7 @@ public class TEIImporterTest extends PepperImporterTest{
 		
 		FormatDesc formatDef= new FormatDesc();
 		formatDef.setFormatName("tei");
-		formatDef.setFormatVersion("2.6.0");
+		formatDef.setFormatVersion("P5 2.6.0");
 		this.supportedFormatsCheck.add(formatDef);
 		
 	}
