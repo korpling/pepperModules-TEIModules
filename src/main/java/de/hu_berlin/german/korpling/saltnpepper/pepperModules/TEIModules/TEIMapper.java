@@ -666,14 +666,16 @@ public class TEIMapper extends PepperMapperImpl{
 			
 			if (generic_attr && attrMap != null){
 				Attributes attributes = attrMap.get(tag);
-				int length = attributes.getLength();
-				for(int i=0; i<length; i++){
-					String name = attributes.getQName(i);
-					String value = attributes.getValue(i);
-					
-					SAnnotation tempAnno = sDocGraph.createSAnnotation(null , name, value);
-					line.addSAnnotation(tempAnno);
-				}	
+				if (attributes!= null){
+					int length = attributes.getLength();
+					for(int i=0; i<length; i++){
+						String name = attributes.getQName(i);
+						String value = attributes.getValue(i);
+						
+						SAnnotation tempAnno = sDocGraph.createSAnnotation(null , name, value);
+						line.addSAnnotation(tempAnno);
+					}
+				}
 			}
 		}
 		
