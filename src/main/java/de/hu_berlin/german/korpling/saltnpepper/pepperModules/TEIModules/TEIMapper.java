@@ -662,18 +662,15 @@ public class TEIMapper extends PepperMapperImpl{
 			SSpan line = sDocGraph.createSSpan(overlappingTokens);
 			if (line != null){
 				line.createSAnnotation(null, tag, annovalue);
-			}
-			
-			if (generic_attr && attrMap != null){
-				Attributes attributes = attrMap.get(tag);
-				if (attributes!= null){
-					int length = attributes.getLength();
-					for(int i=0; i<length; i++){
-						String name = attributes.getQName(i);
-						String value = attributes.getValue(i);
-						
-						SAnnotation tempAnno = sDocGraph.createSAnnotation(null , name, value);
-						line.addSAnnotation(tempAnno);
+				if (generic_attr && attrMap != null){
+					Attributes attributes = attrMap.get(tag);
+					if (attributes!= null){
+						int length = attributes.getLength();
+						for(int i=0; i<length; i++){
+							String name = attributes.getQName(i);
+							String value = attributes.getValue(i);
+							line.createSAnnotation(null , name, value);
+						}
 					}
 				}
 			}
