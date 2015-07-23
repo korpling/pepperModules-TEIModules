@@ -28,6 +28,7 @@ import org.eclipse.emf.common.util.EList;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
+import org.xml.sax.helpers.AttributesImpl;
 
 import com.neovisionaries.i18n.LanguageCode;
 
@@ -710,7 +711,7 @@ public class TEIMapper extends PepperMapperImpl{
 				attrMap = new Hashtable<>();
 			}
 		    
-			attrMap.put(name, attr);
+			attrMap.put(name, new AttributesImpl(attr));
 			
 			Stack<SToken> gen_stack = new Stack<>();
 			genericSpanMap.put(name, gen_stack);
