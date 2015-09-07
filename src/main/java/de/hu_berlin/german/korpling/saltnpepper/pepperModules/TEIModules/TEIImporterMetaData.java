@@ -235,7 +235,7 @@ public class TEIImporterMetaData {
 	 * @param sdoc SDocument
 	 * @param map contains mappings from xpath to customized annotation
 	 */
-	public void add_to_SDoc(SDocument sdoc, Map<String,String> map, Boolean lastPartOnly, Set<String> exclude, Boolean excludeMetadata){
+	public void add_to_SDoc(SDocument sdoc, Map<String,String> map, Boolean lastPartOnly, Set<String> exclude){
 		Set<String> keySet = map.keySet();
 		Iterator<String> it = keySet.iterator();
 		while (it.hasNext()){
@@ -247,10 +247,10 @@ public class TEIImporterMetaData {
 				tempkey = tempArray[len-1];
 				tempkey = tempkey.replace("@", "");
 			}
-			
-			
 			if (tempvalue.length() > 0){
-				if(!(excludeMetadata && exclude.contains(tempkey))){
+				String cleanedKey= tempkey.replaceAll("\\[\\d\\]", "");
+				
+				if( (!exclude.contains(tempkey)) && (!exclude.contains(cleanedKey))){
 					if(sdoc.getSMetaAnnotation(tempkey) == null){
 						sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
 					}

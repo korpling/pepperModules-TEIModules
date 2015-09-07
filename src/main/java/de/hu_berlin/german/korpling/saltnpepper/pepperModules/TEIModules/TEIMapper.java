@@ -81,7 +81,7 @@ public class TEIMapper extends PepperMapperImpl{
 		private Boolean token_anno_span = false;
 		
 		private Boolean lastPart = false;
-		private Boolean excludeMetadata = false;
+//		private Boolean excludeMetadata = false;
 		
 		private Set<String> excludeMetaSet = null;
 		
@@ -330,7 +330,6 @@ public class TEIMapper extends PepperMapperImpl{
 			lastPart = props.isUseLastPart();
 			
 			token_anno_span = props.isUseTokenAnnoSpan();
-			excludeMetadata = props.isUseExcludeMetadata();
 			
 			//fill metadata
 			props.fillMappings();
@@ -1078,7 +1077,7 @@ public class TEIMapper extends PepperMapperImpl{
 				Map<String, String> sineonesmap = tei_metadata.remove_ones(tei_metadata.getXPathMap());
 				Map<String, String> completedmappings = tei_metadata.mapToXpathMap(sineonesmap, united, del_redundant_metadata);
 				
-				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings, lastPart, excludeMetaSet, excludeMetadata);
+				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings, lastPart, excludeMetaSet);
 			}
 			
 			else if (metadata){

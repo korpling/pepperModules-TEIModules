@@ -59,7 +59,6 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public static final String PROP_ANNOTATION_TOKEN_SPAN = "annotation.token.span";
 	
 	public static final String PROP_METADATA_LASTPARTONLY = "metadata.lastpartonly";
-	public static final String PROP_METADATA_REMOVE = "metadata.remove";
 	public static final String PROP_METADATA_REMOVE_LIST = "metadata.remove.list";
 
 	
@@ -91,7 +90,6 @@ public class TEIImporterProperties extends PepperModuleProperties{
 		
 		addProperty(new PepperModuleProperty<String>(PROP_METADATA_RENAME, String.class, "String containing the metadata mappings set by the user", "", false));
 		addProperty(new PepperModuleProperty<Boolean>(PROP_METADATA_LASTPARTONLY, Boolean.class, "Do you want to remove everything from metadata but what is after the last '/'?", false, false));
-		addProperty(new PepperModuleProperty<Boolean>(PROP_METADATA_REMOVE, Boolean.class, "Do you want to exclude metadata with keys defined in ExcludeMetadataList?", false, false));
 		addProperty(new PepperModuleProperty<String>(PROP_METADATA_REMOVE_LIST, String.class, "List of keys of metadata to be omitted.", "", false));
 	}
 	
@@ -275,19 +273,6 @@ public class TEIImporterProperties extends PepperModuleProperties{
 	public boolean isUseLastPart(){
 		boolean retVal = false;
 		String prop = getProperty(PROP_METADATA_LASTPARTONLY).getValue().toString();
-		if((prop!=null)&&(!prop.isEmpty())){
-			retVal = Boolean.valueOf(prop);
-		}
-		return retVal;
-	}
-	
-	/**
-	 * method to retrieve value of LastPartOnlyMetadata
-	 * @return boolean value set by the user(or default)
-	 */
-	public boolean isUseExcludeMetadata(){
-		boolean retVal = false;
-		String prop = getProperty(PROP_METADATA_REMOVE).getValue().toString();
 		if((prop!=null)&&(!prop.isEmpty())){
 			retVal = Boolean.valueOf(prop);
 		}

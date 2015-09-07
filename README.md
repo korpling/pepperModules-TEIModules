@@ -394,15 +394,6 @@ If this property is set to "false", the following would be the result:
 /fileDesc/titleStmt/author:Joseph Addison
 author:Joseph Addison
 ```
-
-
-
-<a name="mr1"></a>
-### metadata.remove
-
-This flag enables the mechanism to exclude certain metadata defined by the names in
-metadata.remove.list .
-
 <a name="mrl"></a>
 ### metadata.remove.list
 
@@ -410,6 +401,24 @@ Here you can define a list of names to be omitted. Names have to be separated by
 ```
 metadata.remove.list = bibl;date;/fileDesc/publicationStmt/pubPlace
 ```
+In case there are multiple elements with the same name e.g.:
+```
+<a>
+	<b/>
+    <b/>
+    <b/>
+</a>
+``` 
+you can either ignore them all via:
+```
+metadata.remove.list = a/b
+```
+or ignore specific elements by using the position of the elements e.g.:
+```
+metadata.remove.list = a/b[2]
+```
+Here the second occurrence is ignored.
+
 
 <a name="mr2"></a>
 ### metadata.rename
