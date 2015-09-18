@@ -32,9 +32,11 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 @Component(name = "TEIImporterComponent", factory = "PepperImporterComponentFactory")
 public class TEIImporter extends PepperImporterImpl implements PepperImporter {
 
+	public static final String MODULE_NAME="TEIImporter";
+	
 	public TEIImporter() {
 		super();
-		this.setName("TEIImporter");
+		this.setName(MODULE_NAME);
 		setSupplierContact(URI.createURI("saltnpepper@lists.hu-berlin.de"));
 		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-TEIModules"));
 		setDesc("This importer transforms data in TEI format (see http://www.tei-c.org/index.xml) to a Salt model. Please note that this module only supports a sbset of the TEI P5 guidelines. ");
