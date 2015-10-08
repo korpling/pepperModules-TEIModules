@@ -24,10 +24,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.corpus_tools.salt.common.SDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
 public class TEIImporterMetaData {
 	private static Logger logger = LoggerFactory.getLogger(TEIImporterMetaData.class);
@@ -277,8 +276,8 @@ public class TEIImporterMetaData {
 				String cleanedKey = tempkey.replaceAll("\\[\\d\\]", "");
 
 				if ((!exclude.contains(tempkey)) && (!exclude.contains(cleanedKey))) {
-					if (sdoc.getSMetaAnnotation(tempkey) == null) {
-						sdoc.createSMetaAnnotation(null, tempkey, tempvalue);
+					if (sdoc.getMetaAnnotation(tempkey) == null) {
+						sdoc.createMetaAnnotation(null, tempkey, tempvalue);
 					} else {
 						logger.warn("You try to add a metadatum using a key for the second time. This second one will be ignored!");
 					}

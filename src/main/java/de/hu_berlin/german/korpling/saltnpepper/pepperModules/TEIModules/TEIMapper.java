@@ -17,14 +17,24 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
+import org.corpus_tools.salt.SaltFactory;
+import org.corpus_tools.salt.common.SDocumentGraph;
+import org.corpus_tools.salt.common.SDominanceRelation;
+import org.corpus_tools.salt.common.SSpan;
+import org.corpus_tools.salt.common.SStructure;
+import org.corpus_tools.salt.common.STextualDS;
+import org.corpus_tools.salt.common.SToken;
+import org.corpus_tools.salt.common.tokenizer.Tokenizer;
+import org.corpus_tools.salt.core.SAnnotation;
+import org.corpus_tools.salt.core.SNode;
+import org.corpus_tools.salt.semantics.SWordAnnotation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -36,19 +46,6 @@ import com.neovisionaries.i18n.LanguageCode;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
-import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
-import de.hu_berlin.german.korpling.saltnpepper.salt.graph.exceptions.GraphInsertException;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDominanceRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpan;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructure;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructuredNode;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SWordAnnotation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltSemantics.SaltSemanticsFactory;
 
 public class TEIMapper extends PepperMapperImpl {
 	Logger logger = LoggerFactory.getLogger(TEIImporter.MODULE_NAME);
@@ -56,7 +53,7 @@ public class TEIMapper extends PepperMapperImpl {
 	@Override
 	public DOCUMENT_STATUS mapSDocument() {
 		TEIImporterProperties props = ((TEIImporterProperties) getProperties());
-		SDocumentGraph docGraph = getSDocument().getSDocumentGraph();
+		SDocumentGraph docGraph = getDocument().getDocumentGraph();
 		TEIImporterReader reader = new TEIImporterReader(props);
 		reader.setsDocGraph(docGraph);
 		this.readXMLResource(reader, getResourceURI());
@@ -208,7 +205,7 @@ public class TEIMapper extends PepperMapperImpl {
 		 * 
 		 * @return sNodeStack
 		 */
-		private Stack<SNode> getSNodeStack() {
+		private Stack<SNode> getNodeStack() {
 			if (sNodeStack == null)
 				sNodeStack = new Stack<SNode>();
 			return (sNodeStack);
@@ -298,7 +295,7 @@ public class TEIMapper extends PepperMapperImpl {
 		/**
 		 * tokenizer variable
 		 */
-		de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.tokenizer.Tokenizer tokenizer = null;
+		Tokenizer tokenizer = null;
 
 		/**
 		 * gets the properties instance
@@ -392,7 +389,7 @@ public class TEIMapper extends PepperMapperImpl {
 		public TEIImporterReader() {
 			// get the parameter values
 			super();
-			sDocGraph = SaltFactory.eINSTANCE.createSDocumentGraph();
+			sDocGraph = SaltFactory.createSDocumentGraph();
 		}
 
 		/**
@@ -409,10 +406,10 @@ public class TEIMapper extends PepperMapperImpl {
 		 *            token to be added
 		 */
 		private void setDominatingToken(SToken token) {
-			SDominanceRelation sDominatingRelation = SaltFactory.eINSTANCE.createSDominanceRelation();
-			sDominatingRelation.setSource((SStructuredNode) (getSNodeStack().peek()));
-			sDominatingRelation.setSStructuredTarget(token);
-			sDocGraph.addSRelation(sDominatingRelation);
+			SDominanceRelation sDominatingRelation = SaltFactory.createSDominanceRelation();
+			sDominatingRelation.setSource((SStructure) (getNodeStack().peek()));
+			sDominatingRelation.setTarget(token);
+			sDocGraph.addRelation(sDominatingRelation);
 		}
 
 		/**
@@ -423,10 +420,10 @@ public class TEIMapper extends PepperMapperImpl {
 		 *            SStructure to be added
 		 */
 		private void setDominatingStruc(SStructure struc) {
-			SDominanceRelation sDominatingRelation = SaltFactory.eINSTANCE.createSDominanceRelation();
-			sDominatingRelation.setSource((SStructuredNode) (getSNodeStack().peek()));
-			sDominatingRelation.setSStructuredTarget(struc);
-			sDocGraph.addSRelation(sDominatingRelation);
+			SDominanceRelation sDominatingRelation = SaltFactory.createSDominanceRelation();
+			sDominatingRelation.setSource((SStructure) (getNodeStack().peek()));
+			sDominatingRelation.setTarget(struc);
+			sDocGraph.addRelation(sDominatingRelation);
 		}
 
 		/**
@@ -436,7 +433,7 @@ public class TEIMapper extends PepperMapperImpl {
 		 *            primary text that is to be manipulated
 		 */
 		private void addSpace(STextualDS text) {
-			text.setSText(text.getSText() + " ");
+			text.setText(text.getText() + " ");
 		}
 
 		/**
@@ -453,7 +450,7 @@ public class TEIMapper extends PepperMapperImpl {
 		 */
 		private void addDefaultAnnotation(SNode node, String name, String value, String namespace) {
 			if (!skip_default_annotations) {
-				node.createSAnnotation(namespace, name, value);
+				node.createAnnotation(namespace, name, value);
 			}
 		}
 
@@ -473,11 +470,11 @@ public class TEIMapper extends PepperMapperImpl {
 		 */
 		private void setEmptyToken() {
 			SToken temp_tok = null;
-			if (primaryText.getSEnd() == null) {
+			if (primaryText.getEnd() == null) {
 				addSpace(primaryText);
 			}
 
-			temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
+			temp_tok = sDocGraph.createToken(primaryText, primaryText.getEnd(), primaryText.getEnd());
 			setDominatingToken(temp_tok);
 
 			push_spans(temp_tok);
@@ -489,8 +486,8 @@ public class TEIMapper extends PepperMapperImpl {
 		 */
 		private void createTokenAnnoSpan(SToken token, SAnnotation anno) {
 			if (token_anno_span) {
-				SSpan span = sDocGraph.createSSpan(token);
-				span.addSAnnotation(anno);
+				SSpan span = sDocGraph.createSpan(token);
+				span.addAnnotation(anno);
 			}
 		}
 
@@ -500,7 +497,7 @@ public class TEIMapper extends PepperMapperImpl {
 		 */
 		private void setGapToken() {
 			SToken temp_tok = null;
-			temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
+			temp_tok = sDocGraph.createToken(primaryText, primaryText.getEnd(), primaryText.getEnd());
 			while (!getSAnnoStack().isEmpty()) {
 				createTokenAnnoSpan(temp_tok, getSAnnoStack().peek());
 
@@ -510,7 +507,7 @@ public class TEIMapper extends PepperMapperImpl {
 						// clear what is causing the underlying problem: The
 						// occuring error is that annotations cannot be added
 						// twice for SWordAnnotation
-						temp_tok.addSAnnotation(getSAnnoStack().pop());
+						temp_tok.addAnnotation(getSAnnoStack().pop());
 					} catch (Exception e) {
 						logger.warn(e.getMessage());
 					}
@@ -532,7 +529,7 @@ public class TEIMapper extends PepperMapperImpl {
 		 *         alternatively
 		 */
 		private Boolean checkOutgoingRelations(SNode closingStructure) {
-			if (closingStructure.getOutgoingSRelations().size() < 1) {
+			if (closingStructure.getOutRelations().size() < 1) {
 				return false;
 			} else {
 				return true;
@@ -544,14 +541,14 @@ public class TEIMapper extends PepperMapperImpl {
 		 * assigned to the SNode; if not an empty token is added
 		 */
 		private void popNodeWithNoTokenCheck() {
-			if (!getSNodeStack().empty()) {
-				if (checkOutgoingRelations(getSNodeStack().peek())) {
-					getSNodeStack().pop();
+			if (!getNodeStack().empty()) {
+				if (checkOutgoingRelations(getNodeStack().peek())) {
+					getNodeStack().pop();
 				}
 
 				else {
 					setEmptyToken();
-					getSNodeStack().pop();
+					getNodeStack().pop();
 				}
 			}
 		}
@@ -572,14 +569,14 @@ public class TEIMapper extends PepperMapperImpl {
 					 * primaryText with tempto avoid "null" as part of the
 					 * string; otherwise add temp to primaryText
 					 */
-					if (str.length() > 0 && primaryText.getSText() == null) {
+					if (str.length() > 0 && primaryText.getText() == null) {
 						String tempstr;
 						tempstr = str.toString();
 						tempstr = tempstr.replaceAll("\\s+", " ");
 						tempstr = tempstr.trim();
 						// needs to be named
-						primaryText.setSText(tempstr);
-						temp_tok = sDocGraph.createSToken(primaryText, 0, primaryText.getSEnd());
+						primaryText.setText(tempstr);
+						temp_tok = sDocGraph.createToken(primaryText, 0, primaryText.getEnd());
 						setDominatingToken(temp_tok);
 					}
 
@@ -587,23 +584,23 @@ public class TEIMapper extends PepperMapperImpl {
 					 * add a single space character to split the first and last
 					 * word fromtwo neighboring chunks of text*
 					 */
-					else if (str.length() > 0 && !(primaryText.getSText() == null)) {
+					else if (str.length() > 0 && !(primaryText.getText() == null)) {
 						addSpace(primaryText);
-						int oldposition = primaryText.getSEnd();
+						int oldposition = primaryText.getEnd();
 
 						String tempstr;
 						tempstr = str.toString();
 						tempstr = tempstr.replaceAll("\\s+", " ");
 						tempstr = tempstr.trim();
 						// needs to be named
-						primaryText.setSText(primaryText.getSText() + tempstr);
-						temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+						primaryText.setText(primaryText.getText() + tempstr);
+						temp_tok = sDocGraph.createToken(primaryText, oldposition, primaryText.getEnd());
 						setDominatingToken(temp_tok);
 					}
 					while (!getSAnnoStack().isEmpty()) {
 						createTokenAnnoSpan(temp_tok, getSAnnoStack().peek());
 						if (temp_tok.getLabel(null, getSAnnoStack().peek().getName()) == null) {
-							temp_tok.addSAnnotation(getSAnnoStack().pop());
+							temp_tok.addAnnotation(getSAnnoStack().pop());
 						} else {
 							getSAnnoStack().pop();
 						}
@@ -625,22 +622,22 @@ public class TEIMapper extends PepperMapperImpl {
 		private void setTokenList(List<String> tokenlist) {
 			for (String tokstring : tokenlist) {
 				SToken temp_tok = null;
-				if (primaryText.getSText() != null) {
+				if (primaryText.getText() != null) {
 					addSpace(primaryText);
 				}
-				if (primaryText.getSText() == null) {
-					primaryText.setSText("");
+				if (primaryText.getText() == null) {
+					primaryText.setText("");
 				}
-				int oldposition = primaryText.getSEnd();
-				if (primaryText.getSText() == null) {
-					primaryText.setSText(tokstring);
-				}
-
-				else if (primaryText.getSText() != null) {
-					primaryText.setSText(primaryText.getSText() + tokstring);
+				int oldposition = primaryText.getEnd();
+				if (primaryText.getText() == null) {
+					primaryText.setText(tokstring);
 				}
 
-				temp_tok = sDocGraph.createSToken(primaryText, oldposition, primaryText.getSEnd());
+				else if (primaryText.getText() != null) {
+					primaryText.setText(primaryText.getText() + tokstring);
+				}
+
+				temp_tok = sDocGraph.createToken(primaryText, oldposition, primaryText.getEnd());
 				setDominatingToken(temp_tok);
 				push_spans(temp_tok);
 			}
@@ -706,13 +703,13 @@ public class TEIMapper extends PepperMapperImpl {
 				setToken(txt);
 			}
 
-			EList<SToken> overlappingTokens = new BasicEList<SToken>();
+			List<SToken> overlappingTokens = new ArrayList<SToken>();
 			while (!(tokenStack).isEmpty()) {
 				overlappingTokens.add(tokenStack.pop());
 			}
-			SSpan line = sDocGraph.createSSpan(overlappingTokens);
+			SSpan line = sDocGraph.createSpan(overlappingTokens);
 			if (line != null) {
-				line.createSAnnotation(null, tag, annovalue);
+				line.createAnnotation(null, tag, annovalue);
 				if (generic_attr && attrMap != null) {
 					Attributes attributes = attrMap.get(tag);
 					if (attributes != null) {
@@ -720,7 +717,7 @@ public class TEIMapper extends PepperMapperImpl {
 						for (int i = 0; i < length; i++) {
 							String name = attributes.getQName(i);
 							String value = attributes.getValue(i);
-							line.createSAnnotation(null, name, value);
+							line.createAnnotation(null, name, value);
 						}
 					}
 				}
@@ -733,8 +730,8 @@ public class TEIMapper extends PepperMapperImpl {
 				String name = attr.getQName(i);
 				String value = attr.getValue(i);
 
-				SAnnotation tempAnno = sDocGraph.createSAnnotation(namespace, name, value);
-				node.addSAnnotation(tempAnno);
+				SAnnotation tempAnno = sDocGraph.createAnnotation(namespace, name, value);
+				node.addAnnotation(tempAnno);
 			}
 		}
 
@@ -840,17 +837,17 @@ public class TEIMapper extends PepperMapperImpl {
 
 				getTagStack().push(TAG_TEXT);
 				// create STextualDS
-				primaryText = SaltFactory.eINSTANCE.createSTextualDS();
-				sDocGraph.addSNode(primaryText);
+				primaryText = SaltFactory.createSTextualDS();
+				sDocGraph.addNode(primaryText);
 				insidetext = true;
 				// represent the <text>-tag in Salt
-				SStructure text_struc = SaltFactory.eINSTANCE.createSStructure();
+				SStructure text_struc = SaltFactory.createSStructure();
 				addDefaultAnnotation(text_struc, text_name, text_anno_value, namespace);
 
 				addGenericAnno(text_struc, attributes, namespace);
 
-				getSNodeStack().add(text_struc);
-				sDocGraph.addSNode(text_struc);
+				getNodeStack().add(text_struc);
+				sDocGraph.addNode(text_struc);
 			}
 
 			else if (insidetext) {
@@ -870,38 +867,38 @@ public class TEIMapper extends PepperMapperImpl {
 					setToken(txt);
 					getTagStack().push(TAG_W);
 					if (!(default_tokenization && default_token_tag == TAG_W)) {
-						SStructure w_struc = SaltFactory.eINSTANCE.createSStructure();
+						SStructure w_struc = SaltFactory.createSStructure();
 						addGenericAnno(w_struc, attributes, namespace);
-						SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
-						w_struc.addSAnnotation(wordanno);
+						SWordAnnotation wordanno = SaltFactory.createSWordAnnotation();
+						w_struc.addAnnotation(wordanno);
 
 						if (attributes.getValue(ATT_TYPE) != null) {
-							w_struc.createSAnnotation(namespace, ATT_TYPE, attributes.getValue(ATT_TYPE));
+							w_struc.createAnnotation(namespace, ATT_TYPE, attributes.getValue(ATT_TYPE));
 						}
 
 						if (attributes.getValue(ATT_LEMMA) != null) {
-							w_struc.createSAnnotation(namespace, ATT_LEMMA, attributes.getValue(ATT_LEMMA));
+							w_struc.createAnnotation(namespace, ATT_LEMMA, attributes.getValue(ATT_LEMMA));
 						}
 
 						if (attributes.getValue(ATT_XML_LANG) != null) {
-							w_struc.createSAnnotation(namespace, "lang", attributes.getValue(ATT_XML_LANG));
+							w_struc.createAnnotation(namespace, "lang", attributes.getValue(ATT_XML_LANG));
 						}
 
-						sDocGraph.addSNode(w_struc);
+						sDocGraph.addNode(w_struc);
 						setDominatingStruc(w_struc);
-						getSNodeStack().add(w_struc);
+						getNodeStack().add(w_struc);
 					}
 
 					else {
-						SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
+						SWordAnnotation wordanno = SaltFactory.createSWordAnnotation();
 						getSAnnoStack().add(wordanno);
 
 						int length = attributes.getLength();
 						for (int i = 0; i < length; i++) {
 							String name = attributes.getQName(i);
 							String value = attributes.getValue(i);
-							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno.setSName(name);
+							SAnnotation tempanno = SaltFactory.createSAnnotation();
+							tempanno.setName(name);
 							tempanno.setValue(attributes.getValue(value));
 							tempanno.setNamespace(namespace);
 							getSAnnoStack().add(tempanno);
@@ -915,12 +912,12 @@ public class TEIMapper extends PepperMapperImpl {
 
 					getTagStack().push(TAG_PHR);
 
-					SStructure phr_struc = SaltFactory.eINSTANCE.createSStructure();
+					SStructure phr_struc = SaltFactory.createSStructure();
 					addDefaultAnnotation(phr_struc, phr_name, phr_anno_value, namespace);
 					addGenericAnno(phr_struc, attributes, namespace);
-					sDocGraph.addSNode(phr_struc);
+					sDocGraph.addNode(phr_struc);
 					setDominatingStruc(phr_struc);
-					getSNodeStack().add(phr_struc);
+					getNodeStack().add(phr_struc);
 
 				}
 
@@ -930,12 +927,12 @@ public class TEIMapper extends PepperMapperImpl {
 					if (!(getTagStack().peek() == TAG_FIGURE)) {
 						getTagStack().push(TAG_HEAD);
 
-						SStructure head_struc = SaltFactory.eINSTANCE.createSStructure();
+						SStructure head_struc = SaltFactory.createSStructure();
 						addDefaultAnnotation(head_struc, body_head_name, body_head_anno_value, namespace);
 						addGenericAnno(head_struc, attributes, namespace);
-						sDocGraph.addSNode(head_struc);
+						sDocGraph.addNode(head_struc);
 						setDominatingStruc(head_struc);
-						getSNodeStack().add(head_struc);
+						getNodeStack().add(head_struc);
 					} else if (getTagStack().peek() == TAG_FIGURE) {
 
 					}
@@ -946,24 +943,24 @@ public class TEIMapper extends PepperMapperImpl {
 
 					getTagStack().push(TAG_DIV);
 
-					SStructure div_struc = SaltFactory.eINSTANCE.createSStructure();
+					SStructure div_struc = SaltFactory.createSStructure();
 					addDefaultAnnotation(div_struc, div_name, div_anno_value, namespace);
 					addGenericAnno(div_struc, attributes, namespace);
-					sDocGraph.addSNode(div_struc);
+					sDocGraph.addNode(div_struc);
 					setDominatingStruc(div_struc);
-					getSNodeStack().add(div_struc);
+					getNodeStack().add(div_struc);
 				}
 
 				else if (TAG_P.equals(qName)) {
 					String namespace = retrieveNamespace(use_namespace, p_name);
 
 					getTagStack().push(TAG_P);
-					SStructure p_struc = SaltFactory.eINSTANCE.createSStructure();
+					SStructure p_struc = SaltFactory.createSStructure();
 					addDefaultAnnotation(p_struc, p_name, p_anno_value, namespace);
 					addGenericAnno(p_struc, attributes, namespace);
-					sDocGraph.addSNode(p_struc);
+					sDocGraph.addNode(p_struc);
 					setDominatingStruc(p_struc);
-					getSNodeStack().add(p_struc);
+					getNodeStack().add(p_struc);
 				}
 
 				else if (TAG_FOREIGN.equals(qName)) {
@@ -976,8 +973,8 @@ public class TEIMapper extends PepperMapperImpl {
 						for (int i = 0; i < length; i++) {
 							String name = attributes.getQName(i);
 							String value = attributes.getValue(i);
-							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno.setSName(name);
+							SAnnotation tempanno = SaltFactory.createSAnnotation();
+							tempanno.setName(name);
 							tempanno.setValue(attributes.getValue(value));
 							tempanno.setNamespace(namespace);
 							getSAnnoStack().add(tempanno);
@@ -991,12 +988,12 @@ public class TEIMapper extends PepperMapperImpl {
 					setToken(txt);
 					getTagStack().push(TAG_FIGURE);
 
-					SStructure figure_struc = SaltFactory.eINSTANCE.createSStructure();
+					SStructure figure_struc = SaltFactory.createSStructure();
 					addDefaultAnnotation(figure_struc, figure_name, figure_anno_value, namespace);
 					addGenericAnno(figure_struc, attributes, namespace);
-					sDocGraph.addSNode(figure_struc);
+					sDocGraph.addNode(figure_struc);
 					setDominatingStruc(figure_struc);
-					getSNodeStack().add(figure_struc);
+					getNodeStack().add(figure_struc);
 
 					setEmptyToken();
 				}
@@ -1010,8 +1007,8 @@ public class TEIMapper extends PepperMapperImpl {
 					for (int i = 0; i < length; i++) {
 						String name = attributes.getQName(i);
 						String value = attributes.getValue(i);
-						SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-						tempanno.setSName(name);
+						SAnnotation tempanno = SaltFactory.createSAnnotation();
+						tempanno.setName(name);
 						tempanno.setValue(attributes.getValue(value));
 						tempanno.setNamespace(namespace);
 						getSAnnoStack().add(tempanno);
@@ -1025,19 +1022,19 @@ public class TEIMapper extends PepperMapperImpl {
 						setToken(txt);
 						getTagStack().push(TAG_M);
 
-						SWordAnnotation wordanno = SaltSemanticsFactory.eINSTANCE.createSWordAnnotation();
+						SWordAnnotation wordanno = SaltFactory.createSWordAnnotation();
 						getSAnnoStack().add(wordanno);
 
-						SAnnotation wordanno2 = SaltFactory.eINSTANCE.createSAnnotation();
-						wordanno2.setSName(TAG_UNCLEAR);
+						SAnnotation wordanno2 = SaltFactory.createSAnnotation();
+						wordanno2.setName(TAG_UNCLEAR);
 						getSAnnoStack().add(wordanno2);
 
 						int length = attributes.getLength();
 						for (int i = 0; i < length; i++) {
 							String name = attributes.getQName(i);
 							String value = attributes.getValue(i);
-							SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-							tempanno.setSName(name);
+							SAnnotation tempanno = SaltFactory.createSAnnotation();
+							tempanno.setName(name);
 							tempanno.setValue(attributes.getValue(value));
 							tempanno.setNamespace(namespace);
 							getSAnnoStack().add(tempanno);
@@ -1054,8 +1051,8 @@ public class TEIMapper extends PepperMapperImpl {
 					for (int i = 0; i < length; i++) {
 						String name = attributes.getQName(i);
 						String value = attributes.getValue(i);
-						SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-						tempanno.setSName(name);
+						SAnnotation tempanno = SaltFactory.createSAnnotation();
+						tempanno.setName(name);
 						tempanno.setValue(attributes.getValue(value));
 						tempanno.setNamespace(namespace);
 						getSAnnoStack().add(tempanno);
@@ -1071,8 +1068,8 @@ public class TEIMapper extends PepperMapperImpl {
 					for (int i = 0; i < length; i++) {
 						String name = attributes.getQName(i);
 						String value = attributes.getValue(i);
-						SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-						tempanno.setSName(name);
+						SAnnotation tempanno = SaltFactory.createSAnnotation();
+						tempanno.setName(name);
 						tempanno.setValue(attributes.getValue(value));
 						tempanno.setNamespace(namespace);
 						getSAnnoStack().add(tempanno);
@@ -1094,11 +1091,11 @@ public class TEIMapper extends PepperMapperImpl {
 
 					getTagStack().push(qName);
 
-					SStructure gen_struc = SaltFactory.eINSTANCE.createSStructure();
+					SStructure gen_struc = SaltFactory.createSStructure();
 					addDefaultAnnotation(gen_struc, qName, qName, namespace);
-					sDocGraph.addSNode(gen_struc);
+					sDocGraph.addNode(gen_struc);
 					setDominatingStruc(gen_struc);
-					getSNodeStack().add(gen_struc);
+					getNodeStack().add(gen_struc);
 
 					if (generic_attr) {
 						int length = attributes.getLength();
@@ -1106,8 +1103,8 @@ public class TEIMapper extends PepperMapperImpl {
 							String name = attributes.getQName(i);
 							String value = attributes.getValue(i);
 
-							SAnnotation tempAnno = sDocGraph.createSAnnotation(namespace, name, value);
-							gen_struc.addSAnnotation(tempAnno);
+							SAnnotation tempAnno = sDocGraph.createAnnotation(namespace, name, value);
+							gen_struc.addAnnotation(tempAnno);
 						}
 
 					}
@@ -1131,7 +1128,7 @@ public class TEIMapper extends PepperMapperImpl {
 				Map<String, String> sineonesmap = tei_metadata.remove_ones(tei_metadata.getXPathMap());
 				Map<String, String> completedmappings = tei_metadata.mapToXpathMap(sineonesmap, united, del_redundant_metadata);
 
-				tei_metadata.add_to_SDoc(sDocGraph.getSDocument(), completedmappings, lastPart, excludeMetaSet);
+				tei_metadata.add_to_SDoc(sDocGraph.getDocument(), completedmappings, lastPart, excludeMetaSet);
 			}
 
 			else if (metadata) {
@@ -1167,7 +1164,7 @@ public class TEIMapper extends PepperMapperImpl {
 					}
 					if (getTagStack().peek() == TAG_FIGURE) {
 
-						getSNodeStack().peek().createSAnnotation(namespace, body_head_name, txt.toString().trim());
+						getNodeStack().peek().createAnnotation(namespace, body_head_name, txt.toString().trim());
 						txt.setLength(0);
 					}
 
@@ -1194,8 +1191,8 @@ public class TEIMapper extends PepperMapperImpl {
 				}
 
 				else if (TAG_M.equals(qName)) {
-					SAnnotation tempanno = SaltFactory.eINSTANCE.createSAnnotation();
-					tempanno.setSName("morpheme");
+					SAnnotation tempanno = SaltFactory.createSAnnotation();
+					tempanno.setName("morpheme");
 					getSAnnoStack().add(tempanno);
 
 					setToken(txt);
@@ -1205,7 +1202,7 @@ public class TEIMapper extends PepperMapperImpl {
 					if (unclear_as_token) {
 						if (txt.length() == 0) {
 							SToken temp_tok = null;
-							temp_tok = sDocGraph.createSToken(primaryText, primaryText.getSEnd(), primaryText.getSEnd());
+							temp_tok = sDocGraph.createToken(primaryText, primaryText.getEnd(), primaryText.getEnd());
 							setDominatingToken(temp_tok);
 
 							push_spans(temp_tok);
@@ -1213,7 +1210,7 @@ public class TEIMapper extends PepperMapperImpl {
 							while (!getSAnnoStack().isEmpty()) {
 
 								if (temp_tok.getLabel(null, getSAnnoStack().peek().getName()) == null) {
-									temp_tok.addSAnnotation(getSAnnoStack().pop());
+									temp_tok.addAnnotation(getSAnnoStack().pop());
 								} else {
 									getSAnnoStack().pop();
 								}

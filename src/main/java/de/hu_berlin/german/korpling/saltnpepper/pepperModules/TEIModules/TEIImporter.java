@@ -17,6 +17,7 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
 
+import org.corpus_tools.salt.graph.Identifier;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 
@@ -27,13 +28,12 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModulePrope
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleNotReadyException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperImporterImpl;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 @Component(name = "TEIImporterComponent", factory = "PepperImporterComponentFactory")
 public class TEIImporter extends PepperImporterImpl implements PepperImporter {
 
-	public static final String MODULE_NAME="TEIImporter";
-	
+	public static final String MODULE_NAME = "TEIImporter";
+
 	public TEIImporter() {
 		super();
 		this.setName(MODULE_NAME);
@@ -42,14 +42,14 @@ public class TEIImporter extends PepperImporterImpl implements PepperImporter {
 		setDesc("This importer transforms data in TEI format (see http://www.tei-c.org/index.xml) to a Salt model. Please note that this module only supports a sbset of the TEI P5 guidelines. ");
 		this.addSupportedFormat("TEI", "P5 2.6.0", null);
 		this.setProperties(new TEIImporterProperties());
-		this.getSDocumentEndings().add("xml");
-		this.getSDocumentEndings().add("tei");
+		this.getDocumentEndings().add("xml");
+		this.getDocumentEndings().add("tei");
 	}
 
-	public PepperMapper createPepperMapper(SElementId sElementId) {
+	public PepperMapper createPepperMapper(Identifier sElementId) {
 		TEIMapper mapper = new TEIMapper();
 
-		mapper.setResourceURI(getSElementId2ResourceTable().get(sElementId));
+		mapper.setResourceURI(getIdentifier2ResourceTable().get(sElementId));
 		return (mapper);
 	}
 

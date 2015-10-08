@@ -28,39 +28,39 @@ import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIImpo
 
 public class TEIMetadataTest {
 	TEIImporterMetaData metadata = new TEIImporterMetaData();
-	
+
 	@Test
-	public void pathStackTest(){
+	public void pathStackTest() {
 		metadata.push("fileDesc");
 		metadata.push("titleStmt");
 		metadata.push("title");
 		metadata.pop();
 		metadata.push("title");
-		
+
 		assertEquals("/fileDesc[1]/titleStmt[1]/title[2]", metadata.getcurrentpath());
-		
+
 		metadata.push_to_XPathMap("tag");
-		
+
 	}
-	
+
 	@Test
-	public void unifyTest(){
-		Map<String,String> map1 = new Hashtable<>();
+	public void unifyTest() {
+		Map<String, String> map1 = new Hashtable<>();
 		map1.put("/fileDesc/titleStmt/author", "A Great Author");
 		metadata.uniteMappings(map1);
-		
+
 		assertEquals("A Great Author", metadata.getMappingMap().get("/fileDesc/titleStmt/author"));
 	}
-	
+
 	@Test
-	public void mapToXpathMapNullTest(){
-		Map<String,String> map1 = new Hashtable<>();
+	public void mapToXpathMapNullTest() {
+		Map<String, String> map1 = new Hashtable<>();
 		Map<String, String> map = metadata.mapToXpathMap(map1, metadata.getMappingMap(), true);
 	}
-	
+
 	@Test
-	public void mapToXpathMapTest(){
-		Map<String,String> map1 = new Hashtable<>();
+	public void mapToXpathMapTest() {
+		Map<String, String> map1 = new Hashtable<>();
 		map1.put("/fileDesc/titleStmt/author", "Joseph Addison");
 		assertEquals("Joseph Addison", map1.get("/fileDesc/titleStmt/author"));
 		Map<String, String> map = metadata.mapToXpathMap(map1, metadata.getMappingMap(), true);

@@ -19,6 +19,7 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +33,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.corpus_tools.salt.common.SToken;
+import org.corpus_tools.salt.core.SNode;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,13 +44,10 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DefaultHandler2;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIMapper.TEIImporterReader;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
 public class TEIImporterReaderTest {
 	String filePath = new File("").getAbsolutePath();
-	
-	
+
 	private TEIImporterReader fixture = null;
 
 	public TEIImporterReader getFixture() {
@@ -65,201 +65,181 @@ public class TEIImporterReaderTest {
 	}
 
 	@Test
-	public void initialize() throws 
-			FileNotFoundException, UnsupportedEncodingException {
-		
+	public void initialize() throws FileNotFoundException, UnsupportedEncodingException {
+
 		fixture.setSUB_TOKENIZATION();
 
-
-		File outFile = new File (filePath.concat("no_token_test_1/no_token_test_1.xml"));
+		File outFile = new File(filePath.concat("no_token_test_1/no_token_test_1.xml"));
 		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
+
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
 
 		assertNotNull(getFixture().getsDocGraph());
 	}
-	
-	@Test
-	public void simple_p_notoken(){
-		fixture.setSUB_TOKENIZATION();
-		
-		File outFile = new File (filePath.concat("no_token_test_1/no_token_test_1.xml"));
-		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
-		assertEquals("Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
-		assertEquals(3, getFixture().getsDocGraph().getSTokens().size());
-	}
-	
 	@Test
-	public void simple_p_default_tag_w(){
+	public void simple_p_notoken() {
+		fixture.setSUB_TOKENIZATION();
+
+		File outFile = new File(filePath.concat("no_token_test_1/no_token_test_1.xml"));
+		outFile.getParentFile().mkdirs();
+
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1, getFixture().getsDocGraph().getTextualDSs().size());
+		assertEquals("Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.", getFixture().getsDocGraph().getTextualDSs().get(0).getText());
+		assertEquals(3, getFixture().getsDocGraph().getTokens().size());
+	}
+
+	@Test
+	public void simple_p_default_tag_w() {
 		fixture.setDEFAULT_TOKENIZATION();
-		
-		File outFile = new File (filePath.concat("w_token_test/w_token_test.xml"));
-		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
-		assertEquals("auch ist",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
-		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
-		for (SToken tok : getFixture().getsDocGraph().getSTokens()){
-			assertNotNull(tok.getSAnnotation("lemma"));
-			assertNotNull(tok.getSAnnotation("type"));
+		File outFile = new File(filePath.concat("w_token_test/w_token_test.xml"));
+		outFile.getParentFile().mkdirs();
+
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1, getFixture().getsDocGraph().getTextualDSs().size());
+		assertEquals("auch ist", getFixture().getsDocGraph().getTextualDSs().get(0).getText());
+		assertEquals(2, getFixture().getsDocGraph().getTokens().size());
+		for (SToken tok : getFixture().getsDocGraph().getTokens()) {
+			assertNotNull(tok.getAnnotation("lemma"));
+			assertNotNull(tok.getAnnotation("type"));
 		}
-		assertNotNull(getFixture().getsDocGraph().getSSpans().get(0));
+		assertNotNull(getFixture().getsDocGraph().getSpans().get(0));
 	}
-	
+
 	@Test
-	public void head_test(){
+	public void head_test() {
 		fixture.setSUB_TOKENIZATION();
-		
-		File outFile = new File (filePath.concat("head_test/head_test.xml"));
-		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
-		assertEquals("Geſtalt. Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
-		assertEquals(4, getFixture().getsDocGraph().getSTokens().size());
-		
-		assertNotNull(getFixture().getsDocGraph().getSSpans().get(0));
-		
-		assertEquals("Geſtalt.",(getFixture().getsDocGraph().getSText((SNode) getFixture().getsDocGraph().getNodes().get(2))));
+		File outFile = new File(filePath.concat("head_test/head_test.xml"));
+		outFile.getParentFile().mkdirs();
+
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1, getFixture().getsDocGraph().getTextualDSs().size());
+		assertEquals("Geſtalt. Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.", getFixture().getsDocGraph().getTextualDSs().get(0).getText());
+		assertEquals(4, getFixture().getsDocGraph().getTokens().size());
+
+		assertNotNull(getFixture().getsDocGraph().getSpans().get(0));
+
+		assertEquals("Geſtalt.", (getFixture().getsDocGraph().getText((SNode) getFixture().getsDocGraph().getNodes().get(2))));
 	}
-	
+
 	@Test
-	public void figure_test(){
+	public void figure_test() {
 		fixture.setSUB_TOKENIZATION();
-		
-		File outFile = new File (filePath.concat("figure_test/figure_test.xml"));
+
+		File outFile = new File(filePath.concat("figure_test/figure_test.xml"));
 		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
-		assertEquals("Der Stengel ist aufrecht und nicht",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(0))));
-		assertEquals("",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(1))));
+		assertEquals(1, getFixture().getsDocGraph().getTextualDSs().size());
+
+		assertEquals(2, getFixture().getsDocGraph().getTokens().size());
+		assertEquals("Der Stengel ist aufrecht und nicht", (getFixture().getsDocGraph().getText(getFixture().getsDocGraph().getTokens().get(0))));
+		assertEquals("", (getFixture().getsDocGraph().getText(getFixture().getsDocGraph().getTokens().get(1))));
 	}
-	
+
 	@Test
-	public void genericStruct_test(){
+	public void genericStruct_test() {
 		fixture.setSUB_TOKENIZATION();
 		fixture.setGENERIC_STRUCT();
-		
-		File outFile = new File (filePath.concat("genericStruct_test/genericStruct_test.xml"));
+
+		File outFile = new File(filePath.concat("genericStruct_test/genericStruct_test.xml"));
 		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(1, getFixture().getsDocGraph().getSTokens().size());
-		assertEquals("Der Stengel ist aufrecht und nicht.",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(0))));
+		assertEquals(1, getFixture().getsDocGraph().getTextualDSs().size());
+
+		assertEquals(1, getFixture().getsDocGraph().getTokens().size());
+		assertEquals("Der Stengel ist aufrecht und nicht.", (getFixture().getsDocGraph().getText(getFixture().getsDocGraph().getTokens().get(0))));
 	}
-	
+
 	@Test
-	public void genericSpan_test(){
+	public void genericSpan_test() {
 		fixture.setSUB_TOKENIZATION();
 		fixture.setGENERIC_SPAN();
-		
-		File outFile = new File (filePath.concat("genericSpan_test/genericSpan_test.xml"));
+
+		File outFile = new File(filePath.concat("genericSpan_test/genericSpan_test.xml"));
 		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(2, getFixture().getsDocGraph().getSTokens().size());
-		assertEquals("Der Stengel ist aufrecht und nicht.",(getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSTokens().get(0))));
-		//testing the spans
-		assertEquals("Der Stengel ist aufrecht und nicht.",getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSSpans().get(0)));
-		assertEquals("Die Blätter sind fast rundlich.",getFixture().getsDocGraph().getSText(getFixture().getsDocGraph().getSSpans().get(1)));
-		
+		assertEquals(1, getFixture().getsDocGraph().getTextualDSs().size());
+
+		assertEquals(2, getFixture().getsDocGraph().getTokens().size());
+		assertEquals("Der Stengel ist aufrecht und nicht.", (getFixture().getsDocGraph().getText(getFixture().getsDocGraph().getTokens().get(0))));
+		// testing the spans
+		assertEquals("Der Stengel ist aufrecht und nicht.", getFixture().getsDocGraph().getText(getFixture().getsDocGraph().getSpans().get(0)));
+		assertEquals("Die Blätter sind fast rundlich.", getFixture().getsDocGraph().getText(getFixture().getsDocGraph().getSpans().get(1)));
+
 	}
-	
+
 	@Test
-	public void pb_test(){
+	public void pb_test() {
 		fixture.setSUB_TOKENIZATION();
-		
-		File outFile = new File (filePath.concat("pb_test/pb_test.xml"));
-		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals(1,getFixture().getsDocGraph().getSTextualDSs().size());
-		assertEquals("Geſtalt. Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.",getFixture().getsDocGraph().getSTextualDSs().get(0).getSText());
-		assertEquals(4, getFixture().getsDocGraph().getSTokens().size());
-		
-		assertNotNull(getFixture().getsDocGraph().getSSpans().get(0));
-		
-		assertEquals("Geſtalt.",(getFixture().getsDocGraph().getSText((SNode) getFixture().getsDocGraph().getNodes().get(2))));
+		File outFile = new File(filePath.concat("pb_test/pb_test.xml"));
+		outFile.getParentFile().mkdirs();
+
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertEquals(1, getFixture().getsDocGraph().getTextualDSs().size());
+		assertEquals("Geſtalt. Die Blätter sind fast rundlich eyförmig, auch ist es warm im Sommer.", getFixture().getsDocGraph().getTextualDSs().get(0).getText());
+		assertEquals(4, getFixture().getsDocGraph().getTokens().size());
+
+		assertNotNull(getFixture().getsDocGraph().getSpans().get(0));
+
+		assertEquals("Geſtalt.", (getFixture().getsDocGraph().getText((SNode) getFixture().getsDocGraph().getNodes().get(2))));
 	}
-	
+
 	@Test
-	public void genericAttr_test(){
+	public void genericAttr_test() {
 		fixture.setSUB_TOKENIZATION();
 		fixture.setGENERIC_STRUCT();
 		fixture.setGENERIC_ATTR();
-		
-		File outFile = new File (filePath.concat("genericSpan_test/genericSpan_test.xml"));
-		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals("kop",getFixture().getsDocGraph().getSStructures().get(1).getSAnnotations().get(1).getName());
-		assertEquals("Tisch",getFixture().getsDocGraph().getSStructures().get(1).getSAnnotations().get(1).getSValueSTEXT());
-		assertEquals("lat",getFixture().getsDocGraph().getSStructures().get(2).getSAnnotations().get(1).getName());
-		assertEquals("Ein",getFixture().getsDocGraph().getSStructures().get(2).getSAnnotations().get(1).getSValueSTEXT());
+		File outFile = new File(filePath.concat("genericSpan_test/genericSpan_test.xml"));
+		outFile.getParentFile().mkdirs();
+
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertTrue(getFixture().getsDocGraph().getStructures().get(1).containsLabel("kop"));
+		assertEquals("Tisch", getFixture().getsDocGraph().getStructures().get(1).getAnnotation("kop").getValue_STEXT());
+		assertTrue(getFixture().getsDocGraph().getStructures().get(2).containsLabel("lat"));
+		assertEquals("Ein", getFixture().getsDocGraph().getStructures().get(2).getAnnotation("lat").getValue_STEXT());
 	}
-	
+
 	@Test
-	public void genericSpanAttr_test(){
+	public void genericSpanAttr_test() {
 		fixture.setSUB_TOKENIZATION();
 		fixture.setGENERIC_SPAN();
 		fixture.setGENERIC_ATTR();
-		
-		File outFile = new File (filePath.concat("genericSpan_test/genericSpan_test.xml"));
+
+		File outFile = new File(filePath.concat("genericSpan_test/genericSpan_test.xml"));
 		outFile.getParentFile().mkdirs();
-		
-		readXMLResource(getFixture(),
-				URI.createFileURI(outFile.getAbsolutePath()));
 
-		assertEquals("kop",getFixture().getsDocGraph().getSSpans().get(0).getSAnnotations().get(1).getName());
-		
-		assertEquals("lat",getFixture().getsDocGraph().getSSpans().get(1).getSAnnotations().get(1).getName());
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
+
+		assertTrue(getFixture().getsDocGraph().getSpans().get(0).containsLabel("kop"));
+		assertTrue(getFixture().getsDocGraph().getSpans().get(1).containsLabel("lat"));
 	}
-	
 
-	protected void readXMLResource(DefaultHandler2 contentHandler,
-			URI documentLocation) {
+	protected void readXMLResource(DefaultHandler2 contentHandler, URI documentLocation) {
 		if (documentLocation == null)
-			throw new RuntimeException(
-					"Cannot load a xml-resource, because the given uri to locate file is null.");
+			throw new RuntimeException("Cannot load a xml-resource, because the given uri to locate file is null.");
 
 		File exmaraldaFile = new File(documentLocation.toFileString());
 		if (!exmaraldaFile.exists())
-			throw new RuntimeException(
-					"Cannot load a xml-resource, because the file does not exist: "
-							+ exmaraldaFile);
+			throw new RuntimeException("Cannot load a xml-resource, because the file does not exist: " + exmaraldaFile);
 
 		if (!exmaraldaFile.canRead())
-			throw new RuntimeException(
-					"Cannot load a xml-resource, because the file can not be read: "
-							+ exmaraldaFile);
+			throw new RuntimeException("Cannot load a xml-resource, because the file can not be read: " + exmaraldaFile);
 
 		SAXParser parser;
 		XMLReader xmlReader;
@@ -271,11 +251,9 @@ public class TEIImporterReaderTest {
 			xmlReader = parser.getXMLReader();
 			xmlReader.setContentHandler(contentHandler);
 		} catch (ParserConfigurationException e) {
-			throw new RuntimeException("Cannot load a xml-resource '"
-					+ exmaraldaFile.getAbsolutePath() + "'.", e);
+			throw new RuntimeException("Cannot load a xml-resource '" + exmaraldaFile.getAbsolutePath() + "'.", e);
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot load a xml-resource '"
-					+ exmaraldaFile.getAbsolutePath() + "'.", e);
+			throw new RuntimeException("Cannot load a xml-resource '" + exmaraldaFile.getAbsolutePath() + "'.", e);
 		}
 		try {
 			InputStream inputStream = new FileInputStream(exmaraldaFile);
@@ -291,16 +269,13 @@ public class TEIImporterReaderTest {
 				xmlReader.setContentHandler(contentHandler);
 				xmlReader.parse(exmaraldaFile.getAbsolutePath());
 			} catch (Exception e1) {
-				throw new RuntimeException("Cannot load a xml-resource '"
-						+ exmaraldaFile.getAbsolutePath() + "'.", e1);
+				throw new RuntimeException("Cannot load a xml-resource '" + exmaraldaFile.getAbsolutePath() + "'.", e1);
 			}
 		} catch (Exception e) {
 			if (e instanceof RuntimeException)
 				throw (RuntimeException) e;
 			else
-				throw new RuntimeException("Cannot read xml-file'"
-						+ documentLocation
-						+ "', because of a nested exception. ", e);
+				throw new RuntimeException("Cannot read xml-file'" + documentLocation + "', because of a nested exception. ", e);
 		}
 	}
 }
