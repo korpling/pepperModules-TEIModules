@@ -15,16 +15,15 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.tests;
+package org.corpus_tools.peppermodules.TEIModules.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.corpus_tools.peppermodules.TEIModules.TEIImporterMetaData;
 import org.junit.Test;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIImporterMetaData;
 
 public class TEIMetadataTest {
 	TEIImporterMetaData metadata = new TEIImporterMetaData();

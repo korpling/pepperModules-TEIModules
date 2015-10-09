@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
+package org.corpus_tools.peppermodules.TEIModules;
 
 import java.util.HashSet;
 import java.util.Hashtable;

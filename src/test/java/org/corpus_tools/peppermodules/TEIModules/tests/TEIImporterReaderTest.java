@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.tests;
+package org.corpus_tools.peppermodules.TEIModules.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -33,6 +33,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.corpus_tools.peppermodules.TEIModules.TEIMapper.TEIImporterReader;
 import org.corpus_tools.salt.common.SToken;
 import org.corpus_tools.salt.core.SNode;
 import org.eclipse.emf.common.util.URI;
@@ -42,8 +43,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DefaultHandler2;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIMapper.TEIImporterReader;
 
 public class TEIImporterReaderTest {
 	String filePath = new File("").getAbsolutePath();

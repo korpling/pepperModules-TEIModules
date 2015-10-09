@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
+package org.corpus_tools.peppermodules.TEIModules;
 
 import org.corpus_tools.pepper.impl.PepperImporterImpl;
 import org.corpus_tools.pepper.modules.PepperImporter;

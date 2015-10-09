@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules;
+package org.corpus_tools.peppermodules.TEIModules;
 
 /**
  * This interface is a dictionary for files following the model of 'Besa'.
