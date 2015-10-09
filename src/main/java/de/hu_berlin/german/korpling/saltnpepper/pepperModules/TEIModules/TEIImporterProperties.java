@@ -24,10 +24,10 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
-import com.neovisionaries.i18n.LanguageCode;
+import org.corpus_tools.pepper.modules.PepperModuleProperties;
+import org.corpus_tools.pepper.modules.PepperModuleProperty;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperties;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperty;
+import com.neovisionaries.i18n.LanguageCode;
 
 public class TEIImporterProperties extends PepperModuleProperties {
 	/**

@@ -22,13 +22,13 @@ import java.io.FileNotFoundException;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.corpus_tools.pepper.common.CorpusDesc;
+import org.corpus_tools.pepper.common.FormatDesc;
+import org.corpus_tools.pepper.testFramework.PepperImporterTest;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.common.CorpusDesc;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.common.FormatDesc;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperImporterTest;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIImporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.TEIModules.TEIImporterProperties;
 
