@@ -6,7 +6,7 @@
 		<version>3.0.0</version>
 	</parent>
 	<artifactId>pepperModules-TEIModules</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1-SNAPSHOT</version>
 	<name>${project.groupId}.${project.artifactId}</name>
 	<packaging>bundle</packaging>
 	<description>This module will allow converting from TEI-XML to Salt and the other way around</description>
@@ -23,7 +23,7 @@
 		<connection>scm:git:git://github.com/korpling/pepperModules-TEIModules.git</connection>
 		<developerConnection>scm:git:git@github.com:korpling/pepperModules-TEIModules.git</developerConnection>
 		<url>https://github.com/korpling/pepperModules-TEIModules</url>
-	  <tag>pepperModules-TEIModules-2.0.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 	<inceptionYear>2014</inceptionYear>
 	<organization>
