@@ -898,7 +898,7 @@ public class TEIMapper extends PepperMapperImpl {
 							String value = attributes.getValue(i);
 							SAnnotation tempanno = SaltFactory.createSAnnotation();
 							tempanno.setName(name);
-							tempanno.setValue(attributes.getValue(value));
+							tempanno.setValue(value);
 							tempanno.setNamespace(namespace);
 							getSAnnoStack().add(tempanno);
 						}
