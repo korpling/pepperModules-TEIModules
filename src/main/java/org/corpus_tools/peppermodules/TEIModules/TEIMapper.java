@@ -1113,6 +1113,7 @@ public class TEIMapper extends PepperMapperImpl {
 				}
 
 				else if (generic_span) {
+					setToken(txt);
 					addToGenericSpans(qName, attributes);
 				}
 
