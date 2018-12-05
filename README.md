@@ -210,7 +210,7 @@ The annotation.element.rename flag allows for customizing the key of such an ann
 The following format has to be met:
 
 ```
-annotation.element.rename = pb:PNAME;phr:Phrase
+annotation.element.rename = p:PNAME;phr:Phrase
 ```
 
 While the default would look like this:
