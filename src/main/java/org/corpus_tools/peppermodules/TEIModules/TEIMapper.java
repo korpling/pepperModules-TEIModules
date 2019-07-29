@@ -801,7 +801,8 @@ public class TEIMapper extends PepperMapperImpl {
 				for (int i = start; i < start + length; i++) {
 					tempstr.append(ch[i]);
 				}
-				txt.append(tempstr.toString().trim());
+//				txt.append(tempstr.toString().trim());
+				txt.append(tempstr.toString().replaceAll("\\s+", " "));
 			}
 
 			if (metadata) {
@@ -809,7 +810,8 @@ public class TEIMapper extends PepperMapperImpl {
 				for (int i = start; i < start + length; i++) {
 					tempstr.append(ch[i]);
 				}
-				meta_txt.append(tempstr.toString().trim());
+//				meta_txt.append(tempstr.toString().trim());
+				meta_txt.append(tempstr.toString().replaceAll("\\s+", " "));
 			}
 
 		}
@@ -1111,6 +1113,7 @@ public class TEIMapper extends PepperMapperImpl {
 				}
 
 				else if (generic_span) {
+					setToken(txt);
 					addToGenericSpans(qName, attributes);
 				}
 

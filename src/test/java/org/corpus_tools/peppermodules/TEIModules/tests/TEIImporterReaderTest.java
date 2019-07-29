@@ -21,18 +21,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Paths;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import com.google.common.io.Files;
 import org.corpus_tools.peppermodules.TEIModules.TEIMapper.TEIImporterReader;
 import org.corpus_tools.salt.common.SToken;
 import org.corpus_tools.salt.core.SNode;
@@ -74,6 +71,29 @@ public class TEIImporterReaderTest {
 		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
 
 		assertNotNull(getFixture().getsDocGraph());
+	}
+
+	@Test
+	public void ob_1() {
+		fixture.setSUB_TOKENIZATION();
+//		fixture.setGENERIC_STRUCT();
+		fixture.setGENERIC_SPAN();
+
+		File outFile = new File(filePath.concat("ob-1/16880831.xml"));
+		outFile.getParentFile().mkdirs();
+
+		readXMLResource(getFixture(), URI.createFileURI(outFile.getAbsolutePath()));
+
+		try {
+
+			Files.write(getFixture().getsDocGraph().getTextualDSs().get(0).getText(), Paths.get("testout").toFile(), Charset.defaultCharset());
+		} catch (IOException e) {
+
+		}
+
+		assertEquals(1, getFixture().getsDocGraph().getTextualDSs().size());
+		assertEquals("THE PROCEEDINGS ON THE King's Commissions Of the PEACE, And Oyer and Terminer, and Goal-delivery of Newgate, held for the City of London, and County of Middlesex, at Justice-Hall, in the Old-Baily, the 31st. of August, and 1st. of September, 1688. And in the Fourth Year of His Majesties Reign. AT the Sessions Held at Justice-Hall, in the Old-Baily, on Friday the 31st of August, and Saturday the 1st. of September, 1688. before the Right Honourable, Sir John Shorter , Kt. Lord Mayor of the City of London, and Sir Bartholomew Shower , Kt. and Recorder of the said City; together with other of His Majesties Justices of the City of London and County of Middlesex.", getFixture().getsDocGraph().getTextualDSs().get(0).getText());
+		assertEquals(7, getFixture().getsDocGraph().getTokens().size());
 	}
 
 	@Test

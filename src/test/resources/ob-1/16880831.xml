@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI.2>
+   <text>
+      <body>
+         <div0 type="sessionsPaper" id="16880831">
+            <interp inst="16880831" type="collection" value="BAILEY"/>
+            <interp inst="16880831" type="year" value="1688"/>
+            <interp inst="16880831" type="uri" value="sessionsPapers/16880831"/>
+            <interp inst="16880831" type="date" value="16880831"/>
+            <xptr type="transcription" doc="16880831"/>
+   
+            <div1 type="frontMatter" id="f16880831-1">
+               <interp inst="f16880831-1" type="collection" value="BAILEY"/>
+               <interp inst="f16880831-1" type="year" value="1688"/>
+               <interp inst="f16880831-1" type="uri" value="sessionsPapers/16880831"/>
+               <interp inst="f16880831-1" type="date" value="16880831"/>
+         
+               <xptr type="pageFacsimile" doc="16880831001"/>THE PROCEEDINGS ON THE King's Commissions Of the PEACE,
+         <p>And Oyer and Terminer, and Goal-delivery of Newgate, held for the City of London, and County of Middlesex, at Justice-Hall, in the Old-Baily, the 31st. of August, and 1st. of September, 1688.</p>
+               <p>And in the Fourth Year of His Majesties Reign.</p>
+               <p>AT the Sessions Held at Justice-Hall, in the Old-Baily, on Friday the 31st of August, and Saturday the 1st. of September, 1688. before the Right Honourable, Sir 
+               
+                  <persName id="f16880831-1-person1" type="judiciaryName">
+                     John 
+                     Shorter
+                  <interp inst="f16880831-1-person1" type="surname" value="Shorter"/>
+                     <interp inst="f16880831-1-person1" type="given" value="John"/>
+                     <interp inst="f16880831-1-person1" type="gender" value="male"/>
+                  </persName>
+               , Kt. Lord Mayor of the City of London, and Sir 
+                  <persName id="f16880831-1-person2" type="judiciaryName">
+                     Bartholomew 
+                     Shower
+                  <interp inst="f16880831-1-person2" type="surname" value="Shower"/>
+                     <interp inst="f16880831-1-person2" type="given" value="Bartholomew"/>
+                     <interp inst="f16880831-1-person2" type="gender" value="male"/>
+                  </persName>
+               
+            , Kt. and Recorder of the said City; together with other of His Majesties Justices of the City of London and County of Middlesex.</p>
+            </div1>
+         </div0>
+      </body>
+   </text>
+</TEI.2>
+
